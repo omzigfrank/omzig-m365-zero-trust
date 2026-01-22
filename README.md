@@ -16,6 +16,41 @@ This solution automates the deployment and configuration of M365 security contro
 | **Visibility** | Log Analytics, alert rules, Sentinel |
 | **Automation** | Azure Functions, Graph API orchestration |
 
+## CRITICAL: Device Compliance Warning
+
+> **CA004-Require-Compliant-Device can cause COMPLETE TENANT LOCKOUT if enabled incorrectly.**
+
+Before enabling CA004 (device compliance), you MUST:
+
+1. **Enroll at least one device in Intune** - Without enrolled devices, no device can be "compliant"
+2. **Create a break-glass admin account** - Add it to the `ZeroTrust-BreakGlass-Admins` security group
+3. **Test in Report-Only mode first** - Verify sign-in logs show expected behavior
+
+### Safe Deployment Steps
+
+```powershell
+# Step 1: Deploy policies (creates them in Report-Only mode)
+# The Deploy-Identity function automatically creates ZeroTrust-BreakGlass-Admins group
+
+# Step 2: Add break-glass admin to exclusion group (via Entra ID portal)
+# Navigate to: Entra ID > Groups > ZeroTrust-BreakGlass-Admins > Members
+
+# Step 3: Enroll devices in Intune (via Settings > Accounts > Access work or school)
+
+# Step 4: Enable policies (CA004 is SKIPPED by default)
+.\enable-policies.ps1
+
+# Step 5: After confirming devices are compliant, enable CA004
+.\enable-policies.ps1 -IncludeCA004
+```
+
+### Recovery from Lockout
+
+If you're locked out due to CA004:
+1. Use Azure CLI with a service principal or different tenant admin
+2. Delete CA004: `az rest --method DELETE --url 'https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies/{policy-id}'`
+3. Clear browser cache and sign in again
+
 ## Features
 
 - **Three Security Baselines**: Standard, Enhanced, Maximum
@@ -128,15 +163,21 @@ omzig-m365-zero-trust/
 
 ## Conditional Access Policies
 
-| Policy | Description | Default |
-|--------|-------------|---------|
-| CA001 | Block legacy authentication | Enabled |
-| CA002 | Require MFA for all users | Enabled |
-| CA003 | Require MFA for admin roles | Enabled |
-| CA004 | Require compliant device | Enhanced+ |
-| CA005 | Block high-risk users | Enhanced+ |
-| CA006 | MFA for risky sign-ins | Enabled |
-| CA007 | Block high-risk countries | Enabled |
+| Policy | Description | Default | Notes |
+|--------|-------------|---------|-------|
+| CA001 | Block legacy authentication | Report-Only | Safe to enable |
+| CA002 | Require MFA for all users | Report-Only | Safe to enable |
+| CA003 | Require MFA for admin roles | Report-Only | Safe to enable |
+| CA004 | Require compliant device | Report-Only | **DANGER** - See warning above |
+| CA005 | Block high-risk users | Report-Only | Safe to enable |
+| CA006 | MFA for risky sign-ins | Report-Only | Safe to enable |
+
+All policies are created in **Report-Only mode** by default. Use `enable-policies.ps1` to enable them.
+
+**CA004 Safety Features:**
+- Excluded group: `ZeroTrust-BreakGlass-Admins` (created automatically)
+- Skipped by default in `enable-policies.ps1`
+- Pre-flight checks verify Intune enrollment before enabling
 
 ## Security Baselines
 
