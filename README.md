@@ -20,7 +20,7 @@ This solution automates the deployment and configuration of M365 security contro
 
 - **Three Security Baselines**: Standard, Enhanced, Maximum
 - **HIPAA Compliance Toggle**: Enables stricter controls (7-year retention, PHI labels, etc.)
-- **6 Conditional Access Policies**: Block legacy auth, MFA enforcement, device compliance, risk-based access
+- **7 Conditional Access Policies**: Block legacy auth, MFA enforcement, device compliance, risk-based access, geo-blocking
 - **Defender Integration**: Safe Attachments, Safe Links, Anti-phishing, Anti-spam
 - **Data Protection**: DLP with 10+ sensitive info types, 5 sensitivity labels
 - **Centralized Logging**: Log Analytics with configurable retention and alert rules
@@ -136,6 +136,7 @@ omzig-m365-zero-trust/
 | CA004 | Require compliant device | Enhanced+ |
 | CA005 | Block high-risk users | Enhanced+ |
 | CA006 | MFA for risky sign-ins | Enabled |
+| CA007 | Block high-risk countries | Enabled |
 
 ## Security Baselines
 
@@ -162,9 +163,10 @@ When `hipaaEnabled=true`:
 
 ## Documentation
 
+- [Deployment Guide](docs/DEPLOYMENT-GUIDE.md) - Step-by-step manual deployment instructions
+- [Marketplace Publishing Guide](docs/MARKETPLACE-GUIDE.md) - Azure Marketplace monetization
 - [NSA Zero Trust Pillar Mapping](docs/NSA-ZERO-TRUST.md)
 - [HIPAA Control Mapping](docs/HIPAA-CONTROLS.md)
-- [Deployment Guide](docs/DEPLOYMENT-GUIDE.md)
 
 ## Graph API Permissions
 
