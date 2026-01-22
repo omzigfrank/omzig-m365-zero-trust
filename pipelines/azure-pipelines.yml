@@ -1,0 +1,212 @@
+# Azure DevOps Pipeline - Omzig M365 Zero Trust
+# Build, validate, and package the managed application
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - bicep/**
+      - ui/**
+      - functions/**
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - bicep/**
+      - ui/**
+      - functions/**
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - name: artifactName
+    value: 'managed-app-package'
+  - name: buildConfiguration
+    value: 'Release'
+
+stages:
+  - stage: Validate
+    displayName: 'Validate Templates'
+    jobs:
+      - job: ValidateBicep
+        displayName: 'Validate Bicep'
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Install Bicep'
+            inputs:
+              azureSubscription: '$(azureServiceConnection)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az bicep install
+                az bicep version
+
+          - task: AzureCLI@2
+            displayName: 'Validate Bicep Syntax'
+            inputs:
+              azureSubscription: '$(azureServiceConnection)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Validating Bicep files..."
+                az bicep build --file bicep/main.bicep --stdout > /dev/null
+                echo "Bicep validation passed"
+
+          - task: AzureCLI@2
+            displayName: 'Run What-If Deployment'
+            inputs:
+              azureSubscription: '$(azureServiceConnection)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Running what-if deployment..."
+                az deployment sub what-if \
+                  --location eastus \
+                  --template-file bicep/main.bicep \
+                  --parameters orgName=validate environmentName=dev
+
+      - job: ValidateUI
+        displayName: 'Validate UI Definition'
+        steps:
+          - task: Bash@3
+            displayName: 'Validate JSON Syntax'
+            inputs:
+              targetType: 'inline'
+              script: |
+                echo "Validating createUiDefinition.json..."
+                python3 -m json.tool ui/createUiDefinition.json > /dev/null
+                echo "JSON syntax valid"
+
+          - task: Bash@3
+            displayName: 'Check UI Schema'
+            inputs:
+              targetType: 'inline'
+              script: |
+                echo "Checking createUiDefinition.json structure..."
+                # Verify required properties exist
+                jq -e '.parameters.steps' ui/createUiDefinition.json > /dev/null
+                jq -e '.parameters.outputs' ui/createUiDefinition.json > /dev/null
+                echo "UI definition structure valid"
+
+  - stage: Build
+    displayName: 'Build Package'
+    dependsOn: Validate
+    condition: succeeded()
+    jobs:
+      - job: BuildManagedApp
+        displayName: 'Build Managed App Package'
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Build mainTemplate.json'
+            inputs:
+              azureSubscription: '$(azureServiceConnection)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                mkdir -p $(Build.ArtifactStagingDirectory)/managed-app
+                az bicep build \
+                  --file bicep/main.bicep \
+                  --outfile $(Build.ArtifactStagingDirectory)/managed-app/mainTemplate.json
+
+          - task: CopyFiles@2
+            displayName: 'Copy UI Definition'
+            inputs:
+              SourceFolder: 'ui'
+              Contents: 'createUiDefinition.json'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/managed-app'
+
+          - task: ArchiveFiles@2
+            displayName: 'Create ZIP Package'
+            inputs:
+              rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/managed-app'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/omzig-m365-zerotrust-$(Build.BuildId).zip'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Artifact'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: '$(artifactName)'
+
+  - stage: DeployDev
+    displayName: 'Deploy to Dev'
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - deployment: DeployDev
+        displayName: 'Deploy to Development'
+        environment: 'development'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Upload Package to Storage'
+                  inputs:
+                    azureSubscription: '$(azureServiceConnection)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az storage blob upload \
+                        --account-name $(storageAccountName) \
+                        --container-name packages \
+                        --name omzig-m365-zerotrust-$(Build.BuildId).zip \
+                        --file $(Pipeline.Workspace)/$(artifactName)/omzig-m365-zerotrust-$(Build.BuildId).zip \
+                        --overwrite
+
+                - task: AzureCLI@2
+                  displayName: 'Update App Definition'
+                  inputs:
+                    azureSubscription: '$(azureServiceConnection)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      # Get SAS URL for the package
+                      EXPIRY=$(date -u -d "+1 day" '+%Y-%m-%dT%H:%MZ')
+                      PACKAGE_URL=$(az storage blob generate-sas \
+                        --account-name $(storageAccountName) \
+                        --container-name packages \
+                        --name omzig-m365-zerotrust-$(Build.BuildId).zip \
+                        --permissions r \
+                        --expiry $EXPIRY \
+                        --full-uri \
+                        --output tsv)
+
+                      echo "Package URL: $PACKAGE_URL"
+                      echo "##vso[task.setvariable variable=packageUrl]$PACKAGE_URL"
+
+  - stage: DeployProd
+    displayName: 'Deploy to Production'
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployProd
+        displayName: 'Deploy to Production'
+        environment: 'production'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Upload Package to Storage'
+                  inputs:
+                    azureSubscription: '$(azureServiceConnectionProd)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az storage blob upload \
+                        --account-name $(storageAccountNameProd) \
+                        --container-name packages \
+                        --name omzig-m365-zerotrust-$(Build.BuildId).zip \
+                        --file $(Pipeline.Workspace)/$(artifactName)/omzig-m365-zerotrust-$(Build.BuildId).zip \
+                        --overwrite
+
+                      echo "Production deployment complete"

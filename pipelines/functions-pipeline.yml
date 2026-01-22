@@ -1,0 +1,147 @@
+# Azure DevOps Pipeline - Azure Functions Deployment
+# Build and deploy the orchestration functions
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - functions/**
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - functions/**
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - name: functionAppName
+    value: 'func-omzig-m365-zerotrust'
+  - name: workingDirectory
+    value: 'functions'
+
+stages:
+  - stage: Validate
+    displayName: 'Validate Functions'
+    jobs:
+      - job: ValidatePowerShell
+        displayName: 'Validate PowerShell'
+        steps:
+          - task: PowerShell@2
+            displayName: 'Validate PowerShell Syntax'
+            inputs:
+              targetType: 'inline'
+              script: |
+                $ErrorActionPreference = 'Stop'
+                $errors = @()
+
+                Get-ChildItem -Path "$(workingDirectory)" -Recurse -Filter "*.ps1" | ForEach-Object {
+                    Write-Host "Validating: $($_.FullName)"
+                    $tokens = $null
+                    $parseErrors = $null
+                    [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$parseErrors) | Out-Null
+
+                    if ($parseErrors.Count -gt 0) {
+                        $errors += "Errors in $($_.Name): $($parseErrors | ForEach-Object { $_.Message })"
+                    }
+                }
+
+                if ($errors.Count -gt 0) {
+                    $errors | ForEach-Object { Write-Error $_ }
+                    exit 1
+                }
+
+                Write-Host "All PowerShell files validated successfully"
+              pwsh: true
+
+          - task: PowerShell@2
+            displayName: 'Run PSScriptAnalyzer'
+            inputs:
+              targetType: 'inline'
+              script: |
+                Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+                $results = Invoke-ScriptAnalyzer -Path "$(workingDirectory)" -Recurse -Severity Error
+
+                if ($results) {
+                    $results | Format-Table -AutoSize
+                    Write-Error "PSScriptAnalyzer found errors"
+                    exit 1
+                }
+
+                Write-Host "PSScriptAnalyzer validation passed"
+              pwsh: true
+
+  - stage: Build
+    displayName: 'Build Functions'
+    dependsOn: Validate
+    condition: succeeded()
+    jobs:
+      - job: BuildFunctions
+        displayName: 'Package Functions'
+        steps:
+          - task: CopyFiles@2
+            displayName: 'Copy Function Files'
+            inputs:
+              SourceFolder: '$(workingDirectory)'
+              Contents: |
+                **/*.ps1
+                **/*.psm1
+                **/*.json
+                **/*.psd1
+                !local.settings.json
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/functions'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Functions Artifact'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/functions'
+              ArtifactName: 'functions-package'
+
+  - stage: DeployDev
+    displayName: 'Deploy to Dev'
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - deployment: DeployFunctionsDev
+        displayName: 'Deploy Functions to Dev'
+        environment: 'development'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureFunctionApp@2
+                  displayName: 'Deploy Azure Function'
+                  inputs:
+                    azureSubscription: '$(azureServiceConnection)'
+                    appType: 'functionApp'
+                    appName: '$(functionAppName)-dev'
+                    package: '$(Pipeline.Workspace)/functions-package'
+                    deploymentMethod: 'auto'
+
+  - stage: DeployProd
+    displayName: 'Deploy to Production'
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployFunctionsProd
+        displayName: 'Deploy Functions to Production'
+        environment: 'production'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureFunctionApp@2
+                  displayName: 'Deploy Azure Function'
+                  inputs:
+                    azureSubscription: '$(azureServiceConnectionProd)'
+                    appType: 'functionApp'
+                    appName: '$(functionAppName)-prod'
+                    package: '$(Pipeline.Workspace)/functions-package'
+                    deploymentMethod: 'auto'
