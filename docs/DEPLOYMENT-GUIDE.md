@@ -19,6 +19,81 @@ Complete step-by-step guide for deploying the Omzig M365 Zero Trust solution man
 
 ---
 
+## CRITICAL: Break-Glass Admin Setup
+
+> **WARNING: CA004 (Require Compliant Device) can cause COMPLETE TENANT LOCKOUT if enabled without proper safeguards.**
+
+Before enabling any device compliance policies, you MUST:
+
+### 1. Create a Break-Glass Admin Account
+
+A break-glass account is an emergency access account that bypasses conditional access policies:
+
+- Create a cloud-only account (e.g., `breakglass@yourdomain.onmicrosoft.com`)
+- Assign Global Administrator role
+- Use a strong, unique password stored securely offline
+- Do NOT enroll this account's devices in Intune
+- Do NOT require MFA (or use FIDO2 key stored in a safe)
+
+### 2. Add to Break-Glass Security Group
+
+The `Deploy-Identity` function automatically creates a `ZeroTrust-BreakGlass-Admins` security group. Add your break-glass account to this group:
+
+```powershell
+# Get the break-glass group ID
+$groupId = az rest --method GET `
+  --url "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq 'ZeroTrust-BreakGlass-Admins'" `
+  --query "value[0].id" -o tsv
+
+# Get the break-glass user ID
+$userId = az rest --method GET `
+  --url "https://graph.microsoft.com/v1.0/users?`$filter=userPrincipalName eq 'breakglass@yourdomain.onmicrosoft.com'" `
+  --query "value[0].id" -o tsv
+
+# Add user to group
+$body = @{ '@odata.id' = "https://graph.microsoft.com/v1.0/directoryObjects/$userId" } | ConvertTo-Json
+$body | Out-File "add-member.json" -Encoding utf8
+
+az rest --method POST `
+  --url "https://graph.microsoft.com/v1.0/groups/$groupId/members/`$ref" `
+  --body "@add-member.json"
+
+Remove-Item "add-member.json"
+```
+
+### 3. Enroll Devices in Intune BEFORE Enabling CA004
+
+CA004 requires devices to be compliant. A device can only be compliant if:
+- It is enrolled in Microsoft Intune
+- It passes all compliance policy checks
+
+**If no devices are enrolled, NO user can sign in when CA004 is enabled.**
+
+To enroll a Windows device:
+1. Go to **Settings > Accounts > Access work or school**
+2. Click **Connect**
+3. Sign in with your work account
+4. Follow prompts to enroll in device management
+
+### 4. Use Safe Policy Enablement
+
+The `enable-policies.ps1` script has safety features:
+
+```powershell
+# Safe: Enables all policies EXCEPT CA004
+.\enable-policies.ps1
+
+# Only after devices are enrolled and break-glass is configured:
+.\enable-policies.ps1 -IncludeCA004
+```
+
+The script will:
+- Check for Intune enrolled devices
+- Verify break-glass group exists and has members
+- Require explicit "yes" confirmation before enabling CA004
+
+---
+
 ## Prerequisites
 
 ### Required Software
@@ -278,16 +353,20 @@ Invoke-RestMethod `
   -ContentType "application/json"
 ```
 
-This creates 6 Conditional Access policies in **Report-Only** mode:
+This creates:
+- **6 Conditional Access policies** in **Report-Only** mode
+- **ZeroTrust-BreakGlass-Admins** security group (for CA004 exclusion)
 
-| Policy | Description |
-|--------|-------------|
-| CA001-Block-Legacy-Auth | Blocks legacy authentication protocols |
-| CA002-Require-MFA-All-Users | Requires MFA for all users |
-| CA003-Require-MFA-Admins | Requires MFA for admin roles |
-| CA004-Require-Compliant-Device | Requires device compliance |
-| CA005-Block-High-Risk-Users | Blocks users flagged as high risk |
-| CA006-MFA-Risky-SignIn | Requires MFA for risky sign-ins |
+| Policy | Description | Exclusions |
+|--------|-------------|------------|
+| CA001-Block-Legacy-Auth | Blocks legacy authentication protocols | None |
+| CA002-Require-MFA-All-Users | Requires MFA for all users | Guests |
+| CA003-Require-MFA-Admins | Requires MFA for admin roles | None |
+| CA004-Require-Compliant-Device | Requires device compliance | **ZeroTrust-BreakGlass-Admins** |
+| CA005-Block-High-Risk-Users | Blocks users flagged as high risk | None |
+| CA006-MFA-Risky-SignIn | Requires MFA for risky sign-ins | None |
+
+> **Important:** CA004 automatically excludes the `ZeroTrust-BreakGlass-Admins` group to prevent lockout. Add your break-glass admin account to this group before enabling CA004!
 
 ### Step 4.2: Verify Policies Were Created
 
@@ -392,7 +471,33 @@ Remove-Item "ca007-policy.json"
 
 ## Phase 6: Create Security Groups
 
-### Step 6.1: Create Emergency Access Group
+> **Note:** The `ZeroTrust-BreakGlass-Admins` group is automatically created by the `Deploy-Identity` function. If you need to create it manually, use Step 6.1.
+
+### Step 6.1: Create Break-Glass Admin Group (CRITICAL)
+
+This group is excluded from CA004 (device compliance) to prevent lockout:
+
+```powershell
+$breakGlass = @{
+    displayName = "ZeroTrust-BreakGlass-Admins"
+    description = "Emergency access group excluded from device compliance policies. Add break-glass admin accounts here to prevent lockout."
+    mailEnabled = $false
+    mailNickname = "ZeroTrustBreakGlass"
+    securityEnabled = $true
+} | ConvertTo-Json
+
+$breakGlass | Out-File "group-break-glass.json" -Encoding utf8
+
+az rest --method POST `
+  --url "https://graph.microsoft.com/v1.0/groups" `
+  --body "@group-break-glass.json"
+
+Remove-Item "group-break-glass.json"
+```
+
+**IMPORTANT:** Add at least one break-glass admin account to this group before enabling CA004!
+
+### Step 6.2: Create MFA Exclusion Group
 
 ```powershell
 $mfaExcluded = @{
@@ -456,7 +561,34 @@ Remove-Item "group-device-compliance.json"
 
 ## Phase 7: Enable Policies
 
-### Step 7.1: List All Policies
+> **CRITICAL:** Follow this process carefully to avoid lockout. CA004 is intentionally handled separately due to its lockout risk.
+
+### Step 7.1: Pre-Flight Checklist
+
+Before enabling any policies, verify:
+
+- [ ] Break-glass admin account exists
+- [ ] Break-glass account is in `ZeroTrust-BreakGlass-Admins` group
+- [ ] At least one device is enrolled in Intune (if planning to enable CA004)
+- [ ] You have tested sign-in with the break-glass account
+
+```powershell
+# Verify break-glass group has members
+$groupId = az rest --method GET `
+  --url "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq 'ZeroTrust-BreakGlass-Admins'" `
+  --query "value[0].id" -o tsv
+
+az rest --method GET `
+  --url "https://graph.microsoft.com/v1.0/groups/$groupId/members" `
+  --query "value[].displayName" -o table
+
+# Verify Intune enrolled devices (required for CA004)
+az rest --method GET `
+  --url "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices" `
+  --query "value[].{Name:deviceName,Compliance:complianceState,User:userPrincipalName}" -o table
+```
+
+### Step 7.2: List All Policies
 
 ```powershell
 az rest --method GET `
@@ -465,34 +597,79 @@ az rest --method GET `
   -o table
 ```
 
-### Step 7.2: Enable Each Policy
+### Step 7.3: Enable Safe Policies (Recommended Method)
+
+Use the `enable-policies.ps1` script which has built-in safety checks:
 
 ```powershell
-# Get all policy IDs
-$policies = az rest --method GET `
-  --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies" `
-  --query "value[?contains(displayName,'CA00')].id" -o tsv
+# Enable all policies EXCEPT CA004 (safe default)
+.\enable-policies.ps1
 
+# Output:
+# =============================================
+#   Zero Trust CA Policy Enablement Script
+# =============================================
+#
+#   Enabling CA001-Block-Legacy-Auth... OK
+#   Enabling CA002-Require-MFA-All-Users... OK
+#   Enabling CA003-Require-MFA-Admins... OK
+#   SKIP: CA004-Require-Compliant-Device (use -IncludeCA004 to enable)
+#   Enabling CA005-Block-High-Risk-Users... OK
+#   Enabling CA006-MFA-Risky-SignIn... OK
+```
+
+### Step 7.4: Enable CA004 (After Device Enrollment)
+
+Only enable CA004 after:
+1. Devices are enrolled in Intune
+2. Devices pass compliance checks
+3. Break-glass account is configured
+
+```powershell
+# Enable CA004 with safety checks
+.\enable-policies.ps1 -IncludeCA004
+
+# The script will:
+# 1. Check for Intune enrolled devices (blocks if none found)
+# 2. Verify break-glass group exists and has members
+# 3. Require you to type "yes" to confirm
+```
+
+### Step 7.5: Manual Policy Enablement (Alternative)
+
+If you prefer manual enablement (NOT recommended for CA004):
+
+```powershell
+# Enable a single policy by ID
+$policyId = "YOUR_POLICY_ID"
 $enableBody = '{"state":"enabled"}'
 $enableBody | Out-File "enable-body.json" -Encoding utf8
 
-foreach ($policyId in $policies) {
-    az rest --method PATCH `
-      --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies/$policyId" `
-      --body "@enable-body.json"
-
-    Write-Host "Enabled policy: $policyId"
-}
+az rest --method PATCH `
+  --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies/$policyId" `
+  --body "@enable-body.json"
 
 Remove-Item "enable-body.json"
 ```
 
-### Step 7.3: Verify All Policies Are Enabled
+### Step 7.6: Verify All Policies Are Enabled
 
 ```powershell
 az rest --method GET `
   --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies" `
   --query "value[].{Name:displayName,State:state}" -o table
+```
+
+Expected output after safe enablement:
+```
+Name                             State
+-------------------------------  --------------------------
+CA001-Block-Legacy-Auth          enabled
+CA002-Require-MFA-All-Users      enabled
+CA003-Require-MFA-Admins         enabled
+CA004-Require-Compliant-Device   enabledForReportingButNotEnforced  # Still in report-only
+CA005-Block-High-Risk-Users      enabled
+CA006-MFA-Risky-SignIn           enabled
 ```
 
 ---
@@ -562,6 +739,67 @@ $response | ConvertTo-Json -Depth 10
 | Function returns 401 | Missing or invalid function key | Get new key with `az functionapp keys list` |
 | Function returns 500 | Managed identity not configured | Re-run Step 3.3 identity assignment |
 | Policies in Report-Only | Not enabled yet | Run Phase 7 to enable policies |
+| **Locked out of tenant** | CA004 enabled without Intune devices | See [Lockout Recovery](#lockout-recovery-ca004) |
+| Sign-in error 53000 | Device not compliant | Enroll device in Intune or use break-glass account |
+
+### Lockout Recovery (CA004)
+
+If you enabled CA004 without enrolled Intune devices and are locked out:
+
+#### Option 1: Use Break-Glass Account (If Configured)
+
+1. Sign in with your break-glass admin account
+2. Navigate to **Entra ID > Protection > Conditional Access**
+3. Find **CA004-Require-Compliant-Device**
+4. Change state to **Report-Only** or **Off**
+
+#### Option 2: Use Azure CLI with Service Principal
+
+If you have a service principal configured:
+
+```powershell
+# Login with service principal
+az login --service-principal -u $appId -p $secret --tenant $tenantId
+
+# Delete CA004
+az rest --method DELETE `
+  --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies/CA004_POLICY_ID"
+```
+
+#### Option 3: Use Azure CLI from Another Machine
+
+If you can access Azure CLI from a different tenant/subscription:
+
+```powershell
+# Login to the affected tenant
+az login --tenant YOUR_TENANT_ID
+
+# List CA policies to find CA004's ID
+az rest --method GET `
+  --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies" `
+  --query "value[?displayName=='CA004-Require-Compliant-Device'].id" -o tsv
+
+# Delete the policy (replace with actual ID)
+az rest --method DELETE `
+  --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies/POLICY_ID_HERE"
+```
+
+#### Option 4: Contact Microsoft Support
+
+If all else fails:
+1. Open a support case with Microsoft
+2. Request emergency tenant access
+3. Provide proof of tenant ownership
+
+#### Post-Recovery Steps
+
+After regaining access:
+
+1. **Create a break-glass account** if you don't have one
+2. **Add it to the exclusion group**: `ZeroTrust-BreakGlass-Admins`
+3. **Enroll devices in Intune** before re-enabling CA004
+4. **Clear browser cache** - old tokens may still enforce the deleted policy
+5. **Test thoroughly** in Report-Only mode before enabling
 
 ### View Function Logs
 
@@ -608,6 +846,7 @@ az group delete --name rg-contoso-m365-prod --yes --no-wait
 
 ## Summary Checklist
 
+### Infrastructure
 - [ ] Azure CLI installed and logged in
 - [ ] Subscription selected
 - [ ] Repository cloned
@@ -616,10 +855,25 @@ az group delete --name rg-contoso-m365-prod --yes --no-wait
 - [ ] Graph API permissions granted (5 permissions)
 - [ ] Function App created
 - [ ] Function code deployed
-- [ ] CA policies created (7 policies)
+
+### Policies & Groups
+- [ ] CA policies created (6 policies in Report-Only mode)
 - [ ] Named locations created (2 locations)
-- [ ] Security groups created (3 groups)
-- [ ] All policies enabled
+- [ ] Security groups created (4 groups including break-glass)
+
+### Break-Glass Setup (CRITICAL)
+- [ ] Break-glass admin account created
+- [ ] Break-glass account added to `ZeroTrust-BreakGlass-Admins` group
+- [ ] Break-glass account tested (can sign in successfully)
+
+### Device Compliance (Before CA004)
+- [ ] At least one device enrolled in Intune
+- [ ] Device passes compliance checks
+- [ ] Verified with `enable-policies.ps1 -IncludeCA004` pre-flight checks
+
+### Policy Enablement
+- [ ] Safe policies enabled (CA001-003, CA005-006) via `enable-policies.ps1`
+- [ ] CA004 enabled only after device enrollment
 - [ ] Validation tests passed
 
 ---
