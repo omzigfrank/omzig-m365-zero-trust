@@ -1,17 +1,17 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "metadata": {
     "_generator": {
       "name": "bicep",
       "version": "0.39.26.7824",
-      "templateHash": "8489731855710359249"
+      "templateHash": "6497309304387872699"
     }
   },
   "parameters": {
     "location": {
       "type": "string",
-      "defaultValue": "eastus",
+      "defaultValue": "[resourceGroup().location]",
       "metadata": {
         "description": "Azure region for resource deployment"
       }
@@ -54,34 +54,13 @@
       "metadata": {
         "description": "Security baseline level"
       }
-    },
-    "resourceGroupName": {
-      "type": "string",
-      "defaultValue": "[format('rg-{0}-m365-{1}', parameters('orgName'), parameters('environmentName'))]",
-      "metadata": {
-        "description": "Resource group name for deployment"
-      }
     }
   },
   "resources": [
     {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2024-03-01",
-      "name": "[parameters('resourceGroupName')]",
-      "location": "[parameters('location')]",
-      "tags": {
-        "environment": "[parameters('environmentName')]",
-        "organization": "[parameters('orgName')]",
-        "securityBaseline": "[parameters('securityBaseline')]",
-        "hipaaEnabled": "[string(parameters('hipaaEnabled'))]",
-        "deployedBy": "omzig-m365-zero-trust"
-      }
-    },
-    {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2025-04-01",
-      "name": "[format('identity-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
-      "resourceGroup": "[parameters('resourceGroupName')]",
+      "name": "[format('identity-{0}', uniqueString(resourceGroup().id))]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -448,16 +427,12 @@
             }
           }
         }
-      },
-      "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
-      ]
+      }
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2025-04-01",
-      "name": "[format('devices-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
-      "resourceGroup": "[parameters('resourceGroupName')]",
+      "name": "[format('devices-{0}', uniqueString(resourceGroup().id))]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -809,16 +784,12 @@
             }
           }
         }
-      },
-      "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
-      ]
+      }
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2025-04-01",
-      "name": "[format('security-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
-      "resourceGroup": "[parameters('resourceGroupName')]",
+      "name": "[format('security-{0}', uniqueString(resourceGroup().id))]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -1244,16 +1215,12 @@
             }
           }
         }
-      },
-      "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
-      ]
+      }
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2025-04-01",
-      "name": "[format('data-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
-      "resourceGroup": "[parameters('resourceGroupName')]",
+      "name": "[format('data-{0}', uniqueString(resourceGroup().id))]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -1650,16 +1617,12 @@
             }
           }
         }
-      },
-      "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
-      ]
+      }
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2025-04-01",
-      "name": "[format('network-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
-      "resourceGroup": "[parameters('resourceGroupName')]",
+      "name": "[format('network-{0}', uniqueString(resourceGroup().id))]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -1717,27 +1680,10 @@
             }
           }
         }
-      },
-      "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
-      ]
+      }
     }
   ],
   "outputs": {
-    "resourceGroupName": {
-      "type": "string",
-      "metadata": {
-        "description": "Deployed resource group name"
-      },
-      "value": "[parameters('resourceGroupName')]"
-    },
-    "resourceGroupId": {
-      "type": "string",
-      "metadata": {
-        "description": "Deployed resource group ID"
-      },
-      "value": "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
-    },
     "deploymentLocation": {
       "type": "string",
       "metadata": {
@@ -1758,6 +1704,20 @@
         "description": "HIPAA compliance enabled"
       },
       "value": "[parameters('hipaaEnabled')]"
+    },
+    "logAnalyticsWorkspaceId": {
+      "type": "string",
+      "metadata": {
+        "description": "Log Analytics workspace ID"
+      },
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', format('security-{0}', uniqueString(resourceGroup().id))), '2025-04-01').outputs.logAnalyticsWorkspaceId.value]"
+    },
+    "graphIdentityClientId": {
+      "type": "string",
+      "metadata": {
+        "description": "Graph Identity Client ID"
+      },
+      "value": "[reference(resourceId('Microsoft.Resources/deployments', format('identity-{0}', uniqueString(resourceGroup().id))), '2025-04-01').outputs.graphIdentityClientId.value]"
     }
   }
 }

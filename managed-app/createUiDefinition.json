@@ -354,21 +354,8 @@
       "location": "[location()]",
       "orgName": "[basics('orgName')]",
       "environmentName": "[basics('environmentName')]",
-      "orgSize": "[steps('organization').orgInfo.orgSize]",
-      "primaryDomain": "[steps('organization').orgInfo.primaryDomain]",
-      "adminEmail": "[steps('organization').orgInfo.adminEmail]",
-      "m365License": "[steps('licensing').m365License]",
-      "defenderForOfficePlan": "[steps('licensing').defenderForOfficePlan]",
-      "hasDefenderForEndpoint": "[steps('licensing').hasDefenderForEndpoint]",
-      "hasEntraIdP2": "[steps('licensing').hasEntraIdP2]",
       "securityBaseline": "[steps('securityBaseline').securityLevel]",
-      "requireMfa": "[steps('securityBaseline').identitySection.requireMfa]",
-      "blockLegacyAuth": "[steps('securityBaseline').identitySection.blockLegacyAuth]",
-      "requireCompliantDevice": "[steps('securityBaseline').identitySection.requireCompliantDevice]",
-      "hipaaEnabled": "[steps('compliance').hipaaSection.hipaaEnabled]",
-      "enableDlp": "[steps('compliance').dataProtectionSection.enableDlp]",
-      "enableSensitivityLabels": "[steps('compliance').dataProtectionSection.enableSensitivityLabels]",
-      "retentionDays": "[steps('compliance').dataProtectionSection.retentionDays]"
+      "hipaaEnabled": "[steps('compliance').hipaaSection.hipaaEnabled]"
     }
   }
 }
