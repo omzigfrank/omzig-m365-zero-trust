@@ -6,18 +6,20 @@ param($Request, $TriggerMetadata)
 .SYNOPSIS
     Deploys Device pillar configuration via Microsoft Graph / Intune
 .DESCRIPTION
-    Configures device compliance policies, Defender for Endpoint settings,
-    and device configuration profiles.
+    Creates device compliance policies for Windows, iOS, Android, macOS
 #>
 
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 
-Write-DeploymentLog -Message "Deploy-Devices started" -Level Info -Component "Devices"
+Write-Host "Deploy-Devices started"
 
 try {
     $config = $Request.Body
     if (-not $config) {
-        throw "No configuration provided"
+        $config = @{
+            securityBaseline = "Enhanced"
+            hipaaEnabled = $false
+        }
     }
 
     $connected = Connect-GraphWithManagedIdentity
@@ -27,191 +29,120 @@ try {
 
     $results = @{
         compliancePolicies = @()
-        defenderSettings   = $null
-        configProfiles     = @()
     }
 
-    # Deploy Windows Compliance Policy
-    if ($config.compliancePolicyConfiguration.windows) {
+    # Windows 10/11 Compliance Policy
+    $windowsPolicy = @{
+        '@odata.type' = '#microsoft.graph.windows10CompliancePolicy'
+        displayName = 'ZeroTrust-Windows-Compliance'
+        description = 'Windows compliance policy for Zero Trust deployment'
+        bitLockerEnabled = $true
+        secureBootEnabled = $true
+        codeIntegrityEnabled = $true
+        activeFirewallRequired = $true
+        antivirusRequired = $true
+        defenderEnabled = $true
+        osMinimumVersion = '10.0.19041'
+    }
+
+    # iOS Compliance Policy
+    $iosPolicy = @{
+        '@odata.type' = '#microsoft.graph.iosCompliancePolicy'
+        displayName = 'ZeroTrust-iOS-Compliance'
+        description = 'iOS compliance policy for Zero Trust deployment'
+        securityBlockJailbrokenDevices = $true
+        osMinimumVersion = '15.0'
+        managedEmailProfileRequired = $true
+    }
+
+    # Android Compliance Policy
+    $androidPolicy = @{
+        '@odata.type' = '#microsoft.graph.androidCompliancePolicy'
+        displayName = 'ZeroTrust-Android-Compliance'
+        description = 'Android compliance policy for Zero Trust deployment'
+        securityBlockJailbrokenDevices = $true
+        storageRequireEncryption = $true
+        osMinimumVersion = '11'
+    }
+
+    # macOS Compliance Policy
+    $macPolicy = @{
+        '@odata.type' = '#microsoft.graph.macOSCompliancePolicy'
+        displayName = 'ZeroTrust-macOS-Compliance'
+        description = 'macOS compliance policy for Zero Trust deployment'
+        storageRequireEncryption = $true
+        systemIntegrityProtectionEnabled = $true
+        firewallEnabled = $true
+        osMinimumVersion = '12.0'
+    }
+
+    $policies = @(
+        @{ platform = 'Windows'; policy = $windowsPolicy },
+        @{ platform = 'iOS'; policy = $iosPolicy },
+        @{ platform = 'Android'; policy = $androidPolicy },
+        @{ platform = 'macOS'; policy = $macPolicy }
+    )
+
+    foreach ($item in $policies) {
         try {
-            $winConfig = $config.compliancePolicyConfiguration.windows
-            Write-DeploymentLog -Message "Creating Windows compliance policy" -Level Info -Component "Devices"
+            Write-Host "Creating $($item.platform) compliance policy"
 
-            $windowsPolicy = @{
-                '@odata.type'                   = '#microsoft.graph.windows10CompliancePolicy'
-                displayName                     = 'ZeroTrust-Windows-Compliance'
-                description                     = 'Windows compliance policy for Zero Trust deployment'
-                bitLockerEnabled                = $winConfig.requireEncryption
-                secureBootEnabled               = $winConfig.requireSecureBoot
-                codeIntegrityEnabled            = $winConfig.requireCodeIntegrity
-                tpmRequired                     = $winConfig.requireTpm
-                activeFirewallRequired          = $winConfig.requireFirewall
-                antivirusRequired               = $winConfig.requireAntivirus
-                antiSpywareRequired             = $winConfig.requireAntiSpyware
-                defenderEnabled                 = $winConfig.requireRealTimeProtection
-                osMinimumVersion                = $winConfig.minOsVersion
-                scheduledActionsForRule         = @(
-                    @{
-                        ruleName = 'PasswordRequired'
-                        scheduledActionConfigurations = @(
-                            @{
-                                actionType              = 'block'
-                                gracePeriodHours        = $winConfig.gracePeriodHours
-                                notificationTemplateId  = ''
-                            }
-                        )
-                    }
-                )
-            }
-
-            # Note: Create via Graph API in production
-            # Invoke-GraphRequestWithRetry -Method POST -Uri "https://graph.microsoft.com/v1.0/deviceManagement/deviceCompliancePolicies" -Body $windowsPolicy
+            $response = Invoke-GraphRequestWithRetry -Method POST `
+                -Uri "https://graph.microsoft.com/v1.0/deviceManagement/deviceCompliancePolicies" `
+                -Body $item.policy
 
             $results.compliancePolicies += @{
-                platform = 'Windows'
-                name     = 'ZeroTrust-Windows-Compliance'
-                status   = 'Created'
+                platform = $item.platform
+                name = $item.policy.displayName
+                id = $response.id
+                status = 'Created'
             }
-
-            Write-DeploymentLog -Message "Windows compliance policy created" -Level Success -Component "Devices"
+            Write-Host "Created: $($item.policy.displayName)"
         }
         catch {
-            Write-DeploymentLog -Message "Failed to create Windows compliance policy: $_" -Level Error -Component "Devices"
-        }
-    }
-
-    # Deploy iOS Compliance Policy
-    if ($config.compliancePolicyConfiguration.iOS) {
-        try {
-            $iosConfig = $config.compliancePolicyConfiguration.iOS
-            Write-DeploymentLog -Message "Creating iOS compliance policy" -Level Info -Component "Devices"
-
-            $iosPolicy = @{
-                '@odata.type'          = '#microsoft.graph.iosCompliancePolicy'
-                displayName            = 'ZeroTrust-iOS-Compliance'
-                description            = 'iOS compliance policy for Zero Trust deployment'
-                securityBlockJailbrokenDevices = $iosConfig.blockJailbroken
-                osMinimumVersion       = $iosConfig.minOsVersion
-                managedEmailProfileRequired = $iosConfig.requireManagedEmail
-            }
-
-            $results.compliancePolicies += @{
-                platform = 'iOS'
-                name     = 'ZeroTrust-iOS-Compliance'
-                status   = 'Created'
-            }
-
-            Write-DeploymentLog -Message "iOS compliance policy created" -Level Success -Component "Devices"
-        }
-        catch {
-            Write-DeploymentLog -Message "Failed to create iOS compliance policy: $_" -Level Error -Component "Devices"
-        }
-    }
-
-    # Deploy Android Compliance Policy
-    if ($config.compliancePolicyConfiguration.android) {
-        try {
-            $androidConfig = $config.compliancePolicyConfiguration.android
-            Write-DeploymentLog -Message "Creating Android compliance policy" -Level Info -Component "Devices"
-
-            $androidPolicy = @{
-                '@odata.type'                  = '#microsoft.graph.androidCompliancePolicy'
-                displayName                    = 'ZeroTrust-Android-Compliance'
-                description                    = 'Android compliance policy for Zero Trust deployment'
-                securityBlockJailbrokenDevices = $androidConfig.blockRooted
-                storageRequireEncryption       = $androidConfig.requireEncryption
-                osMinimumVersion               = $androidConfig.minOsVersion
-                securityRequireSafetyNetAttestationBasicIntegrity = $true
-            }
-
-            $results.compliancePolicies += @{
-                platform = 'Android'
-                name     = 'ZeroTrust-Android-Compliance'
-                status   = 'Created'
-            }
-
-            Write-DeploymentLog -Message "Android compliance policy created" -Level Success -Component "Devices"
-        }
-        catch {
-            Write-DeploymentLog -Message "Failed to create Android compliance policy: $_" -Level Error -Component "Devices"
-        }
-    }
-
-    # Deploy macOS Compliance Policy
-    if ($config.compliancePolicyConfiguration.macOS) {
-        try {
-            $macConfig = $config.compliancePolicyConfiguration.macOS
-            Write-DeploymentLog -Message "Creating macOS compliance policy" -Level Info -Component "Devices"
-
-            $macPolicy = @{
-                '@odata.type'                    = '#microsoft.graph.macOSCompliancePolicy'
-                displayName                      = 'ZeroTrust-macOS-Compliance'
-                description                      = 'macOS compliance policy for Zero Trust deployment'
-                storageRequireEncryption         = $macConfig.requireEncryption
-                systemIntegrityProtectionEnabled = $macConfig.requireSystemIntegrityProtection
-                firewallEnabled                  = $macConfig.requireFirewall
-                osMinimumVersion                 = $macConfig.minOsVersion
-            }
-
-            $results.compliancePolicies += @{
-                platform = 'macOS'
-                name     = 'ZeroTrust-macOS-Compliance'
-                status   = 'Created'
-            }
-
-            Write-DeploymentLog -Message "macOS compliance policy created" -Level Success -Component "Devices"
-        }
-        catch {
-            Write-DeploymentLog -Message "Failed to create macOS compliance policy: $_" -Level Error -Component "Devices"
-        }
-    }
-
-    # Configure Defender for Endpoint
-    if ($config.defenderForEndpointConfiguration -and $config.defenderForEndpointConfiguration.enabled) {
-        try {
-            Write-DeploymentLog -Message "Configuring Defender for Endpoint" -Level Info -Component "Devices"
-
-            $defenderConfig = $config.defenderForEndpointConfiguration
-
-            # Configure Attack Surface Reduction rules
-            if ($defenderConfig.attackSurfaceReduction.enabled) {
-                foreach ($rule in $defenderConfig.attackSurfaceReduction.rules) {
-                    Write-DeploymentLog -Message "Configuring ASR rule: $($rule.id)" -Level Info -Component "Devices"
+            $errorMsg = $_.Exception.Message
+            if ($errorMsg -match "already exists") {
+                $results.compliancePolicies += @{
+                    platform = $item.platform
+                    name = $item.policy.displayName
+                    status = 'Already Exists'
                 }
+                Write-Host "Policy already exists: $($item.policy.displayName)"
             }
-
-            $results.defenderSettings = @{
-                status                = 'Configured'
-                asrRulesConfigured    = $defenderConfig.attackSurfaceReduction.rules.Count
-                networkProtection     = $defenderConfig.networkProtection.enabled
-                controlledFolderAccess = $defenderConfig.controlledFolderAccess.enabled
+            else {
+                $results.compliancePolicies += @{
+                    platform = $item.platform
+                    name = $item.policy.displayName
+                    status = 'Failed'
+                    error = $errorMsg
+                }
+                Write-Host "Failed: $errorMsg"
             }
-
-            Write-DeploymentLog -Message "Defender for Endpoint configured" -Level Success -Component "Devices"
-        }
-        catch {
-            Write-DeploymentLog -Message "Failed to configure Defender for Endpoint: $_" -Level Error -Component "Devices"
         }
     }
 
     $responseBody = @{
-        status    = "Success"
+        status = "Success"
         timestamp = (Get-Date).ToUniversalTime().ToString('o')
-        results   = $results
+        configuration = @{
+            securityBaseline = $config.securityBaseline
+            hipaaEnabled = $config.hipaaEnabled
+        }
+        results = $results
     }
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::OK
-        Body       = ($responseBody | ConvertTo-Json -Depth 10)
-        Headers    = @{ 'Content-Type' = 'application/json' }
+        Body = ($responseBody | ConvertTo-Json -Depth 10)
+        Headers = @{ 'Content-Type' = 'application/json' }
     })
 }
 catch {
-    Write-DeploymentLog -Message "Deploy-Devices failed: $_" -Level Error -Component "Devices"
+    Write-Host "Deploy-Devices failed: $_"
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::InternalServerError
-        Body       = (@{ status = "Failed"; error = $_.Exception.Message } | ConvertTo-Json)
-        Headers    = @{ 'Content-Type' = 'application/json' }
+        Body = (@{ status = "Failed"; error = $_.Exception.Message; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
+        Headers = @{ 'Content-Type' = 'application/json' }
     })
 }

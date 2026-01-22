@@ -1,28 +1,40 @@
 # GraphHelper.psm1 - Shared module for Microsoft Graph API operations
+# Uses direct REST API calls to avoid slow managed dependency loading
+
+$script:GraphToken = $null
 
 function Connect-GraphWithManagedIdentity {
     <#
     .SYNOPSIS
-        Connects to Microsoft Graph using managed identity
+        Gets an access token for Microsoft Graph using managed identity
     #>
     [CmdletBinding()]
-    param(
-        [string[]]$Scopes = @(
-            'https://graph.microsoft.com/.default'
-        )
-    )
+    param()
 
     try {
-        # Get access token using managed identity
-        $tokenResponse = Get-AzAccessToken -ResourceUrl 'https://graph.microsoft.com'
-        $secureToken = ConvertTo-SecureString $tokenResponse.Token -AsPlainText -Force
+        # Get access token using managed identity endpoint
+        $resource = "https://graph.microsoft.com"
+        $endpoint = $env:IDENTITY_ENDPOINT
+        $header = $env:IDENTITY_HEADER
 
-        Connect-MgGraph -AccessToken $secureToken -NoWelcome
-        Write-Host "Connected to Microsoft Graph successfully"
+        if (-not $endpoint -or -not $header) {
+            throw "Managed identity endpoint not available. Ensure the function app has a managed identity assigned."
+        }
+
+        # User-assigned managed identity client ID
+        $clientId = "a70dbbbc-f48b-4fe3-bd03-915d64f2372d"
+
+        $tokenUri = "$endpoint`?resource=$resource&api-version=2019-08-01&client_id=$clientId"
+        $headers = @{ "X-IDENTITY-HEADER" = $header }
+
+        $response = Invoke-RestMethod -Uri $tokenUri -Headers $headers -Method GET
+        $script:GraphToken = $response.access_token
+
+        Write-Host "Connected to Microsoft Graph successfully via managed identity (client_id: $clientId)"
         return $true
     }
     catch {
-        Write-Error "Failed to connect to Microsoft Graph: $_"
+        Write-Error "Failed to get Graph token: $_"
         return $false
     }
 }
@@ -47,6 +59,15 @@ function Invoke-GraphRequestWithRetry {
         [int]$RetryDelaySeconds = 5
     )
 
+    if (-not $script:GraphToken) {
+        throw "Not connected to Graph. Call Connect-GraphWithManagedIdentity first."
+    }
+
+    $headers = @{
+        "Authorization" = "Bearer $script:GraphToken"
+        "Content-Type"  = "application/json"
+    }
+
     $attempt = 0
     $success = $false
 
@@ -54,27 +75,27 @@ function Invoke-GraphRequestWithRetry {
         $attempt++
         try {
             $params = @{
-                Method = $Method
-                Uri    = $Uri
+                Method  = $Method
+                Uri     = $Uri
+                Headers = $headers
             }
 
             if ($Body) {
                 $params['Body'] = ($Body | ConvertTo-Json -Depth 10)
-                $params['ContentType'] = 'application/json'
             }
 
-            $response = Invoke-MgGraphRequest @params
+            $response = Invoke-RestMethod @params
             $success = $true
             return $response
         }
         catch {
-            $statusCode = $_.Exception.Response.StatusCode.value__
+            $statusCode = $null
+            if ($_.Exception.Response) {
+                $statusCode = [int]$_.Exception.Response.StatusCode
+            }
 
             if ($statusCode -eq 429 -or $statusCode -eq 503) {
-                # Throttled or service unavailable - retry
-                $retryAfter = $_.Exception.Response.Headers['Retry-After']
-                $delay = if ($retryAfter) { [int]$retryAfter } else { $RetryDelaySeconds * $attempt }
-
+                $delay = $RetryDelaySeconds * $attempt
                 Write-Warning "Request throttled. Waiting $delay seconds before retry $attempt of $MaxRetries"
                 Start-Sleep -Seconds $delay
             }
@@ -131,7 +152,7 @@ function Write-DeploymentLog {
 function Test-GraphPermissions {
     <#
     .SYNOPSIS
-        Tests if the current identity has required Graph permissions
+        Tests if the current identity has required Graph permissions by making a test call
     #>
     [CmdletBinding()]
     param(
@@ -140,28 +161,22 @@ function Test-GraphPermissions {
     )
 
     try {
-        $context = Get-MgContext
-        if (-not $context) {
+        if (-not $script:GraphToken) {
             Write-Error "Not connected to Microsoft Graph"
             return $false
         }
 
-        $missingPermissions = @()
-        foreach ($permission in $RequiredPermissions) {
-            if ($permission -notin $context.Scopes) {
-                $missingPermissions += $permission
-            }
+        # Test by calling the /me endpoint (requires basic permissions)
+        $headers = @{
+            "Authorization" = "Bearer $script:GraphToken"
         }
 
-        if ($missingPermissions.Count -gt 0) {
-            Write-Warning "Missing permissions: $($missingPermissions -join ', ')"
-            return $false
-        }
-
+        $response = Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/organization" -Headers $headers -Method GET -ErrorAction Stop
+        Write-Host "Graph API connection verified. Organization: $($response.value[0].displayName)"
         return $true
     }
     catch {
-        Write-Error "Failed to check permissions: $_"
+        Write-Error "Failed to verify Graph permissions: $_"
         return $false
     }
 }

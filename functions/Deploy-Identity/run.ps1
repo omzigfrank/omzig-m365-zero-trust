@@ -6,18 +6,21 @@ param($Request, $TriggerMetadata)
 .SYNOPSIS
     Deploys Identity pillar configuration via Microsoft Graph
 .DESCRIPTION
-    Configures Conditional Access policies, MFA settings, and authentication methods
-    based on the configuration from Bicep deployment.
+    Creates Conditional Access policies for M365 Zero Trust
 #>
 
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 
-Write-DeploymentLog -Message "Deploy-Identity started" -Level Info -Component "Identity"
+Write-Host "Deploy-Identity started"
 
 try {
     $config = $Request.Body
     if (-not $config) {
-        throw "No configuration provided"
+        # Use defaults
+        $config = @{
+            securityBaseline = "Enhanced"
+            hipaaEnabled = $false
+        }
     }
 
     $connected = Connect-GraphWithManagedIdentity
@@ -27,132 +30,152 @@ try {
 
     $results = @{
         conditionalAccessPolicies = @()
-        authenticationMethods = $null
-        passwordPolicy = $null
     }
 
-    # Deploy Conditional Access Policies
-    if ($config.conditionalAccessConfiguration) {
-        foreach ($policy in $config.conditionalAccessConfiguration.policies) {
-            if (-not $policy.enabled) {
-                Write-DeploymentLog -Message "Skipping disabled policy: $($policy.name)" -Level Info -Component "Identity"
-                continue
+    # Define the 6 CA policies
+    $caPolicies = @(
+        @{
+            displayName = "CA001-Block-Legacy-Auth"
+            state = "enabledForReportingButNotEnforced"
+            conditions = @{
+                users = @{ includeUsers = @("All") }
+                applications = @{ includeApplications = @("All") }
+                clientAppTypes = @("exchangeActiveSync", "other")
             }
-
-            try {
-                Write-DeploymentLog -Message "Creating CA policy: $($policy.name)" -Level Info -Component "Identity"
-
-                # Build the policy object based on policy type
-                $caPolicy = @{
-                    displayName = $policy.name
-                    state       = "enabledForReportingButNotEnforced"  # Start in report-only mode
-                    conditions  = @{
-                        users = @{
-                            includeUsers = @("All")
-                        }
-                        applications = @{
-                            includeApplications = @("All")
-                        }
-                    }
-                    grantControls = @{
-                        operator = "OR"
-                        builtInControls = @()
-                    }
-                }
-
-                # Configure grant controls based on policy
-                if ($policy.grantControls.block) {
-                    $caPolicy.grantControls.builtInControls += "block"
-                }
-                if ($policy.grantControls.requireMfa) {
-                    $caPolicy.grantControls.builtInControls += "mfa"
-                }
-                if ($policy.grantControls.requireCompliantDevice) {
-                    $caPolicy.grantControls.builtInControls += "compliantDevice"
-                }
-
-                # Note: In production, use Invoke-GraphRequestWithRetry to create the policy
-                # $response = Invoke-GraphRequestWithRetry -Method POST -Uri "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies" -Body $caPolicy
-
-                $results.conditionalAccessPolicies += @{
-                    name   = $policy.name
-                    status = "Created (Report-Only)"
-                }
-
-                Write-DeploymentLog -Message "Created CA policy: $($policy.name)" -Level Success -Component "Identity"
+            grantControls = @{
+                operator = "OR"
+                builtInControls = @("block")
             }
-            catch {
-                Write-DeploymentLog -Message "Failed to create CA policy $($policy.name): $_" -Level Error -Component "Identity"
+        },
+        @{
+            displayName = "CA002-Require-MFA-All-Users"
+            state = "enabledForReportingButNotEnforced"
+            conditions = @{
+                users = @{ includeUsers = @("All"); excludeUsers = @("GuestsOrExternalUsers") }
+                applications = @{ includeApplications = @("All") }
+            }
+            grantControls = @{
+                operator = "OR"
+                builtInControls = @("mfa")
+            }
+        },
+        @{
+            displayName = "CA003-Require-MFA-Admins"
+            state = "enabledForReportingButNotEnforced"
+            conditions = @{
+                users = @{
+                    includeRoles = @(
+                        "62e90394-69f5-4237-9190-012177145e10",  # Global Administrator
+                        "194ae4cb-b126-40b2-bd5b-6091b380977d",  # Security Administrator
+                        "f28a1f50-f6e7-4571-818b-6a12f2af6b6c"   # SharePoint Administrator
+                    )
+                }
+                applications = @{ includeApplications = @("All") }
+            }
+            grantControls = @{
+                operator = "OR"
+                builtInControls = @("mfa")
+            }
+        },
+        @{
+            displayName = "CA004-Require-Compliant-Device"
+            state = "enabledForReportingButNotEnforced"
+            conditions = @{
+                users = @{ includeUsers = @("All") }
+                applications = @{ includeApplications = @("All") }
+                platforms = @{ includePlatforms = @("windows", "macOS", "iOS", "android") }
+            }
+            grantControls = @{
+                operator = "OR"
+                builtInControls = @("compliantDevice")
+            }
+        },
+        @{
+            displayName = "CA005-Block-High-Risk-Users"
+            state = "enabledForReportingButNotEnforced"
+            conditions = @{
+                users = @{ includeUsers = @("All") }
+                applications = @{ includeApplications = @("All") }
+                userRiskLevels = @("high")
+            }
+            grantControls = @{
+                operator = "OR"
+                builtInControls = @("block")
+            }
+        },
+        @{
+            displayName = "CA006-MFA-Risky-SignIn"
+            state = "enabledForReportingButNotEnforced"
+            conditions = @{
+                users = @{ includeUsers = @("All") }
+                applications = @{ includeApplications = @("All") }
+                signInRiskLevels = @("medium", "high")
+            }
+            grantControls = @{
+                operator = "OR"
+                builtInControls = @("mfa")
+            }
+        }
+    )
+
+    foreach ($policy in $caPolicies) {
+        try {
+            Write-Host "Creating CA policy: $($policy.displayName)"
+
+            $response = Invoke-GraphRequestWithRetry -Method POST `
+                -Uri "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies" `
+                -Body $policy
+
+            $results.conditionalAccessPolicies += @{
+                name = $policy.displayName
+                id = $response.id
+                status = "Created (Report-Only)"
+            }
+            Write-Host "Created: $($policy.displayName) with ID $($response.id)"
+        }
+        catch {
+            $errorMsg = $_.Exception.Message
+            # Check if policy already exists
+            if ($errorMsg -match "already exists") {
                 $results.conditionalAccessPolicies += @{
-                    name   = $policy.name
+                    name = $policy.displayName
+                    status = "Already Exists"
+                }
+                Write-Host "Policy already exists: $($policy.displayName)"
+            }
+            else {
+                $results.conditionalAccessPolicies += @{
+                    name = $policy.displayName
                     status = "Failed"
-                    error  = $_.Exception.Message
+                    error = $errorMsg
                 }
+                Write-Host "Failed to create $($policy.displayName): $errorMsg"
             }
-        }
-    }
-
-    # Configure Authentication Methods
-    if ($config.mfaConfig) {
-        try {
-            Write-DeploymentLog -Message "Configuring authentication methods" -Level Info -Component "Identity"
-
-            $authMethodsConfig = @{
-                authenticatorApp = $config.mfaConfig.allowedMethods -in @('AuthenticatorApp', 'AuthenticatorAppAndSms', 'All')
-                sms              = $config.mfaConfig.allowedMethods -in @('AuthenticatorAppAndSms', 'All')
-                voice            = $config.mfaConfig.allowedMethods -eq 'All'
-            }
-
-            # Note: Configure via Graph API in production
-            $results.authenticationMethods = @{
-                status = "Configured"
-                methods = $authMethodsConfig
-            }
-
-            Write-DeploymentLog -Message "Authentication methods configured" -Level Success -Component "Identity"
-        }
-        catch {
-            Write-DeploymentLog -Message "Failed to configure authentication methods: $_" -Level Error -Component "Identity"
-        }
-    }
-
-    # Configure Password Policy
-    if ($config.passwordPolicyConfig) {
-        try {
-            Write-DeploymentLog -Message "Configuring password policy" -Level Info -Component "Identity"
-
-            # Note: Password policies are often configured at the directory level
-            $results.passwordPolicy = @{
-                status     = "Configured"
-                minLength  = $config.passwordPolicyConfig.minLength
-                expiration = $config.passwordPolicyConfig.expirationDays
-            }
-
-            Write-DeploymentLog -Message "Password policy configured" -Level Success -Component "Identity"
-        }
-        catch {
-            Write-DeploymentLog -Message "Failed to configure password policy: $_" -Level Error -Component "Identity"
         }
     }
 
     $responseBody = @{
-        status    = "Success"
+        status = "Success"
         timestamp = (Get-Date).ToUniversalTime().ToString('o')
-        results   = $results
+        configuration = @{
+            securityBaseline = $config.securityBaseline
+            hipaaEnabled = $config.hipaaEnabled
+        }
+        results = $results
     }
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::OK
-        Body       = ($responseBody | ConvertTo-Json -Depth 10)
-        Headers    = @{ 'Content-Type' = 'application/json' }
+        Body = ($responseBody | ConvertTo-Json -Depth 10)
+        Headers = @{ 'Content-Type' = 'application/json' }
     })
 }
 catch {
-    Write-DeploymentLog -Message "Deploy-Identity failed: $_" -Level Error -Component "Identity"
+    Write-Host "Deploy-Identity failed: $_"
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::InternalServerError
-        Body       = (@{ status = "Failed"; error = $_.Exception.Message } | ConvertTo-Json)
-        Headers    = @{ 'Content-Type' = 'application/json' }
+        Body = (@{ status = "Failed"; error = $_.Exception.Message; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
+        Headers = @{ 'Content-Type' = 'application/json' }
     })
 }
