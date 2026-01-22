@@ -1,0 +1,194 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omzig/m365-zero-trust/main/schemas/industry-template.json",
+  "industry": "Legal",
+  "version": "1.0.0",
+  "description": "M365 configuration template for law firms and legal departments",
+  "compliance": [
+    "ABA Model Rules of Professional Conduct",
+    "State Bar Requirements",
+    "Attorney-Client Privilege Protection"
+  ],
+  "additionalControls": {
+    "retention": {
+      "matterBasedRetention": true,
+      "defaultRetentionYears": 7,
+      "closedMatterRetentionYears": 10,
+      "emailRetentionYears": 7,
+      "documentRetentionYears": 10,
+      "litigationHoldCapability": true,
+      "retentionLabels": [
+        {
+          "name": "Client Matter",
+          "retentionDays": 3650,
+          "reviewBeforeDelete": true
+        },
+        {
+          "name": "Closed Matter",
+          "retentionDays": 3650,
+          "reviewBeforeDelete": true
+        },
+        {
+          "name": "Privileged Communication",
+          "retentionDays": 2555,
+          "isRecordsLabel": true
+        }
+      ]
+    },
+    "ethicalWalls": {
+      "enabled": true,
+      "informationBarriers": true,
+      "conflictCheckIntegration": true,
+      "description": "Prevents information sharing between matters with conflicts of interest",
+      "implementationNotes": [
+        "Create information barrier policies in Microsoft Purview",
+        "Define segments based on practice groups or client matters",
+        "Configure Teams, SharePoint, and OneDrive policies"
+      ]
+    },
+    "eDiscovery": {
+      "litigationHoldDefault": false,
+      "autoHoldOnMatterCreation": true,
+      "custodianManagement": true,
+      "advancedEDiscoveryRequired": true,
+      "searchAndExportCapability": true,
+      "legalHoldNotifications": true,
+      "preservationOrders": true
+    },
+    "clientConfidentiality": {
+      "externalSharingBlocked": true,
+      "clientMatterLabelsRequired": true,
+      "attorneyClientPrivilegeLabel": true,
+      "workProductLabel": true,
+      "encryptExternalEmails": true,
+      "dlpPolicies": [
+        {
+          "name": "Detect Client Confidential",
+          "keywords": ["attorney-client", "privileged", "confidential", "work product"],
+          "action": "BlockWithOverride"
+        }
+      ]
+    },
+    "matterManagement": {
+      "matterNumberingRequired": true,
+      "matterSitesAutoCreate": false,
+      "matterTeamsAutoCreate": false,
+      "matterNamingConvention": "{ClientNumber}-{MatterNumber}-{MatterName}",
+      "clientPortalIntegration": false
+    },
+    "timekeeping": {
+      "teamsActivityTracking": false,
+      "documentActivityTracking": false,
+      "note": "Activity tracking for billing requires third-party integration"
+    }
+  },
+  "sensitivityLabels": [
+    {
+      "name": "Attorney-Client Privileged",
+      "priority": 1,
+      "tooltip": "Communications protected by attorney-client privilege",
+      "color": "#FF0000",
+      "contentMarking": {
+        "headerText": "ATTORNEY-CLIENT PRIVILEGED AND CONFIDENTIAL",
+        "footerText": "This document is protected by attorney-client privilege"
+      },
+      "encryption": {
+        "enabled": true,
+        "protectionType": "Template",
+        "offlineAccessDays": 7
+      },
+      "autoLabeling": {
+        "enabled": true,
+        "keywords": ["attorney-client privilege", "privileged and confidential", "legal advice"]
+      }
+    },
+    {
+      "name": "Work Product",
+      "priority": 2,
+      "tooltip": "Attorney work product doctrine protection",
+      "color": "#FFA500",
+      "contentMarking": {
+        "headerText": "ATTORNEY WORK PRODUCT - CONFIDENTIAL"
+      },
+      "encryption": {
+        "enabled": true,
+        "protectionType": "Template",
+        "offlineAccessDays": 7
+      }
+    },
+    {
+      "name": "Client Confidential",
+      "priority": 3,
+      "tooltip": "Confidential client information",
+      "color": "#FFFF00",
+      "contentMarking": {
+        "headerText": "CLIENT CONFIDENTIAL"
+      },
+      "encryption": {
+        "enabled": false
+      }
+    }
+  ],
+  "teamsConfiguration": {
+    "guestAccess": false,
+    "externalAccess": false,
+    "anonymousMeetings": false,
+    "meetingRecording": true,
+    "meetingTranscription": true,
+    "channelModeration": true,
+    "privateChanels": true,
+    "sharedChannels": false,
+    "matterTeamTemplate": {
+      "name": "Legal Matter Team",
+      "description": "Template for matter-specific collaboration",
+      "channels": [
+        "General",
+        "Documents",
+        "Research",
+        "Correspondence",
+        "Court Filings"
+      ]
+    }
+  },
+  "sharepointConfiguration": {
+    "externalSharing": "Disabled",
+    "defaultSharingLinkType": "Internal",
+    "matterSiteTemplate": {
+      "name": "Legal Matter Site",
+      "libraries": [
+        "Pleadings",
+        "Discovery",
+        "Correspondence",
+        "Research",
+        "Work Product"
+      ]
+    }
+  },
+  "exchangeConfiguration": {
+    "journaling": {
+      "enabled": true,
+      "journalRecipient": "journal@firm.com",
+      "scope": "Internal"
+    },
+    "mailFlowRules": [
+      {
+        "name": "Encrypt External Privileged",
+        "conditions": ["SubjectContainsWords: privileged, confidential"],
+        "actions": ["ApplyOME"]
+      }
+    ]
+  },
+  "requiredLicenses": [
+    "Microsoft 365 E5 Compliance",
+    "Microsoft 365 E5 eDiscovery and Audit",
+    "Azure Information Protection P2"
+  ],
+  "implementationChecklist": [
+    "Configure information barriers for conflict management",
+    "Create sensitivity labels for privilege protection",
+    "Set up retention policies for matter lifecycle",
+    "Configure eDiscovery roles and permissions",
+    "Disable external sharing across all workloads",
+    "Train staff on privilege designation",
+    "Integrate with practice management system"
+  ]
+}

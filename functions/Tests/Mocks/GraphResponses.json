@@ -1,0 +1,98 @@
+{
+  "conditionalAccessPolicy": {
+    "success": {
+      "id": "00000000-0000-0000-0000-000000000001",
+      "displayName": "Test-CA-Policy",
+      "state": "enabledForReportingButNotEnforced",
+      "createdDateTime": "2025-01-21T00:00:00Z",
+      "modifiedDateTime": "2025-01-21T00:00:00Z"
+    },
+    "alreadyExists": {
+      "error": {
+        "code": "Request_BadRequest",
+        "message": "A policy with this name already exists."
+      }
+    }
+  },
+  "group": {
+    "success": {
+      "id": "00000000-0000-0000-0000-000000000002",
+      "displayName": "ZeroTrust-BreakGlass-Admins",
+      "description": "Emergency access group",
+      "mailEnabled": false,
+      "securityEnabled": true
+    },
+    "list": {
+      "value": []
+    }
+  },
+  "compliancePolicy": {
+    "windows": {
+      "id": "00000000-0000-0000-0000-000000000003",
+      "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
+      "displayName": "Windows-Compliance-Policy"
+    },
+    "ios": {
+      "id": "00000000-0000-0000-0000-000000000004",
+      "@odata.type": "#microsoft.graph.iosCompliancePolicy",
+      "displayName": "iOS-Compliance-Policy"
+    },
+    "android": {
+      "id": "00000000-0000-0000-0000-000000000005",
+      "@odata.type": "#microsoft.graph.androidCompliancePolicy",
+      "displayName": "Android-Compliance-Policy"
+    },
+    "macos": {
+      "id": "00000000-0000-0000-0000-000000000006",
+      "@odata.type": "#microsoft.graph.macOSCompliancePolicy",
+      "displayName": "macOS-Compliance-Policy"
+    }
+  },
+  "user": {
+    "success": {
+      "id": "00000000-0000-0000-0000-000000000007",
+      "displayName": "Test User",
+      "userPrincipalName": "testuser@contoso.onmicrosoft.com",
+      "mail": "testuser@contoso.com"
+    },
+    "list": {
+      "value": []
+    }
+  },
+  "organization": {
+    "success": {
+      "value": [
+        {
+          "id": "00000000-0000-0000-0000-000000000008",
+          "displayName": "Contoso",
+          "verifiedDomains": [
+            {
+              "name": "contoso.onmicrosoft.com",
+              "isDefault": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "errors": {
+    "throttled": {
+      "error": {
+        "code": "TooManyRequests",
+        "message": "Too many requests. Please retry after 60 seconds."
+      }
+    },
+    "unauthorized": {
+      "error": {
+        "code": "Authorization_RequestDenied",
+        "message": "Insufficient privileges to complete the operation."
+      }
+    },
+    "notFound": {
+      "error": {
+        "code": "Request_ResourceNotFound",
+        "message": "Resource not found."
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(pwsh -Command:*)",
+      "Bash(powershell -Command \"Invoke-Pester -Path . -Output Detailed -PassThru\")",
+      "Bash(powershell -Command \"Invoke-Pester -Path . -PassThru | Format-List\")",
+      "Bash(powershell -Command:*)",
+      "Bash(az account show:*)",
+      "Bash(az functionapp list:*)",
+      "Bash(cmd /c \"az account show --query \"\"{name:name, id:id, user:user.name}\"\" -o json\")",
+      "Bash(powershell.exe -Command \"az account show --query ''{name:name, id:id, user:user.name}'' -o json\")",
+      "Bash(powershell.exe -Command \"& ''C:\\\\Program Files\\\\Microsoft SDKs\\\\Azure\\\\CLI2\\\\wbin\\\\az.cmd'' account show --query ''{name:name, id:id, user:user.name}'' -o json\")",
+      "Bash(powershell.exe -Command \"& ''C:\\\\Program Files \\(x86\\)\\\\Microsoft SDKs\\\\Azure\\\\CLI2\\\\wbin\\\\az.cmd'' account show\")",
+      "Bash(powershell.exe:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

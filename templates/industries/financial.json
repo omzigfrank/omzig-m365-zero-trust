@@ -1,0 +1,241 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omzig/m365-zero-trust/main/schemas/industry-template.json",
+  "industry": "Financial Services",
+  "version": "1.0.0",
+  "description": "M365 configuration template for financial services firms (banks, investment advisors, broker-dealers)",
+  "compliance": [
+    "SEC Rule 17a-4",
+    "FINRA Rules 3110, 4511, 4512",
+    "SOX (Sarbanes-Oxley)",
+    "GLBA (Gramm-Leach-Bliley Act)",
+    "PCI-DSS (if processing payments)"
+  ],
+  "additionalControls": {
+    "communicationArchiving": {
+      "enabled": true,
+      "retentionYears": 7,
+      "immutableStorage": true,
+      "wormCompliance": true,
+      "channelsToArchive": [
+        "Email",
+        "Teams Chat",
+        "Teams Channels",
+        "Yammer",
+        "Bloomberg (via connector)",
+        "Reuters (via connector)"
+      ],
+      "thirdPartyArchiver": {
+        "required": true,
+        "note": "SEC 17a-4 requires immutable, non-rewritable storage"
+      }
+    },
+    "communicationSupervision": {
+      "enabled": true,
+      "reviewPercentage": 100,
+      "supervisedChannels": [
+        "Email",
+        "Teams",
+        "Yammer"
+      ],
+      "supervisoryPolicies": [
+        {
+          "name": "Investment Advice Review",
+          "keywords": ["buy", "sell", "recommend", "investment advice", "suitable"],
+          "reviewers": "Compliance Team"
+        },
+        {
+          "name": "Customer Complaints",
+          "keywords": ["complaint", "dispute", "unhappy", "sue", "lawyer"],
+          "reviewers": "Compliance Team"
+        },
+        {
+          "name": "Insider Trading Detection",
+          "keywords": ["material non-public", "MNPI", "insider", "tip"],
+          "reviewers": "Legal Team"
+        }
+      ]
+    },
+    "tradingControls": {
+      "personalTradingPolicy": true,
+      "preClearanceRequired": true,
+      "restrictedListEnforcement": true,
+      "note": "Requires integration with trading compliance system"
+    },
+    "customerDataProtection": {
+      "npiProtection": true,
+      "piiDetection": true,
+      "accountNumberMasking": true,
+      "ssnProtection": true,
+      "dlpPolicies": [
+        {
+          "name": "Detect Account Numbers",
+          "pattern": "Account number patterns",
+          "action": "BlockWithOverride"
+        },
+        {
+          "name": "Detect SSN",
+          "pattern": "Social Security Number",
+          "action": "Block"
+        },
+        {
+          "name": "Detect Credit Card",
+          "pattern": "Credit Card Number",
+          "action": "Block"
+        }
+      ]
+    },
+    "auditAndReporting": {
+      "comprehensiveAuditLog": true,
+      "auditLogRetentionYears": 7,
+      "realTimeAlerts": true,
+      "regulatoryReporting": true,
+      "exceptionReporting": true
+    },
+    "accessControls": {
+      "roleBasedAccess": true,
+      "segregationOfDuties": true,
+      "privilegedAccessManagement": true,
+      "periodicAccessReview": true,
+      "accessReviewFrequency": "Quarterly"
+    },
+    "recordsManagement": {
+      "enabled": true,
+      "booksAndRecordsPolicy": true,
+      "retentionSchedule": [
+        {
+          "recordType": "Customer Account Records",
+          "retentionYears": 6,
+          "afterAccountClosure": true
+        },
+        {
+          "recordType": "Trade Confirmations",
+          "retentionYears": 6
+        },
+        {
+          "recordType": "Communications",
+          "retentionYears": 7
+        },
+        {
+          "recordType": "Compliance Records",
+          "retentionYears": 7
+        }
+      ]
+    }
+  },
+  "sensitivityLabels": [
+    {
+      "name": "Material Non-Public Information",
+      "priority": 1,
+      "tooltip": "MNPI - Restricted access, do not share",
+      "color": "#FF0000",
+      "contentMarking": {
+        "headerText": "MATERIAL NON-PUBLIC INFORMATION - RESTRICTED",
+        "footerText": "Unauthorized disclosure may violate securities laws"
+      },
+      "encryption": {
+        "enabled": true,
+        "protectionType": "Template",
+        "offlineAccessDays": 1
+      }
+    },
+    {
+      "name": "Customer NPI",
+      "priority": 2,
+      "tooltip": "Non-public personal information protected under GLBA",
+      "color": "#FFA500",
+      "contentMarking": {
+        "headerText": "CUSTOMER CONFIDENTIAL - NPI"
+      },
+      "encryption": {
+        "enabled": true,
+        "protectionType": "Template",
+        "offlineAccessDays": 7
+      }
+    },
+    {
+      "name": "Internal Only",
+      "priority": 3,
+      "tooltip": "Internal firm information",
+      "color": "#FFFF00",
+      "contentMarking": {
+        "headerText": "INTERNAL USE ONLY"
+      },
+      "encryption": {
+        "enabled": false
+      }
+    }
+  ],
+  "teamsConfiguration": {
+    "guestAccess": false,
+    "externalAccess": false,
+    "anonymousMeetings": false,
+    "meetingRecording": true,
+    "meetingTranscription": true,
+    "complianceRecording": true,
+    "dataRetention": "7 years"
+  },
+  "exchangeConfiguration": {
+    "journaling": {
+      "enabled": true,
+      "scope": "AllMessages",
+      "externalArchiver": true
+    },
+    "dataLossPrevention": {
+      "enabled": true,
+      "blockExternalSharing": true
+    },
+    "mailFlowRules": [
+      {
+        "name": "Block Personal Email Forwarding",
+        "action": "BlockAutoForward"
+      },
+      {
+        "name": "Encrypt Customer Data External",
+        "conditions": ["CustomerDataDetected", "ExternalRecipient"],
+        "actions": ["ApplyOME"]
+      }
+    ]
+  },
+  "intunePolicies": {
+    "personalDevicesBlocked": true,
+    "mobileAppManagement": true,
+    "jailbreakDetection": true,
+    "encryptionRequired": true,
+    "copyPasteRestrictions": true,
+    "screenshotBlocked": true
+  },
+  "requiredLicenses": [
+    "Microsoft 365 E5 Compliance",
+    "Microsoft 365 E5 Insider Risk Management",
+    "Communication Compliance",
+    "Azure Information Protection P2"
+  ],
+  "thirdPartyIntegrations": [
+    {
+      "name": "Bloomberg",
+      "type": "Communication Archiver",
+      "connector": "Microsoft Compliance Connector"
+    },
+    {
+      "name": "WORM Storage",
+      "type": "Immutable Archive",
+      "purpose": "SEC 17a-4 compliance"
+    },
+    {
+      "name": "Trade Surveillance",
+      "type": "Compliance Monitoring",
+      "purpose": "Trading rule enforcement"
+    }
+  ],
+  "implementationChecklist": [
+    "Configure communication archiving with WORM storage",
+    "Set up supervision policies for investment communications",
+    "Implement DLP for customer NPI protection",
+    "Configure sensitivity labels for MNPI",
+    "Disable external sharing and guest access",
+    "Set up 7-year retention policies",
+    "Configure compliance recording for Teams",
+    "Integrate with third-party archiving solution",
+    "Train compliance team on supervision reviews"
+  ]
+}

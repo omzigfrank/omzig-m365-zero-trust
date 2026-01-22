@@ -1,0 +1,226 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omzig/m365-zero-trust/main/schemas/industry-template.json",
+  "industry": "Education",
+  "version": "1.0.0",
+  "description": "M365 configuration template for K-12 schools and higher education institutions",
+  "compliance": [
+    "FERPA (Family Educational Rights and Privacy Act)",
+    "COPPA (Children's Online Privacy Protection Act)",
+    "CIPA (Children's Internet Protection Act)",
+    "State Student Privacy Laws"
+  ],
+  "additionalControls": {
+    "studentDataProtection": {
+      "ferpaCompliance": true,
+      "educationRecordsProtection": true,
+      "directoryInformationPolicy": true,
+      "parentalConsentManagement": true,
+      "studentDataMinimization": true,
+      "dlpPolicies": [
+        {
+          "name": "Protect Student Records",
+          "keywords": ["student ID", "GPA", "transcript", "grades", "IEP", "504 plan"],
+          "action": "BlockWithOverride"
+        },
+        {
+          "name": "Protect Minor PII",
+          "keywords": ["date of birth", "student address", "parent contact"],
+          "action": "NotifyAndAudit"
+        }
+      ]
+    },
+    "ageBased Restrictions": {
+      "under13Accounts": {
+        "requireParentalConsent": true,
+        "restrictedFeatures": [
+          "External email",
+          "Teams guest access",
+          "External sharing",
+          "Giphy",
+          "Third-party apps"
+        ]
+      },
+      "under18Accounts": {
+        "safeSearch": true,
+        "contentFiltering": true,
+        "restrictedExternalCommunication": true
+      }
+    },
+    "contentFiltering": {
+      "webFiltering": true,
+      "adultContentBlocked": true,
+      "violenceBlocked": true,
+      "gamblingBlocked": true,
+      "socialMediaRestrictions": true,
+      "customBlockLists": true
+    },
+    "classroomManagement": {
+      "teamsForEducation": true,
+      "classNotebooks": true,
+      "assignmentsIntegration": true,
+      "insightsForEducation": true,
+      "parentCommunication": true,
+      "schoolDataSync": true
+    },
+    "staffVsStudentPolicies": {
+      "separatePolicies": true,
+      "staffExternalAccess": "Limited",
+      "studentExternalAccess": "Disabled",
+      "staffGuestInvite": "Disabled",
+      "studentGuestInvite": "Disabled"
+    },
+    "dataRetention": {
+      "studentRecordsRetention": "5 years after graduation",
+      "emailRetentionStaff": "3 years",
+      "emailRetentionStudents": "1 year after graduation",
+      "teamsRetention": "1 year",
+      "assignmentsRetention": "3 years"
+    },
+    "alumniManagement": {
+      "alumniAccountPolicy": true,
+      "postGraduationRetention": "1 year",
+      "alumniMailForwarding": "Optional"
+    }
+  },
+  "sensitivityLabels": [
+    {
+      "name": "Student Records - FERPA",
+      "priority": 1,
+      "tooltip": "Protected student education records under FERPA",
+      "color": "#FF0000",
+      "contentMarking": {
+        "headerText": "FERPA PROTECTED - STUDENT RECORDS",
+        "footerText": "Unauthorized disclosure prohibited by federal law"
+      },
+      "encryption": {
+        "enabled": true,
+        "protectionType": "Template"
+      },
+      "autoLabeling": {
+        "enabled": true,
+        "keywords": ["student ID", "transcript", "GPA", "academic record"]
+      }
+    },
+    {
+      "name": "Staff Confidential",
+      "priority": 2,
+      "tooltip": "Confidential staff and HR information",
+      "color": "#FFA500",
+      "contentMarking": {
+        "headerText": "STAFF CONFIDENTIAL"
+      },
+      "encryption": {
+        "enabled": true,
+        "protectionType": "Template"
+      }
+    },
+    {
+      "name": "Internal",
+      "priority": 3,
+      "tooltip": "Internal school/district information",
+      "color": "#FFFF00",
+      "encryption": {
+        "enabled": false
+      }
+    }
+  ],
+  "teamsConfiguration": {
+    "educationTenant": true,
+    "classTeamsAutoCreate": true,
+    "staffTeamsAutoCreate": false,
+    "studentGuestAccess": false,
+    "staffGuestAccess": false,
+    "anonymousMeetings": false,
+    "lobbyBypass": "OrganizationOnly",
+    "meetingRecording": {
+      "staff": true,
+      "students": false
+    },
+    "giphyAllowed": {
+      "staff": true,
+      "students": false
+    },
+    "stickersAllowed": true,
+    "memesAllowed": {
+      "staff": true,
+      "students": false
+    },
+    "channelCreation": {
+      "staff": true,
+      "students": false
+    },
+    "appInstallation": {
+      "staff": "Allowed",
+      "students": "AdminControlled"
+    }
+  },
+  "exchangeConfiguration": {
+    "studentExternalEmail": "Disabled",
+    "staffExternalEmail": "Enabled",
+    "antiSpamAggressive": true,
+    "parentEmailNotifications": true,
+    "mailFlowRules": [
+      {
+        "name": "Block Student External Email",
+        "conditions": ["StudentGroup", "ExternalRecipient"],
+        "actions": ["Reject"]
+      },
+      {
+        "name": "Warn on Student Data External",
+        "conditions": ["ContainsStudentData", "ExternalRecipient"],
+        "actions": ["NotifySender"]
+      }
+    ]
+  },
+  "sharepointConfiguration": {
+    "studentExternalSharing": "Disabled",
+    "staffExternalSharing": "ExistingGuestsOnly",
+    "classSitesAutoCreate": true,
+    "departmentSites": true
+  },
+  "intunePolicies": {
+    "schoolOwnedDevices": {
+      "enrollmentRequired": true,
+      "managedAppsOnly": true,
+      "contentFiltering": true,
+      "screenTimeRestrictions": true
+    },
+    "byodPolicies": {
+      "mam": true,
+      "containerization": true,
+      "noSchoolDataOnPersonal": true
+    }
+  },
+  "schoolDataSync": {
+    "enabled": true,
+    "sisIntegration": true,
+    "automaticClassCreation": true,
+    "rosterSync": "Daily",
+    "gradeSync": false
+  },
+  "requiredLicenses": [
+    "Microsoft 365 A3 or A5 for Faculty",
+    "Microsoft 365 A3 or A5 for Students",
+    "Intune for Education"
+  ],
+  "implementationChecklist": [
+    "Enable School Data Sync with SIS",
+    "Configure Teams for Education policies",
+    "Set up student vs staff policy separation",
+    "Configure FERPA-compliant sensitivity labels",
+    "Set up content filtering for student devices",
+    "Disable external sharing for students",
+    "Configure parent communication settings",
+    "Set up classroom notebooks and assignments",
+    "Train staff on FERPA requirements",
+    "Document directory information opt-out process"
+  ],
+  "legalConsiderations": [
+    "Obtain parental consent for students under 13 (COPPA)",
+    "Maintain directory information opt-out records",
+    "Document legitimate educational interest access",
+    "Establish data breach notification procedures",
+    "Review third-party app data practices",
+    "Ensure accessibility compliance (Section 508)"
+  ]
+}

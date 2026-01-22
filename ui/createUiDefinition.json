@@ -6,7 +6,7 @@
     "config": {
       "isWizard": true,
       "basics": {
-        "description": "## Omzig M365 Zero Trust Deployment\n\nDeploy a secure Microsoft 365 environment with **NSA-aligned Zero Trust** controls and optional **HIPAA compliance**.\n\n### What this deploys:\n- Conditional Access policies with MFA\n- Defender for Office 365 protection\n- Defender for Endpoint configuration\n- Data Loss Prevention policies\n- Sensitivity labels and encryption\n- Security monitoring and alerting",
+        "description": "## Omzig M365 Zero Trust Deployment\n\nDeploy a secure Microsoft 365 environment with **NSA-aligned Zero Trust** controls and optional **HIPAA compliance**.\n\n### What this deploys:\n- Conditional Access policies with MFA\n- Defender for Office 365 protection\n- Defender for Endpoint configuration\n- Data Loss Prevention policies\n- Sensitivity labels and encryption\n- Security monitoring and alerting\n- User provisioning and group management\n- Exchange Online mail flow rules\n- Device enrollment with Autopilot\n- SharePoint and Teams policies",
         "location": {
           "label": "Deployment Region",
           "resourceTypes": ["Microsoft.Resources/resourceGroups"]
@@ -98,61 +98,447 @@
         ]
       },
       {
-        "name": "licensing",
-        "label": "Licensing",
-        "bladeTitle": "M365 Licensing Options",
+        "name": "usersLicensing",
+        "label": "Users & Licensing",
+        "bladeTitle": "User Provisioning & Licensing",
         "elements": [
           {
-            "name": "licenseInfo",
+            "name": "userProvisioningInfo",
             "type": "Microsoft.Common.InfoBox",
             "options": {
               "icon": "Info",
-              "text": "Select the Microsoft 365 and Defender licenses available in your tenant. This determines which security features can be configured."
+              "text": "Configure how users will be provisioned and how licenses will be managed in your M365 tenant."
             }
           },
           {
-            "name": "m365License",
-            "type": "Microsoft.Common.DropDown",
-            "label": "Microsoft 365 License Tier",
-            "defaultValue": "E3",
-            "toolTip": "Select your primary Microsoft 365 license tier.",
-            "constraints": {
-              "required": true,
-              "allowedValues": [
-                { "label": "Microsoft 365 Business Basic", "value": "BusinessBasic" },
-                { "label": "Microsoft 365 Business Standard", "value": "BusinessStandard" },
-                { "label": "Microsoft 365 Business Premium", "value": "BusinessPremium" },
-                { "label": "Microsoft 365 E3", "value": "E3" },
-                { "label": "Microsoft 365 E5", "value": "E5" }
-              ]
+            "name": "userProvisioningSection",
+            "type": "Microsoft.Common.Section",
+            "label": "User Provisioning",
+            "elements": [
+              {
+                "name": "createStandardGroups",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Create standard security groups",
+                "defaultValue": true,
+                "toolTip": "Creates groups: All-Users, All-Employees, Executives, IT-Admins, License-E3-Users, License-E5-Users"
+              },
+              {
+                "name": "createBreakGlassAccount",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Create emergency break-glass account",
+                "defaultValue": true,
+                "toolTip": "Creates a highly privileged account excluded from Conditional Access for emergency access."
+              },
+              {
+                "name": "breakGlassUPN",
+                "type": "Microsoft.Common.TextBox",
+                "label": "Break-glass Account UPN",
+                "placeholder": "e.g., breakglass@contoso.com",
+                "toolTip": "UPN for the emergency break-glass account.",
+                "visible": "[steps('usersLicensing').userProvisioningSection.createBreakGlassAccount]",
+                "constraints": {
+                  "required": false,
+                  "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                  "validationMessage": "Please enter a valid email address."
+                }
+              }
+            ]
+          },
+          {
+            "name": "licensingSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Licensing Configuration",
+            "elements": [
+              {
+                "name": "m365License",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Microsoft 365 License Tier",
+                "defaultValue": "E3",
+                "toolTip": "Select your primary Microsoft 365 license tier.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Microsoft 365 Business Basic", "value": "BusinessBasic" },
+                    { "label": "Microsoft 365 Business Standard", "value": "BusinessStandard" },
+                    { "label": "Microsoft 365 Business Premium", "value": "BusinessPremium" },
+                    { "label": "Microsoft 365 E3", "value": "E3" },
+                    { "label": "Microsoft 365 E5", "value": "E5" }
+                  ]
+                }
+              },
+              {
+                "name": "defenderForOfficePlan",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Defender for Office 365",
+                "defaultValue": "Plan2",
+                "toolTip": "Select your Defender for Office 365 plan. Plan 2 is recommended for full protection.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "None", "value": "None" },
+                    { "label": "Plan 1 (Basic protection)", "value": "Plan1" },
+                    { "label": "Plan 2 (Advanced protection)", "value": "Plan2" }
+                  ]
+                }
+              },
+              {
+                "name": "hasDefenderForEndpoint",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Defender for Endpoint available",
+                "toolTip": "Check if you have Defender for Endpoint licenses (included in M365 E5 or as add-on)."
+              },
+              {
+                "name": "hasEntraIdP2",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Entra ID P2 available",
+                "toolTip": "Check if you have Entra ID P2 licenses for advanced Conditional Access and Identity Protection."
+              },
+              {
+                "name": "enableGroupBasedLicensing",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Enable group-based licensing",
+                "defaultValue": true,
+                "toolTip": "Automatically assign licenses based on group membership."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "emailConfig",
+        "label": "Email Configuration",
+        "bladeTitle": "Exchange Online Configuration",
+        "elements": [
+          {
+            "name": "emailInfo",
+            "type": "Microsoft.Common.InfoBox",
+            "options": {
+              "icon": "Info",
+              "text": "Configure Exchange Online mail flow rules, shared mailboxes, and email security settings."
             }
           },
           {
-            "name": "defenderForOfficePlan",
-            "type": "Microsoft.Common.DropDown",
-            "label": "Defender for Office 365",
-            "defaultValue": "Plan2",
-            "toolTip": "Select your Defender for Office 365 plan. Plan 2 is recommended for full protection.",
-            "constraints": {
-              "required": true,
-              "allowedValues": [
-                { "label": "None", "value": "None" },
-                { "label": "Plan 1 (Basic protection)", "value": "Plan1" },
-                { "label": "Plan 2 (Advanced protection)", "value": "Plan2" }
-              ]
+            "name": "mailFlowSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Mail Flow Rules",
+            "elements": [
+              {
+                "name": "enableStandardMailRules",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Enable standard mail flow rules",
+                "defaultValue": true,
+                "toolTip": "Creates rules to: Block auto-forwarding, add external email warning banner, block executable attachments, encrypt sensitive emails."
+              },
+              {
+                "name": "externalEmailWarning",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Add [EXTERNAL] warning to external emails",
+                "defaultValue": true,
+                "toolTip": "Prepends [EXTERNAL] to subject and adds a warning banner to emails from outside the organization."
+              },
+              {
+                "name": "blockAutoForwarding",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Block external auto-forwarding",
+                "defaultValue": true,
+                "toolTip": "Prevents users from setting up automatic forwarding rules to external recipients."
+              },
+              {
+                "name": "blockExecutableAttachments",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Block executable attachments",
+                "defaultValue": true,
+                "toolTip": "Block dangerous attachment types: .exe, .bat, .cmd, .ps1, .vbs, .js, .jar, .scr"
+              }
+            ]
+          },
+          {
+            "name": "emailSecuritySection",
+            "type": "Microsoft.Common.Section",
+            "label": "Email Security",
+            "elements": [
+              {
+                "name": "enableDkim",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Configure DKIM signing",
+                "defaultValue": true,
+                "toolTip": "Enable DKIM signing for outbound emails (requires DNS record creation)."
+              },
+              {
+                "name": "dmarcPolicy",
+                "type": "Microsoft.Common.DropDown",
+                "label": "DMARC Policy Recommendation",
+                "defaultValue": "quarantine",
+                "toolTip": "Recommended DMARC policy for your domain.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "None (Monitor only)", "value": "none" },
+                    { "label": "Quarantine (Recommended)", "value": "quarantine" },
+                    { "label": "Reject (Strictest)", "value": "reject" }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "sharedMailboxSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Shared Mailboxes",
+            "elements": [
+              {
+                "name": "createSharedMailboxes",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Create standard shared mailboxes",
+                "toolTip": "Creates mailboxes: info@, support@, sales@, hr@, billing@"
+              },
+              {
+                "name": "sharedMailboxList",
+                "type": "Microsoft.Common.TextBlock",
+                "options": {
+                  "text": "Standard shared mailboxes: info@, support@, sales@, hr@, billing@"
+                },
+                "visible": "[steps('emailConfig').sharedMailboxSection.createSharedMailboxes]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "deviceEnrollment",
+        "label": "Devices & Enrollment",
+        "bladeTitle": "Device Management & Autopilot",
+        "elements": [
+          {
+            "name": "deviceInfo",
+            "type": "Microsoft.Common.InfoBox",
+            "options": {
+              "icon": "Info",
+              "text": "Configure device enrollment, Autopilot profiles, and compliance policies."
             }
           },
           {
-            "name": "hasDefenderForEndpoint",
-            "type": "Microsoft.Common.CheckBox",
-            "label": "Defender for Endpoint available",
-            "toolTip": "Check if you have Defender for Endpoint licenses (included in M365 E5 or as add-on)."
+            "name": "autopilotSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Windows Autopilot",
+            "elements": [
+              {
+                "name": "enableAutopilot",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Configure Autopilot profiles",
+                "defaultValue": true,
+                "toolTip": "Creates standard Autopilot deployment profiles for zero-touch provisioning."
+              },
+              {
+                "name": "autopilotUserType",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Default User Type",
+                "defaultValue": "standard",
+                "toolTip": "Default user type for Autopilot-enrolled devices.",
+                "visible": "[steps('deviceEnrollment').autopilotSection.enableAutopilot]",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Standard User (Recommended)", "value": "standard" },
+                    { "label": "Local Administrator", "value": "administrator" }
+                  ]
+                }
+              },
+              {
+                "name": "enableWhiteGlove",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Enable pre-provisioning (White Glove)",
+                "defaultValue": true,
+                "toolTip": "Allow IT to pre-provision devices before user setup.",
+                "visible": "[steps('deviceEnrollment').autopilotSection.enableAutopilot]"
+              }
+            ]
           },
           {
-            "name": "hasEntraIdP2",
-            "type": "Microsoft.Common.CheckBox",
-            "label": "Entra ID P2 available",
-            "toolTip": "Check if you have Entra ID P2 licenses for advanced Conditional Access and Identity Protection."
+            "name": "enrollmentSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Enrollment Restrictions",
+            "elements": [
+              {
+                "name": "blockPersonalDevices",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Block personal device enrollment",
+                "defaultValue": true,
+                "toolTip": "Only allow corporate-owned devices to enroll in Intune."
+              },
+              {
+                "name": "allowedPlatforms",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Allowed Platforms",
+                "defaultValue": "all",
+                "toolTip": "Select which device platforms are allowed to enroll.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "All Platforms", "value": "all" },
+                    { "label": "Windows Only", "value": "windowsOnly" },
+                    { "label": "Windows and macOS", "value": "windowsMac" },
+                    { "label": "Windows, macOS, and iOS", "value": "windowsMacIos" }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "securitySection",
+            "type": "Microsoft.Common.Section",
+            "label": "Device Security",
+            "elements": [
+              {
+                "name": "requireBitlocker",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Require BitLocker encryption",
+                "defaultValue": true,
+                "toolTip": "Require full disk encryption on Windows devices."
+              },
+              {
+                "name": "bitlockerEncryption",
+                "type": "Microsoft.Common.DropDown",
+                "label": "BitLocker Encryption Method",
+                "defaultValue": "xtsAes256",
+                "toolTip": "Select the encryption method for BitLocker.",
+                "visible": "[steps('deviceEnrollment').securitySection.requireBitlocker]",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "XTS-AES 128-bit", "value": "xtsAes128" },
+                    { "label": "XTS-AES 256-bit (Recommended)", "value": "xtsAes256" }
+                  ]
+                }
+              },
+              {
+                "name": "enableKnownFolderMove",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Enable OneDrive Known Folder Move",
+                "defaultValue": true,
+                "toolTip": "Automatically redirect Desktop, Documents, and Pictures to OneDrive."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "collaboration",
+        "label": "Collaboration",
+        "bladeTitle": "SharePoint & Teams Configuration",
+        "elements": [
+          {
+            "name": "collaborationInfo",
+            "type": "Microsoft.Common.InfoBox",
+            "options": {
+              "icon": "Info",
+              "text": "Configure SharePoint sharing policies, Teams settings, and collaboration security."
+            }
+          },
+          {
+            "name": "sharepointSection",
+            "type": "Microsoft.Common.Section",
+            "label": "SharePoint Settings",
+            "elements": [
+              {
+                "name": "externalSharing",
+                "type": "Microsoft.Common.DropDown",
+                "label": "External Sharing Level",
+                "defaultValue": "existingGuests",
+                "toolTip": "Control how content can be shared externally.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Disabled (Internal only)", "value": "disabled" },
+                    { "label": "Existing Guests Only", "value": "existingGuests" },
+                    { "label": "New and Existing Guests", "value": "newGuests" },
+                    { "label": "Anyone (Not recommended)", "value": "anyone" }
+                  ]
+                }
+              },
+              {
+                "name": "defaultSharingLink",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Default Sharing Link Type",
+                "defaultValue": "internal",
+                "toolTip": "Default link type when users share content.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "People in your organization", "value": "internal" },
+                    { "label": "Specific people", "value": "specificPeople" },
+                    { "label": "People with existing access", "value": "existingAccess" }
+                  ]
+                }
+              },
+              {
+                "name": "guestExpiration",
+                "type": "Microsoft.Common.Slider",
+                "label": "Guest Access Expiration (days)",
+                "min": 0,
+                "max": 365,
+                "defaultValue": 30,
+                "showStepMarkers": false,
+                "toolTip": "Number of days until guest access expires. 0 = no expiration."
+              }
+            ]
+          },
+          {
+            "name": "teamsSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Microsoft Teams Settings",
+            "elements": [
+              {
+                "name": "allowGuestAccess",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Allow guest access to Teams",
+                "toolTip": "Allow external users to participate in Teams channels and chats."
+              },
+              {
+                "name": "allowAnonymousMeetings",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Allow anonymous meeting join",
+                "toolTip": "Allow users without accounts to join meetings."
+              },
+              {
+                "name": "meetingLobby",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Meeting Lobby Settings",
+                "defaultValue": "organizationOnly",
+                "toolTip": "Who can bypass the meeting lobby.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Everyone", "value": "everyone" },
+                    { "label": "People in my organization (Recommended)", "value": "organizationOnly" },
+                    { "label": "People in my organization and guests", "value": "organizationAndGuests" },
+                    { "label": "Only me (Organizer)", "value": "organizerOnly" }
+                  ]
+                }
+              },
+              {
+                "name": "allowMeetingRecording",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Allow meeting recording",
+                "defaultValue": true,
+                "toolTip": "Allow users to record Teams meetings."
+              },
+              {
+                "name": "allowThirdPartyApps",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Third-Party Apps Policy",
+                "defaultValue": "adminControlled",
+                "toolTip": "Control third-party app installation in Teams.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Blocked", "value": "blocked" },
+                    { "label": "Admin Controlled (Recommended)", "value": "adminControlled" },
+                    { "label": "All Apps Allowed", "value": "allApps" }
+                  ]
+                }
+              }
+            ]
           }
         ]
       },
@@ -178,18 +564,9 @@
             "constraints": {
               "required": true,
               "allowedValues": [
-                {
-                  "label": "Standard",
-                  "value": "Standard"
-                },
-                {
-                  "label": "Enhanced (Recommended)",
-                  "value": "Enhanced"
-                },
-                {
-                  "label": "Maximum",
-                  "value": "Maximum"
-                }
+                { "label": "Standard", "value": "Standard" },
+                { "label": "Enhanced (Recommended)", "value": "Enhanced" },
+                { "label": "Maximum", "value": "Maximum" }
               ]
             }
           },
@@ -280,6 +657,30 @@
             ]
           },
           {
+            "name": "industrySection",
+            "type": "Microsoft.Common.Section",
+            "label": "Industry Template",
+            "elements": [
+              {
+                "name": "industryTemplate",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Industry Compliance Template",
+                "defaultValue": "none",
+                "toolTip": "Apply additional industry-specific compliance controls.",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "None", "value": "none" },
+                    { "label": "Legal (ABA Model Rules, eDiscovery)", "value": "legal" },
+                    { "label": "Financial Services (SEC 17a-4, FINRA)", "value": "financial" },
+                    { "label": "Education (FERPA, COPPA)", "value": "education" },
+                    { "label": "Government (CMMC 2.0, NIST 800-171)", "value": "government" }
+                  ]
+                }
+              }
+            ]
+          },
+          {
             "name": "dataProtectionSection",
             "type": "Microsoft.Common.Section",
             "label": "Data Protection",
@@ -313,6 +714,112 @@
         ]
       },
       {
+        "name": "mspSettings",
+        "label": "MSP Settings",
+        "bladeTitle": "Managed Service Provider Configuration",
+        "elements": [
+          {
+            "name": "mspInfo",
+            "type": "Microsoft.Common.InfoBox",
+            "options": {
+              "icon": "Info",
+              "text": "Configure Azure Lighthouse for multi-tenant management. Only enable this if you are an MSP managing this tenant."
+            }
+          },
+          {
+            "name": "lighthouseSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Azure Lighthouse",
+            "elements": [
+              {
+                "name": "enableLighthouse",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Enable Azure Lighthouse delegation",
+                "toolTip": "Allow an MSP tenant to manage this subscription via Azure Lighthouse."
+              },
+              {
+                "name": "mspTenantId",
+                "type": "Microsoft.Common.TextBox",
+                "label": "MSP Tenant ID",
+                "placeholder": "e.g., 00000000-0000-0000-0000-000000000000",
+                "toolTip": "The Azure AD Tenant ID of the managing MSP.",
+                "visible": "[steps('mspSettings').lighthouseSection.enableLighthouse]",
+                "constraints": {
+                  "required": false,
+                  "regex": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "validationMessage": "Please enter a valid GUID."
+                }
+              },
+              {
+                "name": "mspOfferName",
+                "type": "Microsoft.Common.TextBox",
+                "label": "MSP Offer Name",
+                "defaultValue": "Managed Services",
+                "toolTip": "Display name for the Lighthouse delegation.",
+                "visible": "[steps('mspSettings').lighthouseSection.enableLighthouse]"
+              }
+            ]
+          },
+          {
+            "name": "alertingSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Alert Routing",
+            "elements": [
+              {
+                "name": "enableCentralizedAlerts",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Route alerts to MSP",
+                "toolTip": "Send security alerts to the MSP's monitoring system.",
+                "visible": "[steps('mspSettings').lighthouseSection.enableLighthouse]"
+              },
+              {
+                "name": "alertEmail",
+                "type": "Microsoft.Common.TextBox",
+                "label": "MSP Alert Email",
+                "placeholder": "e.g., soc@msp.com",
+                "toolTip": "Email address for MSP security alerts.",
+                "visible": "[and(steps('mspSettings').lighthouseSection.enableLighthouse, steps('mspSettings').alertingSection.enableCentralizedAlerts)]",
+                "constraints": {
+                  "required": false,
+                  "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+                  "validationMessage": "Please enter a valid email address."
+                }
+              }
+            ]
+          },
+          {
+            "name": "reportingSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Reporting",
+            "elements": [
+              {
+                "name": "enableReporting",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Enable automated reporting",
+                "defaultValue": true,
+                "toolTip": "Generate automated security and compliance reports."
+              },
+              {
+                "name": "reportSchedule",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Report Schedule",
+                "defaultValue": "weekly",
+                "toolTip": "How often to generate reports.",
+                "visible": "[steps('mspSettings').reportingSection.enableReporting]",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Daily", "value": "daily" },
+                    { "label": "Weekly (Recommended)", "value": "weekly" },
+                    { "label": "Monthly", "value": "monthly" }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "name": "review",
         "label": "Review",
         "bladeTitle": "Review + Create",
@@ -334,7 +841,7 @@
                 "name": "summaryText",
                 "type": "Microsoft.Common.TextBlock",
                 "options": {
-                  "text": "[concat('**Organization:** ', basics('orgName'), '\n\n**Environment:** ', basics('environmentName'), '\n\n**Security Baseline:** ', steps('securityBaseline').securityLevel, '\n\n**HIPAA Mode:** ', if(steps('compliance').hipaaSection.hipaaEnabled, 'Enabled', 'Disabled'), '\n\n**Defender for Office 365:** ', steps('licensing').defenderForOfficePlan)]"
+                  "text": "[concat('**Organization:** ', basics('orgName'), '\n\n**Environment:** ', basics('environmentName'), '\n\n**Security Baseline:** ', steps('securityBaseline').securityLevel, '\n\n**HIPAA Mode:** ', if(steps('compliance').hipaaSection.hipaaEnabled, 'Enabled', 'Disabled'), '\n\n**Industry Template:** ', steps('compliance').industrySection.industryTemplate, '\n\n**Defender for Office 365:** ', steps('usersLicensing').licensingSection.defenderForOfficePlan, '\n\n**Lighthouse Enabled:** ', if(steps('mspSettings').lighthouseSection.enableLighthouse, 'Yes', 'No'))]"
                 }
               }
             ]
@@ -357,18 +864,53 @@
       "orgSize": "[steps('organization').orgInfo.orgSize]",
       "primaryDomain": "[steps('organization').orgInfo.primaryDomain]",
       "adminEmail": "[steps('organization').orgInfo.adminEmail]",
-      "m365License": "[steps('licensing').m365License]",
-      "defenderForOfficePlan": "[steps('licensing').defenderForOfficePlan]",
-      "hasDefenderForEndpoint": "[steps('licensing').hasDefenderForEndpoint]",
-      "hasEntraIdP2": "[steps('licensing').hasEntraIdP2]",
+      "createStandardGroups": "[steps('usersLicensing').userProvisioningSection.createStandardGroups]",
+      "createBreakGlassAccount": "[steps('usersLicensing').userProvisioningSection.createBreakGlassAccount]",
+      "breakGlassUPN": "[steps('usersLicensing').userProvisioningSection.breakGlassUPN]",
+      "m365License": "[steps('usersLicensing').licensingSection.m365License]",
+      "defenderForOfficePlan": "[steps('usersLicensing').licensingSection.defenderForOfficePlan]",
+      "hasDefenderForEndpoint": "[steps('usersLicensing').licensingSection.hasDefenderForEndpoint]",
+      "hasEntraIdP2": "[steps('usersLicensing').licensingSection.hasEntraIdP2]",
+      "enableGroupBasedLicensing": "[steps('usersLicensing').licensingSection.enableGroupBasedLicensing]",
+      "enableStandardMailRules": "[steps('emailConfig').mailFlowSection.enableStandardMailRules]",
+      "externalEmailWarning": "[steps('emailConfig').mailFlowSection.externalEmailWarning]",
+      "blockAutoForwarding": "[steps('emailConfig').mailFlowSection.blockAutoForwarding]",
+      "blockExecutableAttachments": "[steps('emailConfig').mailFlowSection.blockExecutableAttachments]",
+      "enableDkim": "[steps('emailConfig').emailSecuritySection.enableDkim]",
+      "dmarcPolicy": "[steps('emailConfig').emailSecuritySection.dmarcPolicy]",
+      "createSharedMailboxes": "[steps('emailConfig').sharedMailboxSection.createSharedMailboxes]",
+      "enableAutopilot": "[steps('deviceEnrollment').autopilotSection.enableAutopilot]",
+      "autopilotUserType": "[steps('deviceEnrollment').autopilotSection.autopilotUserType]",
+      "enableWhiteGlove": "[steps('deviceEnrollment').autopilotSection.enableWhiteGlove]",
+      "blockPersonalDevices": "[steps('deviceEnrollment').enrollmentSection.blockPersonalDevices]",
+      "allowedPlatforms": "[steps('deviceEnrollment').enrollmentSection.allowedPlatforms]",
+      "requireBitlocker": "[steps('deviceEnrollment').securitySection.requireBitlocker]",
+      "bitlockerEncryption": "[steps('deviceEnrollment').securitySection.bitlockerEncryption]",
+      "enableKnownFolderMove": "[steps('deviceEnrollment').securitySection.enableKnownFolderMove]",
+      "externalSharing": "[steps('collaboration').sharepointSection.externalSharing]",
+      "defaultSharingLink": "[steps('collaboration').sharepointSection.defaultSharingLink]",
+      "guestExpiration": "[steps('collaboration').sharepointSection.guestExpiration]",
+      "allowGuestAccess": "[steps('collaboration').teamsSection.allowGuestAccess]",
+      "allowAnonymousMeetings": "[steps('collaboration').teamsSection.allowAnonymousMeetings]",
+      "meetingLobby": "[steps('collaboration').teamsSection.meetingLobby]",
+      "allowMeetingRecording": "[steps('collaboration').teamsSection.allowMeetingRecording]",
+      "allowThirdPartyApps": "[steps('collaboration').teamsSection.allowThirdPartyApps]",
       "securityBaseline": "[steps('securityBaseline').securityLevel]",
       "requireMfa": "[steps('securityBaseline').identitySection.requireMfa]",
       "blockLegacyAuth": "[steps('securityBaseline').identitySection.blockLegacyAuth]",
       "requireCompliantDevice": "[steps('securityBaseline').identitySection.requireCompliantDevice]",
       "hipaaEnabled": "[steps('compliance').hipaaSection.hipaaEnabled]",
+      "industryTemplate": "[steps('compliance').industrySection.industryTemplate]",
       "enableDlp": "[steps('compliance').dataProtectionSection.enableDlp]",
       "enableSensitivityLabels": "[steps('compliance').dataProtectionSection.enableSensitivityLabels]",
-      "retentionDays": "[steps('compliance').dataProtectionSection.retentionDays]"
+      "retentionDays": "[steps('compliance').dataProtectionSection.retentionDays]",
+      "enableLighthouse": "[steps('mspSettings').lighthouseSection.enableLighthouse]",
+      "mspTenantId": "[steps('mspSettings').lighthouseSection.mspTenantId]",
+      "mspOfferName": "[steps('mspSettings').lighthouseSection.mspOfferName]",
+      "enableCentralizedAlerts": "[steps('mspSettings').alertingSection.enableCentralizedAlerts]",
+      "alertEmail": "[steps('mspSettings').alertingSection.alertEmail]",
+      "enableReporting": "[steps('mspSettings').reportingSection.enableReporting]",
+      "reportSchedule": "[steps('mspSettings').reportingSection.reportSchedule]"
     }
   }
 }
