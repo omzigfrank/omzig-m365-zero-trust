@@ -1,0 +1,1763 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.39.26.7824",
+      "templateHash": "8489731855710359249"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus",
+      "metadata": {
+        "description": "Azure region for resource deployment"
+      }
+    },
+    "environmentName": {
+      "type": "string",
+      "defaultValue": "dev",
+      "allowedValues": [
+        "dev",
+        "test",
+        "prod"
+      ],
+      "metadata": {
+        "description": "Environment name (dev, test, prod)"
+      }
+    },
+    "orgName": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 24,
+      "metadata": {
+        "description": "Organization name used for resource naming"
+      }
+    },
+    "hipaaEnabled": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable HIPAA-aligned configuration (longer retention, stricter controls)"
+      }
+    },
+    "securityBaseline": {
+      "type": "string",
+      "defaultValue": "Enhanced",
+      "allowedValues": [
+        "Standard",
+        "Enhanced",
+        "Maximum"
+      ],
+      "metadata": {
+        "description": "Security baseline level"
+      }
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "[format('rg-{0}-m365-{1}', parameters('orgName'), parameters('environmentName'))]",
+      "metadata": {
+        "description": "Resource group name for deployment"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2024-03-01",
+      "name": "[parameters('resourceGroupName')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "environment": "[parameters('environmentName')]",
+        "organization": "[parameters('orgName')]",
+        "securityBaseline": "[parameters('securityBaseline')]",
+        "hipaaEnabled": "[string(parameters('hipaaEnabled'))]",
+        "deployedBy": "omzig-m365-zero-trust"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2025-04-01",
+      "name": "[format('identity-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "orgName": {
+            "value": "[parameters('orgName')]"
+          },
+          "environmentName": {
+            "value": "[parameters('environmentName')]"
+          },
+          "hipaaEnabled": {
+            "value": "[parameters('hipaaEnabled')]"
+          },
+          "securityBaseline": {
+            "value": "[parameters('securityBaseline')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.39.26.7824",
+              "templateHash": "1563924006731804527"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "metadata": {
+                "description": "Azure region for resource deployment"
+              }
+            },
+            "orgName": {
+              "type": "string",
+              "metadata": {
+                "description": "Organization name"
+              }
+            },
+            "environmentName": {
+              "type": "string",
+              "metadata": {
+                "description": "Environment name"
+              }
+            },
+            "hipaaEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Enable HIPAA-aligned configuration"
+              }
+            },
+            "securityBaseline": {
+              "type": "string",
+              "allowedValues": [
+                "Standard",
+                "Enhanced",
+                "Maximum"
+              ],
+              "metadata": {
+                "description": "Security baseline level"
+              }
+            },
+            "requireMfa": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Require MFA for all users"
+              }
+            },
+            "allowedMfaMethods": {
+              "type": "string",
+              "defaultValue": "AuthenticatorApp",
+              "allowedValues": [
+                "AuthenticatorApp",
+                "AuthenticatorAppAndSms",
+                "All"
+              ],
+              "metadata": {
+                "description": "MFA methods to allow"
+              }
+            },
+            "mfaRememberDeviceDays": {
+              "type": "int",
+              "defaultValue": 14,
+              "minValue": 0,
+              "maxValue": 365,
+              "metadata": {
+                "description": "Remember MFA on trusted devices (days, 0 to disable)"
+              }
+            },
+            "enableConditionalAccess": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable Conditional Access policies"
+              }
+            },
+            "blockLegacyAuth": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Block legacy authentication protocols"
+              }
+            },
+            "requireCompliantDevice": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Require compliant device for access"
+              }
+            },
+            "requireMfaForRiskySignIn": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Require MFA for risky sign-ins"
+              }
+            },
+            "signInRiskThreshold": {
+              "type": "string",
+              "defaultValue": "Medium",
+              "allowedValues": [
+                "Low",
+                "Medium",
+                "High"
+              ],
+              "metadata": {
+                "description": "Sign-in risk levels that trigger MFA"
+              }
+            },
+            "blockHighRiskUsers": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Block access from high-risk users"
+              }
+            },
+            "requireMfaForAdmins": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Require MFA for admin roles"
+              }
+            },
+            "sessionTimeoutHours": {
+              "type": "int",
+              "defaultValue": 12,
+              "minValue": 0,
+              "maxValue": 24,
+              "metadata": {
+                "description": "Session timeout in hours (0 for default)"
+              }
+            },
+            "minPasswordLength": {
+              "type": "int",
+              "defaultValue": 14,
+              "minValue": 8,
+              "maxValue": 256,
+              "metadata": {
+                "description": "Minimum password length"
+              }
+            },
+            "passwordExpirationDays": {
+              "type": "int",
+              "defaultValue": 0,
+              "minValue": 0,
+              "maxValue": 365,
+              "metadata": {
+                "description": "Password expiration days (0 to disable)"
+              }
+            },
+            "enableSspr": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable self-service password reset"
+              }
+            }
+          },
+          "variables": {
+            "namingPrefix": "[format('{0}-{1}', parameters('orgName'), parameters('environmentName'))]",
+            "effectiveSessionTimeout": "[if(parameters('hipaaEnabled'), 8, parameters('sessionTimeoutHours'))]",
+            "effectiveMinPasswordLength": "[if(parameters('hipaaEnabled'), max(parameters('minPasswordLength'), 14), parameters('minPasswordLength'))]",
+            "effectiveMfaRememberDays": "[if(parameters('hipaaEnabled'), 0, parameters('mfaRememberDeviceDays'))]",
+            "enforceCompliantDevice": "[if(equals(parameters('securityBaseline'), 'Maximum'), true(), parameters('requireCompliantDevice'))]",
+            "enforceBlockHighRiskUsers": "[if(not(equals(parameters('securityBaseline'), 'Standard')), true(), parameters('blockHighRiskUsers'))]",
+            "effectiveRiskThreshold": "[if(equals(parameters('securityBaseline'), 'Maximum'), 'Low', parameters('signInRiskThreshold'))]",
+            "conditionalAccessConfig": {
+              "policies": [
+                {
+                  "name": "CA001-Block-Legacy-Auth",
+                  "enabled": "[parameters('blockLegacyAuth')]",
+                  "conditions": {
+                    "clientAppTypes": [
+                      "exchangeActiveSync",
+                      "other"
+                    ]
+                  },
+                  "grantControls": {
+                    "block": true
+                  }
+                },
+                {
+                  "name": "CA002-Require-MFA-All-Users",
+                  "enabled": "[parameters('requireMfa')]",
+                  "conditions": {
+                    "users": "All",
+                    "applications": "All"
+                  },
+                  "grantControls": {
+                    "requireMfa": true
+                  }
+                },
+                {
+                  "name": "CA003-Require-MFA-Admins",
+                  "enabled": "[parameters('requireMfaForAdmins')]",
+                  "conditions": {
+                    "users": "DirectoryRoles",
+                    "roles": [
+                      "GlobalAdmin",
+                      "SecurityAdmin",
+                      "UserAdmin",
+                      "HelpdeskAdmin"
+                    ]
+                  },
+                  "grantControls": {
+                    "requireMfa": true
+                  }
+                },
+                {
+                  "name": "CA004-Require-Compliant-Device",
+                  "enabled": "[variables('enforceCompliantDevice')]",
+                  "conditions": {
+                    "users": "All",
+                    "platforms": [
+                      "Windows",
+                      "macOS",
+                      "iOS",
+                      "Android"
+                    ]
+                  },
+                  "grantControls": {
+                    "requireCompliantDevice": true
+                  }
+                },
+                {
+                  "name": "CA005-Block-High-Risk-Users",
+                  "enabled": "[variables('enforceBlockHighRiskUsers')]",
+                  "conditions": {
+                    "userRiskLevels": [
+                      "high"
+                    ]
+                  },
+                  "grantControls": {
+                    "block": true
+                  }
+                },
+                {
+                  "name": "CA006-MFA-Risky-SignIn",
+                  "enabled": "[parameters('requireMfaForRiskySignIn')]",
+                  "conditions": {
+                    "signInRiskLevels": "[if(equals(variables('effectiveRiskThreshold'), 'Low'), createArray('low', 'medium', 'high'), if(equals(variables('effectiveRiskThreshold'), 'Medium'), createArray('medium', 'high'), createArray('high')))]"
+                  },
+                  "grantControls": {
+                    "requireMfa": true
+                  }
+                }
+              ],
+              "sessionControls": {
+                "signInFrequencyHours": "[variables('effectiveSessionTimeout')]",
+                "persistentBrowserSession": "[not(parameters('hipaaEnabled'))]"
+              }
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+              "apiVersion": "2023-01-31",
+              "name": "[format('id-{0}-graph', variables('namingPrefix'))]",
+              "location": "[parameters('location')]",
+              "tags": {
+                "purpose": "Graph API operations for identity configuration",
+                "module": "identity"
+              }
+            }
+          ],
+          "outputs": {
+            "status": {
+              "type": "string",
+              "metadata": {
+                "description": "Identity module deployment status"
+              },
+              "value": "Identity module deployed"
+            },
+            "mfaRequired": {
+              "type": "bool",
+              "metadata": {
+                "description": "MFA requirement setting"
+              },
+              "value": "[parameters('requireMfa')]"
+            },
+            "conditionalAccessEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Conditional Access enabled"
+              },
+              "value": "[parameters('enableConditionalAccess')]"
+            },
+            "graphIdentityId": {
+              "type": "string",
+              "metadata": {
+                "description": "Graph API managed identity ID"
+              },
+              "value": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('id-{0}-graph', variables('namingPrefix')))]"
+            },
+            "graphIdentityPrincipalId": {
+              "type": "string",
+              "metadata": {
+                "description": "Graph API managed identity principal ID"
+              },
+              "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('id-{0}-graph', variables('namingPrefix'))), '2023-01-31').principalId]"
+            },
+            "graphIdentityClientId": {
+              "type": "string",
+              "metadata": {
+                "description": "Graph API managed identity client ID"
+              },
+              "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('id-{0}-graph', variables('namingPrefix'))), '2023-01-31').clientId]"
+            },
+            "conditionalAccessConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Conditional Access configuration for Graph API"
+              },
+              "value": "[variables('conditionalAccessConfig')]"
+            },
+            "credentialRequirements": {
+              "type": "object",
+              "metadata": {
+                "description": "Credential requirements configuration"
+              },
+              "value": {
+                "minLength": "[variables('effectiveMinPasswordLength')]",
+                "expirationDays": "[parameters('passwordExpirationDays')]",
+                "enableSspr": "[parameters('enableSspr')]"
+              }
+            },
+            "mfaConfig": {
+              "type": "object",
+              "metadata": {
+                "description": "MFA configuration"
+              },
+              "value": {
+                "required": "[parameters('requireMfa')]",
+                "allowedMethods": "[parameters('allowedMfaMethods')]",
+                "rememberDeviceDays": "[variables('effectiveMfaRememberDays')]"
+              }
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2025-04-01",
+      "name": "[format('devices-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "hipaaEnabled": {
+            "value": "[parameters('hipaaEnabled')]"
+          },
+          "securityBaseline": {
+            "value": "[parameters('securityBaseline')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.39.26.7824",
+              "templateHash": "11652506280422202534"
+            }
+          },
+          "parameters": {
+            "hipaaEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Enable HIPAA-aligned configuration"
+              }
+            },
+            "securityBaseline": {
+              "type": "string",
+              "allowedValues": [
+                "Standard",
+                "Enhanced",
+                "Maximum"
+              ],
+              "metadata": {
+                "description": "Security baseline level"
+              }
+            },
+            "enableDefenderForEndpoint": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable Defender for Endpoint integration"
+              }
+            },
+            "defenderOnboardingMode": {
+              "type": "string",
+              "defaultValue": "Automatic",
+              "allowedValues": [
+                "Automatic",
+                "Manual",
+                "Disabled"
+              ],
+              "metadata": {
+                "description": "Defender for Endpoint onboarding mode"
+              }
+            },
+            "enableAsrRules": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable attack surface reduction rules"
+              }
+            },
+            "enableNetworkProtection": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable network protection"
+              }
+            },
+            "enableControlledFolderAccess": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable controlled folder access"
+              }
+            },
+            "requireDeviceCompliance": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Require device compliance for access"
+              }
+            },
+            "minWindowsVersion": {
+              "type": "string",
+              "defaultValue": "10.0.19045",
+              "metadata": {
+                "description": "Minimum OS version for Windows"
+              }
+            },
+            "minMacOSVersion": {
+              "type": "string",
+              "defaultValue": "13.0",
+              "metadata": {
+                "description": "Minimum OS version for macOS"
+              }
+            },
+            "minIOSVersion": {
+              "type": "string",
+              "defaultValue": "16.0",
+              "metadata": {
+                "description": "Minimum OS version for iOS"
+              }
+            },
+            "minAndroidVersion": {
+              "type": "string",
+              "defaultValue": "13",
+              "metadata": {
+                "description": "Minimum OS version for Android"
+              }
+            },
+            "complianceGracePeriodHours": {
+              "type": "int",
+              "defaultValue": 24,
+              "minValue": 0,
+              "maxValue": 720,
+              "metadata": {
+                "description": "Grace period for compliance (hours)"
+              }
+            },
+            "requireDevicePassword": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Require PIN/password on devices"
+              }
+            },
+            "minDevicePasswordLength": {
+              "type": "int",
+              "defaultValue": 6,
+              "minValue": 4,
+              "maxValue": 16,
+              "metadata": {
+                "description": "Minimum password length for devices"
+              }
+            },
+            "requireBiometrics": {
+              "type": "bool",
+              "defaultValue": false,
+              "metadata": {
+                "description": "Require biometric authentication where available"
+              }
+            },
+            "blockJailbrokenDevices": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Block jailbroken/rooted devices"
+              }
+            },
+            "deviceLockTimeoutMinutes": {
+              "type": "int",
+              "defaultValue": 5,
+              "minValue": 1,
+              "maxValue": 60,
+              "metadata": {
+                "description": "Require device lock timeout (minutes)"
+              }
+            }
+          },
+          "variables": {
+            "effectivePasswordLength": "[if(parameters('hipaaEnabled'), max(parameters('minDevicePasswordLength'), 8), parameters('minDevicePasswordLength'))]",
+            "effectiveLockTimeout": "[if(parameters('hipaaEnabled'), min(parameters('deviceLockTimeoutMinutes'), 5), parameters('deviceLockTimeoutMinutes'))]",
+            "effectiveGracePeriod": "[if(parameters('hipaaEnabled'), 0, parameters('complianceGracePeriodHours'))]",
+            "requireEncryptionAlways": "[or(parameters('hipaaEnabled'), not(equals(parameters('securityBaseline'), 'Standard')))]",
+            "enforceAsrRules": "[or(not(equals(parameters('securityBaseline'), 'Standard')), parameters('enableAsrRules'))]",
+            "enforceNetworkProtection": "[or(not(equals(parameters('securityBaseline'), 'Standard')), parameters('enableNetworkProtection'))]",
+            "enforceControlledFolder": "[or(equals(parameters('securityBaseline'), 'Maximum'), parameters('enableControlledFolderAccess'))]",
+            "defenderForEndpointConfig": {
+              "enabled": "[parameters('enableDefenderForEndpoint')]",
+              "onboardingMode": "[parameters('defenderOnboardingMode')]",
+              "attackSurfaceReduction": {
+                "enabled": "[variables('enforceAsrRules')]",
+                "rules": [
+                  {
+                    "id": "BlockOfficeChildProcess",
+                    "action": "[if(equals(parameters('securityBaseline'), 'Maximum'), 'Block', 'Audit')]"
+                  },
+                  {
+                    "id": "BlockOfficeCreateExecutable",
+                    "action": "Block"
+                  },
+                  {
+                    "id": "BlockOfficeMacroWin32Api",
+                    "action": "[if(equals(parameters('securityBaseline'), 'Maximum'), 'Block', 'Audit')]"
+                  },
+                  {
+                    "id": "BlockObfuscatedScripts",
+                    "action": "Block"
+                  },
+                  {
+                    "id": "BlockExecutableEmailContent",
+                    "action": "Block"
+                  },
+                  {
+                    "id": "BlockCredentialStealing",
+                    "action": "Block"
+                  },
+                  {
+                    "id": "BlockUntrustedUsbProcess",
+                    "action": "[if(equals(parameters('securityBaseline'), 'Maximum'), 'Block', 'Audit')]"
+                  },
+                  {
+                    "id": "BlockPersistenceWmiSubscription",
+                    "action": "Block"
+                  }
+                ]
+              },
+              "networkProtection": {
+                "enabled": "[variables('enforceNetworkProtection')]",
+                "mode": "[if(equals(parameters('securityBaseline'), 'Maximum'), 'Block', 'Audit')]"
+              },
+              "controlledFolderAccess": {
+                "enabled": "[variables('enforceControlledFolder')]",
+                "mode": "[if(equals(parameters('securityBaseline'), 'Maximum'), 'Block', 'Audit')]",
+                "protectedFolders": [
+                  "Documents",
+                  "Desktop",
+                  "Pictures"
+                ]
+              },
+              "webProtection": {
+                "enabled": true,
+                "blockMaliciousSites": true,
+                "blockPhishingSites": true
+              }
+            },
+            "compliancePolicyConfig": {
+              "windows": {
+                "requireCompliance": "[parameters('requireDeviceCompliance')]",
+                "requireEncryption": "[variables('requireEncryptionAlways')]",
+                "minOsVersion": "[parameters('minWindowsVersion')]",
+                "requireSecureBoot": "[not(equals(parameters('securityBaseline'), 'Standard'))]",
+                "requireCodeIntegrity": "[equals(parameters('securityBaseline'), 'Maximum')]",
+                "requireTpm": true,
+                "requireFirewall": true,
+                "requireAntivirus": true,
+                "requireAntiSpyware": true,
+                "requireRealTimeProtection": true,
+                "gracePeriodHours": "[variables('effectiveGracePeriod')]"
+              },
+              "macOS": {
+                "requireCompliance": "[parameters('requireDeviceCompliance')]",
+                "requireEncryption": "[variables('requireEncryptionAlways')]",
+                "minOsVersion": "[parameters('minMacOSVersion')]",
+                "requireSystemIntegrityProtection": true,
+                "requireFirewall": true,
+                "gracePeriodHours": "[variables('effectiveGracePeriod')]"
+              },
+              "iOS": {
+                "requireCompliance": "[parameters('requireDeviceCompliance')]",
+                "minOsVersion": "[parameters('minIOSVersion')]",
+                "blockJailbroken": "[parameters('blockJailbrokenDevices')]",
+                "requireManagedEmail": "[parameters('hipaaEnabled')]",
+                "gracePeriodHours": "[variables('effectiveGracePeriod')]"
+              },
+              "android": {
+                "requireCompliance": "[parameters('requireDeviceCompliance')]",
+                "minOsVersion": "[parameters('minAndroidVersion')]",
+                "blockRooted": "[parameters('blockJailbrokenDevices')]",
+                "requireEncryption": "[variables('requireEncryptionAlways')]",
+                "requireSecurityPatch": true,
+                "maxSecurityPatchAgeDays": 90,
+                "gracePeriodHours": "[variables('effectiveGracePeriod')]"
+              }
+            },
+            "deviceConfigPolicy": {
+              "passwordPolicy": {
+                "required": "[parameters('requireDevicePassword')]",
+                "minLength": "[variables('effectivePasswordLength')]",
+                "requireComplexPassword": "[not(equals(parameters('securityBaseline'), 'Standard'))]",
+                "expirationDays": "[if(parameters('hipaaEnabled'), 90, 0)]",
+                "historyCount": "[if(parameters('hipaaEnabled'), 12, 5)]"
+              },
+              "lockScreen": {
+                "timeoutMinutes": "[variables('effectiveLockTimeout')]",
+                "requireBiometrics": "[parameters('requireBiometrics')]"
+              },
+              "security": {
+                "blockJailbroken": "[parameters('blockJailbrokenDevices')]",
+                "requireStorageEncryption": "[variables('requireEncryptionAlways')]",
+                "blockDeveloperMode": "[parameters('hipaaEnabled')]",
+                "blockUnknownSources": true
+              }
+            }
+          },
+          "resources": [],
+          "outputs": {
+            "status": {
+              "type": "string",
+              "metadata": {
+                "description": "Devices module deployment status"
+              },
+              "value": "Devices module deployed"
+            },
+            "defenderForEndpointEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Defender for Endpoint enabled"
+              },
+              "value": "[parameters('enableDefenderForEndpoint')]"
+            },
+            "deviceComplianceRequired": {
+              "type": "bool",
+              "metadata": {
+                "description": "Device compliance required"
+              },
+              "value": "[parameters('requireDeviceCompliance')]"
+            },
+            "deviceEncryptionRequired": {
+              "type": "bool",
+              "metadata": {
+                "description": "Device encryption required"
+              },
+              "value": "[variables('requireEncryptionAlways')]"
+            },
+            "defenderForEndpointConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Defender for Endpoint configuration for Graph API"
+              },
+              "value": "[variables('defenderForEndpointConfig')]"
+            },
+            "compliancePolicyConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Compliance policy configuration for Graph API"
+              },
+              "value": "[variables('compliancePolicyConfig')]"
+            },
+            "deviceConfigurationPolicy": {
+              "type": "object",
+              "metadata": {
+                "description": "Device configuration policy for Graph API"
+              },
+              "value": "[variables('deviceConfigPolicy')]"
+            },
+            "hipaaMode": {
+              "type": "bool",
+              "metadata": {
+                "description": "HIPAA mode active"
+              },
+              "value": "[parameters('hipaaEnabled')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2025-04-01",
+      "name": "[format('security-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "orgName": {
+            "value": "[parameters('orgName')]"
+          },
+          "environmentName": {
+            "value": "[parameters('environmentName')]"
+          },
+          "hipaaEnabled": {
+            "value": "[parameters('hipaaEnabled')]"
+          },
+          "securityBaseline": {
+            "value": "[parameters('securityBaseline')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.39.26.7824",
+              "templateHash": "6222416626307258873"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string",
+              "metadata": {
+                "description": "Azure region for resource deployment"
+              }
+            },
+            "orgName": {
+              "type": "string",
+              "metadata": {
+                "description": "Organization name"
+              }
+            },
+            "environmentName": {
+              "type": "string",
+              "metadata": {
+                "description": "Environment name"
+              }
+            },
+            "hipaaEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Enable HIPAA-aligned configuration"
+              }
+            },
+            "securityBaseline": {
+              "type": "string",
+              "allowedValues": [
+                "Standard",
+                "Enhanced",
+                "Maximum"
+              ],
+              "metadata": {
+                "description": "Security baseline level"
+              }
+            },
+            "defenderForOfficePlan": {
+              "type": "string",
+              "defaultValue": "Plan2",
+              "allowedValues": [
+                "None",
+                "Plan1",
+                "Plan2"
+              ],
+              "metadata": {
+                "description": "Defender for Office 365 plan"
+              }
+            },
+            "enableSafeAttachments": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable Safe Attachments policy"
+              }
+            },
+            "safeAttachmentsAction": {
+              "type": "string",
+              "defaultValue": "Block",
+              "allowedValues": [
+                "Block",
+                "Replace",
+                "DynamicDelivery"
+              ],
+              "metadata": {
+                "description": "Safe Attachments action"
+              }
+            },
+            "enableSafeLinks": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable Safe Links policy"
+              }
+            },
+            "enableRealTimeUrlScanning": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable real-time URL scanning"
+              }
+            },
+            "enableAntiPhishing": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable anti-phishing policies"
+              }
+            },
+            "phishingThreshold": {
+              "type": "int",
+              "defaultValue": 3,
+              "minValue": 1,
+              "maxValue": 4,
+              "metadata": {
+                "description": "Phishing threshold level (1-4, higher = more aggressive)"
+              }
+            },
+            "enableDefenderForCloudApps": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable Defender for Cloud Apps"
+              }
+            },
+            "enableSessionPolicies": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable session policies for cloud apps"
+              }
+            },
+            "enableAnomalyDetection": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable anomaly detection"
+              }
+            },
+            "logAnalyticsSku": {
+              "type": "string",
+              "defaultValue": "PerGB2018",
+              "allowedValues": [
+                "PerGB2018",
+                "CapacityReservation"
+              ],
+              "metadata": {
+                "description": "Log Analytics workspace SKU"
+              }
+            },
+            "logRetentionDays": {
+              "type": "int",
+              "defaultValue": 365,
+              "minValue": 30,
+              "maxValue": 2555,
+              "metadata": {
+                "description": "Log retention in days (HIPAA default: 2555 = 7 years)"
+              }
+            },
+            "enableSentinel": {
+              "type": "bool",
+              "defaultValue": false,
+              "metadata": {
+                "description": "Enable Microsoft Sentinel"
+              }
+            },
+            "alertEmailRecipients": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Alert email recipients (comma-separated)"
+              }
+            },
+            "enableHighSeverityAlerts": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable high-severity alert notifications"
+              }
+            }
+          },
+          "variables": {
+            "namingPrefix": "[format('{0}-{1}', parameters('orgName'), parameters('environmentName'))]",
+            "workspaceName": "[format('log-{0}-security', variables('namingPrefix'))]",
+            "effectiveRetentionDays": "[if(parameters('hipaaEnabled'), max(parameters('logRetentionDays'), 2555), parameters('logRetentionDays'))]",
+            "effectivePhishingThreshold": "[if(equals(parameters('securityBaseline'), 'Maximum'), 4, if(equals(parameters('securityBaseline'), 'Enhanced'), 3, parameters('phishingThreshold')))]",
+            "effectiveSafeAttachmentsAction": "[if(equals(parameters('securityBaseline'), 'Maximum'), 'Block', parameters('safeAttachmentsAction'))]",
+            "defenderForOfficeConfig": {
+              "plan": "[parameters('defenderForOfficePlan')]",
+              "safeAttachments": {
+                "enabled": "[and(parameters('enableSafeAttachments'), not(equals(parameters('defenderForOfficePlan'), 'None')))]",
+                "action": "[variables('effectiveSafeAttachmentsAction')]",
+                "redirect": true,
+                "scanTimeout": 30
+              },
+              "safeLinks": {
+                "enabled": "[and(parameters('enableSafeLinks'), not(equals(parameters('defenderForOfficePlan'), 'None')))]",
+                "realTimeScan": "[parameters('enableRealTimeUrlScanning')]",
+                "scanInternalLinks": "[equals(parameters('securityBaseline'), 'Maximum')]",
+                "trackClicks": true,
+                "allowClickThrough": false
+              },
+              "antiPhishing": {
+                "enabled": "[and(parameters('enableAntiPhishing'), not(equals(parameters('defenderForOfficePlan'), 'None')))]",
+                "threshold": "[variables('effectivePhishingThreshold')]",
+                "enableMailboxIntelligence": true,
+                "enableSpoofIntelligence": true,
+                "enableFirstContactSafetyTips": true,
+                "honorDmarc": true
+              },
+              "antiSpam": {
+                "bulkThreshold": "[if(equals(parameters('securityBaseline'), 'Maximum'), 4, 6)]",
+                "markAsSpamBulkMail": true,
+                "quarantineRetentionDays": "[if(parameters('hipaaEnabled'), 30, 15)]"
+              }
+            },
+            "defenderForCloudAppsConfig": {
+              "enabled": "[parameters('enableDefenderForCloudApps')]",
+              "sessionPolicies": {
+                "enabled": "[and(parameters('enableSessionPolicies'), parameters('enableDefenderForCloudApps'))]",
+                "blockDownloads": "[equals(parameters('securityBaseline'), 'Maximum')]",
+                "requireManagedDevice": "[not(equals(parameters('securityBaseline'), 'Standard'))]"
+              },
+              "anomalyDetection": {
+                "enabled": "[and(parameters('enableAnomalyDetection'), parameters('enableDefenderForCloudApps'))]",
+                "impossibleTravel": true,
+                "suspiciousInboxRules": true,
+                "unusualFileShare": true,
+                "ransomwareActivity": true
+              },
+              "appGovernance": {
+                "enabled": "[equals(parameters('defenderForOfficePlan'), 'Plan2')]",
+                "oauthAppMonitoring": true
+              }
+            },
+            "alertRules": [
+              {
+                "name": "High-Severity-Security-Alert",
+                "enabled": "[parameters('enableHighSeverityAlerts')]",
+                "severity": "High",
+                "query": "SecurityAlert | where AlertSeverity == \"High\"",
+                "frequency": 5,
+                "threshold": 0
+              },
+              {
+                "name": "Suspicious-Sign-In-Activity",
+                "enabled": true,
+                "severity": "Medium",
+                "query": "SigninLogs | where ResultType != 0 | summarize FailedCount = count() by UserPrincipalName | where FailedCount > 10",
+                "frequency": 15,
+                "threshold": 0
+              },
+              {
+                "name": "Malware-Detection",
+                "enabled": true,
+                "severity": "High",
+                "query": "SecurityAlert | where AlertName contains \"malware\" or AlertName contains \"virus\"",
+                "frequency": 5,
+                "threshold": 0
+              },
+              {
+                "name": "Phishing-Attempt-Detected",
+                "enabled": "[parameters('enableAntiPhishing')]",
+                "severity": "High",
+                "query": "EmailEvents | where ThreatTypes has \"Phish\"",
+                "frequency": 5,
+                "threshold": 0
+              }
+            ]
+          },
+          "resources": [
+            {
+              "type": "Microsoft.OperationalInsights/workspaces",
+              "apiVersion": "2023-09-01",
+              "name": "[variables('workspaceName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "sku": {
+                  "name": "[parameters('logAnalyticsSku')]"
+                },
+                "retentionInDays": "[variables('effectiveRetentionDays')]",
+                "features": {
+                  "enableLogAccessUsingOnlyResourcePermissions": true
+                },
+                "workspaceCapping": {
+                  "dailyQuotaGb": -1
+                }
+              },
+              "tags": {
+                "environment": "[parameters('environmentName')]",
+                "organization": "[parameters('orgName')]",
+                "module": "security",
+                "hipaaCompliant": "[string(parameters('hipaaEnabled'))]"
+              }
+            },
+            {
+              "condition": "[not(empty(parameters('alertEmailRecipients')))]",
+              "type": "Microsoft.Insights/actionGroups",
+              "apiVersion": "2023-01-01",
+              "name": "[format('ag-{0}-security', variables('namingPrefix'))]",
+              "location": "global",
+              "properties": {
+                "copy": [
+                  {
+                    "name": "emailReceivers",
+                    "count": "[length(split(parameters('alertEmailRecipients'), ','))]",
+                    "input": {
+                      "name": "[format('SecurityAlertRecipient-{0}', split(parameters('alertEmailRecipients'), ',')[copyIndex('emailReceivers')])]",
+                      "emailAddress": "[trim(split(parameters('alertEmailRecipients'), ',')[copyIndex('emailReceivers')])]",
+                      "useCommonAlertSchema": true
+                    }
+                  }
+                ],
+                "groupShortName": "SecAlerts",
+                "enabled": true
+              },
+              "tags": {
+                "environment": "[parameters('environmentName')]",
+                "organization": "[parameters('orgName')]",
+                "module": "security"
+              }
+            },
+            {
+              "condition": "[parameters('enableSentinel')]",
+              "type": "Microsoft.SecurityInsights/onboardingStates",
+              "apiVersion": "2024-03-01",
+              "scope": "[format('Microsoft.OperationalInsights/workspaces/{0}', variables('workspaceName'))]",
+              "name": "default",
+              "properties": {},
+              "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "status": {
+              "type": "string",
+              "metadata": {
+                "description": "Security module deployment status"
+              },
+              "value": "Security module deployed"
+            },
+            "logAnalyticsWorkspaceId": {
+              "type": "string",
+              "metadata": {
+                "description": "Log Analytics workspace ID"
+              },
+              "value": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName'))]"
+            },
+            "logAnalyticsWorkspaceName": {
+              "type": "string",
+              "metadata": {
+                "description": "Log Analytics workspace name"
+              },
+              "value": "[variables('workspaceName')]"
+            },
+            "logAnalyticsResourceId": {
+              "type": "string",
+              "metadata": {
+                "description": "Log Analytics workspace resource ID for diagnostics"
+              },
+              "value": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName'))]"
+            },
+            "defenderPlan": {
+              "type": "string",
+              "metadata": {
+                "description": "Defender for Office 365 plan"
+              },
+              "value": "[parameters('defenderForOfficePlan')]"
+            },
+            "logRetentionDays": {
+              "type": "int",
+              "metadata": {
+                "description": "Log retention period in days"
+              },
+              "value": "[variables('effectiveRetentionDays')]"
+            },
+            "sentinelEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Sentinel enabled"
+              },
+              "value": "[parameters('enableSentinel')]"
+            },
+            "defenderForOfficeConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Defender for Office 365 configuration for Graph API"
+              },
+              "value": "[variables('defenderForOfficeConfig')]"
+            },
+            "defenderForCloudAppsConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Defender for Cloud Apps configuration"
+              },
+              "value": "[variables('defenderForCloudAppsConfig')]"
+            },
+            "alertRulesConfiguration": {
+              "type": "array",
+              "metadata": {
+                "description": "Alert rules configuration"
+              },
+              "value": "[variables('alertRules')]"
+            },
+            "actionGroupId": {
+              "type": "string",
+              "metadata": {
+                "description": "Action group ID for alerts"
+              },
+              "value": "[if(not(empty(parameters('alertEmailRecipients'))), resourceId('Microsoft.Insights/actionGroups', format('ag-{0}-security', variables('namingPrefix'))), '')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2025-04-01",
+      "name": "[format('data-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "hipaaEnabled": {
+            "value": "[parameters('hipaaEnabled')]"
+          },
+          "securityBaseline": {
+            "value": "[parameters('securityBaseline')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.39.26.7824",
+              "templateHash": "11401529796668168654"
+            }
+          },
+          "parameters": {
+            "hipaaEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Enable HIPAA-aligned configuration"
+              }
+            },
+            "securityBaseline": {
+              "type": "string",
+              "allowedValues": [
+                "Standard",
+                "Enhanced",
+                "Maximum"
+              ],
+              "metadata": {
+                "description": "Security baseline level"
+              }
+            },
+            "enableDlp": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable Data Loss Prevention policies"
+              }
+            },
+            "dlpPolicyMode": {
+              "type": "string",
+              "defaultValue": "Warn",
+              "allowedValues": [
+                "Audit",
+                "Warn",
+                "Block"
+              ],
+              "metadata": {
+                "description": "DLP policy mode"
+              }
+            },
+            "enableDlpExchange": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable DLP for Exchange Online"
+              }
+            },
+            "enableDlpSharePoint": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable DLP for SharePoint Online"
+              }
+            },
+            "enableDlpOneDrive": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable DLP for OneDrive"
+              }
+            },
+            "enableDlpTeams": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable DLP for Teams"
+              }
+            },
+            "enableDlpEndpoint": {
+              "type": "bool",
+              "defaultValue": false,
+              "metadata": {
+                "description": "Enable DLP for endpoint devices"
+              }
+            },
+            "enableSensitivityLabels": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable sensitivity labels"
+              }
+            },
+            "enableAutoLabeling": {
+              "type": "bool",
+              "defaultValue": false,
+              "metadata": {
+                "description": "Auto-label sensitive content"
+              }
+            },
+            "defaultSensitivityLabel": {
+              "type": "string",
+              "defaultValue": "General",
+              "allowedValues": [
+                "None",
+                "General",
+                "Confidential",
+                "HighlyConfidential"
+              ],
+              "metadata": {
+                "description": "Default sensitivity label for new content"
+              }
+            },
+            "requireEncryption": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Require encryption for sensitive data"
+              }
+            },
+            "enableAip": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable Azure Information Protection"
+              }
+            },
+            "enableCustomerManagedKeys": {
+              "type": "bool",
+              "defaultValue": false,
+              "metadata": {
+                "description": "Enable customer-managed keys"
+              }
+            },
+            "defaultRetentionDays": {
+              "type": "int",
+              "defaultValue": 365,
+              "minValue": 30,
+              "maxValue": 2555,
+              "metadata": {
+                "description": "Default retention period in days"
+              }
+            },
+            "enableLitigationHold": {
+              "type": "bool",
+              "defaultValue": false,
+              "metadata": {
+                "description": "Enable litigation hold for key users"
+              }
+            }
+          },
+          "variables": {
+            "effectiveRetentionDays": "[if(parameters('hipaaEnabled'), max(parameters('defaultRetentionDays'), 2555), parameters('defaultRetentionDays'))]",
+            "effectiveDlpMode": "[if(parameters('hipaaEnabled'), 'Block', parameters('dlpPolicyMode'))]",
+            "enablePhiProtection": "[parameters('hipaaEnabled')]",
+            "effectiveAutoLabeling": "[or(parameters('hipaaEnabled'), parameters('enableAutoLabeling'))]",
+            "enforceDlpEndpoint": "[or(equals(parameters('securityBaseline'), 'Maximum'), parameters('enableDlpEndpoint'))]",
+            "enforceEncryption": "[or(not(equals(parameters('securityBaseline'), 'Standard')), parameters('requireEncryption'))]",
+            "hipaaInfoTypes": [
+              "U.S. Social Security Number (SSN)",
+              "U.S. Individual Taxpayer Identification Number (ITIN)",
+              "U.S. Health Insurance Claim Number (HICN)",
+              "U.S. DEA Number",
+              "International Classification of Diseases (ICD-9-CM)",
+              "International Classification of Diseases (ICD-10-CM)",
+              "Credit Card Number",
+              "U.S. Bank Account Number",
+              "U.S. Driver's License Number",
+              "U.S. Passport Number"
+            ],
+            "standardInfoTypes": [
+              "Credit Card Number",
+              "U.S. Social Security Number (SSN)",
+              "U.S. Bank Account Number",
+              "U.S. Passport Number"
+            ],
+            "effectiveInfoTypes": "[if(parameters('hipaaEnabled'), variables('hipaaInfoTypes'), variables('standardInfoTypes'))]",
+            "dlpPolicyConfig": {
+              "enabled": "[parameters('enableDlp')]",
+              "mode": "[variables('effectiveDlpMode')]",
+              "locations": {
+                "exchange": "[parameters('enableDlpExchange')]",
+                "sharePoint": "[parameters('enableDlpSharePoint')]",
+                "oneDrive": "[parameters('enableDlpOneDrive')]",
+                "teams": "[parameters('enableDlpTeams')]",
+                "endpoint": "[variables('enforceDlpEndpoint')]"
+              },
+              "rules": [
+                {
+                  "name": "Detect-Sensitive-Info-Low",
+                  "sensitiveInfoTypes": "[variables('effectiveInfoTypes')]",
+                  "minCount": 1,
+                  "maxCount": 9,
+                  "action": "Audit",
+                  "notifyUser": true,
+                  "notifyAdmin": false
+                },
+                {
+                  "name": "Detect-Sensitive-Info-Medium",
+                  "sensitiveInfoTypes": "[variables('effectiveInfoTypes')]",
+                  "minCount": 10,
+                  "maxCount": 49,
+                  "action": "[if(equals(variables('effectiveDlpMode'), 'Block'), 'Block', 'Warn')]",
+                  "notifyUser": true,
+                  "notifyAdmin": true
+                },
+                {
+                  "name": "Detect-Sensitive-Info-High",
+                  "sensitiveInfoTypes": "[variables('effectiveInfoTypes')]",
+                  "minCount": 50,
+                  "maxCount": null,
+                  "action": "Block",
+                  "notifyUser": true,
+                  "notifyAdmin": true,
+                  "requireJustification": true
+                }
+              ],
+              "hipaaSpecific": "[if(parameters('hipaaEnabled'), createObject('enabled', true(), 'blockExternalSharing', true(), 'requireEncryption', true(), 'auditAllAccess', true()), null())]"
+            },
+            "sensitivityLabelsConfig": {
+              "enabled": "[parameters('enableSensitivityLabels')]",
+              "autoLabeling": "[variables('effectiveAutoLabeling')]",
+              "defaultLabel": "[parameters('defaultSensitivityLabel')]",
+              "labels": [
+                {
+                  "name": "Public",
+                  "priority": 0,
+                  "tooltip": "Data intended for public consumption",
+                  "color": "#00FF00",
+                  "protection": {
+                    "encryption": false,
+                    "watermark": false
+                  }
+                },
+                {
+                  "name": "General",
+                  "priority": 1,
+                  "tooltip": "Business data not intended for public sharing",
+                  "color": "#008000",
+                  "protection": {
+                    "encryption": false,
+                    "watermark": false,
+                    "headerFooter": true
+                  }
+                },
+                {
+                  "name": "Confidential",
+                  "priority": 2,
+                  "tooltip": "Sensitive business data that could cause harm if shared",
+                  "color": "#FFA500",
+                  "protection": {
+                    "encryption": "[variables('enforceEncryption')]",
+                    "watermark": true,
+                    "headerFooter": true,
+                    "restrictAccess": "Organization"
+                  }
+                },
+                {
+                  "name": "Highly Confidential",
+                  "priority": 3,
+                  "tooltip": "Very sensitive data requiring strictest protection",
+                  "color": "#FF0000",
+                  "protection": {
+                    "encryption": true,
+                    "watermark": true,
+                    "headerFooter": true,
+                    "restrictAccess": "SpecificPeople",
+                    "preventForwarding": true,
+                    "preventCopy": true,
+                    "preventPrint": "[equals(parameters('securityBaseline'), 'Maximum')]"
+                  }
+                },
+                "[if(parameters('hipaaEnabled'), createObject('name', 'PHI - Protected Health Information', 'priority', 4, 'tooltip', 'HIPAA-protected health information', 'color', '#800080', 'protection', createObject('encryption', true(), 'watermark', true(), 'headerFooter', true(), 'restrictAccess', 'SpecificPeople', 'preventForwarding', true(), 'preventCopy', true(), 'preventPrint', true(), 'auditAccess', true())), null())]"
+              ]
+            },
+            "retentionPolicyConfig": {
+              "defaultRetentionDays": "[variables('effectiveRetentionDays')]",
+              "litigationHold": "[parameters('enableLitigationHold')]",
+              "policies": [
+                {
+                  "name": "Default-Retention",
+                  "locations": [
+                    "Exchange",
+                    "SharePoint",
+                    "OneDrive"
+                  ],
+                  "retentionDays": "[variables('effectiveRetentionDays')]",
+                  "action": "Retain"
+                },
+                {
+                  "name": "Teams-Retention",
+                  "locations": [
+                    "Teams"
+                  ],
+                  "retentionDays": "[if(parameters('hipaaEnabled'), variables('effectiveRetentionDays'), 365)]",
+                  "action": "Retain"
+                },
+                "[if(parameters('hipaaEnabled'), createObject('name', 'HIPAA-Audit-Logs', 'locations', createArray('Exchange', 'SharePoint', 'OneDrive', 'Teams'), 'retentionDays', 2555, 'action', 'RetainAndDelete', 'filter', 'Label:PHI*'), null())]"
+              ]
+            },
+            "encryptionConfig": {
+              "enabled": "[variables('enforceEncryption')]",
+              "aipEnabled": "[parameters('enableAip')]",
+              "customerManagedKeys": "[parameters('enableCustomerManagedKeys')]",
+              "settings": {
+                "encryptionAtRest": true,
+                "encryptionInTransit": true,
+                "doubleKeyEncryption": "[equals(parameters('securityBaseline'), 'Maximum')]",
+                "offlineAccess": "[if(parameters('hipaaEnabled'), false(), true())]",
+                "offlineAccessDays": "[if(parameters('hipaaEnabled'), 0, 30)]"
+              }
+            }
+          },
+          "resources": [],
+          "outputs": {
+            "status": {
+              "type": "string",
+              "metadata": {
+                "description": "Data module deployment status"
+              },
+              "value": "Data module deployed"
+            },
+            "dlpEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "DLP enabled"
+              },
+              "value": "[parameters('enableDlp')]"
+            },
+            "phiProtectionEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "PHI protection enabled"
+              },
+              "value": "[variables('enablePhiProtection')]"
+            },
+            "effectiveRetentionPeriod": {
+              "type": "int",
+              "metadata": {
+                "description": "Effective retention period in days"
+              },
+              "value": "[variables('effectiveRetentionDays')]"
+            },
+            "dlpPolicyConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "DLP policy configuration for Graph API"
+              },
+              "value": "[variables('dlpPolicyConfig')]"
+            },
+            "sensitivityLabelsConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Sensitivity labels configuration for Graph API"
+              },
+              "value": "[variables('sensitivityLabelsConfig')]"
+            },
+            "retentionPolicyConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Retention policy configuration for Graph API"
+              },
+              "value": "[variables('retentionPolicyConfig')]"
+            },
+            "encryptionConfiguration": {
+              "type": "object",
+              "metadata": {
+                "description": "Encryption configuration"
+              },
+              "value": "[variables('encryptionConfig')]"
+            },
+            "monitoredInfoTypes": {
+              "type": "array",
+              "metadata": {
+                "description": "Sensitive info types being monitored"
+              },
+              "value": "[variables('effectiveInfoTypes')]"
+            },
+            "hipaaMode": {
+              "type": "bool",
+              "metadata": {
+                "description": "HIPAA mode active"
+              },
+              "value": "[parameters('hipaaEnabled')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2025-04-01",
+      "name": "[format('network-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {},
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.39.26.7824",
+              "templateHash": "9345935253892065355"
+            }
+          },
+          "parameters": {
+            "enableNetworkSegmentation": {
+              "type": "bool",
+              "defaultValue": true,
+              "metadata": {
+                "description": "Enable network segmentation"
+              }
+            },
+            "enablePrivateEndpoints": {
+              "type": "bool",
+              "defaultValue": false,
+              "metadata": {
+                "description": "Enable private endpoints for M365 services"
+              }
+            }
+          },
+          "resources": [],
+          "outputs": {
+            "status": {
+              "type": "string",
+              "metadata": {
+                "description": "Network module deployment status"
+              },
+              "value": "Network module deployed (stub)"
+            },
+            "networkSegmentationEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Network segmentation enabled"
+              },
+              "value": "[parameters('enableNetworkSegmentation')]"
+            },
+            "privateEndpointsEnabled": {
+              "type": "bool",
+              "metadata": {
+                "description": "Private endpoints enabled"
+              },
+              "value": "[parameters('enablePrivateEndpoints')]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "resourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Deployed resource group name"
+      },
+      "value": "[parameters('resourceGroupName')]"
+    },
+    "resourceGroupId": {
+      "type": "string",
+      "metadata": {
+        "description": "Deployed resource group ID"
+      },
+      "value": "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+    },
+    "deploymentLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "Deployment location"
+      },
+      "value": "[parameters('location')]"
+    },
+    "securityBaselineApplied": {
+      "type": "string",
+      "metadata": {
+        "description": "Security baseline applied"
+      },
+      "value": "[parameters('securityBaseline')]"
+    },
+    "hipaaComplianceEnabled": {
+      "type": "bool",
+      "metadata": {
+        "description": "HIPAA compliance enabled"
+      },
+      "value": "[parameters('hipaaEnabled')]"
+    }
+  }
+}

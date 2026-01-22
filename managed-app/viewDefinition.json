@@ -1,0 +1,93 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/viewdefinition/0.0.1-preview/ViewDefinition.json#",
+  "views": [
+    {
+      "kind": "Overview",
+      "properties": {
+        "header": "Omzig M365 Zero Trust",
+        "description": "Microsoft 365 Zero Trust Security Configuration",
+        "commands": [
+          {
+            "displayName": "View Conditional Access Policies",
+            "path": "https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies",
+            "icon": "Shield"
+          },
+          {
+            "displayName": "View Security Dashboard",
+            "path": "https://security.microsoft.com/securitydashboard",
+            "icon": "Lock"
+          },
+          {
+            "displayName": "View Intune Compliance",
+            "path": "https://intune.microsoft.com/#view/Microsoft_Intune_DeviceSettings/DevicesComplianceMenu/~/policies",
+            "icon": "Devices"
+          }
+        ],
+        "cards": [
+          {
+            "type": "Essentials",
+            "displayName": "Deployment Details",
+            "properties": [
+              {
+                "displayName": "Security Baseline",
+                "value": "[parameters('securityBaseline')]"
+              },
+              {
+                "displayName": "HIPAA Mode",
+                "value": "[if(parameters('hipaaEnabled'), 'Enabled', 'Disabled')]"
+              },
+              {
+                "displayName": "Organization",
+                "value": "[parameters('orgName')]"
+              },
+              {
+                "displayName": "Environment",
+                "value": "[parameters('environmentName')]"
+              }
+            ]
+          },
+          {
+            "type": "Metrics",
+            "displayName": "Security Status",
+            "properties": [
+              {
+                "displayName": "Conditional Access Policies",
+                "value": "7",
+                "icon": "Shield"
+              },
+              {
+                "displayName": "Named Locations",
+                "value": "2",
+                "icon": "Globe"
+              },
+              {
+                "displayName": "Security Groups",
+                "value": "3",
+                "icon": "People"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "kind": "Metrics",
+      "properties": {
+        "displayName": "Security Metrics",
+        "description": "View security metrics and alerts",
+        "charts": [
+          {
+            "displayName": "Sign-in Activity",
+            "chartType": "Line",
+            "metrics": [
+              {
+                "name": "SignInLogs",
+                "aggregationType": "Count"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
