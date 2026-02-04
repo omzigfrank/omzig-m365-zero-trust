@@ -1,0 +1,25 @@
+# Azure Functions
+local.settings.json
+bin/
+obj/
+
+# Node
+node_modules/
+package-lock.json
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Policy config (contains tenant-specific GUIDs)
+policy-config.json

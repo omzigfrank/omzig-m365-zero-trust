@@ -21,8 +21,11 @@ function Connect-GraphWithManagedIdentity {
             throw "Managed identity endpoint not available. Ensure the function app has a managed identity assigned."
         }
 
-        # User-assigned managed identity client ID
-        $clientId = "a70dbbbc-f48b-4fe3-bd03-915d64f2372d"
+        # User-assigned managed identity client ID (set in Function App settings or local.settings.json)
+        $clientId = $env:AZURE_CLIENT_ID
+        if (-not $clientId) {
+            throw "AZURE_CLIENT_ID environment variable not set. Configure it in Function App settings."
+        }
 
         $tokenUri = "$endpoint`?resource=$resource&api-version=2019-08-01&client_id=$clientId"
         $headers = @{ "X-IDENTITY-HEADER" = $header }

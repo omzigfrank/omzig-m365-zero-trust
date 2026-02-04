@@ -28,15 +28,21 @@ param(
 $ErrorActionPreference = "Stop"
 $az = "C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"
 
-# Policy definitions
-$policies = @(
-    @{ id = "ceee8f43-f375-4292-9db5-be02c37ba352"; name = "CA001-Block-Legacy-Auth"; safe = $true },
-    @{ id = "684e777c-d542-43ac-9c92-3d42274423c6"; name = "CA002-Require-MFA-All-Users"; safe = $true },
-    @{ id = "022da8c4-4605-40aa-803c-aa8b6d7da908"; name = "CA003-Require-MFA-Admins"; safe = $true },
-    @{ id = "d1751d2e-32c4-49e1-a237-ded7bec68f00"; name = "CA004-Require-Compliant-Device"; safe = $false },
-    @{ id = "a5d48748-1ddc-4459-a1ae-836edb228e45"; name = "CA005-Block-High-Risk-Users"; safe = $true },
-    @{ id = "b1d4b527-e3d6-45db-a44a-505f72dcde7c"; name = "CA006-MFA-Risky-SignIn"; safe = $true }
-)
+# Policy definitions — load from policy-config.json or fall back to environment variables
+$configPath = Join-Path $PSScriptRoot "policy-config.json"
+if (Test-Path $configPath) {
+    $policyConfig = Get-Content $configPath -Raw | ConvertFrom-Json
+    $policies = @()
+    foreach ($p in $policyConfig) {
+        $policies += @{ id = $p.id; name = $p.name; safe = $p.safe }
+    }
+    Write-Host "Loaded $($policies.Count) policy definitions from policy-config.json" -ForegroundColor Cyan
+}
+else {
+    Write-Host "ERROR: policy-config.json not found at $configPath" -ForegroundColor Red
+    Write-Host "Create it from policy-config.example.json with your tenant-specific policy GUIDs." -ForegroundColor Yellow
+    exit 1
+}
 
 Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host "  Zero Trust CA Policy Enablement Script" -ForegroundColor Cyan

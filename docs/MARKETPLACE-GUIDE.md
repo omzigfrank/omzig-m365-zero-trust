@@ -328,7 +328,7 @@ Choose your security level:
 Add Azure subscription IDs that can access the preview:
 
 ```
-48019666-dd78-439e-9890-030ab5156f23
+<your-azure-subscription-id>
 ```
 
 ---
