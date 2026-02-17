@@ -1,0 +1,791 @@
+{
+  "profileId": "sct-win10-update-update",
+  "displayName": "SCT - Windows 10 Update Baseline - MSFT Windows Update",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Windows Update. Auto-generated from SCT GPO backup. Contains 78 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Windows Update",
+  "settingsCount": 78,
+  "settings": [
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/5CA83367-6E45-459F-A27B-476B1D01C936/DCSettingIndex",
+      "displayName": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\5CA83367-6E45-459F-A27B-476B1D01C936\\DCSettingIndex",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/5CA83367-6E45-459F-A27B-476B1D01C936/ACSettingIndex",
+      "displayName": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\5CA83367-6E45-459F-A27B-476B1D01C936\\ACSettingIndex",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/9D7815A6-7EE4-497E-8888-515A05F02364/**del.DCSettingIndex",
+      "displayName": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\9D7815A6-7EE4-497E-8888-515A05F02364\\**del.DCSettingIndex",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/9D7815A6-7EE4-497E-8888-515A05F02364/**del.ACSettingIndex",
+      "displayName": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\9D7815A6-7EE4-497E-8888-515A05F02364\\**del.ACSettingIndex",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/DCSettingIndex",
+      "displayName": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab\\DCSettingIndex",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/ACSettingIndex",
+      "displayName": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab\\ACSettingIndex",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/E69653CA-CF7F-4F05-AA73-CB833FA90AD4/DCSettingIndex",
+      "displayName": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\E69653CA-CF7F-4F05-AA73-CB833FA90AD4\\DCSettingIndex",
+      "value": 40,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/DeliveryOptimization/DODownloadMode",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\DeliveryOptimization\\DODownloadMode",
+      "value": 2,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/DeliveryOptimization/DOMinFileSizeToCache",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\DeliveryOptimization\\DOMinFileSizeToCache",
+      "value": 10,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/DeliveryOptimization/DOMinBatteryPercentageAllowedToUpload",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\DeliveryOptimization\\DOMinBatteryPercentageAllowedToUpload",
+      "value": 60,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/DeliveryOptimization/DOMaxCacheAge",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\DeliveryOptimization\\DOMaxCacheAge",
+      "value": 604800,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/DeliveryOptimization/DODelayBackgroundDownloadFromHttp",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\DeliveryOptimization\\DODelayBackgroundDownloadFromHttp",
+      "value": 300,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/DeliveryOptimization/DODelayForegroundDownloadFromHttp",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\DeliveryOptimization\\DODelayForegroundDownloadFromHttp",
+      "value": 60,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetDisablePauseUXAccess",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetDisablePauseUXAccess",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetUpdateNotificationLevel",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetUpdateNotificationLevel",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/UpdateNotificationLevel",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\UpdateNotificationLevel",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/DoNotConnectToWindowsUpdateInternetLocations",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\DoNotConnectToWindowsUpdateInternetLocations",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/DisableDualScan",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\DisableDualScan",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/ExcludeWUDriversInQualityUpdate",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\ExcludeWUDriversInQualityUpdate",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/ElevateNonAdmins",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\ElevateNonAdmins",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetAutoRestartNotificationConfig",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetAutoRestartNotificationConfig",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.AutoRestartNotificationSchedule",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.AutoRestartNotificationSchedule",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetAutoRestartRequiredNotificationDismissal",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetAutoRestartRequiredNotificationDismissal",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.AutoRestartRequiredNotificationDismissal",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.AutoRestartRequiredNotificationDismissal",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetRestartWarningSchd",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetRestartWarningSchd",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.ScheduleRestartWarning",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.ScheduleRestartWarning",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.ScheduleImminentRestartWarning",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.ScheduleImminentRestartWarning",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AUPowerManagement",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AUPowerManagement",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetDisableUXWUAccess",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetDisableUXWUAccess",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetAutoRestartDeadline",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetAutoRestartDeadline",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.AutoRestartDeadlinePeriodInDays",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.AutoRestartDeadlinePeriodInDays",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.AutoRestartDeadlinePeriodInDaysForFeatureUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.AutoRestartDeadlinePeriodInDaysForFeatureUpdates",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetComplianceDeadline",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetComplianceDeadline",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/ConfigureDeadlineForQualityUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\ConfigureDeadlineForQualityUpdates",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/ConfigureDeadlineForFeatureUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\ConfigureDeadlineForFeatureUpdates",
+      "value": 7,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/ConfigureDeadlineGracePeriod",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\ConfigureDeadlineGracePeriod",
+      "value": 2,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.ConfigureDeadlineNoAutoReboot",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.ConfigureDeadlineNoAutoReboot",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetEngagedRestartTransitionSchedule",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetEngagedRestartTransitionSchedule",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.EngagedRestartTransitionSchedule",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.EngagedRestartTransitionSchedule",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.EngagedRestartSnoozeSchedule",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.EngagedRestartSnoozeSchedule",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.EngagedRestartDeadline",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.EngagedRestartDeadline",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.EngagedRestartTransitionScheduleForFeatureUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.EngagedRestartTransitionScheduleForFeatureUpdates",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.EngagedRestartSnoozeScheduleForFeatureUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.EngagedRestartSnoozeScheduleForFeatureUpdates",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.EngagedRestartDeadlineForFeatureUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.EngagedRestartDeadlineForFeatureUpdates",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetActiveHours",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetActiveHours",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.ActiveHoursStart",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.ActiveHoursStart",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/**del.ActiveHoursEnd",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\**del.ActiveHoursEnd",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetAutoRestartNotificationDisable",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetAutoRestartNotificationDisable",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetEDURestart",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetEDURestart",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/SetActiveHoursMaxRange",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\SetActiveHoursMaxRange",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/ActiveHoursMaxRange",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\ActiveHoursMaxRange",
+      "value": 10,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/AutoInstallMinorUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\AutoInstallMinorUpdates",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/AlwaysAutoRebootAtScheduledTime",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\AlwaysAutoRebootAtScheduledTime",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.AlwaysAutoRebootAtScheduledTimeMinutes",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.AlwaysAutoRebootAtScheduledTimeMinutes",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/RebootWarningTimeoutEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\RebootWarningTimeoutEnabled",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.RebootWarningTimeout",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.RebootWarningTimeout",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/NoAUAsDefaultShutdownOption",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\NoAUAsDefaultShutdownOption",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/NoAUShutdownOption",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\NoAUShutdownOption",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/NoAutoRebootWithLoggedOnUsers",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\NoAutoRebootWithLoggedOnUsers",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/RebootRelaunchTimeoutEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\RebootRelaunchTimeoutEnabled",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.RebootRelaunchTimeout",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.RebootRelaunchTimeout",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/RescheduleWaitTimeEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\RescheduleWaitTimeEnabled",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.RescheduleWaitTime",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.RescheduleWaitTime",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/IncludeRecommendedUpdates",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\IncludeRecommendedUpdates",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/EnableFeaturedSoftware",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\EnableFeaturedSoftware",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/DetectionFrequencyEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\DetectionFrequencyEnabled",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/DetectionFrequency",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\DetectionFrequency",
+      "value": 6,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/NoAutoUpdate",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\NoAutoUpdate",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/AUOptions",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\AUOptions",
+      "value": 4,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.AutomaticMaintenanceEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.AutomaticMaintenanceEnabled",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/ScheduledInstallDay",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\ScheduledInstallDay",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/ScheduledInstallTime",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\ScheduledInstallTime",
+      "value": 24,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/ScheduledInstallEveryWeek",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\ScheduledInstallEveryWeek",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.ScheduledInstallFirstWeek",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.ScheduledInstallFirstWeek",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.ScheduledInstallSecondWeek",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.ScheduledInstallSecondWeek",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.ScheduledInstallThirdWeek",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.ScheduledInstallThirdWeek",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/**del.ScheduledInstallFourthWeek",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\**del.ScheduledInstallFourthWeek",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WindowsUpdate/AU/AllowMUUpdateService",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU\\AllowMUUpdateService",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Automation"
+      ],
+      "hipaaControls": []
+    }
+  ]
+}

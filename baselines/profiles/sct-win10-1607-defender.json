@@ -1,0 +1,119 @@
+{
+  "profileId": "sct-win10-1607-defender",
+  "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Windows 10 and Server 2016 - Defender",
+  "description": "Microsoft Security Compliance Toolkit baseline: SCM Windows 10 and Server 2016 - Defender. Auto-generated from SCT GPO backup. Contains 7 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "SCM Windows 10 and Server 2016 - Defender",
+  "settingsCount": 7,
+  "settings": [
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/DisableAntiSpyware",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\DisableAntiSpyware",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableBehaviorMonitoring",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection\\DisableBehaviorMonitoring",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/DisableRemovableDriveScanning",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Scan\\DisableRemovableDriveScanning",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/DisableEmailScanning",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Scan\\DisableEmailScanning",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/LocalSettingOverrideSpynetReporting",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet\\LocalSettingOverrideSpynetReporting",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Visibility"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SubmitSamplesConsent",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet\\SubmitSamplesConsent",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Visibility"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SpynetReporting",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet\\SpynetReporting",
+      "value": 2,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Visibility"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    }
+  ]
+}

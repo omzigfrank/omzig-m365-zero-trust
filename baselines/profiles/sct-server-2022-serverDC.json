@@ -1,0 +1,101 @@
+{
+  "profileId": "sct-server-2022-serverDC",
+  "displayName": "SCT - Windows Server 2022 - MSFT Windows Server 2022 - Domain Controller Virtualization Based Security",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Windows Server 2022 - Domain Controller Virtualization Based Security. Auto-generated from SCT GPO backup. Contains 6 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Windows Server 2022 - Domain Controller Virtualization Based Security",
+  "settingsCount": 6,
+  "settings": [
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/EnableVirtualizationBasedSecurity",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard\\EnableVirtualizationBasedSecurity",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/RequirePlatformSecurityFeatures",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard\\RequirePlatformSecurityFeatures",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/HypervisorEnforcedCodeIntegrity",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard\\HypervisorEnforcedCodeIntegrity",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/HVCIMATRequired",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard\\HVCIMATRequired",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/LsaCfgFlags",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard\\LsaCfgFlags",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/ConfigureSystemGuardLaunch",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard\\ConfigureSystemGuardLaunch",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    }
+  ]
+}

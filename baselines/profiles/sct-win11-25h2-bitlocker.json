@@ -1,0 +1,135 @@
+{
+  "profileId": "sct-win11-25h2-bitlocker",
+  "displayName": "SCT - Windows 11 v25H2 - MSFT Windows 11 25H2 - BitLocker",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Windows 11 25H2 - BitLocker. Auto-generated from SCT GPO backup. Contains 10 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Windows 11 25H2 - BitLocker",
+  "settingsCount": 10,
+  "settings": [
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/UseEnhancedPin",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\FVE\\UseEnhancedPin",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Data"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(a)(2)(iv)",
+          "name": "Encryption and Decryption"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/RDVDenyCrossOrg",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\FVE\\RDVDenyCrossOrg",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Data"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(a)(2)(iv)",
+          "name": "Encryption and Decryption"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/DisableExternalDMAUnderLock",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\FVE\\DisableExternalDMAUnderLock",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Data"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(a)(2)(iv)",
+          "name": "Encryption and Decryption"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/DCSettingIndex",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab\\DCSettingIndex",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/ACSettingIndex",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab\\ACSettingIndex",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClasses",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClassesRetroactive",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClassesRetroactive",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses/**delvals.",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClasses\\**delvals.",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses/1",
+      "displayName": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClasses\\1",
+      "value": "{d48179be-ec20-11d1-b6b8-00c04fa372a7}",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Policies/Microsoft/FVE/RDVDenyWriteAccess",
+      "displayName": "System\\CurrentControlSet\\Policies\\Microsoft\\FVE\\RDVDenyWriteAccess",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Data"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(a)(2)(iv)",
+          "name": "Encryption and Decryption"
+        }
+      ]
+    }
+  ]
+}

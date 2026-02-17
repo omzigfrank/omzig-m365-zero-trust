@@ -1,0 +1,424 @@
+{
+  "profileId": "sct-server-2025-defender",
+  "displayName": "SCT - Windows Server 2025 - MSFT Windows Server 2025 v2506 - Defender Antivirus",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Windows Server 2025 v2506 - Defender Antivirus. Auto-generated from SCT GPO backup. Contains 27 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Windows Server 2025 v2506 - Defender Antivirus",
+  "settingsCount": 27,
+  "settings": [
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/PUAProtection",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\PUAProtection",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/HideExclusionsFromLocalAdmins",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\HideExclusionsFromLocalAdmins",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/SignaturesRing",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\SignaturesRing",
+      "value": 5,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/EngineRing",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\EngineRing",
+      "value": 5,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/PlatformRing",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\PlatformRing",
+      "value": 5,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/MpEngine/MpCloudBlockLevel",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\MpEngine\\MpCloudBlockLevel",
+      "value": 2,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableIOAVProtection",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection\\DisableIOAVProtection",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableRealtimeMonitoring",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection\\DisableRealtimeMonitoring",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableScriptScanning",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection\\DisableScriptScanning",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableBehaviorMonitoring",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection\\DisableBehaviorMonitoring",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/OobeEnableRtpAndSigUpdate",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection\\OobeEnableRtpAndSigUpdate",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Reporting/EnableDynamicSignatureDroppedEventReporting",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Reporting\\EnableDynamicSignatureDroppedEventReporting",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Visibility"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(b)",
+          "name": "Audit Controls"
+        },
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/DisableRemovableDriveScanning",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Scan\\DisableRemovableDriveScanning",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/QuickScanIncludeExclusions",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Scan\\QuickScanIncludeExclusions",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SubmitSamplesConsent",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet\\SubmitSamplesConsent",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Visibility"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SpynetReporting",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet\\SpynetReporting",
+      "value": 2,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Visibility"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/DisableBlockAtFirstSeen",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet\\DisableBlockAtFirstSeen",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device",
+        "Visibility"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/ExploitGuard_ASR_Rules",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\ExploitGuard_ASR_Rules",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/d3e037e1-3eb8-44c8-a917-57927947596d",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\d3e037e1-3eb8-44c8-a917-57927947596d",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/c1db55ab-c21a-4637-bb3f-a12568109d35",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\c1db55ab-c21a-4637-bb3f-a12568109d35",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/e6db77e5-3df2-4cf1-b95a-636979351e5b",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\e6db77e5-3df2-4cf1-b95a-636979351e5b",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/56a863a9-875e-4185-98a7-b882c64b5ce5",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\56a863a9-875e-4185-98a7-b882c64b5ce5",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/a8f5898e-1dc8-49a9-9878-85004b8a61e6",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules\\a8f5898e-1dc8-49a9-9878-85004b8a61e6",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/Network Protection/AllowNetworkProtectionOnWinServer",
+      "displayName": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection\\AllowNetworkProtectionOnWinServer",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Device"
+      ],
+      "hipaaControls": [
+        {
+          "id": "164.312(c)(1)",
+          "name": "Integrity"
+        }
+      ]
+    }
+  ]
+}

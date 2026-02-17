@@ -1,0 +1,3885 @@
+{
+  "metadata": {
+    "id": "win10-1607",
+    "name": "Windows 10 v1607 / Server 2016",
+    "os": "Windows 10",
+    "version": "1607",
+    "category": "workstation",
+    "current": false,
+    "supersedes": [],
+    "parsedAt": "2026-02-17T22:31:28.911664Z",
+    "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 10 v1607 / Server 2016"
+  },
+  "gpos": {
+    "credentialGuard": {
+      "name": "SCM Windows 10 and Server 2016 - Credential Guard",
+      "backupId": "714fd77e-8fdd-4cb0-b3f7-ff49815473ff",
+      "type": "credentialGuard",
+      "registrySettings": [
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "EnableVirtualizationBasedSecurity",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/EnableVirtualizationBasedSecurity",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "RequirePlatformSecurityFeatures",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/RequirePlatformSecurityFeatures",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "HypervisorEnforcedCodeIntegrity",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/HypervisorEnforcedCodeIntegrity",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "LsaCfgFlags",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/LsaCfgFlags",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "defender": {
+      "name": "SCM Windows 10 and Server 2016 - Defender",
+      "backupId": "4095647a-14fe-4ce4-955a-f2311b0d62d1",
+      "type": "defender",
+      "registrySettings": [
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender",
+          "valueName": "DisableAntiSpyware",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/DisableAntiSpyware",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "DisableBehaviorMonitoring",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableBehaviorMonitoring",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Scan",
+          "valueName": "DisableRemovableDriveScanning",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/DisableRemovableDriveScanning",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Scan",
+          "valueName": "DisableEmailScanning",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/DisableEmailScanning",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
+          "valueName": "LocalSettingOverrideSpynetReporting",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/LocalSettingOverrideSpynetReporting",
+          "nsaPillars": [
+            "Device",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
+          "valueName": "SubmitSamplesConsent",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SubmitSamplesConsent",
+          "nsaPillars": [
+            "Device",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
+          "valueName": "SpynetReporting",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SpynetReporting",
+          "nsaPillars": [
+            "Device",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "domainSecurity": {
+      "name": "SCM Windows 10 and Server 2016 - Domain Security",
+      "backupId": "1d2c9d38-6bb1-4c90-b5eb-2850ea18ae06",
+      "type": "domainSecurity",
+      "registrySettings": [],
+      "securitySettings": {
+        "Unicode": [
+          "Unicode=yes"
+        ],
+        "System Access": [
+          "MinimumPasswordAge = 1",
+          "MaximumPasswordAge = 60",
+          "MinimumPasswordLength = 14",
+          "PasswordComplexity = 1",
+          "PasswordHistorySize = 24",
+          "LockoutBadCount = 10",
+          "ResetLockoutCount = 15",
+          "LockoutDuration = 15",
+          "ClearTextPassword = 0"
+        ],
+        "Version": [
+          "signature=\"$CHICAGO$\"",
+          "Revision=1"
+        ]
+      },
+      "auditPolicies": []
+    },
+    "user": {
+      "name": "SCM Windows 10 RS1 - User",
+      "backupId": "eb965378-f079-41ee-af63-54900d1d771c",
+      "type": "user",
+      "registrySettings": [
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Control Panel\\Desktop",
+          "valueName": "ScreenSaveActive",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/Control Panel/Desktop/ScreenSaveActive",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Control Panel\\Desktop",
+          "valueName": "ScreenSaverIsSecure",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/Control Panel/Desktop/ScreenSaverIsSecure",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+          "valueName": "NoToastApplicationNotificationOnLockScreen",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/PushNotifications/NoToastApplicationNotificationOnLockScreen",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "bitlocker": {
+      "name": "SCM Windows 10 RS1 - BitLocker",
+      "backupId": "23d00834-1b40-4f45-a461-8f833529994c",
+      "type": "bitlocker",
+      "registrySettings": [
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "UseEnhancedPin",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/UseEnhancedPin",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "OSAllowSecureBootForIntegrity",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/OSAllowSecureBootForIntegrity",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "MinimumPIN",
+          "type": "REG_DWORD",
+          "data": 7,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/MinimumPIN",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "RDVDenyCrossOrg",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/RDVDenyCrossOrg",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "EncryptionMethodWithXtsOs",
+          "type": "REG_DWORD",
+          "data": 7,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/EncryptionMethodWithXtsOs",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "EncryptionMethodWithXtsFdv",
+          "type": "REG_DWORD",
+          "data": 7,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/EncryptionMethodWithXtsFdv",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "EncryptionMethodWithXtsRdv",
+          "type": "REG_DWORD",
+          "data": 4,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/EncryptionMethodWithXtsRdv",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab",
+          "valueName": "DCSettingIndex",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/DCSettingIndex",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab",
+          "valueName": "ACSettingIndex",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/ACSettingIndex",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions",
+          "valueName": "DenyDeviceClasses",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions",
+          "valueName": "DenyDeviceClassesRetroactive",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClassesRetroactive",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions",
+          "valueName": "DenyDeviceIDs",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceIDs",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions",
+          "valueName": "DenyDeviceIDsRetroactive",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceIDsRetroactive",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClasses",
+          "valueName": "**delvals.",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses/**delvals.",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClasses",
+          "valueName": "1",
+          "type": "REG_SZ",
+          "data": "{d48179be-ec20-11d1-b6b8-00c04fa372a7}",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses/1",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceIDs",
+          "valueName": "**delvals.",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceIDs/**delvals.",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceIDs",
+          "valueName": "1",
+          "type": "REG_SZ",
+          "data": "PCI\\CC_0C0A",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceIDs/1",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "System\\CurrentControlSet\\Policies\\Microsoft\\FVE",
+          "valueName": "RDVDenyWriteAccess",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Policies/Microsoft/FVE/RDVDenyWriteAccess",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        }
+      ],
+      "securitySettings": {
+        "Unicode": [
+          "Unicode=yes"
+        ],
+        "Version": [
+          "signature=\"$CHICAGO$\"",
+          "Revision=1"
+        ],
+        "Registry Values": []
+      },
+      "auditPolicies": []
+    },
+    "computer": {
+      "name": "SCM Internet Explorer 11 - Computer",
+      "backupId": "07177af8-97df-407d-89a6-c875cd1784bc",
+      "type": "computer",
+      "registrySettings": [
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext",
+          "valueName": "RunThisTimeEnabled",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Ext/RunThisTimeEnabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext",
+          "valueName": "VersionCheckEnabled",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Ext/VersionCheckEnabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Download",
+          "valueName": "RunInvalidSignatures",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Download/RunInvalidSignatures",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Download",
+          "valueName": "CheckExeSignatures",
+          "type": "REG_SZ",
+          "data": "yes",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Download/CheckExeSignatures",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Feeds",
+          "valueName": "DisableEnclosureDownload",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Feeds/DisableEnclosureDownload",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main",
+          "valueName": "Isolation64Bit",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/Isolation64Bit",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main",
+          "valueName": "DisableEPMCompat",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/DisableEPMCompat",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main",
+          "valueName": "Isolation",
+          "type": "REG_SZ",
+          "data": "PMEM",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/Isolation",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_DISABLE_MK_PROTOCOL/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_DISABLE_MK_PROTOCOL/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_DISABLE_MK_PROTOCOL/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_HANDLING/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_HANDLING/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_HANDLING/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_SNIFFING/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_SNIFFING/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_SNIFFING/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_ACTIVEXINSTALL/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_ACTIVEXINSTALL/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_ACTIVEXINSTALL/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_FILEDOWNLOAD/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_FILEDOWNLOAD/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_FILEDOWNLOAD/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_SECURITYBAND/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_SECURITYBAND/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_SECURITYBAND/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_WINDOW_RESTRICTIONS/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_WINDOW_RESTRICTIONS/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_WINDOW_RESTRICTIONS/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION",
+          "valueName": "(Reserved)",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_ZONE_ELEVATION/(Reserved)",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION",
+          "valueName": "explorer.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_ZONE_ELEVATION/explorer.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION",
+          "valueName": "iexplore.exe",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_ZONE_ELEVATION/iexplore.exe",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter",
+          "valueName": "PreventOverrideAppRepUnknown",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/PhishingFilter/PreventOverrideAppRepUnknown",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter",
+          "valueName": "PreventOverride",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/PhishingFilter/PreventOverride",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter",
+          "valueName": "EnabledV9",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/PhishingFilter/EnabledV9",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Restrictions",
+          "valueName": "NoCrashDetection",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Restrictions/NoCrashDetection",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Security",
+          "valueName": "DisableSecuritySettingsCheck",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Security/DisableSecuritySettingsCheck",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Security\\ActiveX",
+          "valueName": "BlockNonAdminActiveXInstall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Security/ActiveX/BlockNonAdminActiveXInstall",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\AxInstaller",
+          "valueName": "OnlyUseAXISForActiveXInstall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/AxInstaller/OnlyUseAXISForActiveXInstall",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "Security_zones_map_edit",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Security_zones_map_edit",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "Security_options_edit",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Security_options_edit",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "Security_HKLM_only",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Security_HKLM_only",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "CertificateRevocation",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/CertificateRevocation",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "PreventIgnoreCertErrors",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/PreventIgnoreCertErrors",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "WarnOnBadCertRecving",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/WarnOnBadCertRecving",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "SecureProtocols",
+          "type": "REG_DWORD",
+          "data": 2688,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/SecureProtocols",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
+          "valueName": "EnableSSL3Fallback",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/EnableSSL3Fallback",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\0",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/0/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\1",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/1/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\2",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/2/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\3",
+          "valueName": "2301",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/3/2301",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4",
+          "valueName": "2301",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/4/2301",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/4/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap",
+          "valueName": "UNCAsIntranet",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/ZoneMap/UNCAsIntranet",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/0/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0",
+          "valueName": "270C",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/0/270C",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1",
+          "valueName": "270C",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/1/270C",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1",
+          "valueName": "1201",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/1/1201",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 65536,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/1/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 65536,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/2/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2",
+          "valueName": "270C",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/2/270C",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2",
+          "valueName": "1201",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/2/1201",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2001",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2001",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2102",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2102",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1802",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1802",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "160A",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/160A",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1201",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1201",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1406",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1406",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1804",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1804",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2200",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2200",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1209",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1209",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1206",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1206",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1809",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1809",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2500",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2500",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2103",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2103",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1604",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1604",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1606",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1606",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2402",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2402",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2004",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2004",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1001",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1001",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1A00",
+          "type": "REG_DWORD",
+          "data": 65536,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1A00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2708",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2708",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1004",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1004",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "120b",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/120b",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1407",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1407",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1409",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1409",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "270C",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/270C",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1607",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1607",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2709",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2709",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2101",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2101",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "2301",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2301",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "1806",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1806",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
+          "valueName": "120c",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/120c",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1608",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1608",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1201",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1201",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1001",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1001",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1607",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1607",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "120b",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/120b",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1809",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1809",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1004",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1004",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1606",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1606",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1407",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1407",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "160A",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/160A",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1406",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1406",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2102",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2102",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2004",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2004",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2200",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2200",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2000",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2000",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1402",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1402",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1803",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1803",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2402",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2402",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1400",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1400",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1A00",
+          "type": "REG_DWORD",
+          "data": 196608,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1A00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2001",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2001",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1604",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1604",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2500",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2500",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1409",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1409",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1C00",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1C00",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1209",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1209",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "270C",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/270C",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1206",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1206",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2708",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2708",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1802",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1802",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2103",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2103",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2709",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2709",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1405",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1405",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2101",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2101",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "2301",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2301",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1200",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1200",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1804",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1804",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "1806",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1806",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
+          "valueName": "120c",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/120c",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "serverDC": {
+      "name": "SCM Windows Server 2016 - Domain Controller Baseline",
+      "backupId": "37bbb33a-a159-427d-ad58-67b1be126ad6",
+      "type": "serverDC",
+      "registrySettings": [
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "valueName": "NoDriveTypeAutoRun",
+          "type": "REG_DWORD",
+          "data": 255,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Explorer/NoDriveTypeAutoRun",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "valueName": "NoAutorun",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Explorer/NoAutorun",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "DisableAutomaticRestartSignOn",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/DisableAutomaticRestartSignOn",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Biometrics\\FacialFeatures",
+          "valueName": "EnhancedAntiSpoofing",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Biometrics/FacialFeatures/EnhancedAntiSpoofing",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\EventLog\\Application",
+          "valueName": "MaxSize",
+          "type": "REG_DWORD",
+          "data": 32768,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/EventLog/Application/MaxSize",
+          "nsaPillars": [
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\EventLog\\Security",
+          "valueName": "MaxSize",
+          "type": "REG_DWORD",
+          "data": 196608,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/EventLog/Security/MaxSize",
+          "nsaPillars": [
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\EventLog\\System",
+          "valueName": "MaxSize",
+          "type": "REG_DWORD",
+          "data": 32768,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/EventLog/System/MaxSize",
+          "nsaPillars": [
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "NoAutoplayfornonVolume",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Explorer/NoAutoplayfornonVolume",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "NoDataExecutionPrevention",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Explorer/NoDataExecutionPrevention",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "NoHeapTerminationOnCorruption",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Explorer/NoHeapTerminationOnCorruption",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",
+          "valueName": "NoBackgroundPolicy",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Group Policy/{35378EAC-683F-11D2-A89A-00C04FBBCFA2}/NoBackgroundPolicy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",
+          "valueName": "NoGPOListChanges",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Group Policy/{35378EAC-683F-11D2-A89A-00C04FBBCFA2}/NoGPOListChanges",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Installer",
+          "valueName": "AlwaysInstallElevated",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Installer/AlwaysInstallElevated",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Installer",
+          "valueName": "EnableUserControl",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Installer/EnableUserControl",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "AllowInsecureGuestAuth",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/AllowInsecureGuestAuth",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
+          "valueName": "\\\\*\\NETLOGON",
+          "type": "REG_SZ",
+          "data": "RequireMutualAuthentication=1,RequireIntegrity=1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/NetworkProvider/HardenedPaths/\\\\*\\NETLOGON",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
+          "valueName": "\\\\*\\SYSVOL",
+          "type": "REG_SZ",
+          "data": "RequireMutualAuthentication=1,RequireIntegrity=1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/NetworkProvider/HardenedPaths/\\\\*\\SYSVOL",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Personalization",
+          "valueName": "NoLockScreenCamera",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Personalization/NoLockScreenCamera",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Personalization",
+          "valueName": "NoLockScreenSlideshow",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Personalization/NoLockScreenSlideshow",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+          "valueName": "EnableScriptBlockLogging",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/PowerShell/ScriptBlockLogging/EnableScriptBlockLogging",
+          "nsaPillars": [
+            "Application",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+          "valueName": "**del.EnableScriptBlockInvocationLogging",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/PowerShell/ScriptBlockLogging/**del.EnableScriptBlockInvocationLogging",
+          "nsaPillars": [
+            "Application",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Safer",
+          "valueName": "",
+          "type": "REG_UNKNOWN(0)",
+          "data": "",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Safer/",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Appx",
+          "valueName": "EnforcementMode",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Appx/EnforcementMode",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Appx\\a9e18c21-ff8f-43cf-b9fc-db40eed693ba",
+          "valueName": "Value",
+          "type": "REG_SZ",
+          "data": "<FilePublisherRule Id=\"a9e18c21-ff8f-43cf-b9fc-db40eed693ba\" Name=\"(Default Rule) All signed packaged apps\" Description=\"Allows members of the Everyone group to run packaged apps that are signed.\" UserOrGroupSid=\"S-1-1-0\" Action=\"Allow\"><Conditions><FilePublisherCondition PublisherName=\"*\" ProductName=\"*\" BinaryName=\"*\"><BinaryVersionRange LowSection=\"0.0.0.0\" HighSection=\"*\"/></FilePublisherCondition></Conditions></FilePublisherRule>\r\n",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Appx/a9e18c21-ff8f-43cf-b9fc-db40eed693ba/Value",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Dll",
+          "valueName": "",
+          "type": "REG_UNKNOWN(0)",
+          "data": "",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Dll/",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Exe",
+          "valueName": "EnforcementMode",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Exe/EnforcementMode",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Exe\\5e3ec135-b5af-4961-ae4d-cde98710afc9",
+          "valueName": "Value",
+          "type": "REG_SZ",
+          "data": "<FilePublisherRule Id=\"5e3ec135-b5af-4961-ae4d-cde98710afc9\" Name=\"Block Google Chrome\" Description=\"\" UserOrGroupSid=\"S-1-1-0\" Action=\"Deny\"><Conditions><FilePublisherCondition PublisherName=\"O=GOOGLE INC, L=MOUNTAIN VIEW, S=CALIFORNIA, C=US\" ProductName=\"GOOGLE CHROME\" BinaryName=\"CHROME.EXE\"><BinaryVersionRange LowSection=\"*\" HighSection=\"*\"/></FilePublisherCondition></Conditions></FilePublisherRule>\r\n",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Exe/5e3ec135-b5af-4961-ae4d-cde98710afc9/Value",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Exe\\6db6c8f3-cf7c-4754-a438-94c95345bb53",
+          "valueName": "Value",
+          "type": "REG_SZ",
+          "data": "<FilePublisherRule Id=\"6db6c8f3-cf7c-4754-a438-94c95345bb53\" Name=\"Block Mozilla Firefox\" Description=\"\" UserOrGroupSid=\"S-1-1-0\" Action=\"Deny\"><Conditions><FilePublisherCondition PublisherName=\"O=MOZILLA CORPORATION, L=MOUNTAIN VIEW, S=CA, C=US\" ProductName=\"FIREFOX\" BinaryName=\"FIREFOX.EXE\"><BinaryVersionRange LowSection=\"*\" HighSection=\"*\"/></FilePublisherCondition></Conditions></FilePublisherRule>\r\n",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Exe/6db6c8f3-cf7c-4754-a438-94c95345bb53/Value",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Exe\\881d54fe-3848-4d6a-95fd-42d48ebe60b8",
+          "valueName": "Value",
+          "type": "REG_SZ",
+          "data": "<FilePublisherRule Id=\"881d54fe-3848-4d6a-95fd-42d48ebe60b8\" Name=\"Block Internet Explorer\" Description=\"\" UserOrGroupSid=\"S-1-1-0\" Action=\"Deny\"><Conditions><FilePublisherCondition PublisherName=\"O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US\" ProductName=\"INTERNET EXPLORER\" BinaryName=\"IEXPLORE.EXE\"><BinaryVersionRange LowSection=\"*\" HighSection=\"*\"/></FilePublisherCondition></Conditions></FilePublisherRule>\r\n",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Exe/881d54fe-3848-4d6a-95fd-42d48ebe60b8/Value",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Exe\\921cc481-6e17-4653-8f75-050b80acca20",
+          "valueName": "Value",
+          "type": "REG_SZ",
+          "data": "<FilePathRule Id=\"921cc481-6e17-4653-8f75-050b80acca20\" Name=\"(Default Rule) All files located in the Program Files folder\" Description=\"Allows members of the Everyone group to run applications that are located in the Program Files folder.\" UserOrGroupSid=\"S-1-1-0\" Action=\"Allow\"><Conditions><FilePathCondition Path=\"%PROGRAMFILES%\\*\"/></Conditions></FilePathRule>\r\n",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Exe/921cc481-6e17-4653-8f75-050b80acca20/Value",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Exe\\a61c8b2c-a319-4cd0-9690-d2177cad7b51",
+          "valueName": "Value",
+          "type": "REG_SZ",
+          "data": "<FilePathRule Id=\"a61c8b2c-a319-4cd0-9690-d2177cad7b51\" Name=\"(Default Rule) All files located in the Windows folder\" Description=\"Allows members of the Everyone group to run applications that are located in the Windows folder.\" UserOrGroupSid=\"S-1-1-0\" Action=\"Allow\"><Conditions><FilePathCondition Path=\"%WINDIR%\\*\"/></Conditions></FilePathRule>\r\n",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Exe/a61c8b2c-a319-4cd0-9690-d2177cad7b51/Value",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Exe\\fd686d83-a829-4351-8ff4-27c7de5755d2",
+          "valueName": "Value",
+          "type": "REG_SZ",
+          "data": "<FilePathRule Id=\"fd686d83-a829-4351-8ff4-27c7de5755d2\" Name=\"(Default Rule) All files\" Description=\"Allows members of the local Administrators group to run all applications.\" UserOrGroupSid=\"S-1-5-32-544\" Action=\"Allow\"><Conditions><FilePathCondition Path=\"*\"/></Conditions></FilePathRule>\r\n",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Exe/fd686d83-a829-4351-8ff4-27c7de5755d2/Value",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Msi",
+          "valueName": "",
+          "type": "REG_UNKNOWN(0)",
+          "data": "",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Msi/",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\SrpV2\\Script",
+          "valueName": "",
+          "type": "REG_UNKNOWN(0)",
+          "data": "",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/SrpV2/Script/",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "DontDisplayNetworkSelectionUI",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/DontDisplayNetworkSelectionUI",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "EnableSmartScreen",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/EnableSmartScreen",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Windows Search",
+          "valueName": "AllowIndexingEncryptedStoresOrItems",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Windows Search/AllowIndexingEncryptedStoresOrItems",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+          "valueName": "AllowBasic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Client/AllowBasic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+          "valueName": "AllowUnencryptedTraffic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Client/AllowUnencryptedTraffic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+          "valueName": "AllowDigest",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Client/AllowDigest",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+          "valueName": "AllowBasic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Service/AllowBasic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+          "valueName": "AllowUnencryptedTraffic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Service/AllowUnencryptedTraffic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+          "valueName": "DisableRunAs",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Service/DisableRunAs",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\MitigationOptions",
+          "valueName": "MitigationOptions_FontBocking",
+          "type": "REG_SZ",
+          "data": "1000000000000",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/MitigationOptions/MitigationOptions_FontBocking",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "DisablePasswordSaving",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/DisablePasswordSaving",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "fDisableCdm",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/fDisableCdm",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "fPromptForPassword",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/fPromptForPassword",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "fEncryptRPCTraffic",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/fEncryptRPCTraffic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "MinEncryptionLevel",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/MinEncryptionLevel",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall",
+          "valueName": "PolicyVersion",
+          "type": "REG_DWORD",
+          "data": 538,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PolicyVersion",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
+          "valueName": "DefaultOutboundAction",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/DefaultOutboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
+          "valueName": "DefaultInboundAction",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/DefaultInboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
+          "valueName": "EnableFirewall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/EnableFirewall",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
+          "valueName": "EnableFirewall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/EnableFirewall",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
+          "valueName": "DefaultInboundAction",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/DefaultInboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
+          "valueName": "DefaultOutboundAction",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/DefaultOutboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "EnableFirewall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/EnableFirewall",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "DefaultOutboundAction",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/DefaultOutboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "DefaultInboundAction",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/DefaultInboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest",
+          "valueName": "UseLogonCredential",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Control/SecurityProviders/WDigest/UseLogonCredential",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Policies\\EarlyLaunch",
+          "valueName": "DriverLoadPolicy",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Policies/EarlyLaunch/DriverLoadPolicy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Netbt\\Parameters",
+          "valueName": "NoNameReleaseOnDemand",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Netbt/Parameters/NoNameReleaseOnDemand",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+          "valueName": "EnableICMPRedirect",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Tcpip/Parameters/EnableICMPRedirect",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+          "valueName": "DisableIPSourceRouting",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Tcpip/Parameters/DisableIPSourceRouting",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+          "valueName": "DisableIPSourceRouting",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Tcpip6/Parameters/DisableIPSourceRouting",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        }
+      ],
+      "securitySettings": {
+        "Unicode": [
+          "Unicode=yes"
+        ],
+        "System Access": [
+          "ForceLogoffWhenHourExpire = 1",
+          "LSAAnonymousNameLookup = 0"
+        ],
+        "Version": [
+          "signature=\"$CHICAGO$\"",
+          "Revision=1"
+        ],
+        "Service General Setting": [
+          "\"AppIDSvc\",2,\"\""
+        ],
+        "Privilege Rights": [
+          "SeSecurityPrivilege = *S-1-5-32-544",
+          "SeCreateTokenPrivilege =",
+          "SeTrustedCredManAccessPrivilege =",
+          "SeRemoteInteractiveLogonRight = *S-1-5-32-544",
+          "SeCreatePagefilePrivilege = *S-1-5-32-544",
+          "SeRemoteShutdownPrivilege = *S-1-5-32-544",
+          "SeDenyInteractiveLogonRight = *S-1-5-32-546",
+          "SeIncreaseBasePriorityPrivilege = *S-1-5-32-544",
+          "SeLoadDriverPrivilege = *S-1-5-32-544",
+          "SeRestorePrivilege = *S-1-5-32-544",
+          "SeCreateGlobalPrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+          "SeManageVolumePrivilege = *S-1-5-32-544",
+          "SeInteractiveLogonRight = *S-1-5-32-544",
+          "SeEnableDelegationPrivilege = *S-1-5-32-544",
+          "SeCreatePermanentPrivilege =",
+          "SeDebugPrivilege = *S-1-5-32-544",
+          "SeProfileSingleProcessPrivilege = *S-1-5-32-544",
+          "SeBackupPrivilege = *S-1-5-32-544",
+          "SeNetworkLogonRight = *S-1-5-32-544,*S-1-5-11,*S-1-5-9",
+          "SeCreateSymbolicLinkPrivilege = *S-1-5-32-544",
+          "SeDenyNetworkLogonRight = *S-1-5-32-546",
+          "SeImpersonatePrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+          "SeSystemEnvironmentPrivilege = *S-1-5-32-544",
+          "SeLockMemoryPrivilege =",
+          "SeTcbPrivilege =",
+          "SeAuditPrivilege = *S-1-5-19,*S-1-5-20",
+          "SeTakeOwnershipPrivilege = *S-1-5-32-544",
+          "SeDenyRemoteInteractiveLogonRight = *S-1-5-32-546"
+        ],
+        "Registry Values": [
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback=4,0",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs=4,900",
+          "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption=1,\"1\"",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\autodisconnect=4,15",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableUIADesktopToggle=4,0",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin=4,2",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser=4,0",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel=4,5",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous=4,0",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\enablesecuritysignature=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec=4,537395200",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec=4,537395200",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\maximumpasswordage=4,30",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\disablepasswordchange=4,0",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword=4,0",
+          "MACHINE\\System\\CurrentControlSet\\Services\\NTDS\\Parameters\\LDAPServerIntegrity=4,2",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\RefusePasswordChange=4,0"
+        ]
+      },
+      "auditPolicies": [
+        {
+          "subcategory": "Audit Credential Validation",
+          "guid": "{0cce923f-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Computer Account Management",
+          "guid": "{0cce9236-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Other Account Management Events",
+          "guid": "{0cce923a-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Security Group Management",
+          "guid": "{0cce9237-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit User Account Management",
+          "guid": "{0cce9235-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit PNP Activity",
+          "guid": "{0cce9248-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Process Creation",
+          "guid": "{0cce922b-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Directory Service Access",
+          "guid": "{0cce923b-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Directory Service Changes",
+          "guid": "{0cce923c-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Account Lockout",
+          "guid": "{0cce9217-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Group Membership",
+          "guid": "{0cce9249-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Logoff",
+          "guid": "{0cce9216-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Logon",
+          "guid": "{0cce9215-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Special Logon",
+          "guid": "{0cce921b-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Removable Storage",
+          "guid": "{0cce9245-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Audit Policy Change",
+          "guid": "{0cce922f-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Authentication Policy Change",
+          "guid": "{0cce9230-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Authorization Policy Change",
+          "guid": "{0cce9231-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Sensitive Privilege Use",
+          "guid": "{0cce9228-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit IPsec Driver",
+          "guid": "{0cce9213-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Other System Events",
+          "guid": "{0cce9214-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Security State Change",
+          "guid": "{0cce9210-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Security System Extension",
+          "guid": "{0cce9211-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit System Integrity",
+          "guid": "{0cce9212-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        }
+      ]
+    }
+  },
+  "securitySettings": {
+    "Unicode": [
+      "Unicode=yes",
+      "Unicode=yes",
+      "Unicode=yes",
+      "Unicode=yes",
+      "Unicode=yes"
+    ],
+    "System Access": [
+      "MinimumPasswordAge = 1",
+      "MaximumPasswordAge = 60",
+      "MinimumPasswordLength = 14",
+      "PasswordComplexity = 1",
+      "PasswordHistorySize = 24",
+      "LockoutBadCount = 10",
+      "ResetLockoutCount = 15",
+      "LockoutDuration = 15",
+      "ClearTextPassword = 0",
+      "ForceLogoffWhenHourExpire = 1",
+      "LSAAnonymousNameLookup = 0",
+      "EnableGuestAccount = 0",
+      "ForceLogoffWhenHourExpire = 1",
+      "LSAAnonymousNameLookup = 0",
+      "EnableAdminAccount = 0",
+      "EnableGuestAccount = 0",
+      "ForceLogoffWhenHourExpire = 1",
+      "LSAAnonymousNameLookup = 0"
+    ],
+    "Version": [
+      "signature=\"$CHICAGO$\"",
+      "Revision=1",
+      "signature=\"$CHICAGO$\"",
+      "Revision=1",
+      "signature=\"$CHICAGO$\"",
+      "Revision=1",
+      "signature=\"$CHICAGO$\"",
+      "Revision=1",
+      "signature=\"$CHICAGO$\"",
+      "Revision=1"
+    ],
+    "Registry Values": [
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs=4,900",
+      "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption=1,\"1\"",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\autodisconnect=4,15",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableUIADesktopToggle=4,0",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin=4,2",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser=4,0",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel=4,5",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\enablesecuritysignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\maximumpasswordage=4,30",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\disablepasswordchange=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM=1,\"O:BAG:BAD:(A;;RC;;;BA)\"",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\DisableDomainCreds=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption=1,\"1\"",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs=4,900",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\autodisconnect=4,15",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\maximumpasswordage=4,30",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\disablepasswordchange=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\pku2u\\AllowOnlineID=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel=4,5",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\enablesecuritysignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin=4,2",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableUIADesktopToggle=4,0",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser=4,0",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM=1,\"O:BAG:BAD:(A;;RC;;;BA)\"",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\UseMachineId=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs=4,900",
+      "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption=1,\"1\"",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\autodisconnect=4,15",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableUIADesktopToggle=4,0",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin=4,2",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser=4,0",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel=4,5",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\enablesecuritysignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\maximumpasswordage=4,30",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\disablepasswordchange=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Services\\NTDS\\Parameters\\LDAPServerIntegrity=4,2",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\RefusePasswordChange=4,0"
+    ],
+    "Privilege Rights": [
+      "SeSecurityPrivilege = *S-1-5-32-544",
+      "SeCreateTokenPrivilege =",
+      "SeTrustedCredManAccessPrivilege =",
+      "SeCreatePagefilePrivilege = *S-1-5-32-544",
+      "SeRemoteShutdownPrivilege = *S-1-5-32-544",
+      "SeDenyInteractiveLogonRight = *S-1-5-32-546",
+      "SeIncreaseBasePriorityPrivilege = *S-1-5-32-544",
+      "SeLoadDriverPrivilege = *S-1-5-32-544",
+      "SeRestorePrivilege = *S-1-5-32-544",
+      "SeCreateGlobalPrivilege = *S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "SeManageVolumePrivilege = *S-1-5-32-544",
+      "SeInteractiveLogonRight = *S-1-5-32-544",
+      "SeEnableDelegationPrivilege =",
+      "SeCreatePermanentPrivilege =",
+      "SeDebugPrivilege = *S-1-5-32-544",
+      "SeProfileSingleProcessPrivilege = *S-1-5-32-544",
+      "SeBackupPrivilege = *S-1-5-32-544",
+      "SeNetworkLogonRight = *S-1-5-11,*S-1-5-32-544",
+      "SeCreateSymbolicLinkPrivilege = *S-1-5-32-544",
+      "SeDenyNetworkLogonRight = *S-1-5-114,*S-1-5-32-546",
+      "SeImpersonatePrivilege = *S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "SeSystemEnvironmentPrivilege = *S-1-5-32-544",
+      "SeLockMemoryPrivilege =",
+      "SeTcbPrivilege =",
+      "SeAuditPrivilege = *S-1-5-20,*S-1-5-19",
+      "SeTakeOwnershipPrivilege = *S-1-5-32-544",
+      "SeDenyRemoteInteractiveLogonRight = *S-1-5-32-546,*S-1-5-113",
+      "SeSecurityPrivilege = *S-1-5-32-544",
+      "SeCreateSymbolicLinkPrivilege = *S-1-5-32-544",
+      "SeRestorePrivilege = *S-1-5-32-544",
+      "SeTakeOwnershipPrivilege = *S-1-5-32-544",
+      "SeBackupPrivilege = *S-1-5-32-544",
+      "SeDenyRemoteInteractiveLogonRight = *S-1-5-113,*S-1-5-32-546",
+      "SeCreatePermanentPrivilege =",
+      "SeManageVolumePrivilege = *S-1-5-32-544",
+      "SeLoadDriverPrivilege = *S-1-5-32-544",
+      "SeLockMemoryPrivilege =",
+      "SeIncreaseBasePriorityPrivilege = *S-1-5-32-544",
+      "SeDenyNetworkLogonRight = *S-1-5-113,*S-1-5-32-546",
+      "SeAuditPrivilege = *S-1-5-20,*S-1-5-19",
+      "SeNetworkLogonRight = *S-1-5-32-555,*S-1-5-32-544",
+      "SeImpersonatePrivilege = *S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "SeCreateTokenPrivilege =",
+      "SeCreateGlobalPrivilege = *S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "SeSystemEnvironmentPrivilege = *S-1-5-32-544",
+      "SeCreatePagefilePrivilege = *S-1-5-32-544",
+      "SeInteractiveLogonRight = *S-1-5-32-545,*S-1-5-32-544",
+      "SeRemoteShutdownPrivilege = *S-1-5-32-544",
+      "SeDebugPrivilege = *S-1-5-32-544",
+      "SeDenyInteractiveLogonRight = *S-1-5-32-546",
+      "SeTrustedCredManAccessPrivilege =",
+      "SeProfileSingleProcessPrivilege = *S-1-5-32-544",
+      "SeTcbPrivilege =",
+      "SeEnableDelegationPrivilege =",
+      "SeSecurityPrivilege = *S-1-5-32-544",
+      "SeCreateTokenPrivilege =",
+      "SeTrustedCredManAccessPrivilege =",
+      "SeRemoteInteractiveLogonRight = *S-1-5-32-544",
+      "SeCreatePagefilePrivilege = *S-1-5-32-544",
+      "SeRemoteShutdownPrivilege = *S-1-5-32-544",
+      "SeDenyInteractiveLogonRight = *S-1-5-32-546",
+      "SeIncreaseBasePriorityPrivilege = *S-1-5-32-544",
+      "SeLoadDriverPrivilege = *S-1-5-32-544",
+      "SeRestorePrivilege = *S-1-5-32-544",
+      "SeCreateGlobalPrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+      "SeManageVolumePrivilege = *S-1-5-32-544",
+      "SeInteractiveLogonRight = *S-1-5-32-544",
+      "SeEnableDelegationPrivilege = *S-1-5-32-544",
+      "SeCreatePermanentPrivilege =",
+      "SeDebugPrivilege = *S-1-5-32-544",
+      "SeProfileSingleProcessPrivilege = *S-1-5-32-544",
+      "SeBackupPrivilege = *S-1-5-32-544",
+      "SeNetworkLogonRight = *S-1-5-32-544,*S-1-5-11,*S-1-5-9",
+      "SeCreateSymbolicLinkPrivilege = *S-1-5-32-544",
+      "SeDenyNetworkLogonRight = *S-1-5-32-546",
+      "SeImpersonatePrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+      "SeSystemEnvironmentPrivilege = *S-1-5-32-544",
+      "SeLockMemoryPrivilege =",
+      "SeTcbPrivilege =",
+      "SeAuditPrivilege = *S-1-5-19,*S-1-5-20",
+      "SeTakeOwnershipPrivilege = *S-1-5-32-544",
+      "SeDenyRemoteInteractiveLogonRight = *S-1-5-32-546"
+    ],
+    "Service General Setting": [
+      "\"AppIDSvc\",2,\"\""
+    ]
+  },
+  "auditPolicies": [
+    {
+      "subcategory": "Audit Credential Validation",
+      "guid": "{0cce923f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Account Management Events",
+      "guid": "{0cce923a-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security Group Management",
+      "guid": "{0cce9237-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit User Account Management",
+      "guid": "{0cce9235-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit PNP Activity",
+      "guid": "{0cce9248-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Process Creation",
+      "guid": "{0cce922b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Account Lockout",
+      "guid": "{0cce9217-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Group Membership",
+      "guid": "{0cce9249-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logoff",
+      "guid": "{0cce9216-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logon",
+      "guid": "{0cce9215-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Special Logon",
+      "guid": "{0cce921b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Removable Storage",
+      "guid": "{0cce9245-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Audit Policy Change",
+      "guid": "{0cce922f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Authentication Policy Change",
+      "guid": "{0cce9230-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Authorization Policy Change",
+      "guid": "{0cce9231-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Sensitive Privilege Use",
+      "guid": "{0cce9228-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit IPsec Driver",
+      "guid": "{0cce9213-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other System Events",
+      "guid": "{0cce9214-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security State Change",
+      "guid": "{0cce9210-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Security System Extension",
+      "guid": "{0cce9211-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit System Integrity",
+      "guid": "{0cce9212-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Credential Validation",
+      "guid": "{0cce923f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Account Management Events",
+      "guid": "{0cce923a-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security Group Management",
+      "guid": "{0cce9237-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit User Account Management",
+      "guid": "{0cce9235-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit PNP Activity",
+      "guid": "{0cce9248-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Process Creation",
+      "guid": "{0cce922b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Account Lockout",
+      "guid": "{0cce9217-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Group Membership",
+      "guid": "{0cce9249-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logoff",
+      "guid": "{0cce9216-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logon",
+      "guid": "{0cce9215-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Special Logon",
+      "guid": "{0cce921b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Removable Storage",
+      "guid": "{0cce9245-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Audit Policy Change",
+      "guid": "{0cce922f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Authentication Policy Change",
+      "guid": "{0cce9230-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Authorization Policy Change",
+      "guid": "{0cce9231-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Sensitive Privilege Use",
+      "guid": "{0cce9228-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit IPsec Driver",
+      "guid": "{0cce9213-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other System Events",
+      "guid": "{0cce9214-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security State Change",
+      "guid": "{0cce9210-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Security System Extension",
+      "guid": "{0cce9211-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit System Integrity",
+      "guid": "{0cce9212-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Credential Validation",
+      "guid": "{0cce923f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Computer Account Management",
+      "guid": "{0cce9236-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Other Account Management Events",
+      "guid": "{0cce923a-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security Group Management",
+      "guid": "{0cce9237-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit User Account Management",
+      "guid": "{0cce9235-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit PNP Activity",
+      "guid": "{0cce9248-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Process Creation",
+      "guid": "{0cce922b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Directory Service Access",
+      "guid": "{0cce923b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Directory Service Changes",
+      "guid": "{0cce923c-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Account Lockout",
+      "guid": "{0cce9217-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Group Membership",
+      "guid": "{0cce9249-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logoff",
+      "guid": "{0cce9216-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logon",
+      "guid": "{0cce9215-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Special Logon",
+      "guid": "{0cce921b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Removable Storage",
+      "guid": "{0cce9245-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Audit Policy Change",
+      "guid": "{0cce922f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Authentication Policy Change",
+      "guid": "{0cce9230-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Authorization Policy Change",
+      "guid": "{0cce9231-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Sensitive Privilege Use",
+      "guid": "{0cce9228-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit IPsec Driver",
+      "guid": "{0cce9213-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other System Events",
+      "guid": "{0cce9214-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security State Change",
+      "guid": "{0cce9210-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Security System Extension",
+      "guid": "{0cce9211-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit System Integrity",
+      "guid": "{0cce9212-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    }
+  ],
+  "statistics": {
+    "totalRegistrySettings": 383,
+    "totalSecuritySettings": 233,
+    "totalAuditPolicies": 66,
+    "gpoCount": 11
+  }
+}

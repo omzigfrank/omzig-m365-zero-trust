@@ -1,0 +1,699 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-02-17T22:31:29.597350Z",
+  "source": "Microsoft Security Compliance Toolkit 1.0",
+  "statistics": {
+    "totalBaselines": 13,
+    "totalGPOs": 97,
+    "totalRegistrySettings": 3940,
+    "totalSecuritySettings": 1266,
+    "totalAuditPolicies": 435,
+    "totalIntuneProfiles": 71
+  },
+  "baselines": {
+    "win11-25h2": {
+      "metadata": {
+        "id": "win11-25h2",
+        "name": "Windows 11 v25H2",
+        "os": "Windows 11",
+        "version": "25H2",
+        "category": "workstation",
+        "current": true,
+        "supersedes": [
+          "win11-24h2",
+          "win11-23h2",
+          "win11-22h2"
+        ],
+        "parsedAt": "2026-02-17T22:31:27.661986Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 11 v25H2"
+      },
+      "statistics": {
+        "totalRegistrySettings": 335,
+        "totalSecuritySettings": 79,
+        "totalAuditPolicies": 23,
+        "gpoCount": 8
+      }
+    },
+    "win11-24h2": {
+      "metadata": {
+        "id": "win11-24h2",
+        "name": "Windows 11 v24H2",
+        "os": "Windows 11",
+        "version": "24H2",
+        "category": "workstation",
+        "current": false,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:27.822459Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 11 v24H2"
+      },
+      "statistics": {
+        "totalRegistrySettings": 335,
+        "totalSecuritySettings": 80,
+        "totalAuditPolicies": 23,
+        "gpoCount": 8
+      }
+    },
+    "win11-23h2": {
+      "metadata": {
+        "id": "win11-23h2",
+        "name": "Windows 11 v23H2",
+        "os": "Windows 11",
+        "version": "23H2",
+        "category": "workstation",
+        "current": false,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:27.986632Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 11 v23H2"
+      },
+      "statistics": {
+        "totalRegistrySettings": 304,
+        "totalSecuritySettings": 77,
+        "totalAuditPolicies": 23,
+        "gpoCount": 8
+      }
+    },
+    "win11-22h2": {
+      "metadata": {
+        "id": "win11-22h2",
+        "name": "Windows 11 v22H2",
+        "os": "Windows 11",
+        "version": "22H2",
+        "category": "workstation",
+        "current": false,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:28.152316Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 11 v22H2"
+      },
+      "statistics": {
+        "totalRegistrySettings": 292,
+        "totalSecuritySettings": 77,
+        "totalAuditPolicies": 23,
+        "gpoCount": 8
+      }
+    },
+    "win10-22h2": {
+      "metadata": {
+        "id": "win10-22h2",
+        "name": "Windows 10 v22H2",
+        "os": "Windows 10",
+        "version": "22H2",
+        "category": "workstation",
+        "current": true,
+        "supersedes": [
+          "win10-20h2",
+          "win10-1809"
+        ],
+        "parsedAt": "2026-02-17T22:31:28.309472Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 10 v22H2"
+      },
+      "statistics": {
+        "totalRegistrySettings": 278,
+        "totalSecuritySettings": 77,
+        "totalAuditPolicies": 23,
+        "gpoCount": 8
+      }
+    },
+    "win10-20h2": {
+      "metadata": {
+        "id": "win10-20h2",
+        "name": "Windows 10 v20H2 / Server v20H2",
+        "os": "Windows 10",
+        "version": "20H2",
+        "category": "workstation",
+        "current": false,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:28.471909Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 10 v20H2 / Server v20H2"
+      },
+      "statistics": {
+        "totalRegistrySettings": 417,
+        "totalSecuritySettings": 189,
+        "totalAuditPolicies": 75,
+        "gpoCount": 11
+      }
+    },
+    "win10-1809": {
+      "metadata": {
+        "id": "win10-1809",
+        "name": "Windows 10 v1809 / Server 2019",
+        "os": "Windows 10",
+        "version": "1809",
+        "category": "workstation",
+        "current": false,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:28.706277Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 10 v1809 / Server 2019"
+      },
+      "statistics": {
+        "totalRegistrySettings": 420,
+        "totalSecuritySettings": 200,
+        "totalAuditPolicies": 73,
+        "gpoCount": 11
+      }
+    },
+    "win10-1607": {
+      "metadata": {
+        "id": "win10-1607",
+        "name": "Windows 10 v1607 / Server 2016",
+        "os": "Windows 10",
+        "version": "1607",
+        "category": "workstation",
+        "current": false,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:28.911664Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 10 v1607 / Server 2016"
+      },
+      "statistics": {
+        "totalRegistrySettings": 383,
+        "totalSecuritySettings": 233,
+        "totalAuditPolicies": 66,
+        "gpoCount": 11
+      }
+    },
+    "win10-update": {
+      "metadata": {
+        "id": "win10-update",
+        "name": "Windows 10 Update Baseline",
+        "os": "Windows 10",
+        "version": "update",
+        "category": "update",
+        "current": true,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:29.117047Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 10 Update Baseline"
+      },
+      "statistics": {
+        "totalRegistrySettings": 78,
+        "totalSecuritySettings": 0,
+        "totalAuditPolicies": 0,
+        "gpoCount": 1
+      }
+    },
+    "server-2025": {
+      "metadata": {
+        "id": "server-2025",
+        "name": "Windows Server 2025",
+        "os": "Windows Server",
+        "version": "2025",
+        "category": "server",
+        "current": true,
+        "supersedes": [
+          "server-2022"
+        ],
+        "parsedAt": "2026-02-17T22:31:29.132142Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows Server 2025"
+      },
+      "statistics": {
+        "totalRegistrySettings": 382,
+        "totalSecuritySettings": 125,
+        "totalAuditPolicies": 54,
+        "gpoCount": 8
+      }
+    },
+    "server-2022": {
+      "metadata": {
+        "id": "server-2022",
+        "name": "Windows Server 2022",
+        "os": "Windows Server",
+        "version": "2022",
+        "category": "server",
+        "current": false,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:29.305678Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Windows Server 2022"
+      },
+      "statistics": {
+        "totalRegistrySettings": 311,
+        "totalSecuritySettings": 126,
+        "totalAuditPolicies": 52,
+        "gpoCount": 8
+      }
+    },
+    "edge-v139": {
+      "metadata": {
+        "id": "edge-v139",
+        "name": "Microsoft Edge v139",
+        "os": "Cross-platform",
+        "version": "139",
+        "category": "browser",
+        "current": true,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:29.478637Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Microsoft Edge v139"
+      },
+      "statistics": {
+        "totalRegistrySettings": 20,
+        "totalSecuritySettings": 0,
+        "totalAuditPolicies": 0,
+        "gpoCount": 1
+      }
+    },
+    "m365apps-2512": {
+      "metadata": {
+        "id": "m365apps-2512",
+        "name": "Microsoft 365 Apps for Enterprise 2512",
+        "os": "Cross-platform",
+        "version": "2512",
+        "category": "office",
+        "current": true,
+        "supersedes": [],
+        "parsedAt": "2026-02-17T22:31:29.491437Z",
+        "source": "Microsoft Security Compliance Toolkit 1.0 - Microsoft 365 Apps for Enterprise 2512"
+      },
+      "statistics": {
+        "totalRegistrySettings": 385,
+        "totalSecuritySettings": 3,
+        "totalAuditPolicies": 0,
+        "gpoCount": 6
+      }
+    }
+  },
+  "profiles": [
+    {
+      "profileId": "sct-win11-25h2-computer",
+      "displayName": "SCT - Windows 11 v25H2 - MSFT Internet Explorer 11 - Computer",
+      "settingsCount": 133,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-25h2-user",
+      "displayName": "SCT - Windows 11 v25H2 - MSFT Internet Explorer 11 - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-25h2-defender",
+      "displayName": "SCT - Windows 11 v25H2 - MSFT Windows 11 25H2 - Defender Antivirus",
+      "settingsCount": 39,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-25h2-credentialGuard",
+      "displayName": "SCT - Windows 11 v25H2 - MSFT Windows 11 25H2 - Credential Guard",
+      "settingsCount": 8,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-25h2-bitlocker",
+      "displayName": "SCT - Windows 11 v25H2 - MSFT Windows 11 25H2 - BitLocker",
+      "settingsCount": 10,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-25h2-audit",
+      "displayName": "SCT - Windows 11 v25H2 - Advanced Audit Policy",
+      "settingsCount": 23,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win11-24h2-computer",
+      "displayName": "SCT - Windows 11 v24H2 - MSFT Windows 11 24H2 - Computer",
+      "settingsCount": 140,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-24h2-user",
+      "displayName": "SCT - Windows 11 v24H2 - MSFT Windows 11 24H2 - User",
+      "settingsCount": 2,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-24h2-credentialGuard",
+      "displayName": "SCT - Windows 11 v24H2 - MSFT Windows 11 24H2 - Credential Guard",
+      "settingsCount": 8,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-24h2-defender",
+      "displayName": "SCT - Windows 11 v24H2 - MSFT Windows 11 24H2 - Defender Antivirus",
+      "settingsCount": 40,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-24h2-bitlocker",
+      "displayName": "SCT - Windows 11 v24H2 - MSFT Windows 11 24H2 - BitLocker",
+      "settingsCount": 10,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-24h2-audit",
+      "displayName": "SCT - Windows 11 v24H2 - Advanced Audit Policy",
+      "settingsCount": 23,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win11-23h2-computer",
+      "displayName": "SCT - Windows 11 v23H2 - MSFT Windows 11 23H2 - Computer",
+      "settingsCount": 114,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-23h2-user",
+      "displayName": "SCT - Windows 11 v23H2 - MSFT Internet Explorer 11 - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-23h2-bitlocker",
+      "displayName": "SCT - Windows 11 v23H2 - MSFT Windows 11 23H2 - BitLocker",
+      "settingsCount": 10,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-23h2-defender",
+      "displayName": "SCT - Windows 11 v23H2 - MSFT Windows 11 23H2 - Defender Antivirus",
+      "settingsCount": 36,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-23h2-credentialGuard",
+      "displayName": "SCT - Windows 11 v23H2 - MSFT Windows 11 23H2 - Credential Guard",
+      "settingsCount": 7,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-23h2-audit",
+      "displayName": "SCT - Windows 11 v23H2 - Advanced Audit Policy",
+      "settingsCount": 23,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win11-22h2-bitlocker",
+      "displayName": "SCT - Windows 11 v22H2 - MSFT Windows 11 22H2 - BitLocker",
+      "settingsCount": 10,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-22h2-user",
+      "displayName": "SCT - Windows 11 v22H2 - MSFT Windows 11 22H2 - User",
+      "settingsCount": 2,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-22h2-credentialGuard",
+      "displayName": "SCT - Windows 11 v22H2 - MSFT Windows 11 22H2 - Credential Guard",
+      "settingsCount": 7,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-22h2-computer",
+      "displayName": "SCT - Windows 11 v22H2 - MSFT Windows 11 22H2 - Computer",
+      "settingsCount": 112,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-22h2-defender",
+      "displayName": "SCT - Windows 11 v22H2 - MSFT Windows 11 22H2 - Defender Antivirus",
+      "settingsCount": 26,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win11-22h2-audit",
+      "displayName": "SCT - Windows 11 v22H2 - Advanced Audit Policy",
+      "settingsCount": 23,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win10-22h2-user",
+      "displayName": "SCT - Windows 10 v22H2 - MSFT Internet Explorer 11 - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-22h2-defender",
+      "displayName": "SCT - Windows 10 v22H2 - MSFT Windows 10 22H2 - Defender Antivirus",
+      "settingsCount": 25,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-22h2-computer",
+      "displayName": "SCT - Windows 10 v22H2 - MSFT Windows 10 22H2 - Computer",
+      "settingsCount": 100,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-22h2-credentialGuard",
+      "displayName": "SCT - Windows 10 v22H2 - MSFT Windows 10 22H2 - Credential Guard",
+      "settingsCount": 6,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-22h2-bitlocker",
+      "displayName": "SCT - Windows 10 v22H2 - MSFT Windows 10 22H2 - BitLocker",
+      "settingsCount": 10,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-22h2-audit",
+      "displayName": "SCT - Windows 10 v22H2 - Advanced Audit Policy",
+      "settingsCount": 23,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win10-20h2-serverMember",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Windows Server 20H2 - Member Server",
+      "settingsCount": 63,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-20h2-computer",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Internet Explorer 11 - Computer",
+      "settingsCount": 132,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-20h2-defender",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Windows 10 20H2 and Server 20H2 - Defender Antivirus",
+      "settingsCount": 23,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-20h2-credentialGuard",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Windows 10 20H2 and Server 20H2 Member Server - Credential Guard",
+      "settingsCount": 6,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-20h2-user",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Windows 10 20H2 - User",
+      "settingsCount": 2,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-20h2-bitlocker",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Windows 10 20H2 - BitLocker",
+      "settingsCount": 10,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-20h2-serverDC",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Windows Server 20H2 - Domain Controller Virtualization Based Security",
+      "settingsCount": 6,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-20h2-audit",
+      "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - Advanced Audit Policy",
+      "settingsCount": 75,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win10-1809-credentialGuard",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Windows 10 1809 and Server 2019 Member Server - Credential Guard",
+      "settingsCount": 6,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1809-user",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Internet Explorer 11 - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1809-serverDC",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Windows Server 2019 - Domain Controller",
+      "settingsCount": 73,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1809-bitlocker",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Windows 10 1809 - BitLocker",
+      "settingsCount": 17,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1809-computer",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Internet Explorer 11 - Computer",
+      "settingsCount": 132,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1809-defender",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Windows 10 1809 and Server 2019 - Defender Antivirus",
+      "settingsCount": 19,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1809-serverMember",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Windows Server 2019 - Member Server",
+      "settingsCount": 63,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1809-audit",
+      "displayName": "SCT - Windows 10 v1809 / Server 2019 - Advanced Audit Policy",
+      "settingsCount": 73,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win10-1607-credentialGuard",
+      "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Windows 10 and Server 2016 - Credential Guard",
+      "settingsCount": 4,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1607-defender",
+      "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Windows 10 and Server 2016 - Defender",
+      "settingsCount": 7,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1607-user",
+      "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Windows 10 RS1 - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1607-bitlocker",
+      "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Windows 10 RS1 - BitLocker",
+      "settingsCount": 18,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1607-computer",
+      "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Internet Explorer 11 - Computer",
+      "settingsCount": 133,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1607-serverDC",
+      "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Windows Server 2016 - Domain Controller Baseline",
+      "settingsCount": 65,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-win10-1607-audit",
+      "displayName": "SCT - Windows 10 v1607 / Server 2016 - Advanced Audit Policy",
+      "settingsCount": 66,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-win10-update-update",
+      "displayName": "SCT - Windows 10 Update Baseline - MSFT Windows Update",
+      "settingsCount": 78,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2025-serverDC",
+      "displayName": "SCT - Windows Server 2025 - MSFT Windows Server 2025 v2506 - Domain Controller Virtualization Based Security",
+      "settingsCount": 8,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2025-credentialGuard",
+      "displayName": "SCT - Windows Server 2025 - MSFT Windows Server 2025 v2506 - Member Server Credential Guard",
+      "settingsCount": 8,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2025-user",
+      "displayName": "SCT - Windows Server 2025 - MSFT Internet Explorer 11 - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2025-computer",
+      "displayName": "SCT - Windows Server 2025 - MSFT Internet Explorer 11 - Computer",
+      "settingsCount": 132,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2025-serverMember",
+      "displayName": "SCT - Windows Server 2025 - MSFT Windows Server 2025 v2506 - Member Server",
+      "settingsCount": 99,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2025-defender",
+      "displayName": "SCT - Windows Server 2025 - MSFT Windows Server 2025 v2506 - Defender Antivirus",
+      "settingsCount": 27,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2025-audit",
+      "displayName": "SCT - Windows Server 2025 - Advanced Audit Policy",
+      "settingsCount": 54,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-server-2022-user",
+      "displayName": "SCT - Windows Server 2022 - MSFT Internet Explorer 11 - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2022-serverDC",
+      "displayName": "SCT - Windows Server 2022 - MSFT Windows Server 2022 - Domain Controller Virtualization Based Security",
+      "settingsCount": 6,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2022-serverMember",
+      "displayName": "SCT - Windows Server 2022 - MSFT Windows Server 2022 - Member Server",
+      "settingsCount": 64,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2022-computer",
+      "displayName": "SCT - Windows Server 2022 - MSFT Internet Explorer 11 - Computer",
+      "settingsCount": 132,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2022-defender",
+      "displayName": "SCT - Windows Server 2022 - MSFT Windows Server 2022 - Defender Antivirus",
+      "settingsCount": 24,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2022-credentialGuard",
+      "displayName": "SCT - Windows Server 2022 - MSFT Windows Server 2022 - Member Server Credential Guard",
+      "settingsCount": 6,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-server-2022-audit",
+      "displayName": "SCT - Windows Server 2022 - Advanced Audit Policy",
+      "settingsCount": 52,
+      "profileType": "endpointSecurity"
+    },
+    {
+      "profileId": "sct-edge-v139-computer",
+      "displayName": "SCT - Microsoft Edge v139 - MSFT Edge Version 139 - Computer",
+      "settingsCount": 20,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-m365apps-2512-user",
+      "displayName": "SCT - Microsoft 365 Apps for Enterprise 2512 - MSFT Microsoft 365 Apps v2512 - DDE Block - User",
+      "settingsCount": 3,
+      "profileType": "settingsCatalog"
+    },
+    {
+      "profileId": "sct-m365apps-2512-computer",
+      "displayName": "SCT - Microsoft 365 Apps for Enterprise 2512 - MSFT Microsoft 365 Apps v2512 - Legacy JScript Block - Computer",
+      "settingsCount": 9,
+      "profileType": "settingsCatalog"
+    }
+  ]
+}

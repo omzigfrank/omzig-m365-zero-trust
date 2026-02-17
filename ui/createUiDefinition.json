@@ -6,7 +6,7 @@
     "config": {
       "isWizard": true,
       "basics": {
-        "description": "## Omzig M365 Zero Trust Deployment\n\nDeploy a secure Microsoft 365 environment with **NSA-aligned Zero Trust** controls and optional **HIPAA compliance**.\n\n### What this deploys:\n- Conditional Access policies with MFA\n- Defender for Office 365 protection\n- Defender for Endpoint configuration\n- Data Loss Prevention policies\n- Sensitivity labels and encryption\n- Security monitoring and alerting\n- User provisioning and group management\n- Exchange Online mail flow rules\n- Device enrollment with Autopilot\n- SharePoint and Teams policies",
+        "description": "## Omzig M365 Zero Trust Deployment\n\nDeploy a secure Microsoft 365 environment with **NSA-aligned Zero Trust** controls and optional **HIPAA compliance**.\n\n### What this deploys:\n- Conditional Access policies with MFA\n- Defender for Office 365 protection\n- Defender for Endpoint configuration\n- Data Loss Prevention policies\n- Sensitivity labels and encryption\n- Security monitoring and alerting\n- **Microsoft SCT security baselines** (OS, Edge, Office hardening)\n- User provisioning and group management\n- Exchange Online mail flow rules\n- Device enrollment with Autopilot\n- SharePoint and Teams policies",
         "location": {
           "label": "Deployment Region",
           "resourceTypes": ["Microsoft.Resources/resourceGroups"]
@@ -419,6 +419,146 @@
                 "toolTip": "Automatically redirect Desktop, Documents, and Pictures to OneDrive."
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": "securityBaselines",
+        "label": "Security Baselines",
+        "bladeTitle": "Microsoft SCT Security Baselines",
+        "elements": [
+          {
+            "name": "baselineInfo",
+            "type": "Microsoft.Common.InfoBox",
+            "options": {
+              "icon": "Info",
+              "text": "Deploy Microsoft Security Compliance Toolkit (SCT) baselines as Intune device configuration profiles. These baselines harden Windows, Edge, and Office apps per Microsoft's recommended security settings, mapped to NSA Zero Trust pillars."
+            }
+          },
+          {
+            "name": "baselineSection",
+            "type": "Microsoft.Common.Section",
+            "label": "OS Baselines",
+            "elements": [
+              {
+                "name": "enableSctBaselines",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Deploy SCT security baselines",
+                "defaultValue": true,
+                "toolTip": "Deploys Microsoft-recommended OS hardening settings as Intune configuration profiles."
+              },
+              {
+                "name": "workstationBaseline",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Workstation OS Baseline",
+                "defaultValue": "win11-25h2",
+                "toolTip": "Select the Windows version for workstation hardening.",
+                "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Windows 11 v25H2 (Latest)", "value": "win11-25h2" },
+                    { "label": "Windows 11 v24H2", "value": "win11-24h2" },
+                    { "label": "Windows 11 v23H2", "value": "win11-23h2" },
+                    { "label": "Windows 10 v22H2", "value": "win10-22h2" },
+                    { "label": "None", "value": "none" }
+                  ]
+                }
+              },
+              {
+                "name": "serverBaseline",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Server OS Baseline",
+                "defaultValue": "none",
+                "toolTip": "Select the Windows Server version for server hardening (if applicable).",
+                "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Windows Server 2025 (Latest)", "value": "server-2025" },
+                    { "label": "Windows Server 2022", "value": "server-2022" },
+                    { "label": "None", "value": "none" }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "appBaselineSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Application Baselines",
+            "elements": [
+              {
+                "name": "deployEdgeBaseline",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Deploy Microsoft Edge v139 baseline",
+                "defaultValue": true,
+                "toolTip": "Hardens Edge browser: SmartScreen, extension control, site isolation (20 settings).",
+                "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]"
+              },
+              {
+                "name": "deployM365AppsBaseline",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Deploy Microsoft 365 Apps baseline",
+                "defaultValue": true,
+                "toolTip": "Hardens Office apps: macro signing, ActiveX blocking, trusted locations (385 settings).",
+                "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]"
+              },
+              {
+                "name": "deployUpdateBaseline",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Deploy Windows Update baseline",
+                "defaultValue": false,
+                "toolTip": "Applies Microsoft-recommended Windows Update settings (78 settings).",
+                "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]"
+              }
+            ]
+          },
+          {
+            "name": "deploymentSection",
+            "type": "Microsoft.Common.Section",
+            "label": "Deployment Options",
+            "elements": [
+              {
+                "name": "baselineDeploymentMode",
+                "type": "Microsoft.Common.OptionsGroup",
+                "label": "Deployment Mode",
+                "defaultValue": "Audit",
+                "toolTip": "Audit mode monitors without enforcing. Enforce mode actively applies settings.",
+                "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "Audit (Recommended)", "value": "audit" },
+                    { "label": "Enforce", "value": "enforce" }
+                  ]
+                }
+              },
+              {
+                "name": "baselineAssignment",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Assignment Target",
+                "defaultValue": "allDevices",
+                "toolTip": "Choose which devices receive the baseline profiles.",
+                "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]",
+                "constraints": {
+                  "required": true,
+                  "allowedValues": [
+                    { "label": "All Devices", "value": "allDevices" },
+                    { "label": "No Assignment (Deploy only)", "value": "none" }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "baselineSummary",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": "[steps('securityBaselines').baselineSection.enableSctBaselines]",
+            "options": {
+              "icon": "Info",
+              "text": "Baseline profiles will be created as Intune custom device configuration profiles. Each baseline generates multiple profiles (Computer, Defender, BitLocker, Credential Guard, Audit). All settings are mapped to NSA Zero Trust pillars and HIPAA controls."
+            }
           }
         ]
       },
@@ -841,7 +981,7 @@
                 "name": "summaryText",
                 "type": "Microsoft.Common.TextBlock",
                 "options": {
-                  "text": "[concat('**Organization:** ', basics('orgName'), '\n\n**Environment:** ', basics('environmentName'), '\n\n**Security Baseline:** ', steps('securityBaseline').securityLevel, '\n\n**HIPAA Mode:** ', if(steps('compliance').hipaaSection.hipaaEnabled, 'Enabled', 'Disabled'), '\n\n**Industry Template:** ', steps('compliance').industrySection.industryTemplate, '\n\n**Defender for Office 365:** ', steps('usersLicensing').licensingSection.defenderForOfficePlan, '\n\n**Lighthouse Enabled:** ', if(steps('mspSettings').lighthouseSection.enableLighthouse, 'Yes', 'No'))]"
+                  "text": "[concat('**Organization:** ', basics('orgName'), '\n\n**Environment:** ', basics('environmentName'), '\n\n**Security Baseline:** ', steps('securityBaseline').securityLevel, '\n\n**SCT Baselines:** ', if(steps('securityBaselines').baselineSection.enableSctBaselines, concat('Enabled (', steps('securityBaselines').baselineSection.workstationBaseline, ')'), 'Disabled'), '\n\n**HIPAA Mode:** ', if(steps('compliance').hipaaSection.hipaaEnabled, 'Enabled', 'Disabled'), '\n\n**Industry Template:** ', steps('compliance').industrySection.industryTemplate, '\n\n**Defender for Office 365:** ', steps('usersLicensing').licensingSection.defenderForOfficePlan, '\n\n**Lighthouse Enabled:** ', if(steps('mspSettings').lighthouseSection.enableLighthouse, 'Yes', 'No'))]"
                 }
               }
             ]
@@ -887,6 +1027,14 @@
       "requireBitlocker": "[steps('deviceEnrollment').securitySection.requireBitlocker]",
       "bitlockerEncryption": "[steps('deviceEnrollment').securitySection.bitlockerEncryption]",
       "enableKnownFolderMove": "[steps('deviceEnrollment').securitySection.enableKnownFolderMove]",
+      "enableSctBaselines": "[steps('securityBaselines').baselineSection.enableSctBaselines]",
+      "workstationBaseline": "[steps('securityBaselines').baselineSection.workstationBaseline]",
+      "serverBaseline": "[steps('securityBaselines').baselineSection.serverBaseline]",
+      "deployEdgeBaseline": "[steps('securityBaselines').appBaselineSection.deployEdgeBaseline]",
+      "deployM365AppsBaseline": "[steps('securityBaselines').appBaselineSection.deployM365AppsBaseline]",
+      "deployUpdateBaseline": "[steps('securityBaselines').appBaselineSection.deployUpdateBaseline]",
+      "baselineDeploymentMode": "[steps('securityBaselines').deploymentSection.baselineDeploymentMode]",
+      "baselineAssignment": "[steps('securityBaselines').deploymentSection.baselineAssignment]",
       "externalSharing": "[steps('collaboration').sharepointSection.externalSharing]",
       "defaultSharingLink": "[steps('collaboration').sharepointSection.defaultSharingLink]",
       "guestExpiration": "[steps('collaboration').sharepointSection.guestExpiration]",

@@ -1,0 +1,31 @@
+{
+  "profileId": "sct-win11-22h2-user",
+  "displayName": "SCT - Windows 11 v22H2 - MSFT Windows 11 22H2 - User",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Windows 11 22H2 - User. Auto-generated from SCT GPO backup. Contains 2 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Windows 11 22H2 - User",
+  "settingsCount": 2,
+  "settings": [
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/CloudContent/DisableThirdPartySuggestions",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CloudContent\\DisableThirdPartySuggestions",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/PushNotifications/NoToastApplicationNotificationOnLockScreen",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\PushNotifications\\NoToastApplicationNotificationOnLockScreen",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    }
+  ]
+}

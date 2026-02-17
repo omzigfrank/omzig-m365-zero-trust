@@ -1,0 +1,148 @@
+{
+  "profileId": "sct-win11-24h2-audit",
+  "displayName": "SCT - Windows 11 v24H2 - Advanced Audit Policy",
+  "description": "Advanced audit policy configuration from SCT baseline. Contains 23 audit subcategories.",
+  "platformType": "windows10",
+  "profileType": "endpointSecurity",
+  "category": "auditPolicy",
+  "auditPolicies": [
+    {
+      "subcategory": "Audit Credential Validation",
+      "guid": "{0cce923f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security Group Management",
+      "guid": "{0cce9237-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit User Account Management",
+      "guid": "{0cce9235-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit PNP Activity",
+      "guid": "{0cce9248-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Process Creation",
+      "guid": "{0cce922b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Account Lockout",
+      "guid": "{0cce9217-69ae-11d9-bed3-505054503030}",
+      "setting": "Failure",
+      "value": "2"
+    },
+    {
+      "subcategory": "Audit Group Membership",
+      "guid": "{0cce9249-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logon",
+      "guid": "{0cce9215-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Logon/Logoff Events",
+      "guid": "{0cce921c-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Special Logon",
+      "guid": "{0cce921b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Detailed File Share",
+      "guid": "{0cce9244-69ae-11d9-bed3-505054503030}",
+      "setting": "Failure",
+      "value": "2"
+    },
+    {
+      "subcategory": "Audit File Share",
+      "guid": "{0cce9224-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Object Access Events",
+      "guid": "{0cce9227-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Removable Storage",
+      "guid": "{0cce9245-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Audit Policy Change",
+      "guid": "{0cce922f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Authentication Policy Change",
+      "guid": "{0cce9230-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit MPSSVC Rule-Level Policy Change",
+      "guid": "{0cce9232-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Policy Change Events",
+      "guid": "{0cce9234-69ae-11d9-bed3-505054503030}",
+      "setting": "Failure",
+      "value": "2"
+    },
+    {
+      "subcategory": "Audit Sensitive Privilege Use",
+      "guid": "{0cce9228-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Other System Events",
+      "guid": "{0cce9214-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security State Change",
+      "guid": "{0cce9210-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Security System Extension",
+      "guid": "{0cce9211-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit System Integrity",
+      "guid": "{0cce9212-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    }
+  ]
+}

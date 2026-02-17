@@ -1,0 +1,87 @@
+{
+  "164.312(a)(1)": {
+    "name": "Access Control",
+    "settingCount": 4,
+    "baselines": {
+      "Windows 11 v24H2": 1,
+      "Windows 11 v23H2": 1,
+      "Windows 11 v22H2": 1,
+      "Windows 10 v22H2": 1
+    }
+  },
+  "164.312(a)(2)(iv)": {
+    "name": "Encryption and Decryption",
+    "settingCount": 39,
+    "baselines": {
+      "Windows 11 v25H2": 4,
+      "Windows 11 v24H2": 4,
+      "Windows 11 v23H2": 4,
+      "Windows 11 v22H2": 4,
+      "Windows 10 v22H2": 4,
+      "Windows 10 v20H2 / Server v20H2": 4,
+      "Windows 10 v1809 / Server 2019": 7,
+      "Windows 10 v1607 / Server 2016": 8
+    }
+  },
+  "164.312(b)": {
+    "name": "Audit Controls",
+    "settingCount": 96,
+    "baselines": {
+      "Windows 11 v25H2": 1,
+      "Windows 11 v24H2": 15,
+      "Windows 11 v23H2": 14,
+      "Windows 11 v22H2": 14,
+      "Windows 10 v22H2": 14,
+      "Windows 10 v20H2 / Server v20H2": 5,
+      "Windows 10 v1809 / Server 2019": 10,
+      "Windows 10 v1607 / Server 2016": 5,
+      "Windows Server 2025": 13,
+      "Windows Server 2022": 5
+    }
+  },
+  "164.312(c)(1)": {
+    "name": "Integrity",
+    "settingCount": 352,
+    "baselines": {
+      "Windows 11 v25H2": 47,
+      "Windows 11 v24H2": 48,
+      "Windows 11 v23H2": 43,
+      "Windows 11 v22H2": 33,
+      "Windows 10 v22H2": 31,
+      "Windows 10 v20H2 / Server v20H2": 35,
+      "Windows 10 v1809 / Server 2019": 25,
+      "Windows 10 v1607 / Server 2016": 11,
+      "Windows Server 2025": 43,
+      "Windows Server 2022": 36
+    }
+  },
+  "164.312(d)": {
+    "name": "Person or Entity Authentication",
+    "settingCount": 23,
+    "baselines": {
+      "Windows 11 v24H2": 7,
+      "Windows 11 v23H2": 2,
+      "Windows 11 v22H2": 2,
+      "Windows 10 v22H2": 2,
+      "Windows 10 v20H2 / Server v20H2": 1,
+      "Windows 10 v1809 / Server 2019": 2,
+      "Windows Server 2025": 6,
+      "Windows Server 2022": 1
+    }
+  },
+  "164.312(e)(1)": {
+    "name": "Transmission Security",
+    "settingCount": 42,
+    "baselines": {
+      "Windows 11 v24H2": 15,
+      "Windows 11 v23H2": 2,
+      "Windows 11 v22H2": 2,
+      "Windows 10 v22H2": 2,
+      "Windows 10 v20H2 / Server v20H2": 2,
+      "Windows 10 v1809 / Server 2019": 4,
+      "Windows 10 v1607 / Server 2016": 1,
+      "Windows Server 2025": 12,
+      "Windows Server 2022": 2
+    }
+  }
+}
