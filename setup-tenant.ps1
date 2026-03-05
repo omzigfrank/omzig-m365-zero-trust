@@ -97,6 +97,10 @@ catch {
 
 # Get tenant info
 $accountJson = az account show --output json 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Could not retrieve account info. Ensure 'az login' succeeded." -ForegroundColor Red
+    exit 1
+}
 $account = $accountJson | ConvertFrom-Json
 $tenantId = $account.tenantId
 $userName = $account.user.name
@@ -150,7 +154,7 @@ else {
     }
 
     $identities = $identitiesJson | ConvertFrom-Json
-    $omzigIdentities = $identities | Where-Object { $_.name -match 'omzig' }
+    $omzigIdentities = @($identities | Where-Object { $_.name -match 'omzig' })
 
     if ($omzigIdentities.Count -eq 0) {
         Write-Host "ERROR: No managed identities containing 'omzig' found." -ForegroundColor Red
@@ -168,7 +172,12 @@ else {
             Write-Host "    [$($i + 1)] $($omzigIdentities[$i].name) (RG: $($omzigIdentities[$i].resourceGroup))"
         }
         $choice = Read-Host "  Select identity (1-$($omzigIdentities.Count))"
-        $idx = [int]$choice - 1
+        $idx = 0
+        if (-not [int]::TryParse($choice, [ref]$idx)) {
+            Write-Host "Invalid selection. Enter a number." -ForegroundColor Red
+            exit 1
+        }
+        $idx = $idx - 1
         if ($idx -lt 0 -or $idx -ge $omzigIdentities.Count) {
             Write-Host "Invalid selection." -ForegroundColor Red
             exit 1
@@ -202,7 +211,12 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-$graphSp = ($graphSpJson | ConvertFrom-Json).value[0]
+$graphSpResult = $graphSpJson | ConvertFrom-Json
+if (-not $graphSpResult.value -or $graphSpResult.value.Count -eq 0) {
+    Write-Host "ERROR: Microsoft Graph service principal not found in tenant." -ForegroundColor Red
+    exit 1
+}
+$graphSp = $graphSpResult.value[0]
 $graphSpId = $graphSp.id
 $allAppRoles = $graphSp.appRoles
 
@@ -239,9 +253,9 @@ $permissionMap = @{}
 $unmatchedPermissions = @()
 
 foreach ($permName in $requiredPermissions) {
-    $matched = $allAppRoles | Where-Object { $_.value -eq $permName -and $_.allowedMemberTypes -contains "Application" }
-    if ($matched) {
-        $permissionMap[$permName] = $matched.id
+    $matched = @($allAppRoles | Where-Object { $_.value -eq $permName -and $_.allowedMemberTypes -contains "Application" })
+    if ($matched.Count -gt 0) {
+        $permissionMap[$permName] = $matched[0].id
     }
     else {
         $unmatchedPermissions += $permName
@@ -272,7 +286,7 @@ $grantedRoleIds = @()
 if ($LASTEXITCODE -eq 0) {
     $existingGrants = $existingGrantsJson | ConvertFrom-Json
     if ($existingGrants.value) {
-        $grantedRoleIds = $existingGrants.value | ForEach-Object { $_.appRoleId }
+        $grantedRoleIds = @($existingGrants.value | ForEach-Object { $_.appRoleId })
     }
 }
 
@@ -305,8 +319,8 @@ foreach ($permName in $requiredPermissions) {
         appRoleId   = $roleId
     } | ConvertTo-Json
 
-    $bodyFile = Join-Path $env:TEMP "omzig-grant-$($permName -replace '\.', '-').json"
-    $body | Out-File -FilePath $bodyFile -Encoding utf8 -Force
+    $bodyFile = Join-Path $env:TEMP "omzig-grant-$(New-Guid).json"
+    [System.IO.File]::WriteAllText($bodyFile, $body, [System.Text.UTF8Encoding]::new($false))
 
     try {
         $grantResult = az rest --method POST `
@@ -418,7 +432,7 @@ if (-not $SkipAudit) {
                 default     { "White" }
             }
 
-            $readinessLabel = $readiness.ToUpper()
+            $readinessLabel = if ($readiness) { $readiness.ToUpper() } else { "UNKNOWN" }
             Write-Host "  Readiness: $readinessLabel ($($summary.pass) pass, $($summary.warn) warn, $($summary.fail) fail, $($summary.blocker) blocker)" -ForegroundColor $readinessColor
         }
         catch {

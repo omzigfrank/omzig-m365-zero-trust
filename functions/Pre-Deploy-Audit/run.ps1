@@ -86,10 +86,14 @@ try {
         $org = Invoke-GraphRequestWithRetry -Method GET `
             -Uri "https://graph.microsoft.com/v1.0/organization?`$select=id,displayName,verifiedDomains"
 
+        if (-not $org.value -or $org.value.Count -eq 0) {
+            throw "Organization query returned no results"
+        }
         $orgInfo = $org.value[0]
         $tenantId = $orgInfo.id
         $tenantName = $orgInfo.displayName
-        $primaryDomain = ($orgInfo.verifiedDomains | Where-Object { $_.isDefault }).name
+        $defaultDomains = @($orgInfo.verifiedDomains | Where-Object { $_.isDefault })
+        $primaryDomain = if ($defaultDomains.Count -gt 0) { $defaultDomains[0].name } else { $null }
 
         $checks += @{
             check       = "organization"
@@ -125,22 +129,32 @@ try {
         # Get Microsoft Graph service principal
         $graphSp = Invoke-GraphRequestWithRetry -Method GET `
             -Uri "https://graph.microsoft.com/v1.0/servicePrincipals?`$filter=appId eq '00000003-0000-0000-c000-000000000000'&`$select=id,appRoles"
+        if (-not $graphSp.value -or $graphSp.value.Count -eq 0) {
+            throw "Microsoft Graph service principal not found in tenant"
+        }
         $graphSpId = $graphSp.value[0].id
         $allAppRoles = $graphSp.value[0].appRoles
 
         # Build permission name to GUID map
         $permissionMap = @{}
         foreach ($permName in $requiredPermissionNames) {
-            $matched = $allAppRoles | Where-Object { $_.value -eq $permName -and $_.allowedMemberTypes -contains "Application" }
-            if ($matched) {
-                $permissionMap[$permName] = $matched.id
+            $matched = @($allAppRoles | Where-Object { $_.value -eq $permName -and $_.allowedMemberTypes -contains "Application" })
+            if ($matched.Count -gt 0) {
+                $permissionMap[$permName] = $matched[0].id
             }
         }
 
         # Get current managed identity's service principal
         $clientId = $env:AZURE_CLIENT_ID
+        if (-not $clientId) {
+            throw "AZURE_CLIENT_ID environment variable not set"
+        }
+        $safeClientId = Format-ODataFilterValue -Value $clientId
         $mySp = Invoke-GraphRequestWithRetry -Method GET `
-            -Uri "https://graph.microsoft.com/v1.0/servicePrincipals?`$filter=appId eq '$clientId'&`$select=id"
+            -Uri "https://graph.microsoft.com/v1.0/servicePrincipals?`$filter=appId eq '$safeClientId'&`$select=id"
+        if (-not $mySp.value -or $mySp.value.Count -eq 0) {
+            throw "Managed identity service principal not found for appId '$clientId'"
+        }
         $mySpId = $mySp.value[0].id
 
         # Get granted permissions
@@ -148,7 +162,7 @@ try {
             -Uri "https://graph.microsoft.com/v1.0/servicePrincipals/$mySpId/appRoleAssignments?`$select=appRoleId"
         $grantedRoleIds = @()
         if ($grants.value) {
-            $grantedRoleIds = $grants.value | ForEach-Object { $_.appRoleId }
+            $grantedRoleIds = @($grants.value | ForEach-Object { $_.appRoleId })
         }
 
         # Check each permission
@@ -220,8 +234,8 @@ try {
         $existingPolicies = @()
         $omzigPolicies = @()
         if ($caPolicies.value) {
-            $existingPolicies = $caPolicies.value
-            $omzigPolicies = $caPolicies.value | Where-Object { $_.displayName -match '^CA\d{3}-' }
+            $existingPolicies = @($caPolicies.value)
+            $omzigPolicies = @($caPolicies.value | Where-Object { $_.displayName -match '^CA\d{3}-' })
         }
 
         $caRating = "pass"
@@ -270,7 +284,7 @@ try {
     try {
         Write-Host "[CHECK 4/10] MFA Registration Rate..."
         $mfaData = Invoke-GraphRequestWithRetry -Method GET `
-            -Uri "https://graph.microsoft.com/v1.0/reports/authenticationMethods/userRegistrationDetails?`$top=999"
+            -Uri "https://graph.microsoft.com/v1.0/reports/authenticationMethods/userRegistrationDetails?`$top=100"
 
         $totalUsers = 0
         $mfaRegistered = 0
@@ -496,8 +510,8 @@ try {
         $existingComp = @()
         $omzigComp = @()
         if ($compPolicies.value) {
-            $existingComp = $compPolicies.value
-            $omzigComp = $compPolicies.value | Where-Object { $_.displayName -match 'ZeroTrust-' }
+            $existingComp = @($compPolicies.value)
+            $omzigComp = @($compPolicies.value | Where-Object { $_.displayName -match 'ZeroTrust-' })
         }
 
         $compRating = "pass"
@@ -607,10 +621,11 @@ try {
         $gaMembers = @()
 
         if ($roles.value) {
-            $gaRole = $roles.value | Where-Object { $_.displayName -eq 'Global Administrator' }
-            if ($gaRole) {
+            $gaRole = @($roles.value | Where-Object { $_.displayName -eq 'Global Administrator' })
+            if ($gaRole.Count -gt 0) {
+                $gaRoleId = $gaRole[0].id
                 $gaRoleMembers = Invoke-GraphRequestWithRetry -Method GET `
-                    -Uri "https://graph.microsoft.com/v1.0/directoryRoles/$($gaRole.id)/members?`$select=id,displayName,userPrincipalName&`$top=100"
+                    -Uri "https://graph.microsoft.com/v1.0/directoryRoles/$gaRoleId/members?`$select=id,displayName,userPrincipalName&`$top=100"
 
                 if ($gaRoleMembers.value) {
                     $gaCount = $gaRoleMembers.value.Count
@@ -735,10 +750,10 @@ try {
     # =========================================================================
     # CALCULATE OVERALL READINESS
     # =========================================================================
-    $passCount    = ($checks | Where-Object { $_.rating -eq "pass" }).Count
-    $warnCount    = ($checks | Where-Object { $_.rating -eq "warn" }).Count
-    $failCount    = ($checks | Where-Object { $_.rating -eq "fail" }).Count
-    $blockerCount = ($checks | Where-Object { $_.rating -eq "blocker" }).Count
+    $passCount    = @($checks | Where-Object { $_.rating -eq "pass" }).Count
+    $warnCount    = @($checks | Where-Object { $_.rating -eq "warn" }).Count
+    $failCount    = @($checks | Where-Object { $_.rating -eq "fail" }).Count
+    $blockerCount = @($checks | Where-Object { $_.rating -eq "blocker" }).Count
 
     $overallReadiness = if ($blockerCount -gt 0) { "blocked" }
         elseif ($failCount -gt 0) { "not-ready" }

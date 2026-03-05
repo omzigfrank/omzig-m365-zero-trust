@@ -57,6 +57,8 @@ function Invoke-GraphRequestWithRetry {
 
         [object]$Body,
 
+        [hashtable]$Headers,
+
         [int]$MaxRetries = 3,
 
         [int]$RetryDelaySeconds = 5
@@ -66,9 +68,16 @@ function Invoke-GraphRequestWithRetry {
         throw "Not connected to Graph. Call Connect-GraphWithManagedIdentity first."
     }
 
-    $headers = @{
+    $requestHeaders = @{
         "Authorization" = "Bearer $script:GraphToken"
         "Content-Type"  = "application/json"
+    }
+
+    # Merge caller-supplied headers
+    if ($Headers) {
+        foreach ($key in $Headers.Keys) {
+            $requestHeaders[$key] = $Headers[$key]
+        }
     }
 
     $attempt = 0
@@ -80,7 +89,7 @@ function Invoke-GraphRequestWithRetry {
             $params = @{
                 Method  = $Method
                 Uri     = $Uri
-                Headers = $headers
+                Headers = $requestHeaders
             }
 
             if ($Body) {
