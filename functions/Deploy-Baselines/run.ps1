@@ -22,6 +22,7 @@ param($Request, $TriggerMetadata)
     }
 #>
 
+$ErrorActionPreference = "Stop"
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'BaselineHelper.psm1') -Force
 
@@ -44,6 +45,22 @@ try {
     $groupId = $config.groupId
     $hipaaEnabled = [bool]$config.hipaaEnabled
     $profilePrefix = if ($config.profilePrefix) { $config.profilePrefix } else { "Omzig-SCT" }
+
+    # Input validation (M4)
+    if ($deploymentMode -notin @('audit', 'enforce')) {
+        throw "Invalid deploymentMode: '$deploymentMode'. Must be 'audit' or 'enforce'."
+    }
+    if ($assignmentTarget -notin @('allDevices', 'group', 'none')) {
+        throw "Invalid assignmentTarget: '$assignmentTarget'. Must be 'allDevices', 'group', or 'none'."
+    }
+    if ($assignmentTarget -eq 'group' -and (-not $groupId -or $groupId -notmatch '^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$')) {
+        throw "A valid groupId (GUID format) is required when assignmentTarget is 'group'."
+    }
+    foreach ($id in $baselineIds) {
+        if ($id -notmatch '^[a-zA-Z0-9\-]+$') {
+            throw "Invalid baseline ID format: '$id'. Only alphanumeric characters and hyphens are allowed."
+        }
+    }
 
     Write-Host "Configuration: mode=$deploymentMode, target=$assignmentTarget, hipaa=$hipaaEnabled, prefix=$profilePrefix"
     Write-Host "Baselines to deploy: $($baselineIds -join ', ')"
@@ -96,6 +113,13 @@ try {
         Write-Host "Found $($matchingProfiles.Count) profiles for this baseline"
 
         foreach ($profileRef in $matchingProfiles) {
+            # Validate profile ID format (defense-in-depth against path traversal)
+            if ($profileRef.profileId -notmatch '^[a-zA-Z0-9\-]+$') {
+                Write-Host "  WARNING: Invalid profile ID format: $($profileRef.profileId). Skipping."
+                $results.summary.skipped++
+                continue
+            }
+
             $profilePath = Join-Path $PSScriptRoot '..' '..' 'baselines' 'profiles' "$($profileRef.profileId).json"
             if (-not (Test-Path $profilePath)) {
                 $profilePath = Join-Path $env:HOME 'site' 'wwwroot' 'baselines' 'profiles' "$($profileRef.profileId).json"
@@ -231,7 +255,7 @@ catch {
         StatusCode = [HttpStatusCode]::InternalServerError
         Body = (@{
             status = "Failed"
-            error = $_.Exception.Message
+            error = "Deploy-Baselines failed. Check function logs for details."
             timestamp = (Get-Date).ToUniversalTime().ToString('o')
         } | ConvertTo-Json)
         Headers = @{ 'Content-Type' = 'application/json' }

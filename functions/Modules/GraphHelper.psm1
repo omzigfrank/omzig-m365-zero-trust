@@ -21,8 +21,11 @@ function Connect-GraphWithManagedIdentity {
             throw "Managed identity endpoint not available. Ensure the function app has a managed identity assigned."
         }
 
-        # User-assigned managed identity client ID
-        $clientId = "a70dbbbc-f48b-4fe3-bd03-915d64f2372d"
+        # User-assigned managed identity client ID from app settings
+        $clientId = $env:AZURE_CLIENT_ID
+        if (-not $clientId) {
+            throw "AZURE_CLIENT_ID environment variable not set. Configure it in Function App settings."
+        }
 
         $tokenUri = "$endpoint`?resource=$resource&api-version=2019-08-01&client_id=$clientId"
         $headers = @{ "X-IDENTITY-HEADER" = $header }
@@ -30,7 +33,7 @@ function Connect-GraphWithManagedIdentity {
         $response = Invoke-RestMethod -Uri $tokenUri -Headers $headers -Method GET
         $script:GraphToken = $response.access_token
 
-        Write-Host "Connected to Microsoft Graph successfully via managed identity (client_id: $clientId)"
+        Write-Host "Connected to Microsoft Graph successfully via managed identity"
         return $true
     }
     catch {
@@ -95,8 +98,12 @@ function Invoke-GraphRequestWithRetry {
             }
 
             if ($statusCode -eq 429 -or $statusCode -eq 503) {
-                $delay = $RetryDelaySeconds * $attempt
-                Write-Warning "Request throttled. Waiting $delay seconds before retry $attempt of $MaxRetries"
+                $retryAfter = $null
+                if ($_.Exception.Response -and $_.Exception.Response.Headers) {
+                    $retryAfter = $_.Exception.Response.Headers['Retry-After']
+                }
+                $delay = if ($retryAfter) { [int]$retryAfter } else { $RetryDelaySeconds * $attempt }
+                Write-Warning "Request throttled (HTTP $statusCode). Waiting $delay seconds before retry $attempt of $MaxRetries"
                 Start-Sleep -Seconds $delay
             }
             else {
@@ -181,9 +188,25 @@ function Test-GraphPermissions {
     }
 }
 
+function Format-ODataFilterValue {
+    <#
+    .SYNOPSIS
+        Escapes a string for safe use in OData $filter expressions
+    .DESCRIPTION
+        Prevents OData filter injection by escaping single quotes
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Value
+    )
+    return $Value -replace "'", "''"
+}
+
 Export-ModuleMember -Function @(
     'Connect-GraphWithManagedIdentity'
     'Invoke-GraphRequestWithRetry'
     'Write-DeploymentLog'
     'Test-GraphPermissions'
+    'Format-ODataFilterValue'
 )

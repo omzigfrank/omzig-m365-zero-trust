@@ -5,7 +5,7 @@
 param($Request, $TriggerMetadata)
 
 $ErrorActionPreference = "Stop"
-Import-Module "$PSScriptRoot/../Modules/GraphHelper.psm1"
+Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 
 function Deploy-SecurityBaselines {
     param(
@@ -56,8 +56,9 @@ function Deploy-SecurityBaselines {
 
         try {
             # Check if profile already exists
-            $existingUri = "https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations?`$filter=displayName eq '$profileName'"
-            $existing = Invoke-GraphWithRetry -Method GET -Uri $existingUri
+            $safeProfileName = Format-ODataFilterValue -Value $profileName
+            $existingUri = "https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations?`$filter=displayName eq '$safeProfileName'"
+            $existing = Invoke-GraphRequestWithRetry -Method GET -Uri $existingUri
             
             if ($existing.value.Count -gt 0) {
                 Write-Warning "[WARN] Profile '$profileName' already exists, skipping"
@@ -104,7 +105,7 @@ function Deploy-SecurityBaselines {
             }
 
             $createUri = "https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations"
-            $result = Invoke-GraphWithRetry -Method POST -Uri $createUri -Body $profileBody
+            $result = Invoke-GraphRequestWithRetry -Method POST -Uri $createUri -Body $profileBody
 
             Write-Host "[INFO] Created profile: $profileName (ID: $($result.id), Settings: $($omaSettings.Count))"
             $results.profilesCreated += @{
@@ -252,7 +253,7 @@ function Deploy-EdgeBaseline {
             "omaSettings" = $omaSettings
         }
         
-        $result = Invoke-GraphWithRetry -Method POST `
+        $result = Invoke-GraphRequestWithRetry -Method POST `
             -Uri "https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations" `
             -Body $profileBody
         
@@ -304,7 +305,7 @@ function Deploy-M365AppsBaseline {
                 "omaSettings" = $omaSettings
             }
             
-            $result = Invoke-GraphWithRetry -Method POST `
+            $result = Invoke-GraphRequestWithRetry -Method POST `
                 -Uri "https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations" `
                 -Body $profileBody
             
@@ -320,9 +321,19 @@ function Deploy-M365AppsBaseline {
 
 # Main execution
 try {
-    Connect-MgGraph -Identity
-    
-    $config = $Request.Body | ConvertFrom-Json -AsHashtable
+    $connected = Connect-GraphWithManagedIdentity
+    if (-not $connected) {
+        throw "Failed to connect to Microsoft Graph"
+    }
+
+    $config = $Request.Body
+    if (-not $config) {
+        throw "Request body is required."
+    }
+    # Ensure hashtable for ?? operator compatibility
+    if ($config -isnot [hashtable]) {
+        $config = $config | ConvertTo-Json -Depth 10 | ConvertFrom-Json -AsHashtable
+    }
     $results = Deploy-SecurityBaselines -Config $config
     
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
@@ -336,7 +347,7 @@ catch {
         StatusCode = [System.Net.HttpStatusCode]::InternalServerError
         Body       = (@{
             status  = "Failed"
-            error   = $_.Exception.Message
+            error   = "Deploy-SecurityBaselines failed. Check function logs for details."
             component = "Deploy-SecurityBaselines"
         } | ConvertTo-Json)
     })

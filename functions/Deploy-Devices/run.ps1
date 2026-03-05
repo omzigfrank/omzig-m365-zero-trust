@@ -9,6 +9,7 @@ param($Request, $TriggerMetadata)
     Creates device compliance policies for Windows, iOS, Android, macOS
 #>
 
+$ErrorActionPreference = "Stop"
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 
 Write-Host "Deploy-Devices started"
@@ -142,7 +143,7 @@ catch {
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::InternalServerError
-        Body = (@{ status = "Failed"; error = $_.Exception.Message; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
+        Body = (@{ status = "Failed"; error = "Deploy-Devices failed. Check function logs for details."; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
         Headers = @{ 'Content-Type' = 'application/json' }
     })
 }

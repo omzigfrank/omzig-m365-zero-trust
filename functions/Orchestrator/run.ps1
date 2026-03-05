@@ -2,6 +2,8 @@ using namespace System.Net
 
 param($Request, $TriggerMetadata)
 
+$ErrorActionPreference = "Stop"
+
 <#
 .SYNOPSIS
     Orchestrator function that coordinates M365 Zero Trust deployment
@@ -18,7 +20,7 @@ param($Request, $TriggerMetadata)
 Write-Host "Orchestrator started"
 
 try {
-    # Parse request body
+    # Parse request body; fall back to Function App settings for Marketplace deployments
     $config = $Request.Body
 
     if (-not $config) {
@@ -28,14 +30,31 @@ try {
         }
     }
 
+    # Validate securityBaseline
+    $validBaselines = @('Standard', 'Enhanced', 'Maximum')
+    if ($config.securityBaseline -and $config.securityBaseline -notin $validBaselines) {
+        throw "Invalid securityBaseline: '$($config.securityBaseline)'. Must be one of: $($validBaselines -join ', ')"
+    }
+
     Write-Host "Received configuration: securityBaseline=$($config.securityBaseline), hipaaEnabled=$($config.hipaaEnabled)"
 
     # Build SCT baseline deployment configuration
+    $baselineDeploymentMode = if ($config.baselineDeploymentMode) { $config.baselineDeploymentMode } else { "audit" }
+    $baselineAssignment = if ($config.baselineAssignment) { $config.baselineAssignment } else { "none" }
+
+    # Validate baseline inputs
+    if ($baselineDeploymentMode -notin @('audit', 'enforce')) {
+        throw "Invalid baselineDeploymentMode: '$baselineDeploymentMode'. Must be 'audit' or 'enforce'."
+    }
+    if ($baselineAssignment -notin @('allDevices', 'group', 'none')) {
+        throw "Invalid baselineAssignment: '$baselineAssignment'. Must be 'allDevices', 'group', or 'none'."
+    }
+
     $baselineConfig = @{
         enabled = [bool]$config.enableSctBaselines
         baselineIds = @()
-        deploymentMode = if ($config.baselineDeploymentMode) { $config.baselineDeploymentMode } else { "audit" }
-        assignmentTarget = if ($config.baselineAssignment) { $config.baselineAssignment } else { "none" }
+        deploymentMode = $baselineDeploymentMode
+        assignmentTarget = $baselineAssignment
         hipaaEnabled = [bool]$config.hipaaEnabled
     }
 
@@ -127,7 +146,7 @@ catch {
         StatusCode = [HttpStatusCode]::InternalServerError
         Body       = (@{
             status  = "Failed"
-            error   = $_.Exception.Message
+            error   = "Orchestrator failed. Check function logs for details."
             timestamp = (Get-Date).ToUniversalTime().ToString('o')
         } | ConvertTo-Json)
         Headers    = @{ 'Content-Type' = 'application/json' }

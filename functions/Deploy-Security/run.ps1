@@ -9,6 +9,7 @@ param($Request, $TriggerMetadata)
     Configures Defender for Office 365 settings (Safe Attachments, Safe Links, etc.)
 #>
 
+$ErrorActionPreference = "Stop"
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 
 Write-Host "Deploy-Security started"
@@ -78,7 +79,7 @@ try {
         $results.defenderPolicies += @{
             name = $secConfig.name
             type = $secConfig.type
-            status = "Configured"
+            status = "Planned"
             settings = $secConfig.settings
         }
         Write-Host "Configured: $($secConfig.name)"
@@ -96,7 +97,7 @@ try {
         $results.alertRules += @{
             name = $alert.name
             severity = $alert.severity
-            status = "Configured"
+            status = "Planned"
         }
         Write-Host "Alert configured: $($alert.name)"
     }
@@ -123,7 +124,7 @@ catch {
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::InternalServerError
-        Body = (@{ status = "Failed"; error = $_.Exception.Message; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
+        Body = (@{ status = "Failed"; error = "Deploy-Security failed. Check function logs for details."; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
         Headers = @{ 'Content-Type' = 'application/json' }
     })
 }

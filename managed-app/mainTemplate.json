@@ -54,6 +54,406 @@
       "metadata": {
         "description": "Security baseline level"
       }
+    },
+    "primaryDomain": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Primary domain for the organization"
+      }
+    },
+    "adminEmail": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Administrator email address"
+      }
+    },
+    "requireMfa": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Require MFA for all users"
+      }
+    },
+    "blockLegacyAuth": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Block legacy authentication protocols"
+      }
+    },
+    "requireCompliantDevice": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Require compliant device for access"
+      }
+    },
+    "enableDlp": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Enable DLP policies"
+      }
+    },
+    "enableSensitivityLabels": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Enable sensitivity labels"
+      }
+    },
+    "retentionDays": {
+      "type": "int",
+      "defaultValue": 365,
+      "metadata": {
+        "description": "Log retention in days"
+      }
+    },
+    "enableSctBaselines": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable SCT security baselines"
+      }
+    },
+    "workstationBaseline": {
+      "type": "string",
+      "defaultValue": "none",
+      "metadata": {
+        "description": "Workstation OS baseline to deploy"
+      }
+    },
+    "serverBaseline": {
+      "type": "string",
+      "defaultValue": "none",
+      "metadata": {
+        "description": "Server OS baseline to deploy"
+      }
+    },
+    "deployEdgeBaseline": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Deploy Edge browser baseline"
+      }
+    },
+    "deployM365AppsBaseline": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Deploy M365 Apps baseline"
+      }
+    },
+    "deployUpdateBaseline": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Deploy Windows Update baseline"
+      }
+    },
+    "baselineDeploymentMode": {
+      "type": "string",
+      "defaultValue": "audit",
+      "allowedValues": [
+        "audit",
+        "enforce"
+      ],
+      "metadata": {
+        "description": "Baseline deployment mode"
+      }
+    },
+    "baselineAssignment": {
+      "type": "string",
+      "defaultValue": "none",
+      "allowedValues": [
+        "allDevices",
+        "none"
+      ],
+      "metadata": {
+        "description": "Baseline assignment target"
+      }
+    },
+    "orgSize": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Organization size category"
+      }
+    },
+    "createStandardGroups": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Create standard Entra ID groups"
+      }
+    },
+    "createBreakGlassAccount": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Create break-glass emergency access account"
+      }
+    },
+    "breakGlassUPN": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Break-glass account UPN"
+      }
+    },
+    "m365License": {
+      "type": "string",
+      "defaultValue": "E3",
+      "metadata": {
+        "description": "Microsoft 365 license SKU"
+      }
+    },
+    "defenderForOfficePlan": {
+      "type": "string",
+      "defaultValue": "Plan1",
+      "metadata": {
+        "description": "Defender for Office 365 plan"
+      }
+    },
+    "hasDefenderForEndpoint": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Whether Defender for Endpoint is licensed"
+      }
+    },
+    "hasEntraIdP2": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Whether Entra ID P2 is licensed"
+      }
+    },
+    "enableGroupBasedLicensing": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable group-based licensing"
+      }
+    },
+    "enableStandardMailRules": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Enable standard mail flow rules"
+      }
+    },
+    "externalEmailWarning": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Add external email warning banner"
+      }
+    },
+    "blockAutoForwarding": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Block external auto-forwarding"
+      }
+    },
+    "blockExecutableAttachments": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Block executable attachment types"
+      }
+    },
+    "enableDkim": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Enable DKIM signing"
+      }
+    },
+    "dmarcPolicy": {
+      "type": "string",
+      "defaultValue": "quarantine",
+      "metadata": {
+        "description": "DMARC policy recommendation"
+      }
+    },
+    "createSharedMailboxes": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Create standard shared mailboxes"
+      }
+    },
+    "enableAutopilot": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable Windows Autopilot profiles"
+      }
+    },
+    "autopilotUserType": {
+      "type": "string",
+      "defaultValue": "standard",
+      "metadata": {
+        "description": "Autopilot user account type"
+      }
+    },
+    "enableWhiteGlove": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable Autopilot white glove deployment"
+      }
+    },
+    "blockPersonalDevices": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Block personal device enrollment"
+      }
+    },
+    "allowedPlatforms": {
+      "type": "string",
+      "defaultValue": "windows,ios,macos",
+      "metadata": {
+        "description": "Comma-separated list of allowed enrollment platforms"
+      }
+    },
+    "requireBitlocker": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Require BitLocker encryption"
+      }
+    },
+    "bitlockerEncryption": {
+      "type": "string",
+      "defaultValue": "xtsAes256",
+      "metadata": {
+        "description": "BitLocker encryption method"
+      }
+    },
+    "enableKnownFolderMove": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Enable OneDrive Known Folder Move"
+      }
+    },
+    "externalSharing": {
+      "type": "string",
+      "defaultValue": "ExternalUserSharingOnly",
+      "metadata": {
+        "description": "SharePoint external sharing level"
+      }
+    },
+    "defaultSharingLink": {
+      "type": "string",
+      "defaultValue": "Internal",
+      "metadata": {
+        "description": "Default SharePoint sharing link type"
+      }
+    },
+    "guestExpiration": {
+      "type": "int",
+      "defaultValue": 30,
+      "metadata": {
+        "description": "Guest user access expiration in days"
+      }
+    },
+    "allowGuestAccess": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Allow guest access in Teams"
+      }
+    },
+    "allowAnonymousMeetings": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Allow anonymous users in Teams meetings"
+      }
+    },
+    "meetingLobby": {
+      "type": "string",
+      "defaultValue": "EveryoneInCompanyExcludingGuests",
+      "metadata": {
+        "description": "Teams meeting lobby auto-admit setting"
+      }
+    },
+    "allowMeetingRecording": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Allow Teams meeting recording"
+      }
+    },
+    "allowThirdPartyApps": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Allow third-party apps in Teams"
+      }
+    },
+    "industryTemplate": {
+      "type": "string",
+      "defaultValue": "none",
+      "metadata": {
+        "description": "Industry compliance template"
+      }
+    },
+    "enableLighthouse": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable Azure Lighthouse for MSP management"
+      }
+    },
+    "mspTenantId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "MSP tenant ID for Lighthouse delegation"
+      }
+    },
+    "mspOfferName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "MSP offer name for Lighthouse"
+      }
+    },
+    "enableCentralizedAlerts": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable centralized alert routing"
+      }
+    },
+    "alertEmail": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Email address for centralized alerts"
+      }
+    },
+    "enableReporting": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable automated reporting"
+      }
+    },
+    "reportSchedule": {
+      "type": "string",
+      "defaultValue": "weekly",
+      "metadata": {
+        "description": "Automated report schedule"
+      }
     }
   },
   "resources": [
@@ -81,6 +481,15 @@
           },
           "securityBaseline": {
             "value": "[parameters('securityBaseline')]"
+          },
+          "requireMfa": {
+            "value": "[parameters('requireMfa')]"
+          },
+          "blockLegacyAuth": {
+            "value": "[parameters('blockLegacyAuth')]"
+          },
+          "requireCompliantDevice": {
+            "value": "[parameters('requireCompliantDevice')]"
           }
         },
         "template": {
