@@ -86,17 +86,14 @@ Write-Host "Signing in to Azure..." -ForegroundColor White
 Write-Host "A browser window will open. Sign in as a Global Administrator." -ForegroundColor Yellow
 Write-Host ""
 
-try {
-    az login --allow-no-subscriptions --output none 2>&1 | Out-Null
-    if ($LASTEXITCODE -ne 0) { throw "az login failed" }
-}
-catch {
+az login --allow-no-subscriptions --output none
+if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Sign-in failed. You must sign in as a Global Administrator." -ForegroundColor Red
     exit 1
 }
 
 # Get tenant info
-$accountJson = az account show --output json 2>&1
+$accountJson = az account show --output json
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Could not retrieve account info. Ensure 'az login' succeeded." -ForegroundColor Red
     exit 1
@@ -130,7 +127,7 @@ $foundName = $null
 if ($ResourceGroupName -and $ManagedIdentityName) {
     # Direct lookup
     try {
-        $idJson = az identity show --resource-group $ResourceGroupName --name $ManagedIdentityName --output json 2>&1
+        $idJson = az identity show --resource-group $ResourceGroupName --name $ManagedIdentityName --output json
         if ($LASTEXITCODE -ne 0) { throw "Identity not found" }
         $idInfo = $idJson | ConvertFrom-Json
         $managedIdentitySpId = $idInfo.principalId
@@ -147,7 +144,7 @@ else {
     # Auto-discover
     Write-Host "  Searching for Omzig managed identities..." -ForegroundColor DarkGray
 
-    $identitiesJson = az identity list --output json 2>&1
+    $identitiesJson = az identity list --output json
     if ($LASTEXITCODE -ne 0) {
         Write-Host "ERROR: Could not list managed identities. Check your Azure subscription." -ForegroundColor Red
         exit 1
@@ -203,7 +200,7 @@ Write-Host "Resolving Microsoft Graph service principal..." -ForegroundColor Whi
 
 $graphSpJson = az rest --method GET `
     --url "https://graph.microsoft.com/v1.0/servicePrincipals?`$filter=appId eq '00000003-0000-0000-c000-000000000000'&`$select=id,appRoles" `
-    --output json 2>&1
+    --output json
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Could not find Microsoft Graph service principal." -ForegroundColor Red
@@ -280,7 +277,7 @@ Write-Host "Checking existing permission grants..." -ForegroundColor White
 
 $existingGrantsJson = az rest --method GET `
     --url "https://graph.microsoft.com/v1.0/servicePrincipals/$graphSpId/appRoleAssignedTo?`$filter=principalId eq '$managedIdentitySpId'&`$select=appRoleId" `
-    --output json 2>&1
+    --output json
 
 $grantedRoleIds = @()
 if ($LASTEXITCODE -eq 0) {
@@ -323,12 +320,17 @@ foreach ($permName in $requiredPermissions) {
     [System.IO.File]::WriteAllText($bodyFile, $body, [System.Text.UTF8Encoding]::new($false))
 
     try {
+        # Temporarily allow stderr capture without throwing (for 409 conflict detection)
+        $prevEAP = $ErrorActionPreference
+        $ErrorActionPreference = "Continue"
         $grantResult = az rest --method POST `
             --url "https://graph.microsoft.com/v1.0/servicePrincipals/$graphSpId/appRoleAssignedTo" `
             --body "@$bodyFile" `
             --output none 2>&1
+        $grantExitCode = $LASTEXITCODE
+        $ErrorActionPreference = $prevEAP
 
-        if ($LASTEXITCODE -eq 0) {
+        if ($grantExitCode -eq 0) {
             Write-Host " OK" -ForegroundColor Green
             $granted++
         }
@@ -376,7 +378,7 @@ if (-not $SkipAudit) {
     # Get function key
     $functionKey = $null
     try {
-        $keyJson = az functionapp keys list --name $FunctionAppName --resource-group $ResourceGroupName --output json 2>&1
+        $keyJson = az functionapp keys list --name $FunctionAppName --resource-group $ResourceGroupName --output json
         if ($LASTEXITCODE -eq 0) {
             $keys = $keyJson | ConvertFrom-Json
             $functionKey = $keys.functionKeys.default
