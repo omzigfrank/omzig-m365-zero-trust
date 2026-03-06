@@ -35,9 +35,9 @@ function Get-SecureScoreReport {
             -Headers $headers -Method GET
 
         # Calculate percentage
-        $percentage = if ($currentScore.maxScore -gt 0) {
+        $percentage = $(if ($currentScore.maxScore -gt 0) {
             [math]::Round(($currentScore.currentScore / $currentScore.maxScore) * 100, 1)
-        } else { 0 }
+        } else { 0 })
 
         # Get top recommendations (not implemented controls)
         $recommendations = $currentScore.controlScores | Where-Object {
@@ -92,10 +92,10 @@ function Get-MfaStatusReport {
             -Uri "https://graph.microsoft.com/v1.0/reports/credentialUserRegistrationDetails" `
             -Headers $headers -Method GET
 
-        $totalUsers = $registrationDetails.value.Count
-        $mfaRegistered = ($registrationDetails.value | Where-Object { $_.isMfaRegistered -eq $true }).Count
-        $mfaCapable = ($registrationDetails.value | Where-Object { $_.isMfaCapable -eq $true }).Count
-        $passwordlessCapable = ($registrationDetails.value | Where-Object { $_.isPasswordlessCapable -eq $true }).Count
+        $totalUsers = @($registrationDetails.value).Count
+        $mfaRegistered = @($registrationDetails.value | Where-Object { $_.isMfaRegistered -eq $true }).Count
+        $mfaCapable = @($registrationDetails.value | Where-Object { $_.isMfaCapable -eq $true }).Count
+        $passwordlessCapable = @($registrationDetails.value | Where-Object { $_.isPasswordlessCapable -eq $true }).Count
 
         # Users not registered for MFA
         $notRegistered = $registrationDetails.value | Where-Object { $_.isMfaRegistered -eq $false } | Select-Object -First 20
@@ -106,7 +106,7 @@ function Get-MfaStatusReport {
             summary = @{
                 totalUsers = $totalUsers
                 mfaRegistered = $mfaRegistered
-                mfaRegisteredPercentage = if ($totalUsers -gt 0) { [math]::Round(($mfaRegistered / $totalUsers) * 100, 1) } else { 0 }
+                mfaRegisteredPercentage = $(if ($totalUsers -gt 0) { [math]::Round(($mfaRegistered / $totalUsers) * 100, 1) } else { 0 })
                 mfaCapable = $mfaCapable
                 passwordlessCapable = $passwordlessCapable
             }
@@ -160,7 +160,7 @@ function Get-LicenseUtilizationReport {
                 totalLicenses = $total
                 consumedLicenses = $consumed
                 availableLicenses = $available
-                utilizationPercentage = if ($total -gt 0) { [math]::Round(($consumed / $total) * 100, 1) } else { 0 }
+                utilizationPercentage = $(if ($total -gt 0) { [math]::Round(($consumed / $total) * 100, 1) } else { 0 })
             }
         }
 
@@ -169,9 +169,9 @@ function Get-LicenseUtilizationReport {
             timestamp = (Get-Date).ToUniversalTime().ToString('o')
             licenses = $licenseReport
             summary = @{
-                totalSkus = $licenseReport.Count
-                fullyUtilized = ($licenseReport | Where-Object { $_.availableLicenses -eq 0 }).Count
-                underutilized = ($licenseReport | Where-Object { $_.utilizationPercentage -lt 50 }).Count
+                totalSkus = @($licenseReport).Count
+                fullyUtilized = @($licenseReport | Where-Object { $_.availableLicenses -eq 0 }).Count
+                underutilized = @($licenseReport | Where-Object { $_.utilizationPercentage -lt 50 }).Count
             }
         }
     }
@@ -206,17 +206,17 @@ function Get-DeviceComplianceReport {
             -Uri "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?`$select=id,deviceName,complianceState,operatingSystem,osVersion,lastSyncDateTime,userPrincipalName" `
             -Headers $headers -Method GET
 
-        $totalDevices = $devices.value.Count
-        $compliant = ($devices.value | Where-Object { $_.complianceState -eq "compliant" }).Count
-        $nonCompliant = ($devices.value | Where-Object { $_.complianceState -eq "noncompliant" }).Count
-        $unknown = ($devices.value | Where-Object { $_.complianceState -notin @("compliant", "noncompliant") }).Count
+        $totalDevices = @($devices.value).Count
+        $compliant = @($devices.value | Where-Object { $_.complianceState -eq "compliant" }).Count
+        $nonCompliant = @($devices.value | Where-Object { $_.complianceState -eq "noncompliant" }).Count
+        $unknown = @($devices.value | Where-Object { $_.complianceState -notin @("compliant", "noncompliant") }).Count
 
         # Group by OS
         $byOs = $devices.value | Group-Object -Property operatingSystem | ForEach-Object {
             @{
                 os = $_.Name
                 count = $_.Count
-                compliant = ($_.Group | Where-Object { $_.complianceState -eq "compliant" }).Count
+                compliant = @($_.Group | Where-Object { $_.complianceState -eq "compliant" }).Count
             }
         }
 
@@ -231,7 +231,7 @@ function Get-DeviceComplianceReport {
                 compliant = $compliant
                 nonCompliant = $nonCompliant
                 unknown = $unknown
-                compliancePercentage = if ($totalDevices -gt 0) { [math]::Round(($compliant / $totalDevices) * 100, 1) } else { 0 }
+                compliancePercentage = $(if ($totalDevices -gt 0) { [math]::Round(($compliant / $totalDevices) * 100, 1) } else { 0 })
             }
             byOperatingSystem = $byOs
             nonCompliantDevices = $nonCompliantDevices | ForEach-Object {
@@ -276,15 +276,15 @@ function Get-RiskyUsersReport {
             -Uri "https://graph.microsoft.com/v1.0/identityProtection/riskyUsers" `
             -Headers $headers -Method GET
 
-        $highRisk = ($riskyUsers.value | Where-Object { $_.riskLevel -eq "high" }).Count
-        $mediumRisk = ($riskyUsers.value | Where-Object { $_.riskLevel -eq "medium" }).Count
-        $lowRisk = ($riskyUsers.value | Where-Object { $_.riskLevel -eq "low" }).Count
+        $highRisk = @($riskyUsers.value | Where-Object { $_.riskLevel -eq "high" }).Count
+        $mediumRisk = @($riskyUsers.value | Where-Object { $_.riskLevel -eq "medium" }).Count
+        $lowRisk = @($riskyUsers.value | Where-Object { $_.riskLevel -eq "low" }).Count
 
         return @{
             status = "Success"
             timestamp = (Get-Date).ToUniversalTime().ToString('o')
             summary = @{
-                totalRiskyUsers = $riskyUsers.value.Count
+                totalRiskyUsers = @($riskyUsers.value).Count
                 highRisk = $highRisk
                 mediumRisk = $mediumRisk
                 lowRisk = $lowRisk
@@ -346,9 +346,9 @@ function New-ComplianceReport {
         if ($report.sections.mfaStatus.summary.mfaRegisteredPercentage) { $scores += $report.sections.mfaStatus.summary.mfaRegisteredPercentage }
         if ($report.sections.deviceCompliance.summary.compliancePercentage) { $scores += $report.sections.deviceCompliance.summary.compliancePercentage }
 
-        $report.overallScore = if ($scores.Count -gt 0) {
+        $report.overallScore = $(if ($scores.Count -gt 0) {
             [math]::Round(($scores | Measure-Object -Average).Average, 1)
-        } else { 0 }
+        } else { 0 })
 
         # Add recommendations
         $report.recommendations = @()

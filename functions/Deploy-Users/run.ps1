@@ -252,8 +252,8 @@ try {
                         status = "Created"
                         type = "BreakGlass"
                         passwordStoredInKeyVault = $secretStored
-                        keyVaultSecretName = if ($secretStored) { $secretName } else { $null }
-                        note = if ($secretStored) { "Password stored in Key Vault secret '$secretName'" } else { "WARNING: KEY_VAULT_NAME not configured. Password was generated but could not be stored securely. Re-create the account after configuring Key Vault." }
+                        keyVaultSecretName = $(if ($secretStored) { $secretName } else { $null })
+                        note = $(if ($secretStored) { "Password stored in Key Vault secret '$secretName'" } else { "WARNING: KEY_VAULT_NAME not configured. Password was generated but could not be stored securely. Re-create the account after configuring Key Vault." })
                     }
                 }
             }
@@ -366,10 +366,10 @@ try {
         }
         results = $results
         summary = @{
-            groupsCreated = ($results.groups | Where-Object { $_.status -eq "Created" }).Count
-            groupsExisting = ($results.groups | Where-Object { $_.status -eq "AlreadyExists" }).Count
-            usersCreated = ($results.users | Where-Object { $_.status -eq "Created" }).Count
-            usersExisting = ($results.users | Where-Object { $_.status -eq "AlreadyExists" }).Count
+            groupsCreated = @($results.groups | Where-Object { $_.status -eq "Created" }).Count
+            groupsExisting = @($results.groups | Where-Object { $_.status -eq "AlreadyExists" }).Count
+            usersCreated = @($results.users | Where-Object { $_.status -eq "Created" }).Count
+            usersExisting = @($results.users | Where-Object { $_.status -eq "AlreadyExists" }).Count
         }
     }
 

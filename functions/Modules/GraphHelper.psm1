@@ -111,7 +111,8 @@ function Invoke-GraphRequestWithRetry {
                 if ($_.Exception.Response -and $_.Exception.Response.Headers) {
                     $retryAfter = $_.Exception.Response.Headers['Retry-After']
                 }
-                $delay = if ($retryAfter) { [int]$retryAfter } else { $RetryDelaySeconds * $attempt }
+                $parsedRetry = 0
+                $delay = $(if ($retryAfter -and [int]::TryParse($retryAfter, [ref]$parsedRetry)) { $parsedRetry } else { $RetryDelaySeconds * $attempt })
                 Write-Warning "Request throttled (HTTP $statusCode). Waiting $delay seconds before retry $attempt of $MaxRetries"
                 Start-Sleep -Seconds $delay
             }

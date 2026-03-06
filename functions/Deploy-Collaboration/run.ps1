@@ -67,9 +67,9 @@ try {
         preventExternalUsersFromResharing = $true
         requireAcceptingAccountMatchInvitedAccount = $true
         externalUserExpirationRequired = $true
-        externalUserExpireInDays = if ($config.hipaaEnabled) { 14 } else { 30 }
+        externalUserExpireInDays = $(if ($config.hipaaEnabled) { 14 } else { 30 })
         emailAttestationRequired = $true
-        emailAttestationReAuthDays = if ($config.hipaaEnabled) { 14 } else { 30 }
+        emailAttestationReAuthDays = $(if ($config.hipaaEnabled) { 14 } else { 30 })
         blockDownloadLinksFileType = "WebPreviewableFiles"
         fileAnonymousLinkType = "View"
         folderAnonymousLinkType = "View"
@@ -119,7 +119,7 @@ try {
     # Meeting policies
     $meetingPolicy = @{
         allowAnonymousUsersToJoinMeeting = $config.allowAnonymousMeetings -eq $true
-        autoAdmittedUsers = if ($config.hipaaEnabled) { "EveryoneInCompanyExcludingGuests" } else { "EveryoneInCompany" }
+        autoAdmittedUsers = $(if ($config.hipaaEnabled) { "EveryoneInCompanyExcludingGuests" } else { "EveryoneInCompany" })
         allowExternalParticipantGiveRequestControl = $false
         allowCloudRecording = $true
         allowRecordingStorageOutsideRegion = $false
@@ -145,9 +145,9 @@ try {
         allowUserDeleteMessage = $true
         allowUserChat = $true
         allowRemoveUser = $true
-        allowGiphy = if ($config.hipaaEnabled) { $false } else { $true }
+        allowGiphy = $(if ($config.hipaaEnabled) { $false } else { $true })
         giphyRatingType = "Moderate"
-        allowMemes = if ($config.hipaaEnabled) { $false } else { $true }
+        allowMemes = $(if ($config.hipaaEnabled) { $false } else { $true })
         allowStickers = $true
         allowUserTranslation = $true
         allowImmersiveReader = $true
@@ -165,7 +165,7 @@ try {
         allowCreateUpdateRemoveTabs = $false
         allowCreateUpdateRemoveConnectors = $false
         allowGuestMeetNow = $config.allowGuestAccess -eq $true
-        allowScreenSharing = if ($config.hipaaEnabled) { "Disabled" } else { "EntireScreen" }
+        allowScreenSharing = $(if ($config.hipaaEnabled) { "Disabled" } else { "EntireScreen" })
         allowPrivateCalling = $false
     }
 

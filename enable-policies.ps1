@@ -115,7 +115,7 @@ if ($IncludeCA004 -and -not $Force) {
 
 # Create the body file for PATCH request
 $bodyFile = Join-Path $PSScriptRoot "enable-body.json"
-'{"state": "enabled"}' | Out-File -FilePath $bodyFile -Encoding utf8 -Force
+[System.IO.File]::WriteAllText($bodyFile, '{"state": "enabled"}', [System.Text.UTF8Encoding]::new($false))
 
 Write-Host ""
 Write-Host "Enabling policies..." -ForegroundColor Cyan

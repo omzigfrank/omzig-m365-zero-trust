@@ -64,7 +64,7 @@ try {
             }
 
             # Platform breakdown
-            $platform = $device.operatingSystem ?? "Unknown"
+            $platform = $(if ($device.operatingSystem) { $device.operatingSystem } else { "Unknown" })
             if (-not $platformBreakdown.ContainsKey($platform)) {
                 $platformBreakdown[$platform] = @{
                     total = 0
@@ -96,7 +96,7 @@ try {
                     default { $unknown++ }
                 }
 
-                $platform = $device.operatingSystem ?? "Unknown"
+                $platform = $(if ($device.operatingSystem) { $device.operatingSystem } else { "Unknown" })
                 if (-not $platformBreakdown.ContainsKey($platform)) {
                     $platformBreakdown[$platform] = @{ total = 0; compliant = 0; noncompliant = 0 }
                 }
@@ -116,9 +116,9 @@ try {
         nonCompliantDevices = $nonCompliantDevices
         inGracePeriod = $inGracePeriod
         unknown = $unknown
-        complianceRate = if ($totalDevices -gt 0) {
+        complianceRate = $(if ($totalDevices -gt 0) {
             [math]::Round(($compliantDevices / $totalDevices) * 100, 2)
-        } else { 0 }
+        } else { 0 })
         platformBreakdown = $platformBreakdown
     }
 
@@ -186,7 +186,7 @@ try {
     if ($result.deviceCompliance.complianceRate -lt 100) {
         $result.recommendations += @{
             category = "Device Compliance"
-            priority = if ($result.deviceCompliance.complianceRate -lt 80) { "High" } else { "Medium" }
+            priority = $(if ($result.deviceCompliance.complianceRate -lt 80) { "High" } else { "Medium" })
             issue = "$nonCompliantDevices devices are non-compliant"
             recommendation = "Review non-compliant devices in Intune and remediate issues"
             impact = "Non-compliant devices may lack security controls"
@@ -224,22 +224,22 @@ try {
     $overallScore += [math]::Min(40, ($result.deviceCompliance.complianceRate / 100) * 40)
 
     # No risky users contributes 30 points
-    $riskyUserPenalty = [math]::Min(30, ($result.riskOverview.totalRiskyUsers ?? 0) * 3)
+    $riskyUserPenalty = [math]::Min(30, ($(if ($null -ne $result.riskOverview.totalRiskyUsers) { $result.riskOverview.totalRiskyUsers } else { 0 })) * 3)
     $overallScore += (30 - $riskyUserPenalty)
 
     # Having policies contributes 30 points
-    $overallScore += if ($result.policyCompliance.Count -gt 0) { 30 } else { 0 }
+    $overallScore += $(if ($result.policyCompliance.Count -gt 0) { 30 } else { 0 })
 
     $result.overallComplianceScore = @{
         score = [math]::Round($overallScore, 0)
         maxScore = $maxScore
-        grade = switch ($overallScore) {
+        grade = $(switch ($overallScore) {
             { $_ -ge 90 } { "A" }
             { $_ -ge 80 } { "B" }
             { $_ -ge 70 } { "C" }
             { $_ -ge 60 } { "D" }
             default { "F" }
-        }
+        })
         breakdown = @{
             deviceCompliance = "$([math]::Round(($result.deviceCompliance.complianceRate / 100) * 40, 0))/40"
             identityRisk = "$(30 - $riskyUserPenalty)/30"
@@ -257,7 +257,7 @@ try {
 $responseBody = $result | ConvertTo-Json -Depth 10
 
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-    StatusCode = if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError }
+    StatusCode = $(if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError })
     Headers = @{ 'Content-Type' = 'application/json' }
     Body = $responseBody
 })

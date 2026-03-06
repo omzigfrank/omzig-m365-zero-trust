@@ -39,8 +39,8 @@ try {
     Write-Host "Received configuration: securityBaseline=$($config.securityBaseline), hipaaEnabled=$($config.hipaaEnabled)"
 
     # Build SCT baseline deployment configuration
-    $baselineDeploymentMode = if ($config.baselineDeploymentMode) { $config.baselineDeploymentMode } else { "audit" }
-    $baselineAssignment = if ($config.baselineAssignment) { $config.baselineAssignment } else { "none" }
+    $baselineDeploymentMode = $(if ($config.baselineDeploymentMode) { $config.baselineDeploymentMode } else { "audit" })
+    $baselineAssignment = $(if ($config.baselineAssignment) { $config.baselineAssignment } else { "none" })
 
     # Validate baseline inputs
     if ($baselineDeploymentMode -notin @('audit', 'enforce')) {
@@ -107,16 +107,16 @@ try {
                 step = 5
                 function = "Deploy-Baselines"
                 description = "SCT security baselines ($($baselineConfig.baselineIds.Count) baselines)"
-                status = if ($baselineConfig.enabled -and $baselineConfig.baselineIds.Count -gt 0) { "Ready" } else { "Skipped" }
+                status = $(if ($baselineConfig.enabled -and $baselineConfig.baselineIds.Count -gt 0) { "Ready" } else { "Skipped" })
                 endpoint = "/api/deploy-baselines"
-                payload = if ($baselineConfig.enabled) {
+                payload = $(if ($baselineConfig.enabled) {
                     @{
                         baselineIds = $baselineConfig.baselineIds
                         deploymentMode = $baselineConfig.deploymentMode
                         assignmentTarget = $baselineConfig.assignmentTarget
                         hipaaEnabled = $baselineConfig.hipaaEnabled
                     }
-                } else { $null }
+                } else { $null })
             }
         )
         nextSteps = @(

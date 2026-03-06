@@ -16,9 +16,14 @@ $body = @{
     hipaaEnabled = $true
 } | ConvertTo-Json
 
+$headers = @{
+    "x-functions-key" = $key
+    "Content-Type" = "application/json"
+}
+
 Write-Host "=== Calling Orchestrator ===" -ForegroundColor Cyan
 try {
-    $result = Invoke-RestMethod -Uri "$baseUrl/orchestrate?code=$key" -Method POST -Body $body -ContentType "application/json" -TimeoutSec 120
+    $result = Invoke-RestMethod -Uri "$baseUrl/orchestrate" -Headers $headers -Method POST -Body $body -TimeoutSec 120
     $result | ConvertTo-Json -Depth 10
 } catch {
     Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
@@ -26,7 +31,7 @@ try {
 
 Write-Host "`n=== Deploying Identity (Conditional Access Policies) ===" -ForegroundColor Cyan
 try {
-    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/identity?code=$key" -Method POST -Body $body -ContentType "application/json" -TimeoutSec 300
+    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/identity" -Headers $headers -Method POST -Body $body -TimeoutSec 300
     $result | ConvertTo-Json -Depth 10
 } catch {
     Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
@@ -34,7 +39,7 @@ try {
 
 Write-Host "`n=== Deploying Devices (Intune Policies) ===" -ForegroundColor Cyan
 try {
-    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/devices?code=$key" -Method POST -Body $body -ContentType "application/json" -TimeoutSec 300
+    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/devices" -Headers $headers -Method POST -Body $body -TimeoutSec 300
     $result | ConvertTo-Json -Depth 10
 } catch {
     Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
@@ -42,7 +47,7 @@ try {
 
 Write-Host "`n=== Deploying Security (Defender for Office 365) ===" -ForegroundColor Cyan
 try {
-    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/security?code=$key" -Method POST -Body $body -ContentType "application/json" -TimeoutSec 300
+    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/security" -Headers $headers -Method POST -Body $body -TimeoutSec 300
     $result | ConvertTo-Json -Depth 10
 } catch {
     Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
@@ -50,7 +55,7 @@ try {
 
 Write-Host "`n=== Deploying Data (DLP and Sensitivity Labels) ===" -ForegroundColor Cyan
 try {
-    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/data?code=$key" -Method POST -Body $body -ContentType "application/json" -TimeoutSec 300
+    $result = Invoke-RestMethod -Uri "$baseUrl/deploy/data" -Headers $headers -Method POST -Body $body -TimeoutSec 300
     $result | ConvertTo-Json -Depth 10
 } catch {
     Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red

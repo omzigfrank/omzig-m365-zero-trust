@@ -2,13 +2,13 @@ Describe 'Deploy-Baselines' {
 
     BeforeAll {
         # Load module
-        $modulePath = Join-Path $PSScriptRoot '..' 'Modules' 'BaselineHelper.psm1'
+        $modulePath = Join-Path $PSScriptRoot '..\Modules\BaselineHelper.psm1'
         if (Test-Path $modulePath) {
             Import-Module $modulePath -Force
         }
 
         # Load catalog
-        $catalogPath = Join-Path $PSScriptRoot '..' '..' 'baselines' 'catalog.json'
+        $catalogPath = Join-Path $PSScriptRoot '..\..\baselines\catalog.json'
         if (Test-Path $catalogPath) {
             $script:catalog = Get-Content $catalogPath -Raw | ConvertFrom-Json
         }
@@ -17,7 +17,7 @@ Describe 'Deploy-Baselines' {
     Context 'Baseline Catalog' {
 
         It 'Catalog file exists and is valid JSON' {
-            $catalogPath = Join-Path $PSScriptRoot '..' '..' 'baselines' 'catalog.json'
+            $catalogPath = Join-Path $PSScriptRoot '..\..\baselines\catalog.json'
             Test-Path $catalogPath | Should -BeTrue
             { Get-Content $catalogPath -Raw | ConvertFrom-Json } | Should -Not -Throw
         }
@@ -56,7 +56,7 @@ Describe 'Deploy-Baselines' {
     Context 'Baseline Profiles' {
 
         It 'All referenced profiles have matching JSON files' {
-            $profileDir = Join-Path $PSScriptRoot '..' '..' 'baselines' 'profiles'
+            $profileDir = Join-Path $PSScriptRoot '..\..\baselines\profiles'
             foreach ($profile in $script:catalog.profiles) {
                 $profilePath = Join-Path $profileDir "$($profile.profileId).json"
                 Test-Path $profilePath | Should -BeTrue -Because "Profile $($profile.profileId) should have a JSON file"
@@ -64,7 +64,7 @@ Describe 'Deploy-Baselines' {
         }
 
         It 'Profile JSON files are valid and contain settings' {
-            $profileDir = Join-Path $PSScriptRoot '..' '..' 'baselines' 'profiles'
+            $profileDir = Join-Path $PSScriptRoot '..\..\baselines\profiles'
             $sampleProfiles = $script:catalog.profiles | Select-Object -First 10
             foreach ($profileRef in $sampleProfiles) {
                 $profilePath = Join-Path $profileDir "$($profileRef.profileId).json"
@@ -100,7 +100,7 @@ Describe 'Deploy-Baselines' {
     Context 'NSA Zero Trust Mapping' {
 
         It 'NSA mapping file exists and covers all 7 pillars' {
-            $nsaPath = Join-Path $PSScriptRoot '..' '..' 'baselines' 'mappings' 'nsa-zero-trust-pillars.json'
+            $nsaPath = Join-Path $PSScriptRoot '..\..\baselines\mappings\nsa-zero-trust-pillars.json'
             Test-Path $nsaPath | Should -BeTrue
 
             $nsa = Get-Content $nsaPath -Raw | ConvertFrom-Json
@@ -115,7 +115,7 @@ Describe 'Deploy-Baselines' {
         }
 
         It 'Each pillar has settings mapped' {
-            $nsaPath = Join-Path $PSScriptRoot '..' '..' 'baselines' 'mappings' 'nsa-zero-trust-pillars.json'
+            $nsaPath = Join-Path $PSScriptRoot '..\..\baselines\mappings\nsa-zero-trust-pillars.json'
             $nsa = Get-Content $nsaPath -Raw | ConvertFrom-Json
             foreach ($prop in $nsa.PSObject.Properties) {
                 $prop.Value.settingCount | Should -BeGreaterOrEqual 1 -Because "Pillar $($prop.Name) should have mapped settings"
@@ -126,7 +126,7 @@ Describe 'Deploy-Baselines' {
     Context 'HIPAA Compliance Mapping' {
 
         It 'HIPAA mapping file exists and covers required controls' {
-            $hipaaPath = Join-Path $PSScriptRoot '..' '..' 'baselines' 'mappings' 'hipaa-controls.json'
+            $hipaaPath = Join-Path $PSScriptRoot '..\..\baselines\mappings\hipaa-controls.json'
             Test-Path $hipaaPath | Should -BeTrue
 
             $hipaa = Get-Content $hipaaPath -Raw | ConvertFrom-Json
@@ -143,7 +143,7 @@ Describe 'Deploy-Baselines' {
     Context 'Registry Setting Quality' {
 
         It 'Settings have valid OMA-URI paths' {
-            $profileDir = Join-Path $PSScriptRoot '..' '..' 'baselines' 'profiles'
+            $profileDir = Join-Path $PSScriptRoot '..\..\baselines\profiles'
             $profile = Get-Content (Join-Path $profileDir 'sct-win11-25h2-defender.json') -Raw | ConvertFrom-Json
             foreach ($setting in $profile.settings) {
                 $setting.omaUri | Should -Match '^\./Device/|^\./User/'
@@ -152,7 +152,7 @@ Describe 'Deploy-Baselines' {
         }
 
         It 'Settings have valid data types' {
-            $profileDir = Join-Path $PSScriptRoot '..' '..' 'baselines' 'profiles'
+            $profileDir = Join-Path $PSScriptRoot '..\..\baselines\profiles'
             $profile = Get-Content (Join-Path $profileDir 'sct-win11-25h2-computer.json') -Raw | ConvertFrom-Json
             $validTypes = @('REG_DWORD', 'REG_SZ', 'REG_EXPAND_SZ', 'REG_MULTI_SZ', 'REG_QWORD', 'REG_BINARY')
             foreach ($setting in $profile.settings) {

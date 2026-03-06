@@ -93,7 +93,7 @@ try {
         $tenantId = $orgInfo.id
         $tenantName = $orgInfo.displayName
         $defaultDomains = @($orgInfo.verifiedDomains | Where-Object { $_.isDefault })
-        $primaryDomain = if ($defaultDomains.Count -gt 0) { $defaultDomains[0].name } else { $null }
+        $primaryDomain = $(if ($defaultDomains.Count -gt 0) { $defaultDomains[0].name } else { $null })
 
         $checks += @{
             check       = "organization"
@@ -307,7 +307,7 @@ try {
             }
         }
 
-        $mfaPct = if ($totalUsers -gt 0) { [math]::Round(($mfaRegistered / $totalUsers) * 100, 1) } else { 0 }
+        $mfaPct = $(if ($totalUsers -gt 0) { [math]::Round(($mfaRegistered / $totalUsers) * 100, 1) } else { 0 })
 
         $mfaRating = "pass"
         $mfaAction = $null
@@ -364,7 +364,7 @@ try {
 
         if ($skus.value) {
             foreach ($sku in $skus.value) {
-                $friendlyName = $skuNames[$sku.skuPartNumber] ?? $sku.skuPartNumber
+                $friendlyName = $(if ($skuNames[$sku.skuPartNumber]) { $skuNames[$sku.skuPartNumber] } else { $sku.skuPartNumber })
                 $total = $sku.prepaidUnits.enabled
                 $consumed = $sku.consumedUnits
                 $available = $total - $consumed
@@ -565,7 +565,7 @@ try {
             $members = Invoke-GraphRequestWithRetry -Method GET `
                 -Uri "https://graph.microsoft.com/v1.0/groups/$groupId/members?`$select=id,displayName&`$top=10"
 
-            $memberCount = if ($members.value) { $members.value.Count } else { 0 }
+            $memberCount = $(if ($members.value) { $members.value.Count } else { 0 })
 
             if ($memberCount -gt 0) {
                 $bgRating = "pass"
@@ -755,10 +755,10 @@ try {
     $failCount    = @($checks | Where-Object { $_.rating -eq "fail" }).Count
     $blockerCount = @($checks | Where-Object { $_.rating -eq "blocker" }).Count
 
-    $overallReadiness = if ($blockerCount -gt 0) { "blocked" }
+    $overallReadiness = $(if ($blockerCount -gt 0) { "blocked" }
         elseif ($failCount -gt 0) { "not-ready" }
         elseif ($warnCount -gt 0) { "caution" }
-        else { "ready" }
+        else { "ready" })
 
     $nextSteps = @()
     if ($overallReadiness -eq "ready") {
@@ -785,9 +785,9 @@ try {
         status           = "Success"
         timestamp        = (Get-Date).ToUniversalTime().ToString('o')
         tenantInfo       = @{
-            tenantId      = if ($tenantId) { $tenantId } else { "unknown" }
-            displayName   = if ($tenantName) { $tenantName } else { "unknown" }
-            primaryDomain = if ($primaryDomain) { $primaryDomain } else { "unknown" }
+            tenantId      = $(if ($tenantId) { $tenantId } else { "unknown" })
+            displayName   = $(if ($tenantName) { $tenantName } else { "unknown" })
+            primaryDomain = $(if ($primaryDomain) { $primaryDomain } else { "unknown" })
         }
         overallReadiness = $overallReadiness
         summary          = @{

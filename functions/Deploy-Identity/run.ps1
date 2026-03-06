@@ -29,9 +29,9 @@ try {
     }
 
     # Read UI toggles with defaults (respect user choices)
-    $requireMfa = if ($null -ne $config.requireMfa) { [bool]$config.requireMfa } else { $true }
-    $blockLegacyAuth = if ($null -ne $config.blockLegacyAuth) { [bool]$config.blockLegacyAuth } else { $true }
-    $requireCompliantDevice = if ($null -ne $config.requireCompliantDevice) { [bool]$config.requireCompliantDevice } else { $true }
+    $requireMfa = $(if ($null -ne $config.requireMfa) { [bool]$config.requireMfa } else { $true })
+    $blockLegacyAuth = $(if ($null -ne $config.blockLegacyAuth) { [bool]$config.blockLegacyAuth } else { $true })
+    $requireCompliantDevice = $(if ($null -ne $config.requireCompliantDevice) { [bool]$config.requireCompliantDevice } else { $true })
 
     $results = @{
         conditionalAccessPolicies = @()
@@ -144,7 +144,7 @@ try {
                 users = @{
                     includeUsers = @("All")
                     # Exclude break-glass admin group to prevent lockout
-                    excludeGroups = if ($breakGlassGroup) { @($breakGlassGroup.id) } else { @() }
+                    excludeGroups = $(if ($breakGlassGroup) { @($breakGlassGroup.id) } else { @() })
                 }
                 applications = @{ includeApplications = @("All") }
                 platforms = @{ includePlatforms = @("windows", "macOS", "iOS", "android") }

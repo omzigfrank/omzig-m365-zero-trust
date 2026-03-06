@@ -141,7 +141,7 @@ Describe "Deploy-Identity Function" {
         It "Should apply stricter session controls" {
             # Arrange
             $hipaaEnabled = $true
-            $sessionTimeout = if ($hipaaEnabled) { 60 } else { 480 }
+            $sessionTimeout = $(if ($hipaaEnabled) { 60 } else { 480 })
 
             # Assert
             $sessionTimeout | Should Be 60
@@ -150,7 +150,7 @@ Describe "Deploy-Identity Function" {
         It "Should not remember MFA" {
             # Arrange
             $hipaaEnabled = $true
-            $mfaRememberDays = if ($hipaaEnabled) { 0 } else { 14 }
+            $mfaRememberDays = $(if ($hipaaEnabled) { 0 } else { 14 })
 
             # Assert
             $mfaRememberDays | Should Be 0
@@ -162,11 +162,11 @@ Describe "Deploy-Identity Function" {
         It "Should apply Standard baseline settings" {
             # Arrange
             $baseline = "Standard"
-            $settings = switch ($baseline) {
+            $settings = $(switch ($baseline) {
                 "Standard" { @{ strictness = 1 } }
                 "Enhanced" { @{ strictness = 2 } }
                 "Maximum"  { @{ strictness = 3 } }
-            }
+            })
 
             # Assert
             $settings.strictness | Should Be 1
@@ -175,11 +175,11 @@ Describe "Deploy-Identity Function" {
         It "Should apply Enhanced baseline settings" {
             # Arrange
             $baseline = "Enhanced"
-            $settings = switch ($baseline) {
+            $settings = $(switch ($baseline) {
                 "Standard" { @{ strictness = 1 } }
                 "Enhanced" { @{ strictness = 2 } }
                 "Maximum"  { @{ strictness = 3 } }
-            }
+            })
 
             # Assert
             $settings.strictness | Should Be 2
@@ -188,11 +188,11 @@ Describe "Deploy-Identity Function" {
         It "Should apply Maximum baseline settings" {
             # Arrange
             $baseline = "Maximum"
-            $settings = switch ($baseline) {
+            $settings = $(switch ($baseline) {
                 "Standard" { @{ strictness = 1 } }
                 "Enhanced" { @{ strictness = 2 } }
                 "Maximum"  { @{ strictness = 3 } }
-            }
+            })
 
             # Assert
             $settings.strictness | Should Be 3

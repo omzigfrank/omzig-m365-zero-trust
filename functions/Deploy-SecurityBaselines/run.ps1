@@ -22,8 +22,8 @@ function Deploy-SecurityBaselines {
 
     # Determine which baselines to deploy based on config
     $baselineId = Get-BaselineId -Config $Config
-    $baselineLevel = $Config.securityBaseline ?? "Enhanced"
-    $hipaaEnabled = $Config.hipaaEnabled ?? $false
+    $baselineLevel = $(if ($Config.securityBaseline) { $Config.securityBaseline } else { "Enhanced" })
+    $hipaaEnabled = $(if ($null -ne $Config.hipaaEnabled) { $Config.hipaaEnabled } else { $false })
 
     Write-Host "[INFO] Deploying SCT baseline: $baselineId (Level: $baselineLevel, HIPAA: $hipaaEnabled)"
 
@@ -100,7 +100,7 @@ function Deploy-SecurityBaselines {
             $profileBody = @{
                 "@odata.type"   = "#microsoft.graph.windows10CustomConfiguration"
                 "displayName"   = $profileName
-                "description"   = "Microsoft SCT baseline: $($baseline.metadata.name). Auto-deployed by Omzig Zero Trust. ZT Pillars: $($settings | Select-Object -ExpandProperty ztPillar -Unique | Join-String -Separator ', ')"
+                "description"   = "Microsoft SCT baseline: $($baseline.metadata.name). Auto-deployed by Omzig Zero Trust. ZT Pillars: $(($settings | Select-Object -ExpandProperty ztPillar -Unique) -join ', ')"
                 "omaSettings"   = $omaSettings
             }
 
@@ -145,8 +145,8 @@ function Deploy-SecurityBaselines {
 function Get-BaselineId {
     param([hashtable]$Config)
 
-    $osTarget = $Config.osTarget ?? "Windows 11"
-    $osVersion = $Config.osVersion ?? "25H2"
+    $osTarget = $(if ($Config.osTarget) { $Config.osTarget } else { "Windows 11" })
+    $osVersion = $(if ($Config.osVersion) { $Config.osVersion } else { "25H2" })
 
     switch -Wildcard ($osTarget) {
         "Windows 11*" {
@@ -332,7 +332,12 @@ try {
     }
     # Ensure hashtable for ?? operator compatibility
     if ($config -isnot [hashtable]) {
-        $config = $config | ConvertTo-Json -Depth 10 | ConvertFrom-Json -AsHashtable
+        $configJson = $config | ConvertTo-Json -Depth 10
+        $configObj = $configJson | ConvertFrom-Json
+        $config = @{}
+        foreach ($prop in $configObj.PSObject.Properties) {
+            $config[$prop.Name] = $prop.Value
+        }
     }
     $results = Deploy-SecurityBaselines -Config $config
     

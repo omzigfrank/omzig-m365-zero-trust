@@ -40,11 +40,11 @@ try {
         throw "baselineIds is required. Provide one or more baseline IDs (e.g., 'win11-25h2', 'edge-v139')."
     }
 
-    $deploymentMode = if ($config.deploymentMode) { $config.deploymentMode } else { "audit" }
-    $assignmentTarget = if ($config.assignmentTarget) { $config.assignmentTarget } else { "none" }
+    $deploymentMode = $(if ($config.deploymentMode) { $config.deploymentMode } else { "audit" })
+    $assignmentTarget = $(if ($config.assignmentTarget) { $config.assignmentTarget } else { "none" })
     $groupId = $config.groupId
     $hipaaEnabled = [bool]$config.hipaaEnabled
-    $profilePrefix = if ($config.profilePrefix) { $config.profilePrefix } else { "Omzig-SCT" }
+    $profilePrefix = $(if ($config.profilePrefix) { $config.profilePrefix } else { "Omzig-SCT" })
 
     # Input validation (M4)
     if ($deploymentMode -notin @('audit', 'enforce')) {
@@ -109,7 +109,7 @@ try {
         Write-Host "Baseline: $($baselineMeta.name) (OS: $($baselineMeta.os), Version: $($baselineMeta.version))"
 
         # Find matching profiles
-        $matchingProfiles = $catalog.profiles | Where-Object { $_.profileId -like "sct-$baselineId-*" }
+        $matchingProfiles = @($catalog.profiles | Where-Object { $_.profileId -like "sct-$baselineId-*" })
         Write-Host "Found $($matchingProfiles.Count) profiles for this baseline"
 
         foreach ($profileRef in $matchingProfiles) {

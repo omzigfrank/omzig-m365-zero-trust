@@ -123,16 +123,16 @@ try {
     # ═══════════════════════════════════════════════════════════════════
 
     $result.summary = @{
-        overallGrade = switch ($result.secureScore.percentageScore) {
+        overallGrade = $(switch ($result.secureScore.percentageScore) {
             { $_ -ge 80 } { "A" }
             { $_ -ge 60 } { "B" }
             { $_ -ge 40 } { "C" }
             { $_ -ge 20 } { "D" }
             default { "F" }
-        }
-        topRecommendations = ($result.recommendations | Select-Object -First 5).title
-        totalRecommendations = $result.recommendations.Count
-        quickWins = ($result.recommendations | Where-Object { $_.implementationCost -eq "Low" }).Count
+        })
+        topRecommendations = @($result.recommendations | Select-Object -First 5).title
+        totalRecommendations = @($result.recommendations).Count
+        quickWins = @($result.recommendations | Where-Object { $_.implementationCost -eq "Low" }).Count
     }
 
 } catch {
@@ -145,7 +145,7 @@ try {
 $responseBody = $result | ConvertTo-Json -Depth 10
 
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-    StatusCode = if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError }
+    StatusCode = $(if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError })
     Headers = @{ 'Content-Type' = 'application/json' }
     Body = $responseBody
 })
