@@ -1,0 +1,27 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/_next/*"]
+  },
+  "routes": [
+    {
+      "route": "/dashboard/*",
+      "allowedRoles": ["authenticated", "anonymous"]
+    },
+    {
+      "route": "/audit/*",
+      "allowedRoles": ["authenticated", "anonymous"]
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/",
+      "statusCode": 302
+    }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  }
+}

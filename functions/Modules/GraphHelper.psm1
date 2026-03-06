@@ -2,6 +2,7 @@
 # Uses direct REST API calls to avoid slow managed dependency loading
 
 $script:GraphToken = $null
+$script:DelegatedBearerToken = $null
 
 function Connect-GraphWithManagedIdentity {
     <#
@@ -64,12 +65,14 @@ function Invoke-GraphRequestWithRetry {
         [int]$RetryDelaySeconds = 5
     )
 
-    if (-not $script:GraphToken) {
-        throw "Not connected to Graph. Call Connect-GraphWithManagedIdentity first."
+    # Use delegated token if available (web audit flow), otherwise managed identity token
+    $activeToken = $(if ($script:DelegatedBearerToken) { $script:DelegatedBearerToken } else { $script:GraphToken })
+    if (-not $activeToken) {
+        throw "Not connected to Graph. Call Connect-GraphWithManagedIdentity or set DelegatedBearerToken first."
     }
 
     $requestHeaders = @{
-        "Authorization" = "Bearer $script:GraphToken"
+        "Authorization" = "Bearer $activeToken"
         "Content-Type"  = "application/json"
     }
 
@@ -213,10 +216,35 @@ function Format-ODataFilterValue {
     return $Value -replace "'", "''"
 }
 
+function Set-DelegatedBearerToken {
+    <#
+    .SYNOPSIS
+        Sets a delegated Bearer token for Graph API calls (web audit flow)
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Token
+    )
+    $script:DelegatedBearerToken = $Token
+}
+
+function Clear-DelegatedBearerToken {
+    <#
+    .SYNOPSIS
+        Clears the delegated Bearer token after a web audit completes
+    #>
+    [CmdletBinding()]
+    param()
+    $script:DelegatedBearerToken = $null
+}
+
 Export-ModuleMember -Function @(
     'Connect-GraphWithManagedIdentity'
     'Invoke-GraphRequestWithRetry'
     'Write-DeploymentLog'
     'Test-GraphPermissions'
     'Format-ODataFilterValue'
+    'Set-DelegatedBearerToken'
+    'Clear-DelegatedBearerToken'
 )

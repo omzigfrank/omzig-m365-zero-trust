@@ -3,6 +3,15 @@
 # Extends the original Get-TenantAuditFacts with additional Graph API queries.
 
 function Get-TenantAuditFacts {
+    param(
+        [string]$DelegatedToken  # Optional: Bearer token from web audit flow
+    )
+
+    # If a delegated token was passed (web flow), set it for GraphHelper to use
+    if ($DelegatedToken) {
+        $script:DelegatedBearerToken = $DelegatedToken
+    }
+
     $skuNames = @{
         'ENTERPRISEPACK'        = 'Microsoft 365 E3'
         'ENTERPRISEPREMIUM'     = 'Microsoft 365 E5'

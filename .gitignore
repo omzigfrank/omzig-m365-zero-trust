@@ -28,8 +28,16 @@ functions/obj/
 Thumbs.db
 .DS_Store
 
-# Node (if any tooling uses it)
+# Node
 node_modules/
+
+# Next.js build output
+web/.next/
+web/out/
+
+# Environment files
+.env.local
+.env*.local
 
 # PowerShell module cache
 .modules/
