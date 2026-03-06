@@ -1,7 +1,7 @@
 "use client";
 
 import { useMsal, useAccount } from "@azure/msal-react";
-import { InteractionRequiredAuthError } from "@azure/msal-browser";
+import { InteractionRequiredAuthError, RedirectRequest } from "@azure/msal-browser";
 import { useCallback } from "react";
 import { loginRequest, graphScopes } from "@/lib/msal";
 
@@ -13,7 +13,8 @@ export function useAuth() {
 
   const login = useCallback(async () => {
     try {
-      await instance.loginPopup(loginRequest);
+      // Use redirect flow — no popup blockers
+      await instance.loginRedirect(loginRequest as RedirectRequest);
     } catch (err) {
       console.error("Login failed:", err);
       throw err;
@@ -21,7 +22,7 @@ export function useAuth() {
   }, [instance]);
 
   const logout = useCallback(async () => {
-    await instance.logoutPopup({ postLogoutRedirectUri: "/" });
+    await instance.logoutRedirect({ postLogoutRedirectUri: "/" });
   }, [instance]);
 
   const getToken = useCallback(async (): Promise<string> => {
@@ -35,11 +36,13 @@ export function useAuth() {
       return result.accessToken;
     } catch (err) {
       if (err instanceof InteractionRequiredAuthError) {
-        const result = await instance.acquireTokenPopup({
+        // Fall back to redirect for token acquisition too
+        await instance.acquireTokenRedirect({
           scopes: graphScopes,
           account,
         });
-        return result.accessToken;
+        // Won't reach here — page redirects
+        return "";
       }
       throw err;
     }
