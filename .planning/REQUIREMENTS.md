@@ -39,7 +39,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dashboard & Reporting
 
-- [ ] **DASH-01**: Web-based dashboard with interactive drill-down (framework → category → finding → remediation)
+- [ ] **DASH-01**: Web-based dashboard with interactive drill-down (framework -> category -> finding -> remediation)
 - [ ] **DASH-02**: User can filter findings by severity, framework, workload, and status
 - [ ] **DASH-03**: User can export compliance report as PDF for client-facing documentation
 - [ ] **DASH-04**: User can export detailed findings as CSV for data analysis
@@ -146,71 +146,71 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUDIT-01 | TBD | Pending |
-| AUDIT-02 | TBD | Pending |
-| AUDIT-03 | TBD | Pending |
-| AUDIT-04 | TBD | Pending |
-| AUDIT-05 | TBD | Pending |
-| AUDIT-06 | TBD | Pending |
-| FRAME-01 | TBD | Pending |
-| FRAME-02 | TBD | Pending |
-| FRAME-03 | TBD | Pending |
-| FRAME-04 | TBD | Pending |
-| FRAME-05 | TBD | Pending |
-| FRAME-06 | TBD | Pending |
-| FRAME-07 | TBD | Pending |
-| TENANT-01 | TBD | Pending |
-| TENANT-02 | TBD | Pending |
-| TENANT-03 | TBD | Pending |
-| TENANT-04 | TBD | Pending |
-| TENANT-05 | TBD | Pending |
-| TENANT-06 | TBD | Pending |
-| TENANT-07 | TBD | Pending |
-| TENANT-08 | TBD | Pending |
-| DASH-01 | TBD | Pending |
-| DASH-02 | TBD | Pending |
-| DASH-03 | TBD | Pending |
-| DASH-04 | TBD | Pending |
-| DASH-05 | TBD | Pending |
-| DASH-06 | TBD | Pending |
-| DASH-07 | TBD | Pending |
-| DASH-08 | TBD | Pending |
-| DASH-09 | TBD | Pending |
-| DASH-10 | TBD | Pending |
-| REMED-01 | TBD | Pending |
-| REMED-02 | TBD | Pending |
-| REMED-03 | TBD | Pending |
-| REMED-04 | TBD | Pending |
-| REMED-05 | TBD | Pending |
-| REMED-06 | TBD | Pending |
-| REMED-07 | TBD | Pending |
-| REMED-08 | TBD | Pending |
-| DRIFT-01 | TBD | Pending |
-| DRIFT-02 | TBD | Pending |
-| DRIFT-03 | TBD | Pending |
-| DRIFT-04 | TBD | Pending |
-| DRIFT-05 | TBD | Pending |
-| DRIFT-06 | TBD | Pending |
-| AUTH-01 | TBD | Pending |
-| AUTH-02 | TBD | Pending |
-| AUTH-03 | TBD | Pending |
-| AUTH-04 | TBD | Pending |
-| AUTH-05 | TBD | Pending |
-| AUTH-06 | TBD | Pending |
-| AUTH-07 | TBD | Pending |
-| INFRA-01 | TBD | Pending |
-| INFRA-02 | TBD | Pending |
-| INFRA-03 | TBD | Pending |
-| INFRA-04 | TBD | Pending |
-| INFRA-05 | TBD | Pending |
-| INFRA-06 | TBD | Pending |
-| INFRA-07 | TBD | Pending |
+| AUDIT-01 | Phase 2 | Pending |
+| AUDIT-02 | Phase 2 | Pending |
+| AUDIT-03 | Phase 2 | Pending |
+| AUDIT-04 | Phase 2 | Pending |
+| AUDIT-05 | Phase 2 | Pending |
+| AUDIT-06 | Phase 2 | Pending |
+| FRAME-01 | Phase 2 | Pending |
+| FRAME-02 | Phase 3 | Pending |
+| FRAME-03 | Phase 3 | Pending |
+| FRAME-04 | Phase 3 | Pending |
+| FRAME-05 | Phase 3 | Pending |
+| FRAME-06 | Phase 3 | Pending |
+| FRAME-07 | Phase 3 | Pending |
+| TENANT-01 | Phase 4 | Pending |
+| TENANT-02 | Phase 4 | Pending |
+| TENANT-03 | Phase 4 | Pending |
+| TENANT-04 | Phase 4 | Pending |
+| TENANT-05 | Phase 6 | Pending |
+| TENANT-06 | Phase 6 | Pending |
+| TENANT-07 | Phase 4 | Pending |
+| TENANT-08 | Phase 4 | Pending |
+| DASH-01 | Phase 5 | Pending |
+| DASH-02 | Phase 5 | Pending |
+| DASH-03 | Phase 6 | Pending |
+| DASH-04 | Phase 6 | Pending |
+| DASH-05 | Phase 5 | Pending |
+| DASH-06 | Phase 5 | Pending |
+| DASH-07 | Phase 5 | Pending |
+| DASH-08 | Phase 6 | Pending |
+| DASH-09 | Phase 6 | Pending |
+| DASH-10 | Phase 5 | Pending |
+| REMED-01 | Phase 7 | Pending |
+| REMED-02 | Phase 7 | Pending |
+| REMED-03 | Phase 7 | Pending |
+| REMED-04 | Phase 7 | Pending |
+| REMED-05 | Phase 7 | Pending |
+| REMED-06 | Phase 7 | Pending |
+| REMED-07 | Phase 7 | Pending |
+| REMED-08 | Phase 7 | Pending |
+| DRIFT-01 | Phase 8 | Pending |
+| DRIFT-02 | Phase 8 | Pending |
+| DRIFT-03 | Phase 8 | Pending |
+| DRIFT-04 | Phase 8 | Pending |
+| DRIFT-05 | Phase 8 | Pending |
+| DRIFT-06 | Phase 8 | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| AUTH-05 | Phase 1 | Pending |
+| AUTH-06 | Phase 2 | Pending |
+| AUTH-07 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Pending |
+| INFRA-05 | Phase 1 | Pending |
+| INFRA-06 | Phase 1 | Pending |
+| INFRA-07 | Phase 1 | Pending |
 
 **Coverage:**
-- v1 requirements: 51 total
-- Mapped to phases: 0
-- Unmapped: 51
+- v1 requirements: 59 total
+- Mapped to phases: 59
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-10*
-*Last updated: 2026-03-10 after initial definition*
+*Last updated: 2026-03-10 after roadmap phase mapping*
