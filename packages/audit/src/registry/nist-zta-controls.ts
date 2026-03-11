@@ -1,0 +1,400 @@
+/**
+ * 31 NIST 800-207 ZTA control definitions.
+ * Each control maps to a NIST 800-207 tenet and a NIST 800-53 control family.
+ */
+
+import type { ControlDefinition } from '../types.js';
+import {
+  evaluateZTA_T1_1, evaluateZTA_T1_2, evaluateZTA_T1_3, evaluateZTA_T1_4,
+} from '../evaluators/nist-zta/tenet-1-resources.js';
+import {
+  evaluateZTA_T2_1, evaluateZTA_T2_2, evaluateZTA_T2_3, evaluateZTA_T2_4,
+} from '../evaluators/nist-zta/tenet-2-communication.js';
+import {
+  evaluateZTA_T3_1, evaluateZTA_T3_2,
+} from '../evaluators/nist-zta/tenet-3-per-session.js';
+import {
+  evaluateZTA_T4_1, evaluateZTA_T4_2, evaluateZTA_T4_3,
+  evaluateZTA_T4_4, evaluateZTA_T4_5, evaluateZTA_T4_6,
+} from '../evaluators/nist-zta/tenet-4-dynamic-policy.js';
+import {
+  evaluateZTA_T5_1, evaluateZTA_T5_2, evaluateZTA_T5_3, evaluateZTA_T5_4,
+} from '../evaluators/nist-zta/tenet-5-monitoring.js';
+import {
+  evaluateZTA_T6_1, evaluateZTA_T6_2, evaluateZTA_T6_3, evaluateZTA_T6_4,
+  evaluateZTA_T6_5, evaluateZTA_T6_6, evaluateZTA_T6_7,
+} from '../evaluators/nist-zta/tenet-6-authentication.js';
+import {
+  evaluateZTA_T7_1, evaluateZTA_T7_2, evaluateZTA_T7_3, evaluateZTA_T7_4,
+} from '../evaluators/nist-zta/tenet-7-improvement.js';
+
+export const NIST_ZTA_CONTROLS: ControlDefinition[] = [
+  // =====================================================================
+  // Tenet 1: All Resources (Asset Awareness)
+  // =====================================================================
+  {
+    id: 'NIST.ZTA.T1.1v1',
+    product: 'ZTA',
+    description: 'Device inventory SHALL be maintained in Intune.',
+    requirementLevel: 'SHALL',
+    severity: 'High',
+    nist80053: 'CM-8',
+    nist800207Tenet: 'T1',
+    evaluator: evaluateZTA_T1_1,
+    requiredPermissions: ['DeviceManagementManagedDevices.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T1.2v1',
+    product: 'ZTA',
+    description: 'Application inventory SHOULD be tracked via app registrations.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'CM-8',
+    nist800207Tenet: 'T1',
+    evaluator: evaluateZTA_T1_2,
+    requiredPermissions: ['Application.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T1.3v1',
+    product: 'ZTA',
+    description: 'Data classification SHOULD be deployed via sensitivity labels.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'RA-2',
+    nist800207Tenet: 'T1',
+    evaluator: evaluateZTA_T1_3,
+    requiredPermissions: ['InformationProtectionPolicy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T1.4v1',
+    product: 'ZTA',
+    description: 'Domain inventory SHOULD include verified custom domains.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'CM-8',
+    nist800207Tenet: 'T1',
+    evaluator: evaluateZTA_T1_4,
+    requiredPermissions: ['Domain.Read.All'],
+  },
+
+  // =====================================================================
+  // Tenet 2: Secure Communication (Encryption Everywhere)
+  // =====================================================================
+  {
+    id: 'NIST.ZTA.T2.1v1',
+    product: 'ZTA',
+    description: 'Legacy authentication SHALL be blocked via CA policy.',
+    requirementLevel: 'SHALL',
+    severity: 'Critical',
+    nist80053: 'AC-17',
+    nist800207Tenet: 'T2',
+    evaluator: evaluateZTA_T2_1,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T2.2v1',
+    product: 'ZTA',
+    description: 'A security baseline strategy (CA policies or security defaults) SHALL be active.',
+    requirementLevel: 'SHALL',
+    severity: 'Medium',
+    nist80053: 'CM-6',
+    nist800207Tenet: 'T2',
+    evaluator: evaluateZTA_T2_2,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T2.3v1',
+    product: 'ZTA',
+    description: 'Named locations SHOULD NOT grant blanket network trust.',
+    requirementLevel: 'SHOULD NOT',
+    severity: 'Medium',
+    nist80053: 'AC-17',
+    nist800207Tenet: 'T2',
+    evaluator: evaluateZTA_T2_3,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T2.4v1',
+    product: 'ZTA',
+    description: 'Modern authentication SHOULD be enforced across all workloads.',
+    requirementLevel: 'SHOULD',
+    severity: 'Medium',
+    nist80053: 'IA-2',
+    nist800207Tenet: 'T2',
+    evaluator: evaluateZTA_T2_4,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+
+  // =====================================================================
+  // Tenet 3: Per-Session Access (No Implicit Trust)
+  // =====================================================================
+  {
+    id: 'NIST.ZTA.T3.1v1',
+    product: 'ZTA',
+    description: 'At least 3 active CA policies SHALL enforce per-session access evaluation.',
+    requirementLevel: 'SHALL',
+    severity: 'Medium',
+    nist80053: 'AC-3',
+    nist800207Tenet: 'T3',
+    evaluator: evaluateZTA_T3_1,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T3.2v1',
+    product: 'ZTA',
+    description: 'CA session controls (sign-in frequency or persistent browser) SHOULD be configured.',
+    requirementLevel: 'SHOULD',
+    severity: 'Medium',
+    nist80053: 'AC-12',
+    nist800207Tenet: 'T3',
+    evaluator: evaluateZTA_T3_2,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+
+  // =====================================================================
+  // Tenet 4: Dynamic Policy (Policy Engine)
+  // =====================================================================
+  {
+    id: 'NIST.ZTA.T4.1v1',
+    product: 'ZTA',
+    description: 'Risk-based CA policies SHALL address both user risk and sign-in risk.',
+    requirementLevel: 'SHALL',
+    severity: 'Critical',
+    nist80053: 'AC-7',
+    nist800207Tenet: 'T4',
+    evaluator: evaluateZTA_T4_1,
+    requiredPermissions: ['Policy.Read.All', 'IdentityRiskEvent.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T4.2v1',
+    product: 'ZTA',
+    description: 'Device compliance SHOULD be required for access via CA policy.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'CM-6',
+    nist800207Tenet: 'T4',
+    evaluator: evaluateZTA_T4_2,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T4.3v1',
+    product: 'ZTA',
+    description: 'Location-based access restrictions SHOULD be used in CA policies.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'AC-2',
+    nist800207Tenet: 'T4',
+    evaluator: evaluateZTA_T4_3,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T4.4v1',
+    product: 'ZTA',
+    description: 'CA policies SHOULD target specific applications rather than only "All".',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'AC-3',
+    nist800207Tenet: 'T4',
+    evaluator: evaluateZTA_T4_4,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T4.5v1',
+    product: 'ZTA',
+    description: 'MFA coverage SHALL be at least 95% of all users.',
+    requirementLevel: 'SHALL',
+    severity: 'Critical',
+    nist80053: 'IA-2(1)',
+    nist800207Tenet: 'T4',
+    evaluator: evaluateZTA_T4_5,
+    requiredPermissions: ['UserAuthenticationMethod.Read.All', 'AuditLog.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T4.6v1',
+    product: 'ZTA',
+    description: 'CA policies SHOULD specifically target admin roles for stronger controls.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'AC-6(5)',
+    nist800207Tenet: 'T4',
+    evaluator: evaluateZTA_T4_6,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+
+  // =====================================================================
+  // Tenet 5: Integrity Monitoring (Visibility & Monitoring)
+  // =====================================================================
+  {
+    id: 'NIST.ZTA.T5.1v1',
+    product: 'ZTA',
+    description: 'Unified audit logging SHALL be supported by qualifying license.',
+    requirementLevel: 'SHALL',
+    severity: 'Medium',
+    nist80053: 'AU-6',
+    nist800207Tenet: 'T5',
+    evaluator: evaluateZTA_T5_1,
+    requiredPermissions: ['AuditLog.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T5.2v1',
+    product: 'ZTA',
+    description: 'Defender for Endpoint SHOULD be licensed for device threat detection.',
+    requirementLevel: 'SHOULD',
+    severity: 'Medium',
+    nist80053: 'SI-3',
+    nist800207Tenet: 'T5',
+    evaluator: evaluateZTA_T5_2,
+    requiredPermissions: ['SecurityEvents.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T5.3v1',
+    product: 'ZTA',
+    description: 'Defender for Office 365 SHOULD be licensed for email threat protection.',
+    requirementLevel: 'SHOULD',
+    severity: 'Medium',
+    nist80053: 'SI-3',
+    nist800207Tenet: 'T5',
+    evaluator: evaluateZTA_T5_3,
+    requiredPermissions: ['SecurityEvents.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T5.4v1',
+    product: 'ZTA',
+    description: 'At least 5 of 6 telemetry sources SHALL be accessible.',
+    requirementLevel: 'SHALL',
+    severity: 'Medium',
+    nist80053: 'AU-6',
+    nist800207Tenet: 'T5',
+    evaluator: evaluateZTA_T5_4,
+    requiredPermissions: ['Policy.Read.All', 'DeviceManagementManagedDevices.Read.All'],
+  },
+
+  // =====================================================================
+  // Tenet 6: Dynamic Authentication (Strong Authentication)
+  // =====================================================================
+  {
+    id: 'NIST.ZTA.T6.1v1',
+    product: 'ZTA',
+    description: 'MFA registration coverage SHALL be at least 95%.',
+    requirementLevel: 'SHALL',
+    severity: 'Critical',
+    nist80053: 'IA-2(1)',
+    nist800207Tenet: 'T6',
+    evaluator: evaluateZTA_T6_1,
+    requiredPermissions: ['UserAuthenticationMethod.Read.All', 'AuditLog.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T6.2v1',
+    product: 'ZTA',
+    description: 'Global Admin count SHALL be between 2 and 5.',
+    requirementLevel: 'SHALL',
+    severity: 'High',
+    nist80053: 'AC-6(5)',
+    nist800207Tenet: 'T6',
+    evaluator: evaluateZTA_T6_2,
+    requiredPermissions: ['Directory.Read.All', 'RoleManagement.Read.Directory'],
+  },
+  {
+    id: 'NIST.ZTA.T6.3v1',
+    product: 'ZTA',
+    description: 'Emergency break-glass accounts SHOULD be configured and excluded from CA.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'AC-2',
+    nist800207Tenet: 'T6',
+    evaluator: evaluateZTA_T6_3,
+    requiredPermissions: ['Group.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T6.4v1',
+    product: 'ZTA',
+    description: 'Authentication methods migration SHALL be complete.',
+    requirementLevel: 'SHALL',
+    severity: 'High',
+    nist80053: 'IA-2',
+    nist800207Tenet: 'T6',
+    evaluator: evaluateZTA_T6_4,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T6.5v1',
+    product: 'ZTA',
+    description: 'SMS and Voice authentication methods SHOULD be disabled.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'IA-2(1)',
+    nist800207Tenet: 'T6',
+    evaluator: evaluateZTA_T6_5,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T6.6v1',
+    product: 'ZTA',
+    description: 'PIM SHOULD be configured with eligible role assignments.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'AC-6(5)',
+    nist800207Tenet: 'T6',
+    evaluator: evaluateZTA_T6_6,
+    requiredPermissions: ['RoleManagement.Read.Directory', 'RoleEligibilitySchedule.Read.Directory'],
+  },
+  {
+    id: 'NIST.ZTA.T6.7v1',
+    product: 'ZTA',
+    description: 'Admin consent workflow SHOULD be enabled for controlled app authorization.',
+    requirementLevel: 'SHOULD',
+    severity: 'High',
+    nist80053: 'CM-7',
+    nist800207Tenet: 'T6',
+    evaluator: evaluateZTA_T6_7,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+
+  // =====================================================================
+  // Tenet 7: Continuous Improvement
+  // =====================================================================
+  {
+    id: 'NIST.ZTA.T7.1v1',
+    product: 'ZTA',
+    description: 'Entra ID P2 SHOULD be licensed for Identity Protection capabilities.',
+    requirementLevel: 'SHOULD',
+    severity: 'Medium',
+    nist80053: 'RA-5',
+    nist800207Tenet: 'T7',
+    evaluator: evaluateZTA_T7_1,
+    requiredPermissions: ['Organization.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T7.2v1',
+    product: 'ZTA',
+    description: 'Guest invitations SHOULD be restricted to admins and guest inviters.',
+    requirementLevel: 'SHOULD',
+    severity: 'Medium',
+    nist80053: 'AC-3',
+    nist800207Tenet: 'T7',
+    evaluator: evaluateZTA_T7_2,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T7.3v1',
+    product: 'ZTA',
+    description: 'Default users SHALL NOT be allowed to register applications.',
+    requirementLevel: 'SHALL NOT',
+    severity: 'Medium',
+    nist80053: 'CM-7',
+    nist800207Tenet: 'T7',
+    evaluator: evaluateZTA_T7_3,
+    requiredPermissions: ['Policy.Read.All'],
+  },
+  {
+    id: 'NIST.ZTA.T7.4v1',
+    product: 'ZTA',
+    description: 'Password policy SHOULD align with NIST 800-63B (no forced expiration).',
+    requirementLevel: 'SHOULD',
+    severity: 'Medium',
+    nist80053: 'IA-5',
+    nist800207Tenet: 'T7',
+    evaluator: evaluateZTA_T7_4,
+    requiredPermissions: ['Domain.Read.All'],
+  },
+];
