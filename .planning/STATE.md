@@ -11,8 +11,8 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 
 Phase: 1 of 8 (Foundation and Authentication)
 Plan: 0 of 3 in current phase
-Status: Ready to plan
-Last activity: 2026-03-10 -- Roadmap created with 8 phases covering 59 v1 requirements
+Status: Context gathered, ready to plan
+Last activity: 2026-03-10 -- Phase 1 context gathered (RBAC, tenant DB, setup wizard, observability, branding, errors)
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -47,6 +47,12 @@ Recent decisions affecting current work:
 - [Roadmap]: Remediation and drift are last phases due to highest consequence of errors
 - [Roadmap]: Phase 3 and Phase 4 can execute in parallel after Phase 2 completes
 - [Roadmap]: Auth-06 (minimum-privilege Graph scopes) assigned to Phase 2 since scoping happens when the audit engine first calls Graph
+- [Phase 1]: 4-role RBAC model (Owner/Admin/Analyst/Read-only) with Entra app roles + per-tenant database overrides
+- [Phase 1]: Multi-org SaaS model with shared infra and org-level isolation
+- [Phase 1]: Explicit tenant access (no implicit access to all tenants)
+- [Phase 1]: Platform-enforced MFA validation (checks JWT claims, defense-in-depth)
+- [Phase 1]: Setup wizard with full onboarding flow including first audit run
+- [Phase 1]: Always Encrypted for sensitive columns, opaque tenant DB names
 
 ### Pending Todos
 
@@ -59,5 +65,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Roadmap creation complete, ready to plan Phase 1
-Resume file: None
+Stopped at: Phase 1 context gathered
+Resume file: .planning/phases/01-foundation-and-authentication/01-CONTEXT.md
