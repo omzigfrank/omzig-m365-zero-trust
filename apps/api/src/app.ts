@@ -5,6 +5,7 @@ import { createAuthMiddleware } from './middleware/auth.js';
 import { requireMfa } from './middleware/mfa.js';
 import { health } from './routes/health.js';
 import { authRoutes } from './routes/auth.js';
+import { tenantsRoutes } from './routes/tenants.js';
 
 /**
  * Create the Hono application instance.
@@ -44,6 +45,9 @@ export function createApp(): Hono {
 
   // Protected routes
   app.route('/api/auth', authRoutes);
+
+  // Tenant management routes (stub -- full implementation in Phase 4)
+  app.route('/api/tenants', tenantsRoutes);
 
   return app;
 }
