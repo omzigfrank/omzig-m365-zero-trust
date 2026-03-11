@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "test": "vitest run",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },
@@ -16,6 +17,7 @@
     "@azure/identity": "^4.0.0"
   },
   "devDependencies": {
+    "vitest": "^2.0.0",
     "drizzle-kit": "^0.30.0",
     "@types/mssql": "^9.0.0",
     "typescript": "^5.7.0",
