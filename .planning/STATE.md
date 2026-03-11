@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-03-11T14:26:00Z"
-last_activity: 2026-03-11 -- Completed 02-02 Audit API routes, SignalR service, auditFindings schema
+stopped_at: Completed Phase 2 (02-03-PLAN.md)
+last_updated: "2026-03-11T17:10:00Z"
+last_activity: 2026-03-11 -- Completed Phase 2 Core Audit Engine (all 3 plans)
 progress:
   total_phases: 8
-  completed_phases: 1
-  total_plans: 6
-  completed_plans: 6
-  percent: 30
+  completed_phases: 2
+  total_plans: 7
+  completed_plans: 7
+  percent: 40
 ---
 
 # Project State
@@ -21,34 +21,34 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 2: Core Audit Engine
+**Current focus:** Phase 2 complete. Ready for Phase 3 (Compliance Framework) or Phase 4 (Onboarding Wizard) — these can run in parallel.
 
 ## Current Position
 
-Phase: 2 of 8 (Core Audit Engine)
-Plan: 2 of 3 in current phase
-Status: Executing
-Last activity: 2026-03-11 -- Completed 02-02 Audit API routes, SignalR service, auditFindings schema
+Phase: 2 of 8 (Core Audit Engine) — COMPLETE
+Plan: 3 of 3 in current phase — ALL COMPLETE
+Status: Phase 2 complete
+Last activity: 2026-03-11 -- Completed 29 evaluators, audit pipeline, frontend SignalR integration
 
-Progress: [███░░░░░░░] 30%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 9min
-- Total execution time: 0.92 hours
+- Total plans completed: 7
+- Average duration: 10min
+- Total execution time: 1.17 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 4 | 37min | 9min |
-| 02-core-audit-engine | 2 | 18min | 9min |
+| 02-core-audit-engine | 3 | 33min | 11min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (9min), 01-03 (9min), 01-04 (3min), 02-01 (9min), 02-02 (9min)
-- Trend: Stable
+- Last 5 plans: 01-03 (9min), 01-04 (3min), 02-01 (9min), 02-02 (9min), 02-03 (15min)
+- Trend: Stable (02-03 larger scope: 29 evaluators + pipeline + frontend)
 
 *Updated after each plan completion*
 
@@ -86,6 +86,11 @@ Recent decisions affecting current work:
 - [02-02]: SignalR hub name 'audit' with JWT HS256 signing (5min push, 1hr negotiate)
 - [02-02]: auditFindings denormalizes 16 columns of control metadata for historical accuracy
 - [02-02]: Audit route RBAC: Analyst+ for trigger/retry, all authenticated for list/detail
+- [02-03]: Pure evaluator functions: no Graph API calls inside evaluators, only during fact collection
+- [02-03]: Advisory evaluators (4.1, 7.3, 7.4, 7.6, 7.8, 7.9) return 'warn' (not verifiable via Graph API)
+- [02-03]: Pipeline opens own DB connection (PITFALL 4), closes in finally block
+- [02-03]: Frontend SignalR with polling fallback (3s interval) when connection unavailable
+- [02-03]: Unified AuditProgressMessage type: @omzig/audit is single source
 
 ### Pending Todos
 
@@ -97,6 +102,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T14:26:00Z
-Stopped at: Completed 02-02-PLAN.md
-Resume file: .planning/phases/02-core-audit-engine/02-02-SUMMARY.md
+Last session: 2026-03-11T17:10:00Z
+Stopped at: Phase 2 complete. All 3 plans executed.
+Resume file: .planning/phases/02-core-audit-engine/02-03-SUMMARY.md
