@@ -1,29 +1,28 @@
 /**
  * 29 CISA SCuBA Entra ID (AAD) control definitions.
- * Ported from CisaCatalogFetcher.ps1 defaults and CisaEvaluatorRegistry.ps1.
- *
- * Each control has:
- * - id: CISA control ID (e.g., MS.AAD.1.1v1)
- * - product: 'AAD'
- * - description: Plain text description from CISA SCuBA baseline
- * - requirementLevel: SHALL, SHALL NOT, SHOULD, SHOULD NOT, or MAY
- * - severity: Critical, High, Medium, or Low
- * - nist80053: NIST 800-53 cross-reference
- * - evaluator: Placeholder function (real evaluators wired in Plan 03)
- * - requiredPermissions: Graph API scopes needed for this check
+ * Each control wired to its real evaluator function.
  */
 
-import type { ControlDefinition, EvaluatorFn } from '../types.js';
-
-const placeholderEvaluator: EvaluatorFn = () => ({
-  rating: 'na',
-  message: 'Evaluator not yet implemented',
-});
+import type { ControlDefinition } from '../types.js';
+import { evaluateAAD_1_1 } from '../evaluators/entra-id/aad-1-legacy-auth.js';
+import { evaluateAAD_2_1, evaluateAAD_2_3 } from '../evaluators/entra-id/aad-2-risk-policies.js';
+import {
+  evaluateAAD_3_1, evaluateAAD_3_2, evaluateAAD_3_3, evaluateAAD_3_4,
+  evaluateAAD_3_5, evaluateAAD_3_6, evaluateAAD_3_7, evaluateAAD_3_8,
+} from '../evaluators/entra-id/aad-3-mfa.js';
+import { evaluateAAD_4_1 } from '../evaluators/entra-id/aad-4-logging.js';
+import {
+  evaluateAAD_5_1, evaluateAAD_5_2, evaluateAAD_5_3, evaluateAAD_5_4,
+} from '../evaluators/entra-id/aad-5-applications.js';
+import { evaluateAAD_6_1 } from '../evaluators/entra-id/aad-6-passwords.js';
+import {
+  evaluateAAD_7_1, evaluateAAD_7_2, evaluateAAD_7_3, evaluateAAD_7_4,
+  evaluateAAD_7_5, evaluateAAD_7_6, evaluateAAD_7_7, evaluateAAD_7_8, evaluateAAD_7_9,
+} from '../evaluators/entra-id/aad-7-privileged-roles.js';
+import { evaluateAAD_8_1, evaluateAAD_8_2, evaluateAAD_8_3 } from '../evaluators/entra-id/aad-8-guest-access.js';
 
 export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
-  // =======================================================================
   // MS.AAD.1.x - Legacy Authentication
-  // =======================================================================
   {
     id: 'MS.AAD.1.1v1',
     product: 'AAD',
@@ -31,13 +30,11 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'Critical',
     nist80053: 'AC-7',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_1_1,
     requiredPermissions: ['Policy.Read.All'],
   },
 
-  // =======================================================================
   // MS.AAD.2.x - Risk-Based Policies
-  // =======================================================================
   {
     id: 'MS.AAD.2.1v1',
     product: 'AAD',
@@ -45,7 +42,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'Critical',
     nist80053: 'AC-7',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_2_1,
     requiredPermissions: ['Policy.Read.All', 'IdentityRiskEvent.Read.All'],
   },
   {
@@ -55,13 +52,11 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'Critical',
     nist80053: 'AC-7',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_2_3,
     requiredPermissions: ['Policy.Read.All', 'IdentityRiskEvent.Read.All'],
   },
 
-  // =======================================================================
   // MS.AAD.3.x - Multi-Factor Authentication
-  // =======================================================================
   {
     id: 'MS.AAD.3.1v1',
     product: 'AAD',
@@ -69,40 +64,37 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'Critical',
     nist80053: 'IA-2(1)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_1,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
     id: 'MS.AAD.3.2v1',
     product: 'AAD',
-    description:
-      'If phishing-resistant MFA cannot be used, an MFA method from the list SHALL be used.',
+    description: 'If phishing-resistant MFA cannot be used, an MFA method from the list SHALL be used.',
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'IA-2(1)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_2,
     requiredPermissions: ['UserAuthenticationMethod.Read.All', 'AuditLog.Read.All'],
   },
   {
     id: 'MS.AAD.3.3v1',
     product: 'AAD',
-    description:
-      'If phishing-resistant MFA has not been enforced, an alternative MFA method SHALL be enforced.',
+    description: 'If phishing-resistant MFA has not been enforced, an alternative MFA method SHALL be enforced.',
     requirementLevel: 'SHOULD',
     severity: 'Medium',
     nist80053: 'IA-2(1)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_3,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
     id: 'MS.AAD.3.4v1',
     product: 'AAD',
-    description:
-      'The Authentication Methods Manage Migration feature SHALL be set to Migration Complete.',
+    description: 'The Authentication Methods Manage Migration feature SHALL be set to Migration Complete.',
     requirementLevel: 'SHALL',
     severity: 'Medium',
     nist80053: 'IA-2(1)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_4,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -112,7 +104,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL NOT',
     severity: 'High',
     nist80053: 'IA-2(1)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_5,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -122,7 +114,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'Critical',
     nist80053: 'IA-2(1)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_6,
     requiredPermissions: ['Policy.Read.All', 'RoleManagement.Read.Directory'],
   },
   {
@@ -132,7 +124,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'Medium',
     nist80053: 'CM-6',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_7,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -142,13 +134,11 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'Medium',
     nist80053: 'CM-6',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_3_8,
     requiredPermissions: ['Policy.Read.All'],
   },
 
-  // =======================================================================
   // MS.AAD.4.x - Logging
-  // =======================================================================
   {
     id: 'MS.AAD.4.1v1',
     product: 'AAD',
@@ -156,13 +146,11 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'High',
     nist80053: 'AU-6',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_4_1,
     requiredPermissions: ['AuditLog.Read.All', 'Directory.Read.All'],
   },
 
-  // =======================================================================
   // MS.AAD.5.x - Application Consent & Registration
-  // =======================================================================
   {
     id: 'MS.AAD.5.1v1',
     product: 'AAD',
@@ -170,7 +158,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'High',
     nist80053: 'CM-7',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_5_1,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -180,7 +168,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'High',
     nist80053: 'CM-7',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_5_2,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -190,7 +178,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'Medium',
     nist80053: 'CM-7',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_5_3,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -200,13 +188,11 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL NOT',
     severity: 'Medium',
     nist80053: 'CM-7',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_5_4,
     requiredPermissions: ['Policy.Read.All'],
   },
 
-  // =======================================================================
   // MS.AAD.6.x - Passwords
-  // =======================================================================
   {
     id: 'MS.AAD.6.1v1',
     product: 'AAD',
@@ -214,22 +200,19 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL NOT',
     severity: 'Medium',
     nist80053: 'IA-5',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_6_1,
     requiredPermissions: ['Domain.Read.All'],
   },
 
-  // =======================================================================
   // MS.AAD.7.x - Privileged Roles & PIM
-  // =======================================================================
   {
     id: 'MS.AAD.7.1v1',
     product: 'AAD',
-    description:
-      'A minimum of two users and a maximum of eight users SHALL be provisioned with the Global Administrator role.',
+    description: 'A minimum of two users and a maximum of eight users SHALL be provisioned with the Global Administrator role.',
     requirementLevel: 'SHALL',
     severity: 'Critical',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_1,
     requiredPermissions: ['Directory.Read.All', 'RoleManagement.Read.Directory'],
   },
   {
@@ -239,7 +222,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHALL',
     severity: 'High',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_2,
     requiredPermissions: ['RoleManagement.Read.Directory', 'RoleEligibilitySchedule.Read.Directory'],
   },
   {
@@ -249,7 +232,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_3,
     requiredPermissions: ['RoleManagement.Read.Directory'],
   },
   {
@@ -259,7 +242,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'Medium',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_4,
     requiredPermissions: ['RoleManagement.Read.Directory'],
   },
   {
@@ -269,7 +252,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_5,
     requiredPermissions: ['RoleManagement.Read.Directory'],
   },
   {
@@ -279,18 +262,17 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_6,
     requiredPermissions: ['RoleManagement.Read.Directory'],
   },
   {
     id: 'MS.AAD.7.7v1',
     product: 'AAD',
-    description:
-      'Provisioning users to highly privileged roles SHALL NOT occur outside of PIM.',
+    description: 'Provisioning users to highly privileged roles SHALL NOT occur outside of PIM.',
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_7,
     requiredPermissions: ['RoleManagement.Read.Directory'],
   },
   {
@@ -300,7 +282,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'Medium',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_8,
     requiredPermissions: ['RoleManagement.Read.Directory'],
   },
   {
@@ -310,13 +292,11 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'AC-6(5)',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_7_9,
     requiredPermissions: ['RoleManagement.Read.Directory'],
   },
 
-  // =======================================================================
   // MS.AAD.8.x - Guest Access
-  // =======================================================================
   {
     id: 'MS.AAD.8.1v1',
     product: 'AAD',
@@ -324,7 +304,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'AC-3',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_8_1,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -334,7 +314,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'High',
     nist80053: 'AC-3',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_8_2,
     requiredPermissions: ['Policy.Read.All'],
   },
   {
@@ -344,7 +324,7 @@ export const ENTRA_ID_CONTROLS: ControlDefinition[] = [
     requirementLevel: 'SHOULD',
     severity: 'Medium',
     nist80053: 'AC-3',
-    evaluator: placeholderEvaluator,
+    evaluator: evaluateAAD_8_3,
     requiredPermissions: ['Policy.Read.All'],
   },
 ];
