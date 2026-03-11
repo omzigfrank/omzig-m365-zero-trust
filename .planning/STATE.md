@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-11T04:35:06.453Z"
-last_activity: 2026-03-10 -- Completed 01-04 Frontend auth, Bicep infrastructure, end-to-end integration
+status: executing
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-11T14:26:00Z"
+last_activity: 2026-03-11 -- Completed 02-02 Audit API routes, SignalR service, auditFindings schema
 progress:
   total_phases: 8
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
-  percent: 20
+  total_plans: 6
+  completed_plans: 6
+  percent: 30
 ---
 
 # Project State
@@ -21,33 +21,34 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 1: Foundation and Authentication
+**Current focus:** Phase 2: Core Audit Engine
 
 ## Current Position
 
-Phase: 1 of 8 (Foundation and Authentication)
-Plan: 4 of 4 in current phase
-Status: Verifying phase goal
-Last activity: 2026-03-10 -- Completed 01-04 Frontend auth, Bicep infrastructure, end-to-end integration
+Phase: 2 of 8 (Core Audit Engine)
+Plan: 2 of 3 in current phase
+Status: Executing
+Last activity: 2026-03-11 -- Completed 02-02 Audit API routes, SignalR service, auditFindings schema
 
-Progress: [██░░░░░░░░] 20%
+Progress: [███░░░░░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 6
 - Average duration: 9min
-- Total execution time: 0.62 hours
+- Total execution time: 0.92 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 4 | 37min | 9min |
+| 02-core-audit-engine | 2 | 18min | 9min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (16min), 01-02 (9min), 01-03 (9min), 01-04 (3min)
-- Trend: Improving
+- Last 5 plans: 01-02 (9min), 01-03 (9min), 01-04 (3min), 02-01 (9min), 02-02 (9min)
+- Trend: Stable
 
 *Updated after each plan completion*
 
@@ -81,6 +82,10 @@ Recent decisions affecting current work:
 - [01-03]: azure-active-directory-default auth type for production SQL connections (works across Container Apps and local dev)
 - [01-03]: drizzle-orm added as direct dependency of @omzig/api for eq/and operators (pnpm strict isolation)
 - [01-03]: __dirname used instead of import.meta.url in migrate.ts (CJS output from Node16 module resolution)
+- [02-02]: Hono typed environment (AuditEnv) for tenant-scoped routes instead of tsconfig excludes
+- [02-02]: SignalR hub name 'audit' with JWT HS256 signing (5min push, 1hr negotiate)
+- [02-02]: auditFindings denormalizes 16 columns of control metadata for historical accuracy
+- [02-02]: Audit route RBAC: Analyst+ for trigger/retry, all authenticated for list/detail
 
 ### Pending Todos
 
@@ -92,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T04:35:06.450Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-core-audit-engine/02-CONTEXT.md
+Last session: 2026-03-11T14:26:00Z
+Stopped at: Completed 02-02-PLAN.md
+Resume file: .planning/phases/02-core-audit-engine/02-02-SUMMARY.md

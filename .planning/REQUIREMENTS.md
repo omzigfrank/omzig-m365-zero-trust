@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Audit Engine
 
-- [ ] **AUDIT-01**: User can trigger an on-demand audit scan of a connected M365 tenant
+- [x] **AUDIT-01**: User can trigger an on-demand audit scan of a connected M365 tenant
 - [ ] **AUDIT-02**: Audit engine evaluates all 29 CISA SCuBA Entra ID (AAD) controls via Graph API
 - [ ] **AUDIT-03**: Each finding shows pass/fail status with severity level (Critical/High/Medium/Low)
 - [ ] **AUDIT-04**: Audit engine collects tenant configuration state before evaluating (collect-then-evaluate pipeline)
-- [ ] **AUDIT-05**: Audit results are stored per tenant for historical reference
+- [x] **AUDIT-05**: Audit results are stored per tenant for historical reference
 - [ ] **AUDIT-06**: User can view detailed finding information including affected setting, current value, and expected value
 
 ### Compliance Frameworks
@@ -146,11 +146,11 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUDIT-01 | Phase 2 | Pending |
+| AUDIT-01 | Phase 2 | Complete |
 | AUDIT-02 | Phase 2 | Pending |
 | AUDIT-03 | Phase 2 | Pending |
 | AUDIT-04 | Phase 2 | Pending |
-| AUDIT-05 | Phase 2 | Pending |
+| AUDIT-05 | Phase 2 | Complete |
 | AUDIT-06 | Phase 2 | Pending |
 | FRAME-01 | Phase 2 | Pending |
 | FRAME-02 | Phase 3 | Pending |
