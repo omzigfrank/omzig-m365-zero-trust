@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-11T20:07:55.675Z"
-last_activity: 2026-03-11 -- 19 NIST CSF 2.0 evaluators across 6 functions with registry and tests
+status: in-progress
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-03-11T20:18:00Z"
+last_activity: 2026-03-11 -- Severity-weighted maturity calculator with 101-control unified registry
 progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 12
-  completed_plans: 10
-  percent: 75
+  completed_plans: 11
+  percent: 83
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 3 in progress. Plans 01-03 complete. Plans 04-05 remaining.
+**Current focus:** Phase 3 in progress. Plans 01-04 complete. Plan 05 remaining.
 
 ## Current Position
 
 Phase: 3 of 8 (Compliance Framework Mapping) — IN PROGRESS
-Plan: 3 of 5 in current phase — COMPLETE
-Status: Plan 03-03 complete (CSF 2.0 evaluators)
-Last activity: 2026-03-11 -- 19 NIST CSF 2.0 evaluators across 6 functions with registry and tests
+Plan: 4 of 5 in current phase — COMPLETE
+Status: Plan 03-04 complete (maturity calculator + unified registry)
+Last activity: 2026-03-11 -- Severity-weighted maturity calculator with 101-control unified registry
 
-Progress: [████████░░] 75%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
+- Total plans completed: 11
 - Average duration: 9min
-- Total execution time: 1.42 hours
+- Total execution time: 1.55 hours
 
 **By Phase:**
 
@@ -45,13 +45,14 @@ Progress: [████████░░] 75%
 |-------|-------|-------|----------|
 | 01-foundation | 4 | 37min | 9min |
 | 02-core-audit-engine | 3 | 33min | 11min |
-| 03-compliance-framework-mapping | 3 | 15min | 5min |
+| 03-compliance-framework-mapping | 4 | 23min | 6min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (9min), 02-02 (9min), 02-03 (15min), 03-01 (10min), 03-03 (5min)
+- Last 5 plans: 02-02 (9min), 02-03 (15min), 03-01 (10min), 03-03 (5min), 03-04 (8min)
 - Trend: Accelerating
 
 *Updated after each plan completion*
+| Phase 03 P04 | 8min | 2 tasks | 8 files |
 | Phase 03 P03 | 5min | 1 tasks | 9 files |
 | Phase 03 P02 | 6min | 1 tasks | 10 files |
 
@@ -104,6 +105,11 @@ Recent decisions affecting current work:
 - [Phase 03]: 800-53 evaluators are fully independent from CISA SCuBA evaluators per user locked decision
 - [Phase 03]: 800-53 control IDs follow NIST.80053.{family}-{number}v1 format
 - [Phase 03]: AU-12 counts 15 AuditFacts areas as telemetry sources; pass >= 5, warn 3-4, fail < 3
+- [03-04]: Maturity levels: Traditional <40, Initial 40-69, Advanced 70-89, Optimal >=90 (configurable thresholds)
+- [03-04]: Severity weights: Critical=4, High=3, Medium=2, Low=1 for weighted pass rate
+- [03-04]: warn/na excluded from maturity pass/fail counts -- only pass/fail are scorable
+- [03-04]: Overall maturity = average of per-tenet weighted pass rates
+- [03-04]: Framework scores: pass/(pass+fail)*100 per product grouping
 
 ### Pending Todos
 
@@ -115,6 +121,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T20:07:45.046Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-03-11T20:18:00Z
+Stopped at: Completed 03-04-PLAN.md
 Resume file: None
