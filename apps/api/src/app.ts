@@ -6,6 +6,7 @@ import { requireMfa } from './middleware/mfa.js';
 import { health } from './routes/health.js';
 import { authRoutes } from './routes/auth.js';
 import { tenantsRoutes } from './routes/tenants.js';
+import { auditRoutes } from './routes/audits.js';
 
 /**
  * Create the Hono application instance.
@@ -48,6 +49,11 @@ export function createApp(): Hono {
 
   // Tenant management routes (stub -- full implementation in Phase 4)
   app.route('/api/tenants', tenantsRoutes);
+
+  // Audit routes (trigger, list, detail, retry) and SignalR negotiate
+  // These routes handle their own /tenants/:tenantId/audits path prefix
+  // and the /signalr/negotiate endpoint
+  app.route('/api', auditRoutes);
 
   return app;
 }
