@@ -72,9 +72,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication & Security
 
-- [ ] **AUTH-01**: MSP admins authenticate via Microsoft Entra ID (work account sign-in)
-- [ ] **AUTH-02**: MFA is enforced for all users via Conditional Access policy on the app
-- [ ] **AUTH-03**: App-level RBAC with three roles: Admin (full access), Analyst (audit + remediate), Read-only (view only)
+- [x] **AUTH-01**: MSP admins authenticate via Microsoft Entra ID (work account sign-in)
+- [x] **AUTH-02**: MFA is enforced for all users via Conditional Access policy on the app
+- [x] **AUTH-03**: App-level RBAC with three roles: Admin (full access), Analyst (audit + remediate), Read-only (view only)
 - [ ] **AUTH-04**: Client tenant tokens are encrypted at rest using Azure Key Vault / Always Encrypted
 - [ ] **AUTH-05**: All service-to-service communication uses managed identities (no stored secrets)
 - [ ] **AUTH-06**: Graph API permissions per tenant are scoped to minimum required for audit (read-only by default)
@@ -83,7 +83,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Infrastructure
 
 - [ ] **INFRA-01**: Next.js frontend deployed to Azure Container Apps
-- [ ] **INFRA-02**: Core API/audit engine runs on Azure Container Apps (Hono framework)
+- [x] **INFRA-02**: Core API/audit engine runs on Azure Container Apps (Hono framework)
 - [x] **INFRA-03**: Event-driven workloads (webhook receivers, scheduled scans, remediation execution) run on Azure Functions
 - [ ] **INFRA-04**: Azure SQL Elastic Pool with per-tenant databases for data isolation
 - [ ] **INFRA-05**: Azure SignalR Service (serverless mode) for real-time dashboard updates
@@ -191,15 +191,15 @@ Deferred to future release. Tracked but not in current roadmap.
 | DRIFT-04 | Phase 8 | Pending |
 | DRIFT-05 | Phase 8 | Pending |
 | DRIFT-06 | Phase 8 | Pending |
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
 | AUTH-04 | Phase 1 | Pending |
 | AUTH-05 | Phase 1 | Pending |
 | AUTH-06 | Phase 2 | Pending |
 | AUTH-07 | Phase 1 | Pending |
 | INFRA-01 | Phase 1 | Pending |
-| INFRA-02 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Pending |
 | INFRA-05 | Phase 1 | Pending |

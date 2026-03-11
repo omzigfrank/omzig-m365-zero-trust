@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 ## Current Position
 
 Phase: 1 of 8 (Foundation and Authentication)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: Executing plans
-Last activity: 2026-03-10 -- Completed 01-01 monorepo foundation (Turborepo + pnpm + @omzig/shared + @omzig/db)
+Last activity: 2026-03-10 -- Completed 01-02 Hono API + Auth Middleware (JWK, MFA, RBAC with 27 tests)
 
-Progress: [█░░░░░░░░░] 10%
+Progress: [██░░░░░░░░] 15%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 16min
-- Total execution time: 0.27 hours
+- Total plans completed: 2
+- Average duration: 13min
+- Total execution time: 0.42 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 1 | 16min | 16min |
+| 01-foundation | 2 | 25min | 13min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (16min)
-- Trend: N/A (first plan)
+- Last 5 plans: 01-01 (16min), 01-02 (9min)
+- Trend: Improving
 
 *Updated after each plan completion*
 
@@ -57,6 +57,10 @@ Recent decisions affecting current work:
 - [01-01]: varchar(36) for UUID columns since drizzle mssql-core has no uniqueIdentifier type
 - [01-01]: sql`GETDATE()` for datetime2 defaults since mssql-core has no defaultNow()
 - [01-01]: Switched Next.js output from export to standalone for SSR support
+- [01-02]: Separated app.ts from index.ts for testability (app exports Hono instance, index starts server)
+- [01-02]: Used Hono verifyWithJwks with jwks_uri option for Entra ID JWKS endpoint validation
+- [01-02]: Mock JWT injection in tests via createMiddleware instead of real JWKS calls
+- [01-02]: Per-tenant role overrides use in-memory Map store (DB wired in Plan 03)
 
 ### Pending Todos
 
@@ -69,5 +73,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-foundation-and-authentication/01-01-SUMMARY.md
+Stopped at: Completed 01-02-PLAN.md
+Resume file: .planning/phases/01-foundation-and-authentication/01-02-SUMMARY.md
