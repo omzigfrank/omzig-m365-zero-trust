@@ -1,9 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { Hono } from 'hono';
 
+// Mock drizzle-orm operators (used by tenant.ts)
+vi.mock('drizzle-orm', () => ({
+  eq: vi.fn((_col: unknown, _val: unknown) => ({ type: 'eq', col: _col, val: _val })),
+  and: vi.fn((...args: unknown[]) => ({ type: 'and', conditions: args })),
+}));
+
 // Mock @omzig/db module
-const mockControlPlaneSelect = vi.fn();
-const mockControlPlaneFrom = vi.fn();
 const mockControlPlaneWhere = vi.fn();
 const mockTenantPool = {
   connected: true,
@@ -23,9 +27,9 @@ vi.mock('@omzig/db', () => ({
     pool: mockTenantPool,
   }),
   closeTenantDb: vi.fn().mockResolvedValue(undefined),
-  tenants: { id: 'id', isDeleted: 'is_deleted', databaseName: 'database_name' },
+  tenants: { id: 'id', isDeleted: 'is_deleted', databaseName: 'database_name', orgId: 'org_id' },
   tenantUserAccess: { tenantId: 'tenant_id', userId: 'user_id' },
-  users: { entraObjectId: 'entra_object_id', orgId: 'org_id' },
+  users: { entraObjectId: 'entra_object_id', orgId: 'org_id', id: 'id' },
 }));
 
 describe('withTenantDb middleware', () => {
