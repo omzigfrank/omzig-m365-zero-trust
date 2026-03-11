@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 ## Current Position
 
 Phase: 1 of 8 (Foundation and Authentication)
-Plan: 2 of 4 in current phase
+Plan: 3 of 4 in current phase
 Status: Executing plans
-Last activity: 2026-03-10 -- Completed 01-02 Hono API + Auth Middleware (JWK, MFA, RBAC with 27 tests)
+Last activity: 2026-03-10 -- Completed 01-03 Database connection factory, tenant isolation, Key Vault integration
 
-Progress: [██░░░░░░░░] 15%
+Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 13min
-- Total execution time: 0.42 hours
+- Total plans completed: 3
+- Average duration: 11min
+- Total execution time: 0.57 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 2 | 25min | 13min |
+| 01-foundation | 3 | 34min | 11min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (16min), 01-02 (9min)
+- Last 5 plans: 01-01 (16min), 01-02 (9min), 01-03 (9min)
 - Trend: Improving
 
 *Updated after each plan completion*
@@ -61,6 +61,10 @@ Recent decisions affecting current work:
 - [01-02]: Used Hono verifyWithJwks with jwks_uri option for Entra ID JWKS endpoint validation
 - [01-02]: Mock JWT injection in tests via createMiddleware instead of real JWKS calls
 - [01-02]: Per-tenant role overrides use in-memory Map store (DB wired in Plan 03)
+- [01-03]: Key Vault envelope encryption (RSA-OAEP) substitutes Always Encrypted -- Node.js tedious driver has no support
+- [01-03]: azure-active-directory-default auth type for production SQL connections (works across Container Apps and local dev)
+- [01-03]: drizzle-orm added as direct dependency of @omzig/api for eq/and operators (pnpm strict isolation)
+- [01-03]: __dirname used instead of import.meta.url in migrate.ts (CJS output from Node16 module resolution)
 
 ### Pending Todos
 
@@ -73,5 +77,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Completed 01-02-PLAN.md
-Resume file: .planning/phases/01-foundation-and-authentication/01-02-SUMMARY.md
+Stopped at: Completed 01-03-PLAN.md
+Resume file: .planning/phases/01-foundation-and-authentication/01-03-SUMMARY.md

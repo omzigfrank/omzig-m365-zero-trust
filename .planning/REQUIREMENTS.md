@@ -75,8 +75,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **AUTH-01**: MSP admins authenticate via Microsoft Entra ID (work account sign-in)
 - [x] **AUTH-02**: MFA is enforced for all users via Conditional Access policy on the app
 - [x] **AUTH-03**: App-level RBAC with three roles: Admin (full access), Analyst (audit + remediate), Read-only (view only)
-- [ ] **AUTH-04**: Client tenant tokens are encrypted at rest using Azure Key Vault / Always Encrypted
-- [ ] **AUTH-05**: All service-to-service communication uses managed identities (no stored secrets)
+- [x] **AUTH-04**: Client tenant tokens are encrypted at rest using Azure Key Vault / Always Encrypted
+- [x] **AUTH-05**: All service-to-service communication uses managed identities (no stored secrets)
 - [ ] **AUTH-06**: Graph API permissions per tenant are scoped to minimum required for audit (read-only by default)
 - [ ] **AUTH-07**: Database access uses private endpoints (no public internet access)
 
@@ -85,9 +85,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **INFRA-01**: Next.js frontend deployed to Azure Container Apps
 - [x] **INFRA-02**: Core API/audit engine runs on Azure Container Apps (Hono framework)
 - [x] **INFRA-03**: Event-driven workloads (webhook receivers, scheduled scans, remediation execution) run on Azure Functions
-- [ ] **INFRA-04**: Azure SQL Elastic Pool with per-tenant databases for data isolation
+- [x] **INFRA-04**: Azure SQL Elastic Pool with per-tenant databases for data isolation
 - [ ] **INFRA-05**: Azure SignalR Service (serverless mode) for real-time dashboard updates
-- [ ] **INFRA-06**: Azure Key Vault for all secrets and tenant token encryption
+- [x] **INFRA-06**: Azure Key Vault for all secrets and tenant token encryption
 - [x] **INFRA-07**: TypeScript monorepo (Turborepo + pnpm) with shared packages
 
 ## v2 Requirements
@@ -194,16 +194,16 @@ Deferred to future release. Tracked but not in current roadmap.
 | AUTH-01 | Phase 1 | Complete |
 | AUTH-02 | Phase 1 | Complete |
 | AUTH-03 | Phase 1 | Complete |
-| AUTH-04 | Phase 1 | Pending |
-| AUTH-05 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Complete |
+| AUTH-05 | Phase 1 | Complete |
 | AUTH-06 | Phase 2 | Pending |
 | AUTH-07 | Phase 1 | Pending |
 | INFRA-01 | Phase 1 | Pending |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
-| INFRA-04 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Pending |
-| INFRA-06 | Phase 1 | Pending |
+| INFRA-06 | Phase 1 | Complete |
 | INFRA-07 | Phase 1 | Complete |
 
 **Coverage:**
