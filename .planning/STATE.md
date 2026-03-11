@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 ## Current Position
 
 Phase: 1 of 8 (Foundation and Authentication)
-Plan: 0 of 3 in current phase
-Status: Context gathered, ready to plan
-Last activity: 2026-03-10 -- Phase 1 context gathered (RBAC, tenant DB, setup wizard, observability, branding, errors)
+Plan: 1 of 4 in current phase
+Status: Executing plans
+Last activity: 2026-03-10 -- Completed 01-01 monorepo foundation (Turborepo + pnpm + @omzig/shared + @omzig/db)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 10%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: 0 hours
+- Total plans completed: 1
+- Average duration: 16min
+- Total execution time: 0.27 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01-foundation | 1 | 16min | 16min |
 
 **Recent Trend:**
-- Last 5 plans: none
-- Trend: N/A
+- Last 5 plans: 01-01 (16min)
+- Trend: N/A (first plan)
 
 *Updated after each plan completion*
 
@@ -53,6 +53,10 @@ Recent decisions affecting current work:
 - [Phase 1]: Platform-enforced MFA validation (checks JWT claims, defense-in-depth)
 - [Phase 1]: Setup wizard with full onboarding flow including first audit run
 - [Phase 1]: Always Encrypted for sensitive columns, opaque tenant DB names
+- [01-01]: Used drizzle-orm@beta (not stable) because mssql-core only exists in beta
+- [01-01]: varchar(36) for UUID columns since drizzle mssql-core has no uniqueIdentifier type
+- [01-01]: sql`GETDATE()` for datetime2 defaults since mssql-core has no defaultNow()
+- [01-01]: Switched Next.js output from export to standalone for SSR support
 
 ### Pending Todos
 
@@ -65,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-foundation-and-authentication/01-CONTEXT.md
+Stopped at: Completed 01-01-PLAN.md
+Resume file: .planning/phases/01-foundation-and-authentication/01-01-SUMMARY.md

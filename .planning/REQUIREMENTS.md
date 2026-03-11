@@ -84,11 +84,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **INFRA-01**: Next.js frontend deployed to Azure Container Apps
 - [ ] **INFRA-02**: Core API/audit engine runs on Azure Container Apps (Hono framework)
-- [ ] **INFRA-03**: Event-driven workloads (webhook receivers, scheduled scans, remediation execution) run on Azure Functions
+- [x] **INFRA-03**: Event-driven workloads (webhook receivers, scheduled scans, remediation execution) run on Azure Functions
 - [ ] **INFRA-04**: Azure SQL Elastic Pool with per-tenant databases for data isolation
 - [ ] **INFRA-05**: Azure SignalR Service (serverless mode) for real-time dashboard updates
 - [ ] **INFRA-06**: Azure Key Vault for all secrets and tenant token encryption
-- [ ] **INFRA-07**: TypeScript monorepo (Turborepo + pnpm) with shared packages
+- [x] **INFRA-07**: TypeScript monorepo (Turborepo + pnpm) with shared packages
 
 ## v2 Requirements
 
@@ -200,11 +200,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | AUTH-07 | Phase 1 | Pending |
 | INFRA-01 | Phase 1 | Pending |
 | INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Pending |
 | INFRA-05 | Phase 1 | Pending |
 | INFRA-06 | Phase 1 | Pending |
-| INFRA-07 | Phase 1 | Pending |
+| INFRA-07 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 59 total
