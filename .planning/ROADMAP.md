@@ -51,12 +51,12 @@ Plans:
   3. Each finding shows the affected setting name, current value in the tenant, and expected value per the control
   4. Findings display their CISA SCuBA control ID with SHALL/SHOULD/MAY requirement level
   5. Audit results are persisted in the tenant's database and retrievable for later viewing
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Audit package foundation: types, control registry (29 CISA SCuBA definitions), Graph API fact collector
+- [ ] 02-02-PLAN.md — DB schema (auditFindings table), SignalR service, audit API routes (trigger, list, detail, retry)
+- [ ] 02-03-PLAN.md — 29 Entra ID evaluators, audit runner pipeline, frontend async audit with SignalR progress
 
 ### Phase 3: Compliance Framework Mapping
 **Goal**: Users can view their tenant's compliance posture across NIST 800-207, 800-53, and CSF 2.0 with maturity scoring
