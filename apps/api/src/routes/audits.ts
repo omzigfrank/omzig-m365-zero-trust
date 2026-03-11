@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { eq, desc } from 'drizzle-orm';
 import type { ApiResponse } from '@omzig/shared';
 import { auditRuns, auditFindings } from '@omzig/db';
-import { runAuditPipeline } from '@omzig/audit';
+import { runAuditPipeline, getAllControls } from '@omzig/audit';
 import { requireRole } from '../middleware/rbac.js';
 import { negotiateSignalR, pushAuditProgress } from '../services/signalr.js';
 
@@ -72,7 +72,7 @@ auditRoutes.post(
       triggeredBy,
       status: 'running',
       startedAt: now,
-      totalChecks: 29,
+      totalChecks: getAllControls().length,
       passedChecks: 0,
       failedChecks: 0,
       errorChecks: 0,

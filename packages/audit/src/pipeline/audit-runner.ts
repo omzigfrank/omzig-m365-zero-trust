@@ -4,19 +4,21 @@
  * 2. Update audit run status to 'running'
  * 3. Create Graph client with access token
  * 4. COLLECT: call collectFacts
- * 5. EVALUATE: run all evaluators, persist each finding, push progress
- * 6. UPDATE: mark run complete with counts
- * 7. CLEANUP: close DB connection in finally block
+ * 5. EVALUATE: run all evaluators (~101 controls), persist each finding, push progress
+ * 6. MATURITY: compute and persist maturity snapshot for ZTA tenets
+ * 7. UPDATE: mark run complete with counts
+ * 8. CLEANUP: close DB connection in finally block
  */
 import { eq } from 'drizzle-orm';
-import { getTenantDb, closeTenantDb, auditRuns, auditFindings } from '@omzig/db';
+import { getTenantDb, closeTenantDb, auditRuns, auditFindings, maturityScores } from '@omzig/db';
 import type { AuditProgressMessage } from '../types.js';
-import { ENTRA_ID_CONTROLS } from '../registry/entra-id-controls.js';
+import { getAllControls } from '../registry/control-registry.js';
 import { collectFacts } from '../collectors/fact-collector.js';
 import { createGraphClient } from '../collectors/graph-client.js';
 import { ProgressEmitter } from './progress-emitter.js';
 import { RateLimiter } from './rate-limiter.js';
 import { TokenManager } from './token-manager.js';
+import { calculateMaturitySnapshot } from './maturity-calculator.js';
 
 export interface AuditPipelineParams {
   auditId: string;
@@ -35,17 +37,22 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
   const emitter = new ProgressEmitter(userId, auditId, tenantId, signalrPush);
   const rateLimiter = new RateLimiter();
   const tokenManager = new TokenManager(accessToken);
+  const allControls = getAllControls();
 
   try {
-    // Mark run as 'running'
-    await db.update(auditRuns).set({ status: 'running', startedAt: new Date() }).where(eq(auditRuns.id, auditId));
+    // Mark run as 'running' with actual control count
+    await db.update(auditRuns).set({
+      status: 'running',
+      startedAt: new Date(),
+      totalChecks: allControls.length,
+    }).where(eq(auditRuns.id, auditId));
 
     // Create Graph client
     const token = await tokenManager.refreshIfNeeded();
     const client = createGraphClient(token);
 
     // COLLECT phase
-    await emitter.emit(0, ENTRA_ID_CONTROLS.length, 'Collecting tenant configuration...', 'running');
+    await emitter.emit(0, allControls.length, 'Collecting tenant configuration...', 'running');
     const facts = await collectFacts(client, (msg) => {
       rateLimiter.recordRequest();
     });
@@ -55,8 +62,16 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
     let failedChecks = 0;
     let errorChecks = 0;
 
-    for (let i = 0; i < ENTRA_ID_CONTROLS.length; i++) {
-      const control = ENTRA_ID_CONTROLS[i];
+    // Track findings for maturity calculation
+    const evaluatedFindings: Array<{
+      product: string;
+      rating: string;
+      severity: string;
+      nist800207Tenet?: string;
+    }> = [];
+
+    for (let i = 0; i < allControls.length; i++) {
+      const control = allControls[i];
       await rateLimiter.checkThreshold();
 
       try {
@@ -66,6 +81,14 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
         if (result.rating === 'pass') passedChecks++;
         else if (result.rating === 'fail') failedChecks++;
         else errorChecks++; // warn and na go to error count for tracking
+
+        // Track for maturity calculation
+        evaluatedFindings.push({
+          product: control.product,
+          rating: result.rating,
+          severity: control.severity,
+          nist800207Tenet: control.nist800207Tenet,
+        });
 
         // Persist finding with denormalized control metadata
         await db.insert(auditFindings).values({
@@ -84,6 +107,8 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
           expectedValue: result.expectedValue ?? null,
           requiredPermission: result.requiredPermission ?? null,
           nist80053: control.nist80053,
+          nistCsf: control.nistCsf ?? null,
+          nist800207Tenet: control.nist800207Tenet ?? null,
         });
       } catch (err) {
         errorChecks++;
@@ -100,17 +125,57 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
           message: `Evaluator error: ${err instanceof Error ? err.message : 'Unknown error'}`,
           action: `Review evaluator for ${control.id}`,
           nist80053: control.nist80053,
+          nistCsf: control.nistCsf ?? null,
+          nist800207Tenet: control.nist800207Tenet ?? null,
         });
       }
 
       // Push progress after each evaluator
       await emitter.emit(
         i + 1,
-        ENTRA_ID_CONTROLS.length,
-        `${i + 1}/${ENTRA_ID_CONTROLS.length} — Evaluating ${control.id}`,
+        allControls.length,
+        `${i + 1}/${allControls.length} — Evaluating ${control.id}`,
         'running',
       );
     }
+
+    // MATURITY: compute and persist maturity snapshot for ZTA tenets
+    const ztaFindings = evaluatedFindings.filter((f) => f.nist800207Tenet);
+    const snapshot = calculateMaturitySnapshot(ztaFindings);
+
+    // Persist each tenet score
+    for (const tenet of snapshot.tenets) {
+      await db.insert(maturityScores).values({
+        id: crypto.randomUUID(),
+        auditRunId: auditId,
+        tenet: tenet.tenet,
+        tenetName: tenet.tenetName,
+        totalChecks: tenet.totalChecks,
+        passedChecks: tenet.passedChecks,
+        failedChecks: tenet.failedChecks,
+        passRate: Math.round(tenet.passRate),
+        weightedPassRate: Math.round(tenet.weightedPassRate),
+        maturityLevel: tenet.maturityLevel,
+      });
+    }
+
+    // Persist overall maturity score
+    await db.insert(maturityScores).values({
+      id: crypto.randomUUID(),
+      auditRunId: auditId,
+      tenet: 'overall',
+      tenetName: 'Overall',
+      totalChecks: snapshot.tenets.reduce((sum, t) => sum + t.totalChecks, 0),
+      passedChecks: snapshot.tenets.reduce((sum, t) => sum + t.passedChecks, 0),
+      failedChecks: snapshot.tenets.reduce((sum, t) => sum + t.failedChecks, 0),
+      passRate: Math.round(
+        snapshot.tenets.length > 0
+          ? snapshot.tenets.reduce((sum, t) => sum + t.passRate, 0) / snapshot.tenets.length
+          : 0,
+      ),
+      weightedPassRate: Math.round(snapshot.overallWeightedAverage),
+      maturityLevel: snapshot.overallMaturityLevel,
+    });
 
     // UPDATE: mark complete
     const summary = `${passedChecks} passed, ${failedChecks} failed, ${errorChecks} warnings/na`;
@@ -123,7 +188,7 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
       summary,
     }).where(eq(auditRuns.id, auditId));
 
-    await emitter.emit(ENTRA_ID_CONTROLS.length, ENTRA_ID_CONTROLS.length, 'Audit complete', 'complete');
+    await emitter.emit(allControls.length, allControls.length, 'Audit complete', 'complete');
   } catch (err) {
     // Mark run as failed
     try {
@@ -132,7 +197,7 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
         completedAt: new Date(),
         summary: `Pipeline error: ${err instanceof Error ? err.message : 'Unknown error'}`,
       }).where(eq(auditRuns.id, auditId));
-      await emitter.emit(0, ENTRA_ID_CONTROLS.length, 'Audit failed', 'error');
+      await emitter.emit(0, allControls.length, 'Audit failed', 'error');
     } catch {
       // Best effort — DB may be unavailable
     }

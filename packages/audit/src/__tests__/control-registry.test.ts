@@ -89,8 +89,8 @@ describe('control-registry helpers', () => {
     expect(controls).toHaveLength(0);
   });
 
-  it('getAllControls returns all 29', () => {
+  it('getAllControls returns all 101 (29 AAD + 31 ZTA + 22 80053 + 19 CSF)', () => {
     const controls = getAllControls();
-    expect(controls).toHaveLength(29);
+    expect(controls).toHaveLength(101);
   });
 });

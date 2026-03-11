@@ -5,11 +5,16 @@
 
 import type { ControlDefinition } from '../types.js';
 import { ENTRA_ID_CONTROLS } from './entra-id-controls.js';
+import { NIST_ZTA_CONTROLS } from './nist-zta-controls.js';
+import { NIST_80053_CONTROLS } from './nist-80053-controls.js';
+import { NIST_CSF_CONTROLS } from './nist-csf-controls.js';
 
-/** All known controls across all products. */
+/** All known controls across all 4 frameworks. */
 const ALL_CONTROLS: ControlDefinition[] = [
   ...ENTRA_ID_CONTROLS,
-  // Future: ...EXCHANGE_CONTROLS, ...TEAMS_CONTROLS, etc.
+  ...NIST_ZTA_CONTROLS,
+  ...NIST_80053_CONTROLS,
+  ...NIST_CSF_CONTROLS,
 ];
 
 /**

@@ -3,6 +3,9 @@ export * from './types.js';
 
 // Control registry
 export { ENTRA_ID_CONTROLS } from './registry/entra-id-controls.js';
+export { NIST_ZTA_CONTROLS } from './registry/nist-zta-controls.js';
+export { NIST_80053_CONTROLS } from './registry/nist-80053-controls.js';
+export { NIST_CSF_CONTROLS } from './registry/nist-csf-controls.js';
 export {
   getControlById,
   getControlsByProduct,
@@ -29,6 +32,21 @@ export { runAuditPipeline, type AuditPipelineParams } from './pipeline/audit-run
 export { RateLimiter } from './pipeline/rate-limiter.js';
 export { TokenManager } from './pipeline/token-manager.js';
 export { ProgressEmitter } from './pipeline/progress-emitter.js';
+
+// Maturity calculator
+export {
+  calculateMaturitySnapshot,
+  calculateMaturityLevel,
+  computeFrameworkScores,
+  SEVERITY_WEIGHTS,
+  DEFAULT_THRESHOLDS,
+  TENET_NAMES,
+  type MaturitySnapshot,
+  type TenetMaturity,
+  type MaturityLevel,
+  type MaturityThresholds,
+  type FrameworkScore,
+} from './pipeline/maturity-calculator.js';
 
 // Area parsers (for testing and direct use)
 export { parseOrganization } from './collectors/areas/organization.js';
