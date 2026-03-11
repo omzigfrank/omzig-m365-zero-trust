@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation and Authentication** - Infrastructure platform, auth, tenant isolation, monorepo skeleton (completed 2026-03-11)
 - [x] **Phase 2: Core Audit Engine** - Collect-then-evaluate pipeline for CISA SCuBA Entra ID controls (completed 2026-03-11)
-- [ ] **Phase 3: Compliance Framework Mapping** - NIST 800-207/800-53/CSF 2.0 evaluators and maturity scoring
+- [x] **Phase 3: Compliance Framework Mapping** - NIST 800-207/800-53/CSF 2.0 evaluators and maturity scoring (completed 2026-03-11)
 - [ ] **Phase 4: Tenant Onboarding and Management** - OAuth/GDAP onboarding, multi-tenant dashboard, tenant lifecycle
 - [ ] **Phase 5: Dashboard and Findings UX** - Interactive drill-down, filtering, remediation guidance, action queue
 - [ ] **Phase 6: Scheduling, Reporting and Trending** - Automated scans, PDF/CSV export, historical compliance trends
@@ -164,7 +164,7 @@ Note: Phase 3 and Phase 4 both depend on Phase 2 and can execute in parallel. Ph
 |-------|----------------|--------|-----------|
 | 1. Foundation and Authentication | 4/4 | Complete    | 2026-03-11 |
 | 2. Core Audit Engine | 3/3 | Complete    | 2026-03-11 |
-| 3. Compliance Framework Mapping | 1/5 | In progress | - |
+| 3. Compliance Framework Mapping | 5/5 | Complete    | 2026-03-11 |
 | 4. Tenant Onboarding and Management | 0/2 | Not started | - |
 | 5. Dashboard and Findings UX | 0/2 | Not started | - |
 | 6. Scheduling, Reporting and Trending | 0/2 | Not started | - |

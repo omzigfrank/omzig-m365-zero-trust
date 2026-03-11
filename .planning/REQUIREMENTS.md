@@ -24,7 +24,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **FRAME-04**: Each finding cross-maps to NIST CSF 2.0 functions (Identify/Protect/Detect/Respond/Recover) where applicable
 - [x] **FRAME-05**: User can view compliance score per framework (CISA SCuBA, NIST 800-207, NIST 800-53, CSF 2.0)
 - [x] **FRAME-06**: User can view ZTA maturity level (Traditional/Initial/Advanced/Optimal) per NIST 800-207 tenet
-- [ ] **FRAME-07**: Dashboard displays ZTA maturity radar chart showing maturity across all 7 tenets
+- [x] **FRAME-07**: Dashboard displays ZTA maturity radar chart showing maturity across all 7 tenets
 
 ### Multi-Tenant Management
 
@@ -158,7 +158,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | FRAME-04 | Phase 3 | Complete |
 | FRAME-05 | Phase 3 | Complete |
 | FRAME-06 | Phase 3 | Complete |
-| FRAME-07 | Phase 3 | Pending |
+| FRAME-07 | Phase 3 | Complete |
 | TENANT-01 | Phase 4 | Pending |
 | TENANT-02 | Phase 4 | Pending |
 | TENANT-03 | Phase 4 | Pending |
