@@ -67,11 +67,12 @@ Plans:
   2. Each finding cross-maps to NIST 800-53 security control families and NIST CSF 2.0 functions where applicable
   3. User can view a compliance score per framework (CISA SCuBA, NIST 800-207, NIST 800-53, CSF 2.0) for any audited tenant
   4. User can view ZTA maturity level (Traditional/Initial/Advanced/Optimal) per NIST 800-207 tenet and see a radar chart of all 7 tenets
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Extended types, DB schema (maturityScores table), 31 NIST 800-207 ZTA evaluators ported from PowerShell
+- [ ] 03-02-PLAN.md — 22 NIST 800-53 evaluators, 19 CSF 2.0 evaluators, maturity calculator, unified pipeline
+- [ ] 03-03-PLAN.md — Combined compliance dashboard: 4 score cards, ZTA radar chart, framework filter, cross-framework badges
 
 ### Phase 4: Tenant Onboarding and Management
 **Goal**: MSPs can connect multiple client tenants and manage them from a single multi-tenant view
@@ -161,7 +162,7 @@ Note: Phase 3 and Phase 4 both depend on Phase 2 and can execute in parallel. Ph
 |-------|----------------|--------|-----------|
 | 1. Foundation and Authentication | 4/4 | Complete    | 2026-03-11 |
 | 2. Core Audit Engine | 3/3 | Complete    | 2026-03-11 |
-| 3. Compliance Framework Mapping | 0/2 | Not started | - |
+| 3. Compliance Framework Mapping | 0/3 | Not started | - |
 | 4. Tenant Onboarding and Management | 0/2 | Not started | - |
 | 5. Dashboard and Findings UX | 0/2 | Not started | - |
 | 6. Scheduling, Reporting and Trending | 0/2 | Not started | - |
