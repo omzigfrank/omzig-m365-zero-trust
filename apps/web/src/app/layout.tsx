@@ -31,11 +31,11 @@ export default function RootLayout({
   if (!ready) {
     return (
       <html lang="en">
-        <body>
-          <div className="flex h-screen items-center justify-center bg-gray-950">
+        <body className="bg-gray-50">
+          <div className="flex h-screen items-center justify-center">
             <div className="flex flex-col items-center gap-4">
               <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
-              <p className="text-sm text-gray-400">Loading Omzig Security...</p>
+              <p className="text-sm text-gray-500">Loading Omzig Security...</p>
             </div>
           </div>
         </body>
@@ -49,10 +49,10 @@ export default function RootLayout({
         <title>Omzig Security Audit</title>
         <meta
           name="description"
-          content="CISA SCuBA and NIST Zero Trust security audit for Microsoft 365"
+          content="M365 Zero Trust auditing platform for MSPs"
         />
       </head>
-      <body>
+      <body className="bg-gray-50 text-gray-900 antialiased">
         <MsalProvider instance={msalInstance}>{children}</MsalProvider>
       </body>
     </html>
