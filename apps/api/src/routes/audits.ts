@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, and, lt } from 'drizzle-orm';
 import type { ApiResponse } from '@omzig/shared';
-import { auditRuns, auditFindings } from '@omzig/db';
+import { auditRuns, auditFindings, maturityScores } from '@omzig/db';
 import { runAuditPipeline, getAllControls } from '@omzig/audit';
 import { requireRole } from '../middleware/rbac.js';
 import { negotiateSignalR, pushAuditProgress } from '../services/signalr.js';
@@ -168,10 +168,57 @@ auditRoutes.get('/tenants/:tenantId/audits/:auditId', async (c) => {
     .from(auditFindings)
     .where(eq(auditFindings.auditRunId, auditId));
 
+  // Fetch maturity scores for this audit run
+  const maturity = await tenantDb
+    .select()
+    .from(maturityScores)
+    .where(eq(maturityScores.auditRunId, auditId));
+
+  // Compute per-framework scores from findings
+  const frameworkScores: Record<string, { total: number; pass: number; fail: number; warn: number; na: number; score: number }> = {};
+  for (const finding of findings) {
+    const product = finding.product;
+    if (!frameworkScores[product]) {
+      frameworkScores[product] = { total: 0, pass: 0, fail: 0, warn: 0, na: 0, score: 0 };
+    }
+    frameworkScores[product].total++;
+    const rating = finding.rating as 'pass' | 'fail' | 'warn' | 'na';
+    if (rating in frameworkScores[product]) {
+      frameworkScores[product][rating]++;
+    }
+  }
+  for (const key of Object.keys(frameworkScores)) {
+    const fs = frameworkScores[key];
+    const applicable = fs.pass + fs.fail;
+    fs.score = applicable > 0 ? Math.round((fs.pass / applicable) * 100) : 0;
+  }
+
+  // Fetch previous audit maturity for radar chart overlay
+  let previousMaturity: typeof maturity | null = null;
+  const previousRuns = await tenantDb
+    .select()
+    .from(auditRuns)
+    .where(and(
+      eq(auditRuns.status, 'completed'),
+      lt(auditRuns.createdAt, run.createdAt)
+    ))
+    .orderBy(desc(auditRuns.createdAt))
+    .limit(1);
+
+  if (previousRuns.length > 0) {
+    previousMaturity = await tenantDb
+      .select()
+      .from(maturityScores)
+      .where(eq(maturityScores.auditRunId, previousRuns[0].id));
+  }
+
   const response: ApiResponse = {
     data: {
       ...run,
       findings,
+      maturitySnapshot: maturity,
+      previousMaturity,
+      frameworkScores,
     },
     meta: {
       correlationId: crypto.randomUUID(),

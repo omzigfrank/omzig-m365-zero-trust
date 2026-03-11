@@ -1,5 +1,6 @@
 export type AuditRating = "pass" | "fail" | "warn" | "blocker" | "na";
 
+/** @deprecated Use FrameworkFilter multi-select instead. Kept for backward compatibility. */
 export type AuditFramework = "CISA" | "NIST" | "Both";
 
 export interface AuditCheck {
@@ -40,6 +41,7 @@ export interface TenantInfo {
   user: string;
 }
 
+/** @deprecated Replaced by AuditRunDetail with frameworkScores and maturitySnapshot. */
 export interface AuditEnvelope {
   generatedAt: string;
   selectedFramework: AuditFramework;
@@ -47,6 +49,31 @@ export interface AuditEnvelope {
   tenantInfo: TenantInfo;
   combinedSummary: AuditSummary;
   reports: Record<string, FrameworkReport>;
+}
+
+/** Per-framework compliance score (pass/(pass+fail)*100) */
+export interface FrameworkScore {
+  total: number;
+  pass: number;
+  fail: number;
+  warn: number;
+  na: number;
+  score: number;
+}
+
+/** Per-framework scores keyed by product code (AAD, ZTA, 80053, CSF) */
+export type FrameworkScores = Record<string, FrameworkScore>;
+
+/** A single tenet maturity entry from the maturity snapshot */
+export interface MaturityScoreEntry {
+  tenet: string;
+  tenetName: string;
+  totalChecks: number;
+  passedChecks: number;
+  failedChecks: number;
+  passRate: number;
+  weightedPassRate: number;
+  maturityLevel: 'Traditional' | 'Initial' | 'Advanced' | 'Optimal';
 }
 
 /** Backend-aligned finding from the audit pipeline */
@@ -65,6 +92,8 @@ export interface AuditFinding {
   expectedValue?: string;
   requiredPermission?: string;
   nist80053?: string;
+  nistCsf?: string;
+  nist800207Tenet?: string;
 }
 
 /** Backend-aligned audit run detail with findings */
@@ -80,6 +109,9 @@ export interface AuditRunDetail {
   errorChecks: number;
   summary?: string;
   findings: AuditFinding[];
+  maturitySnapshot?: MaturityScoreEntry[];
+  previousMaturity?: MaturityScoreEntry[] | null;
+  frameworkScores?: FrameworkScores;
 }
 
 /** Real-time progress update from SignalR */
