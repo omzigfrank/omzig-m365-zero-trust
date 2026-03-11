@@ -32,8 +32,14 @@ Thumbs.db
 node_modules/
 
 # Next.js build output
-web/.next/
-web/out/
+apps/web/.next/
+apps/web/out/
+
+# TypeScript build output
+dist/
+
+# Turborepo
+.turbo/
 
 # Environment files
 .env.local

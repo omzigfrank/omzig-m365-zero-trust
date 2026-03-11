@@ -1,0 +1,24 @@
+{
+  "name": "@omzig/db",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.44.0",
+    "mssql": "^11.0.0",
+    "@azure/identity": "^4.0.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.0",
+    "@types/mssql": "^9.0.0",
+    "typescript": "^5.7.0",
+    "@omzig/tsconfig": "workspace:*"
+  }
+}
