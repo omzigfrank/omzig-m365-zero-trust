@@ -70,6 +70,11 @@ vi.mock('@omzig/db', () => ({
   closeTenantDb: vi.fn(),
 }));
 
+// Mock @omzig/audit module (audit-runner pipeline)
+vi.mock('@omzig/audit', () => ({
+  runAuditPipeline: vi.fn().mockResolvedValue(undefined),
+}));
+
 // Mock SignalR service
 vi.mock('../services/signalr.js', () => ({
   negotiateSignalR: vi.fn().mockReturnValue({

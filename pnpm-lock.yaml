@@ -26,6 +26,9 @@ importers:
       '@hono/node-server':
         specifier: ^1.0.0
         version: 1.19.11(hono@4.12.7)
+      '@omzig/audit':
+        specifier: workspace:*
+        version: link:../../packages/audit
       '@omzig/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -145,6 +148,12 @@ importers:
       '@microsoft/microsoft-graph-types-beta':
         specifier: '*'
         version: 0.44.0-preview
+      '@omzig/db':
+        specifier: workspace:*
+        version: link:../db
+      drizzle-orm:
+        specifier: beta
+        version: 1.0.0-beta.16-ea816b6(@types/mssql@9.1.9(@azure/core-client@1.10.1))(gel@2.2.0)(mssql@11.0.1(@azure/core-client@1.10.1))(zod@3.25.76)
     devDependencies:
       '@omzig/tsconfig':
         specifier: workspace:*

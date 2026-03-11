@@ -1,18 +1,5 @@
 import jwt from 'jsonwebtoken';
-
-/**
- * Real-time audit progress message pushed to clients via SignalR.
- * Local interface matching the type from RESEARCH.md -- Plan 03 will unify
- * this with the @omzig/audit package types.
- */
-export interface AuditProgressMessage {
-  auditId: string;
-  completedChecks: number;
-  totalChecks: number;
-  currentControl: string;
-  status: 'running' | 'completed' | 'failed';
-  message?: string;
-}
+import type { AuditProgressMessage } from '@omzig/audit';
 
 const HUB_NAME = 'audit';
 

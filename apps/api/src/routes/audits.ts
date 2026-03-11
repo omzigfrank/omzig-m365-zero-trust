@@ -2,8 +2,9 @@ import { Hono } from 'hono';
 import { eq, desc } from 'drizzle-orm';
 import type { ApiResponse } from '@omzig/shared';
 import { auditRuns, auditFindings } from '@omzig/db';
+import { runAuditPipeline } from '@omzig/audit';
 import { requireRole } from '../middleware/rbac.js';
-import { negotiateSignalR } from '../services/signalr.js';
+import { negotiateSignalR, pushAuditProgress } from '../services/signalr.js';
 
 /**
  * Hono environment type for audit routes.
@@ -77,11 +78,18 @@ auditRoutes.post(
       errorChecks: 0,
     });
 
-    // IMPORTANT: The actual audit pipeline is NOT run here yet.
-    // Plan 03 wires `runAuditPipeline` as fire-and-forget.
-    // The async pipeline must open its OWN tenant DB connection
-    // using getTenantDb(databaseName), NOT the middleware-provided tenantDb
-    // (PITFALL 4: middleware closes the connection after response).
+    // Fire-and-forget: pipeline opens its OWN DB connection (PITFALL 4)
+    const tenantMeta = c.get('tenantMeta');
+    if (accessToken) {
+      runAuditPipeline({
+        auditId,
+        tenantId,
+        databaseName: tenantMeta.databaseName,
+        accessToken,
+        userId: triggeredBy,
+        signalrPush: pushAuditProgress,
+      }).catch((err) => console.error('Audit pipeline failed:', err));
+    }
 
     const response: ApiResponse<{ auditId: string; status: string }> = {
       data: {

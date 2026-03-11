@@ -21,6 +21,15 @@ export {
 // Fact collector
 export { collectFacts } from './collectors/fact-collector.js';
 
+// Evaluators
+export { entraIdEvaluators } from './evaluators/entra-id/index.js';
+
+// Pipeline
+export { runAuditPipeline, type AuditPipelineParams } from './pipeline/audit-runner.js';
+export { RateLimiter } from './pipeline/rate-limiter.js';
+export { TokenManager } from './pipeline/token-manager.js';
+export { ProgressEmitter } from './pipeline/progress-emitter.js';
+
 // Area parsers (for testing and direct use)
 export { parseOrganization } from './collectors/areas/organization.js';
 export { parseConditionalAccess } from './collectors/areas/conditional-access.js';

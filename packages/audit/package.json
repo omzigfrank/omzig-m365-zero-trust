@@ -12,7 +12,9 @@
   "dependencies": {
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@microsoft/microsoft-graph-types": "*",
-    "@microsoft/microsoft-graph-types-beta": "*"
+    "@microsoft/microsoft-graph-types-beta": "*",
+    "@omzig/db": "workspace:*",
+    "drizzle-orm": "beta"
   },
   "devDependencies": {
     "vitest": "^2.0.0",
