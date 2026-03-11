@@ -11,7 +11,7 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-    "drizzle-orm": "^0.44.0",
+    "drizzle-orm": "beta",
     "mssql": "^11.0.0",
     "@azure/identity": "^4.0.0"
   },

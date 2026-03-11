@@ -23,6 +23,7 @@
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
+    "@omzig/tsconfig": "workspace:*",
     "typescript": "^5.7.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
