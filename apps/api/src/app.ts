@@ -1,7 +1,10 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { errorHandler, notFoundHandler } from './middleware/error.js';
+import { createAuthMiddleware } from './middleware/auth.js';
+import { requireMfa } from './middleware/mfa.js';
 import { health } from './routes/health.js';
+import { authRoutes } from './routes/auth.js';
 
 /**
  * Create the Hono application instance.
@@ -25,15 +28,22 @@ export function createApp(): Hono {
     }),
   );
 
-  // Health check routes (BEFORE auth middleware -- must be public)
+  // Health check routes (BEFORE auth middleware -- must be public for Container Apps probes)
   app.route('/api/health', health);
 
-  // Auth middleware chain will be added in Task 2
-  // app.use('/api/*', authMiddleware);
-  // app.use('/api/*', mfaMiddleware);
+  // Authentication middleware chain for all /api/* routes EXCEPT /api/health
+  // 1. JWK validation against Entra ID JWKS endpoint
+  const tenantId = process.env.AZURE_TENANT_ID ?? '';
+  const clientId = process.env.AZURE_CLIENT_ID ?? '';
+  if (tenantId && clientId) {
+    app.use('/api/*', createAuthMiddleware(tenantId, clientId));
+  }
 
-  // Protected routes will be added in Task 2
-  // app.route('/api/auth', authRoutes);
+  // 2. MFA enforcement (checks amr claim in JWT)
+  app.use('/api/*', requireMfa());
+
+  // Protected routes
+  app.route('/api/auth', authRoutes);
 
   return app;
 }

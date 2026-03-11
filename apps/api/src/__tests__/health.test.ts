@@ -46,9 +46,10 @@ describe('GET /api/health', () => {
 });
 
 describe('Error handling', () => {
-  it('returns 404 with structured ApiError for unknown routes', async () => {
+  it('returns 404 with structured ApiError for unknown non-api routes', async () => {
     const app = await getApp();
-    const res = await app.request('/api/nonexistent');
+    // Use a non-/api/ path to avoid auth middleware interception
+    const res = await app.request('/nonexistent');
     expect(res.status).toBe(404);
 
     const body = (await res.json()) as ApiResponse;
@@ -60,19 +61,17 @@ describe('Error handling', () => {
     expect(body.meta!.timestamp).toBeDefined();
   });
 
-  it('returns 500 with correlationId for unhandled errors', async () => {
+  it('returns auth error for unknown /api/* routes (auth middleware intercepts first)', async () => {
     const app = await getApp();
-    // The /api/test-error route is only for testing
-    const res = await app.request('/api/test-error');
-    // If no test-error route exists, we just verify the 404 path
-    // This test verifies error handler middleware structure
-    if (res.status === 500) {
-      const body = (await res.json()) as ApiResponse;
-      expect(body.error).toBeDefined();
-      expect(body.error!.code).toBe('INTERNAL_ERROR');
-      expect(body.error!.correlationId).toBeDefined();
-      expect(body.meta).toBeDefined();
-      expect(body.meta!.correlationId).toBeDefined();
-    }
+    // Unknown /api/* routes hit auth middleware before not-found handler
+    // Without AZURE_TENANT_ID/AZURE_CLIENT_ID set, MFA middleware runs and returns 401
+    const res = await app.request('/api/nonexistent');
+    // Either 401 (no auth) or 403 (no MFA) depending on middleware chain
+    expect([401, 403]).toContain(res.status);
+
+    const body = (await res.json()) as ApiResponse;
+    expect(body.error).toBeDefined();
+    expect(body.meta).toBeDefined();
+    expect(body.meta!.correlationId).toBeDefined();
   });
 });
