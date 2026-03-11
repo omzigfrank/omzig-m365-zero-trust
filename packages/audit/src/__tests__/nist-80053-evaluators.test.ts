@@ -443,9 +443,22 @@ describe('800-53 AU: Audit and Accountability', () => {
       expect(r.rating).toBe('pass');
     });
     it('fail with < 3 telemetry sources', () => {
-      const r = evaluate80053_AU12(createFailingFacts());
+      const facts = createEmptyFacts();
+      // Only 2 sources available -- below threshold
+      facts.organization.available = true;
+      facts.licenses.available = true;
+      const r = evaluate80053_AU12(facts);
       assertResult(r);
       expect(r.rating).toBe('fail');
+    });
+    it('warn with 3-4 telemetry sources', () => {
+      const facts = createEmptyFacts();
+      facts.organization.available = true;
+      facts.licenses.available = true;
+      facts.mfa.available = true;
+      const r = evaluate80053_AU12(facts);
+      assertResult(r);
+      expect(r.rating).toBe('warn');
     });
     it('na when unavailable', () => {
       expect(evaluate80053_AU12(createEmptyFacts()).rating).toBe('na');
