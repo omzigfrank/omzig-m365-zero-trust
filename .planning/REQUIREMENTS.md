@@ -21,7 +21,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **FRAME-01**: Each finding maps to its CISA SCuBA control ID with SHALL/SHOULD/MAY requirement level
 - [x] **FRAME-02**: Audit engine evaluates tenant against NIST 800-207 Zero Trust Architecture (all 7 tenets, 31+ checks)
 - [ ] **FRAME-03**: Each finding cross-maps to NIST 800-53 security control families where applicable
-- [ ] **FRAME-04**: Each finding cross-maps to NIST CSF 2.0 functions (Identify/Protect/Detect/Respond/Recover) where applicable
+- [x] **FRAME-04**: Each finding cross-maps to NIST CSF 2.0 functions (Identify/Protect/Detect/Respond/Recover) where applicable
 - [ ] **FRAME-05**: User can view compliance score per framework (CISA SCuBA, NIST 800-207, NIST 800-53, CSF 2.0)
 - [ ] **FRAME-06**: User can view ZTA maturity level (Traditional/Initial/Advanced/Optimal) per NIST 800-207 tenet
 - [ ] **FRAME-07**: Dashboard displays ZTA maturity radar chart showing maturity across all 7 tenets
@@ -155,7 +155,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | FRAME-01 | Phase 2 | Pending |
 | FRAME-02 | Phase 3 | Complete |
 | FRAME-03 | Phase 3 | Pending |
-| FRAME-04 | Phase 3 | Pending |
+| FRAME-04 | Phase 3 | Complete |
 | FRAME-05 | Phase 3 | Pending |
 | FRAME-06 | Phase 3 | Pending |
 | FRAME-07 | Phase 3 | Pending |

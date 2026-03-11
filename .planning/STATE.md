@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in-progress
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-11T19:55:38Z"
-last_activity: 2026-03-11 -- 31 ZTA evaluators ported, multi-framework types/schema extended
+status: completed
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-11T20:07:22.026Z"
+last_activity: 2026-03-11 -- 19 NIST CSF 2.0 evaluators across 6 functions with registry and tests
 progress:
   total_phases: 8
   completed_phases: 2
-  total_plans: 8
-  completed_plans: 8
-  percent: 42
+  total_plans: 12
+  completed_plans: 10
+  percent: 75
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 3 in progress. Plan 01 (ZTA evaluators) complete. Plans 02-04 remaining.
+**Current focus:** Phase 3 in progress. Plans 01-03 complete. Plans 04-05 remaining.
 
 ## Current Position
 
 Phase: 3 of 8 (Compliance Framework Mapping) — IN PROGRESS
-Plan: 1 of 4 in current phase — COMPLETE
-Status: Plan 03-01 complete (ZTA evaluators)
-Last activity: 2026-03-11 -- 31 ZTA evaluators ported, multi-framework types/schema extended
+Plan: 3 of 5 in current phase — COMPLETE
+Status: Plan 03-03 complete (CSF 2.0 evaluators)
+Last activity: 2026-03-11 -- 19 NIST CSF 2.0 evaluators across 6 functions with registry and tests
 
-Progress: [████░░░░░░] 42%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 10min
-- Total execution time: 1.33 hours
+- Total plans completed: 10
+- Average duration: 9min
+- Total execution time: 1.42 hours
 
 **By Phase:**
 
@@ -45,13 +45,14 @@ Progress: [████░░░░░░] 42%
 |-------|-------|-------|----------|
 | 01-foundation | 4 | 37min | 9min |
 | 02-core-audit-engine | 3 | 33min | 11min |
-| 03-compliance-framework-mapping | 1 | 10min | 10min |
+| 03-compliance-framework-mapping | 3 | 15min | 5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 (3min), 02-01 (9min), 02-02 (9min), 02-03 (15min), 03-01 (10min)
-- Trend: Stable
+- Last 5 plans: 02-01 (9min), 02-02 (9min), 02-03 (15min), 03-01 (10min), 03-03 (5min)
+- Trend: Accelerating
 
 *Updated after each plan completion*
+| Phase 03 P03 | 5min | 1 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -96,6 +97,9 @@ Recent decisions affecting current work:
 - [03-01]: T4.4 uses type assertion for untyped applications field on CA conditions
 - [03-01]: ZTA control IDs follow NIST.ZTA.T{tenet}.{check}v1 format
 - [03-01]: New auditFindings columns (nist_csf, nist_800_207_tenet) are nullable to preserve existing rows
+- [03-03]: GV.OC-1 and RC.RP-1 return advisory 'warn' (organizational governance and recovery not auditable via Graph)
+- [03-03]: CSF control IDs follow NIST.CSF.{function}.{category}-{number}v1 format
+- [03-03]: CSF severity tiers: High for PR/DE, Medium for ID/RS, Low for GV/RC
 
 ### Pending Todos
 
@@ -107,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T19:55:38Z
-Stopped at: Completed 03-01-PLAN.md
-Resume file: .planning/phases/03-compliance-framework-mapping/03-01-SUMMARY.md
+Last session: 2026-03-11T20:07:15.818Z
+Stopped at: Completed 03-03-PLAN.md
+Resume file: None
