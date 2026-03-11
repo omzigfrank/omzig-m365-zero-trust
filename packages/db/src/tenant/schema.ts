@@ -45,5 +45,25 @@ export const auditFindings = mssqlTable('audit_findings', {
   expectedValue: nvarchar('expected_value', { length: 1000 }),
   requiredPermission: varchar('required_permission', { length: 100 }),
   nist80053: varchar('nist_800_53', { length: 50 }),
+  nistCsf: varchar('nist_csf', { length: 50 }),
+  nist800207Tenet: varchar('nist_800_207_tenet', { length: 10 }),
+  createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
+});
+
+/**
+ * Maturity scores table -- one row per tenet per audit run.
+ * Persists severity-weighted maturity snapshots for historical trending.
+ */
+export const maturityScores = mssqlTable('maturity_scores', {
+  id: varchar('id', { length: 36 }).primaryKey().notNull(),
+  auditRunId: varchar('audit_run_id', { length: 36 }).notNull(),
+  tenet: varchar('tenet', { length: 10 }).notNull(),
+  tenetName: nvarchar('tenet_name', { length: 100 }).notNull(),
+  totalChecks: int('total_checks').notNull().default(0),
+  passedChecks: int('passed_checks').notNull().default(0),
+  failedChecks: int('failed_checks').notNull().default(0),
+  passRate: int('pass_rate').notNull().default(0),
+  weightedPassRate: int('weighted_pass_rate').notNull().default(0),
+  maturityLevel: varchar('maturity_level', { length: 15 }).notNull(),
   createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
 });

@@ -12,6 +12,7 @@ export {
 export {
   auditRuns,
   auditFindings,
+  maturityScores,
 } from './tenant/schema.js';
 
 // Connection factory

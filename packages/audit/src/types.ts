@@ -221,6 +221,8 @@ export interface ControlDefinition {
   requirementLevel: RequirementLevel;
   severity: Severity;
   nist80053: string;
+  nistCsf?: string;
+  nist800207Tenet?: string;
   evaluator: EvaluatorFn;
   requiredPermissions: string[];
 }
