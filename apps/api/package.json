@@ -9,21 +9,23 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "hono": "^4.0.0",
-    "@hono/node-server": "^1.0.0",
     "@azure/identity": "^4.0.0",
-    "@azure/keyvault-secrets": "^4.0.0",
     "@azure/keyvault-keys": "^4.0.0",
-    "drizzle-orm": "beta",
-    "zod": "^3.23.0",
+    "@azure/keyvault-secrets": "^4.0.0",
+    "@hono/node-server": "^1.0.0",
+    "@omzig/db": "workspace:*",
     "@omzig/shared": "workspace:*",
-    "@omzig/db": "workspace:*"
+    "drizzle-orm": "beta",
+    "hono": "^4.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "zod": "^3.23.0"
   },
   "devDependencies": {
-    "vitest": "^2.0.0",
+    "@omzig/tsconfig": "workspace:*",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.10.0",
     "tsx": "^4.0.0",
     "typescript": "^5.7.0",
-    "@types/node": "^22.10.0",
-    "@omzig/tsconfig": "workspace:*"
+    "vitest": "^2.0.0"
   }
 }

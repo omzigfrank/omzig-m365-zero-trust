@@ -11,6 +11,7 @@ export {
 // Tenant schema (per-tenant isolated database)
 export {
   auditRuns,
+  auditFindings,
 } from './tenant/schema.js';
 
 // Connection factory
