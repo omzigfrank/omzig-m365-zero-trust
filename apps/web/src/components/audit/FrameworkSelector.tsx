@@ -1,3 +1,8 @@
+/**
+ * @deprecated Replaced by FrameworkFilter (multi-select checkboxes).
+ * The audit page now runs all frameworks automatically.
+ * Kept for backward compatibility only.
+ */
 "use client";
 
 import { clsx } from "clsx";
@@ -9,6 +14,7 @@ const options: { value: AuditFramework; label: string; desc: string }[] = [
   { value: "Both", label: "Both", desc: "Combined frameworks" },
 ];
 
+/** @deprecated Use FrameworkFilter instead. */
 export function FrameworkSelector({
   value,
   onChange,

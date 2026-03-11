@@ -1,9 +1,9 @@
 "use client";
 
-import { Download, FileText, FileSpreadsheet, FileJson } from "lucide-react";
-import type { AuditEnvelope } from "@/lib/types";
+import { FileText, FileSpreadsheet, FileJson } from "lucide-react";
+import type { AuditRunDetail } from "@/lib/types";
 
-export function ExportButtons({ data }: { data: AuditEnvelope }) {
+export function ExportButtons({ data }: { data: AuditRunDetail }) {
   const downloadJson = () => {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
       type: "application/json",
@@ -11,22 +11,20 @@ export function ExportButtons({ data }: { data: AuditEnvelope }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `omzig-audit-${data.tenantInfo.primaryDomain || "tenant"}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `omzig-audit-${data.tenantId || "tenant"}-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
 
   const downloadCsv = () => {
-    const allChecks = Object.values(data.reports).flatMap(
-      (r) => r.checks || []
-    );
     const rows = [
-      ["Status", "Control", "Finding", "Action"],
-      ...allChecks.map((c) => [
-        c.rating,
-        c.name,
-        `"${(c.message || "").replace(/"/g, '""')}"`,
-        `"${(c.action || "").replace(/"/g, '""')}"`,
+      ["Status", "Control", "Product", "Finding", "Action"],
+      ...data.findings.map((f) => [
+        f.rating,
+        f.controlId,
+        f.product,
+        `"${(f.message || "").replace(/"/g, '""')}"`,
+        `"${(f.action || "").replace(/"/g, '""')}"`,
       ]),
     ];
     const csv = rows.map((r) => r.join(",")).join("\n");
@@ -34,7 +32,7 @@ export function ExportButtons({ data }: { data: AuditEnvelope }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `omzig-audit-${data.tenantInfo.primaryDomain || "tenant"}-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `omzig-audit-${data.tenantId || "tenant"}-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };

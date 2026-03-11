@@ -27,7 +27,7 @@ const initialState: AuditState = {
   error: null,
 };
 
-export function useAudit(tenantId: string) {
+export function useAudit(tenantId: string = '') {
   const [state, setState] = useState<AuditState>(initialState);
   const connectionRef = useRef<HubConnection | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);

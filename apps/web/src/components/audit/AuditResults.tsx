@@ -2,70 +2,62 @@
 
 import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/Badge";
+import { FindingBadges } from "@/components/audit/FindingBadges";
+import { FrameworkFilter } from "@/components/audit/FrameworkFilter";
 import { Search, Filter } from "lucide-react";
-import type { AuditCheck, AuditRating, AuditEnvelope } from "@/lib/types";
+import type { AuditFinding } from "@/lib/types";
 
-type FilterStatus = AuditRating | "all";
+type FilterStatus = "all" | "pass" | "fail" | "warn" | "na";
 
-export function AuditResults({ data }: { data: AuditEnvelope }) {
+const ALL_FRAMEWORKS = new Set(["AAD", "ZTA", "80053", "CSF"]);
+
+export function AuditResults({ findings }: { findings: AuditFinding[] }) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<FilterStatus>("all");
-  const [productFilter, setProductFilter] = useState("all");
-
-  const allChecks = useMemo(() => {
-    const checks: AuditCheck[] = [];
-    for (const report of Object.values(data.reports)) {
-      if (report.checks) {
-        checks.push(...report.checks);
-      }
-    }
-    return checks;
-  }, [data]);
-
-  const products = useMemo(() => {
-    const set = new Set<string>();
-    for (const check of allChecks) {
-      const match = check.name.match(/^(?:\[.*?\]\s*)?(?:MS\.)?(\w+)\./);
-      if (match) set.add(match[1]);
-    }
-    return Array.from(set).sort();
-  }, [allChecks]);
+  const [frameworkFilter, setFrameworkFilter] = useState<Set<string>>(
+    new Set(ALL_FRAMEWORKS)
+  );
 
   const filtered = useMemo(() => {
-    return allChecks.filter((check) => {
-      if (statusFilter !== "all" && check.rating !== statusFilter) return false;
+    return findings.filter((finding) => {
+      // Framework filter (multi-select)
+      if (!frameworkFilter.has(finding.product)) return false;
 
-      if (productFilter !== "all") {
-        const match = check.name.match(
-          /^(?:\[.*?\]\s*)?(?:MS\.)?(\w+)\./
-        );
-        if (match && match[1] !== productFilter) return false;
-        if (!match && productFilter !== "NIST") return false;
-      }
+      // Status filter
+      if (statusFilter !== "all" && finding.rating !== statusFilter)
+        return false;
 
+      // Search
       if (search) {
         const q = search.toLowerCase();
         return (
-          check.name.toLowerCase().includes(q) ||
-          check.message.toLowerCase().includes(q)
+          finding.controlId.toLowerCase().includes(q) ||
+          finding.description.toLowerCase().includes(q) ||
+          finding.message.toLowerCase().includes(q)
         );
       }
 
       return true;
     });
-  }, [allChecks, statusFilter, productFilter, search]);
+  }, [findings, frameworkFilter, statusFilter, search]);
 
   const statusCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: allChecks.length };
-    for (const check of allChecks) {
-      counts[check.rating] = (counts[check.rating] || 0) + 1;
+    const counts: Record<string, number> = { all: findings.length };
+    for (const finding of findings) {
+      counts[finding.rating] = (counts[finding.rating] || 0) + 1;
     }
     return counts;
-  }, [allChecks]);
+  }, [findings]);
 
   return (
     <div className="space-y-4">
-      {/* Filters */}
+      {/* Framework filter */}
+      <FrameworkFilter
+        selected={frameworkFilter}
+        onChange={setFrameworkFilter}
+      />
+
+      {/* Status and search filters */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -97,24 +89,11 @@ export function AuditResults({ data }: { data: AuditEnvelope }) {
             )
           )}
         </div>
-
-        <select
-          value={productFilter}
-          onChange={(e) => setProductFilter(e.target.value)}
-          className="rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-        >
-          <option value="all">All Products</option>
-          {products.map((p) => (
-            <option key={p} value={p}>
-              {p}
-            </option>
-          ))}
-        </select>
       </div>
 
       {/* Results count */}
       <div className="text-sm text-gray-500">
-        Showing {filtered.length} of {allChecks.length} controls
+        Showing {filtered.length} of {findings.length} controls
       </div>
 
       {/* Table */}
@@ -137,19 +116,22 @@ export function AuditResults({ data }: { data: AuditEnvelope }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {filtered.map((check, i) => (
-              <tr key={i} className="hover:bg-gray-50">
+            {filtered.map((finding) => (
+              <tr key={finding.id} className="hover:bg-gray-50">
                 <td className="whitespace-nowrap px-4 py-3">
-                  <Badge rating={check.rating} />
+                  <Badge rating={finding.rating} />
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-gray-900">
-                  {check.name}
+                <td className="px-4 py-3">
+                  <div className="text-sm font-medium text-gray-900">
+                    {finding.controlId}
+                  </div>
+                  <FindingBadges finding={finding} />
                 </td>
                 <td className="max-w-md px-4 py-3 text-sm text-gray-600">
-                  {check.message}
+                  {finding.message}
                 </td>
                 <td className="max-w-sm px-4 py-3 text-sm text-gray-500">
-                  {check.action || "—"}
+                  {finding.action || "\u2014"}
                 </td>
               </tr>
             ))}
