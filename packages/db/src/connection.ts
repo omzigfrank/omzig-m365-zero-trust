@@ -10,8 +10,17 @@ export type TenantDb = NodeMsSqlDatabase<typeof tenantSchema>;
 
 /**
  * Build MSSQL connection config.
- * In production, uses Azure AD MSI authentication.
- * For local development, falls back to connection string from environment.
+ * In production, uses Azure AD Default authentication (managed identity).
+ * For local development, falls back to SQL auth from environment variables.
+ *
+ * Environment variables:
+ *   SQL_SERVER_HOST     - SQL Server hostname (required)
+ *   SQL_SERVER_PORT     - SQL Server port (default: 1433)
+ *   SQL_USERNAME        - SQL auth username (dev only)
+ *   SQL_PASSWORD        - SQL auth password (dev only)
+ *   AZURE_CLIENT_ID     - Managed identity client ID (production)
+ *   AZURE_USE_MSI       - Force MSI auth even in non-production
+ *   SQL_TRUST_SERVER_CERT - Trust self-signed certs (dev only)
  */
 function buildConfig(databaseName: string): mssql.config {
   const server = process.env.SQL_SERVER_HOST;
@@ -21,6 +30,7 @@ function buildConfig(databaseName: string): mssql.config {
 
   const baseConfig: mssql.config = {
     server,
+    port: parseInt(process.env.SQL_SERVER_PORT || '1433', 10),
     database: databaseName,
     options: {
       encrypt: true,
@@ -33,12 +43,12 @@ function buildConfig(databaseName: string): mssql.config {
     },
   };
 
-  // Use Azure AD MSI for production, SQL auth for local dev
+  // Use Azure AD Default authentication for production (managed identity)
   if (process.env.NODE_ENV === 'production' || process.env.AZURE_USE_MSI === 'true') {
     return {
       ...baseConfig,
       authentication: {
-        type: 'azure-active-directory-msi-app-service' as const,
+        type: 'azure-active-directory-default' as const,
         options: {
           clientId: process.env.AZURE_CLIENT_ID,
         },
@@ -49,8 +59,12 @@ function buildConfig(databaseName: string): mssql.config {
   // Local development: use SQL auth via env vars
   return {
     ...baseConfig,
-    user: process.env.SQL_USER,
+    user: process.env.SQL_USERNAME,
     password: process.env.SQL_PASSWORD,
+    options: {
+      ...baseConfig.options,
+      trustServerCertificate: process.env.SQL_TRUST_SERVER_CERT === 'true',
+    },
   };
 }
 
@@ -85,8 +99,11 @@ export async function getControlPlaneDb(): Promise<ControlPlaneDb> {
 
 /**
  * Get a tenant database instance (on-demand, per-request).
- * Each tenant has its own isolated database.
+ * Each tenant has its own isolated database within the elastic pool.
  * Caller must close the pool after the request using closeTenantDb().
+ *
+ * Each call creates a fresh connection -- no caching.
+ * This is intentional for the on-demand pattern: many tenants, bursty workloads.
  */
 export async function getTenantDb(
   databaseName: string,
@@ -106,9 +123,12 @@ export async function getTenantDb(
 /**
  * Close a tenant database connection pool.
  * Must be called after each request to prevent connection leaks.
+ * Safe to call multiple times.
  */
 export async function closeTenantDb(pool: mssql.ConnectionPool): Promise<void> {
-  await pool.close();
+  if (pool.connected) {
+    await pool.close();
+  }
 }
 
 /**

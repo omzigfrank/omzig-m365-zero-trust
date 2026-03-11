@@ -25,3 +25,9 @@ export type {
   ControlPlaneDb,
   TenantDb,
 } from './connection.js';
+
+// Migration runner
+export {
+  migrateControlPlane,
+  migrateTenantDb,
+} from './migrate.js';
