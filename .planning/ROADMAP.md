@@ -33,12 +33,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. API calls from frontend to Hono backend succeed with token validation and RBAC middleware rejecting unauthorized requests
   4. Per-tenant database creation and isolation can be demonstrated -- writing data to Tenant A's database and confirming Tenant B's database contains none of it
   5. All secrets (tenant tokens, connection strings) are stored in Key Vault and accessed via managed identity -- no secrets in code or environment variables
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md — Monorepo skeleton with Turborepo + pnpm, shared packages (@omzig/shared, @omzig/db, @omzig/tsconfig)
+- [ ] 01-02-PLAN.md — Hono API with authentication middleware (JWK, MFA, RBAC) and tests
+- [ ] 01-03-PLAN.md — Database connection factory, tenant isolation, Key Vault integration
+- [ ] 01-04-PLAN.md — Frontend auth flow, Bicep platform infrastructure, end-to-end integration
 
 ### Phase 2: Core Audit Engine
 **Goal**: Users can trigger an audit of an M365 tenant and see pass/fail results for every CISA SCuBA Entra ID control
@@ -158,7 +159,7 @@ Note: Phase 3 and Phase 4 both depend on Phase 2 and can execute in parallel. Ph
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Authentication | 0/3 | Not started | - |
+| 1. Foundation and Authentication | 0/4 | Planning complete | - |
 | 2. Core Audit Engine | 0/3 | Not started | - |
 | 3. Compliance Framework Mapping | 0/2 | Not started | - |
 | 4. Tenant Onboarding and Management | 0/2 | Not started | - |
