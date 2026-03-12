@@ -1,3 +1,12 @@
+// Re-export tenant types from shared package for frontend use
+export type {
+  TenantSummary,
+  TenantStatus,
+  TenantHealth,
+  ConnectionMethod,
+} from "@omzig/shared";
+export { calculateHealth } from "@omzig/shared";
+
 export type AuditRating = "pass" | "fail" | "warn" | "blocker" | "na";
 
 /** @deprecated Use FrameworkFilter multi-select instead. Kept for backward compatibility. */

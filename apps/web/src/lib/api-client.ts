@@ -117,6 +117,14 @@ export async function apiPut<T>(
   return apiRequest<T>("PUT", path, { body, tenantId });
 }
 
+export async function apiPatch<T>(
+  path: string,
+  body: unknown,
+  tenantId?: string,
+): Promise<ApiResponse<T>> {
+  return apiRequest<T>("PATCH", path, { body, tenantId });
+}
+
 export async function apiDelete<T>(
   path: string,
   tenantId?: string,
@@ -128,5 +136,6 @@ export const apiClient = {
   get: apiGet,
   post: apiPost,
   put: apiPut,
+  patch: apiPatch,
   delete: apiDelete,
 };
