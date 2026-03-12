@@ -6,6 +6,8 @@ import { TenantGrid } from "@/components/tenants/TenantGrid";
 import { TenantTable } from "@/components/tenants/TenantTable";
 import { RemoveTenantModal } from "@/components/tenants/RemoveTenantModal";
 import { useTenants } from "@/hooks/useTenants";
+import { useActionQueue } from "@/hooks/useActionQueue";
+import { ActionQueue } from "@/components/tenants/ActionQueue";
 import type { TenantSummary } from "@omzig/shared";
 import { LayoutGrid, List, AlertTriangle, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -15,6 +17,11 @@ type ViewMode = "grid" | "table";
 export default function TenantDashboardPage() {
   const router = useRouter();
   const { tenants, loading, error, removeTenant, refetch } = useTenants();
+  const {
+    items: actionItems,
+    loading: actionLoading,
+    dismissItem,
+  } = useActionQueue();
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [selectedTenant, setSelectedTenant] = useState<TenantSummary | null>(
     null,
@@ -82,6 +89,15 @@ export default function TenantDashboardPage() {
             </button>
           </div>
         </div>
+
+        {/* Action queue (rendered when tenants are loaded) */}
+        {!loading && !error && tenants.length > 0 && (
+          <ActionQueue
+            items={actionItems}
+            onDismiss={dismissItem}
+            loading={actionLoading}
+          />
+        )}
 
         {/* Loading state */}
         {loading && (
