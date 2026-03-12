@@ -177,11 +177,11 @@ export async function updateWizardState(data: {
   stepsCompleted: StepMetadata[];
   isComplete?: boolean;
 }): Promise<WizardStateResponse> {
-  const res = await apiClient.put<WizardStateResponse>("/api/wizard-state", data);
+  const res = await apiClient.patch<WizardStateResponse>("/api/wizard-state", data);
 
   // Handle 409 conflict: re-fetch and retry once
   if (res.error && res.error.code === "CONFLICT") {
-    const retryRes = await apiClient.put<WizardStateResponse>(
+    const retryRes = await apiClient.patch<WizardStateResponse>(
       "/api/wizard-state",
       data,
     );
