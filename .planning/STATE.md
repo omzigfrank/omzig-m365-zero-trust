@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-12T01:31:00Z"
-last_activity: 2026-03-12 -- Schema extensions, OAuth consent, GDAP verification, tenant provisioning services
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-12T01:46:41Z"
+last_activity: 2026-03-12 -- Tenant CRUD endpoints, OAuth callback, wizard-state persistence
 progress:
   total_phases: 8
   completed_phases: 3
   total_plans: 16
-  completed_plans: 13
-  percent: 81
+  completed_plans: 14
+  percent: 87
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 4 in progress. Plan 1 of 4 complete. Building tenant onboarding and management.
+**Current focus:** Phase 4 in progress. Plan 2 of 4 complete. Tenant API routes wired, dashboard and wizard next.
 
 ## Current Position
 
 Phase: 4 of 8 (Tenant Onboarding and Management) — IN PROGRESS
-Plan: 1 of 4 in current phase — COMPLETE
-Status: Schema extended, backend services built (OAuth, GDAP, provisioning)
-Last activity: 2026-03-12 -- Schema extensions, OAuth consent, GDAP verification, tenant provisioning services
+Plan: 2 of 4 in current phase — COMPLETE
+Status: Tenant CRUD routes, OAuth callback, wizard-state API all wired
+Last activity: 2026-03-12 -- Tenant CRUD endpoints, OAuth callback, wizard-state persistence
 
-Progress: [████████░░] 81%
+Progress: [█████████░] 87%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 9min
-- Total execution time: 1.88 hours
+- Total execution time: 2.05 hours
 
 **By Phase:**
 
@@ -46,13 +46,14 @@ Progress: [████████░░] 81%
 | 01-foundation | 4 | 37min | 9min |
 | 02-core-audit-engine | 3 | 33min | 11min |
 | 03-compliance-framework-mapping | 5 | 38min | 8min |
-| 04-tenant-onboarding | 1 | 5min | 5min |
+| 04-tenant-onboarding | 2 | 15min | 8min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (10min), 03-03 (5min), 03-04 (8min), 03-05 (15min), 04-01 (5min)
+- Last 5 plans: 03-03 (5min), 03-04 (8min), 03-05 (15min), 04-01 (5min), 04-02 (10min)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 04 P02 | 10min | 2 tasks | 7 files |
 | Phase 04 P01 | 5min | 2 tasks | 14 files |
 | Phase 03 P05 | 15min | 2 tasks | 16 files |
 | Phase 03 P04 | 8min | 2 tasks | 8 files |
@@ -122,6 +123,10 @@ Recent decisions affecting current work:
 - [04-01]: databaseName and tokenSecretName nullable on tenants table (null during pending state)
 - [04-01]: Graph API v1.0 GDAP endpoint for relationship verification (not Partner Center API)
 - [04-01]: Replicate buildConfig pattern locally in tenant-provisioning.ts since connection.ts buildConfig is not exported
+- [04-02]: OAuth callback route registered before auth middleware (Entra redirect has no JWT)
+- [04-02]: Wizard-state PATCH uses upsert with optimistic locking (INSERT if no row, UPDATE with rowsAffected check)
+- [04-02]: Vitest setup.ts mocks mssql globally to prevent transitive import failures from createApp()
+- [04-02]: GET /api/tenants uses cached lastAuditScore for health (no per-tenant DB queries for dashboard MVP)
 
 ### Pending Todos
 
@@ -133,6 +138,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T01:31:00Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-12T01:46:41Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
