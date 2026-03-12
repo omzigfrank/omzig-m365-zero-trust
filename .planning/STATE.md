@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 03-05-PLAN.md (Phase 3 complete)
-last_updated: "2026-03-11T20:45:54.925Z"
-last_activity: 2026-03-11 -- Combined compliance dashboard with radar chart and framework filter
+status: in_progress
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-12T01:31:00Z"
+last_activity: 2026-03-12 -- Schema extensions, OAuth consent, GDAP verification, tenant provisioning services
 progress:
   total_phases: 8
   completed_phases: 3
-  total_plans: 12
-  completed_plans: 12
-  percent: 92
+  total_plans: 16
+  completed_plans: 13
+  percent: 81
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 3 complete. All 5 plans executed. Ready for Phase 4.
+**Current focus:** Phase 4 in progress. Plan 1 of 4 complete. Building tenant onboarding and management.
 
 ## Current Position
 
-Phase: 3 of 8 (Compliance Framework Mapping) — COMPLETE
-Plan: 5 of 5 in current phase — COMPLETE
-Status: Phase 3 complete (all compliance frameworks mapped with dashboard)
-Last activity: 2026-03-11 -- Combined compliance dashboard with radar chart and framework filter
+Phase: 4 of 8 (Tenant Onboarding and Management) — IN PROGRESS
+Plan: 1 of 4 in current phase — COMPLETE
+Status: Schema extended, backend services built (OAuth, GDAP, provisioning)
+Last activity: 2026-03-12 -- Schema extensions, OAuth consent, GDAP verification, tenant provisioning services
 
-Progress: [█████████░] 92%
+Progress: [████████░░] 81%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 13
 - Average duration: 9min
-- Total execution time: 1.80 hours
+- Total execution time: 1.88 hours
 
 **By Phase:**
 
@@ -46,12 +46,14 @@ Progress: [█████████░] 92%
 | 01-foundation | 4 | 37min | 9min |
 | 02-core-audit-engine | 3 | 33min | 11min |
 | 03-compliance-framework-mapping | 5 | 38min | 8min |
+| 04-tenant-onboarding | 1 | 5min | 5min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 (15min), 03-01 (10min), 03-03 (5min), 03-04 (8min), 03-05 (15min)
+- Last 5 plans: 03-01 (10min), 03-03 (5min), 03-04 (8min), 03-05 (15min), 04-01 (5min)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 04 P01 | 5min | 2 tasks | 14 files |
 | Phase 03 P05 | 15min | 2 tasks | 16 files |
 | Phase 03 P04 | 8min | 2 tasks | 8 files |
 | Phase 03 P03 | 5min | 1 tasks | 9 files |
@@ -115,6 +117,11 @@ Recent decisions affecting current work:
 - [03-05]: FrameworkFilter multi-select checkboxes replace FrameworkSelector radio buttons (min 1 selected)
 - [03-05]: Score cards always visible regardless of framework filter state
 - [03-05]: .npmrc public-hoist-pattern for react/testing-library/recharts to fix pnpm strict mode jsdom tests
+- [04-01]: Use authorize endpoint with prompt=admin_consent (not /adminconsent) to combine consent + code in one redirect
+- [04-01]: HMAC-SHA256 state signing with 1-hour expiry for OAuth state parameter tamper protection
+- [04-01]: databaseName and tokenSecretName nullable on tenants table (null during pending state)
+- [04-01]: Graph API v1.0 GDAP endpoint for relationship verification (not Partner Center API)
+- [04-01]: Replicate buildConfig pattern locally in tenant-provisioning.ts since connection.ts buildConfig is not exported
 
 ### Pending Todos
 
@@ -126,6 +133,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T20:38:30Z
-Stopped at: Completed 03-05-PLAN.md (Phase 3 complete)
+Last session: 2026-03-12T01:31:00Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
