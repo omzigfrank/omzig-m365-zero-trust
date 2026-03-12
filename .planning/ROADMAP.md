@@ -86,11 +86,13 @@ Plans:
   3. Multi-tenant dashboard displays all connected tenants with compliance scores and red/yellow/green health status
   4. MSP can click into any tenant from the dashboard to drill into that tenant's detailed findings
   5. MSP can remove a client tenant and confirm all associated data is deleted from the elastic pool database
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md — Schema extensions, shared types, OAuth consent + GDAP verification + tenant provisioning services
+- [ ] 04-02-PLAN.md — Tenant CRUD routes, onboarding endpoints, OAuth callback handler
+- [ ] 04-03-PLAN.md — Multi-tenant dashboard (card grid + table toggle), tenant detail page wrapping Phase 3 compliance dashboard
+- [ ] 04-04-PLAN.md — 5-step onboarding wizard at /tenants/new (OAuth consent + GDAP paths)
 
 ### Phase 5: Dashboard and Findings UX
 **Goal**: Users can navigate audit results interactively with filtering, remediation guidance, and a cross-tenant action queue
@@ -165,7 +167,7 @@ Note: Phase 3 and Phase 4 both depend on Phase 2 and can execute in parallel. Ph
 | 1. Foundation and Authentication | 4/4 | Complete    | 2026-03-11 |
 | 2. Core Audit Engine | 3/3 | Complete    | 2026-03-11 |
 | 3. Compliance Framework Mapping | 5/5 | Complete    | 2026-03-11 |
-| 4. Tenant Onboarding and Management | 0/2 | Not started | - |
+| 4. Tenant Onboarding and Management | 0/4 | Not started | - |
 | 5. Dashboard and Findings UX | 0/2 | Not started | - |
 | 6. Scheduling, Reporting and Trending | 0/2 | Not started | - |
 | 7. Remediation Engine | 0/3 | Not started | - |
