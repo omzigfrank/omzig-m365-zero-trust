@@ -10,8 +10,8 @@ progress:
   total_phases: 8
   completed_phases: 4
   total_plans: 19
-  completed_plans: 17
-  percent: 68
+  completed_plans: 19
+  percent: 79
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 5 in progress. Plan 01 complete (foundation components). Plans 02-03 remaining.
+**Current focus:** Phase 5 complete. All 3 plans done (foundation, findings detail, action queue).
 
 ## Current Position
 
-Phase: 5 of 8 (Dashboard and Findings UX) — IN PROGRESS
-Plan: 1 of 3 in current phase — COMPLETE
-Status: Remediation registry (101 controls) + UI primitives (Drawer, MultiSelect, PowerShellBlock) + DB schema
-Last activity: 2026-03-12 -- Remediation registry + UI primitives + DB schema additions
+Phase: 5 of 8 (Dashboard and Findings UX) — COMPLETE
+Plan: 3 of 3 in current phase — COMPLETE
+Status: Cross-tenant action queue with severity-sorted items, dismiss persistence, and dashboard panel
+Last activity: 2026-03-12 -- Action queue API + frontend component + dashboard integration
 
-Progress: [██████░░░░] 68%
+Progress: [████████░░] 79%
 
 ## Performance Metrics
 
@@ -47,13 +47,14 @@ Progress: [██████░░░░] 68%
 | 02-core-audit-engine | 3 | 33min | 11min |
 | 03-compliance-framework-mapping | 5 | 38min | 8min |
 | 04-tenant-onboarding | 4 | 40min | 10min |
-| 05-dashboard-and-findings-ux | 1/3 | 9min | 9min |
+| 05-dashboard-and-findings-ux | 3/3 | 26min | 9min |
 
 **Recent Trend:**
-- Last 5 plans: 04-01 (5min), 04-02 (10min), 04-03 (10min), 04-04 (15min), 05-01 (9min)
+- Last 5 plans: 04-03 (10min), 04-04 (15min), 05-01 (9min), 05-02 (10min), 05-03 (7min)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 05 P03 | 7min | 2 tasks | 12 files |
 | Phase 05 P01 | 9min | 2 tasks | 12 files |
 | Phase 04 P04 | 15min | 1 tasks | 10 files |
 | Phase 04 P03 | 10min | 2 tasks | 13 files |
@@ -144,6 +145,10 @@ Recent decisions affecting current work:
 - [05-01]: Drawer uses createPortal(document.body) for z-index isolation from parent containers
 - [05-01]: MultiSelectDropdown uses absolute positioning + click-outside handler (no floating-ui, matching zero-dependency pattern)
 - [05-01]: actionQueueDismissals itemKey format: "critical-{tenantId}" or "status-{tenantId}-{type}"
+- [05-03]: Action items computed in-memory from control plane tenants table (no per-tenant DB queries)
+- [05-03]: Severity sort: critical > high > warning, then createdAt descending
+- [05-03]: Stale audit threshold: 7 days or null lastAuditAt for active tenants
+- [05-03]: Dismiss is idempotent (200 on re-dismiss, no duplicate row)
 
 ### Pending Todos
 
@@ -155,6 +160,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T15:28:56Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-12T15:39:00Z
+Stopped at: Completed 05-03-PLAN.md
 Resume file: None
