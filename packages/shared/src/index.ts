@@ -41,3 +41,5 @@ export {
 export type { Permission } from './constants/roles.js';
 
 export { ERROR_CODES } from './constants/errors.js';
+
+export type { ActionQueueItem } from './types/action-queue.js';

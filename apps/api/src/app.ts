@@ -9,6 +9,7 @@ import { tenantsRoutes } from './routes/tenants.js';
 import { oauthCallbackRoutes } from './routes/oauth-callback.js';
 import { wizardStateRoutes } from './routes/wizard-state.js';
 import { auditRoutes } from './routes/audits.js';
+import { actionQueueRoutes } from './routes/action-queue.js';
 
 /**
  * Create the Hono application instance.
@@ -70,6 +71,9 @@ export function createApp(): Hono {
 
   // Wizard state persistence (setupWizardState table)
   app.route('/api/wizard-state', wizardStateRoutes);
+
+  // Action queue routes (cross-tenant action items and dismiss)
+  app.route('/api/action-queue', actionQueueRoutes);
 
   // Audit routes (trigger, list, detail, retry) and SignalR negotiate
   // These routes handle their own /tenants/:tenantId/audits path prefix

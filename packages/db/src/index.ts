@@ -6,6 +6,7 @@ export {
   tenantUserAccess,
   auditLog,
   setupWizardState,
+  actionQueueDismissals,
 } from './control-plane/schema.js';
 
 // Tenant schema (per-tenant isolated database)

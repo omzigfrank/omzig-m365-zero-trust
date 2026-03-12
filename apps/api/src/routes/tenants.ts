@@ -77,7 +77,7 @@ function toTenantSummary(row: any): TenantSummary {
     overallScore,
     frameworkScores: null, // Populated when lastAuditScore is wired per plan note
     lastAuditAt: row.lastAuditAt ? new Date(row.lastAuditAt).toISOString() : null,
-    criticalFindingsCount: 0, // Defaults to 0 until wired
+    criticalFindingsCount: row.criticalFindingsCount ?? 0,
     createdAt: new Date(row.createdAt).toISOString(),
   };
 }
