@@ -1,3 +1,4 @@
+/** @deprecated Absorbed into FilterBar in Phase 5. Kept for reference. */
 "use client";
 
 const FRAMEWORKS: { product: string; label: string }[] = [
