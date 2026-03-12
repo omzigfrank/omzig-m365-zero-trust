@@ -167,7 +167,7 @@ Note: Phase 3 and Phase 4 both depend on Phase 2 and can execute in parallel. Ph
 | 1. Foundation and Authentication | 4/4 | Complete    | 2026-03-11 |
 | 2. Core Audit Engine | 3/3 | Complete    | 2026-03-11 |
 | 3. Compliance Framework Mapping | 5/5 | Complete    | 2026-03-11 |
-| 4. Tenant Onboarding and Management | 1/4 | In progress | - |
+| 4. Tenant Onboarding and Management | 3/4 | In progress | - |
 | 5. Dashboard and Findings UX | 0/2 | Not started | - |
 | 6. Scheduling, Reporting and Trending | 0/2 | Not started | - |
 | 7. Remediation Engine | 0/3 | Not started | - |

@@ -31,7 +31,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **TENANT-01**: MSP can onboard a client tenant via OAuth consent flow (client admin grants permissions)
 - [x] **TENANT-02**: MSP can onboard a client tenant via GDAP/Lighthouse delegated admin relationship
 - [x] **TENANT-03**: Multi-tenant dashboard shows all connected tenants with compliance scores and health status (red/yellow/green)
-- [ ] **TENANT-04**: MSP can click into any tenant from the dashboard to view detailed findings
+- [x] **TENANT-04**: MSP can click into any tenant from the dashboard to view detailed findings
 - [ ] **TENANT-05**: MSP can configure scheduled audit scans per tenant (daily/weekly frequency)
 - [ ] **TENANT-06**: Scheduled scans run automatically via Azure Functions timer triggers with stagger logic to avoid throttling
 - [x] **TENANT-07**: MSP can remove a client tenant and all associated data is deleted
@@ -162,7 +162,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | TENANT-01 | Phase 4 | Complete |
 | TENANT-02 | Phase 4 | Complete |
 | TENANT-03 | Phase 4 | Complete |
-| TENANT-04 | Phase 4 | Pending |
+| TENANT-04 | Phase 4 | Complete |
 | TENANT-05 | Phase 6 | Pending |
 | TENANT-06 | Phase 6 | Pending |
 | TENANT-07 | Phase 4 | Complete |

@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-03-12T01:46:41Z"
-last_activity: 2026-03-12 -- Tenant CRUD endpoints, OAuth callback, wizard-state persistence
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-03-12T02:01:03Z"
+last_activity: 2026-03-12 -- Multi-tenant dashboard and tenant detail page
 progress:
   total_phases: 8
   completed_phases: 3
   total_plans: 16
-  completed_plans: 14
-  percent: 87
+  completed_plans: 15
+  percent: 93
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 4 in progress. Plan 2 of 4 complete. Tenant API routes wired, dashboard and wizard next.
+**Current focus:** Phase 4 in progress. Plan 3 of 4 complete. Dashboard and detail pages built, onboarding wizard next.
 
 ## Current Position
 
 Phase: 4 of 8 (Tenant Onboarding and Management) — IN PROGRESS
-Plan: 2 of 4 in current phase — COMPLETE
-Status: Tenant CRUD routes, OAuth callback, wizard-state API all wired
-Last activity: 2026-03-12 -- Tenant CRUD endpoints, OAuth callback, wizard-state persistence
+Plan: 3 of 4 in current phase — COMPLETE
+Status: Multi-tenant dashboard with card grid/table toggle and tenant detail page wrapping Phase 3 compliance dashboard
+Last activity: 2026-03-12 -- Multi-tenant dashboard and tenant detail page
 
-Progress: [█████████░] 87%
+Progress: [█████████░] 93%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
+- Total plans completed: 15
 - Average duration: 9min
-- Total execution time: 2.05 hours
+- Total execution time: 2.22 hours
 
 **By Phase:**
 
@@ -46,13 +46,14 @@ Progress: [█████████░] 87%
 | 01-foundation | 4 | 37min | 9min |
 | 02-core-audit-engine | 3 | 33min | 11min |
 | 03-compliance-framework-mapping | 5 | 38min | 8min |
-| 04-tenant-onboarding | 2 | 15min | 8min |
+| 04-tenant-onboarding | 3 | 25min | 8min |
 
 **Recent Trend:**
-- Last 5 plans: 03-03 (5min), 03-04 (8min), 03-05 (15min), 04-01 (5min), 04-02 (10min)
+- Last 5 plans: 03-04 (8min), 03-05 (15min), 04-01 (5min), 04-02 (10min), 04-03 (10min)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 04 P03 | 10min | 2 tasks | 13 files |
 | Phase 04 P02 | 10min | 2 tasks | 7 files |
 | Phase 04 P01 | 5min | 2 tasks | 14 files |
 | Phase 03 P05 | 15min | 2 tasks | 16 files |
@@ -127,6 +128,10 @@ Recent decisions affecting current work:
 - [04-02]: Wizard-state PATCH uses upsert with optimistic locking (INSERT if no row, UPDATE with rowsAffected check)
 - [04-02]: Vitest setup.ts mocks mssql globally to prevent transitive import failures from createApp()
 - [04-02]: GET /api/tenants uses cached lastAuditScore for health (no per-tenant DB queries for dashboard MVP)
+- [04-03]: TenantCard uses router.push for navigation (not Link) to support click handler on entire card div
+- [04-03]: Tenant detail page reuses Phase 3 components (ScoreOverview, ZtaMaturityRadar, FrameworkBreakdown, AuditResults) via useAudit(tenantId)
+- [04-03]: Tab navigation on detail page is client-side state (no URL routing) for simplicity
+- [04-03]: TenantTable client-side sorting by column header click (no server-side sort for MVP)
 
 ### Pending Todos
 
@@ -138,6 +143,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T01:46:41Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-03-12T02:01:03Z
+Stopped at: Completed 04-03-PLAN.md
 Resume file: None
