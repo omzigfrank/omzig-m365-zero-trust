@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: 5-step onboarding wizard at /tenants/new with OAuth consent and GDAP paths
-stopped_at: Completed 04-04-PLAN.md
-last_updated: "2026-03-12T02:17:18.610Z"
-last_activity: 2026-03-12 -- 5-step tenant onboarding wizard
+status: Remediation registry (101 controls) + UI primitives (Drawer, MultiSelect, PowerShellBlock) + DB schema
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-12T15:28:56Z"
+last_activity: 2026-03-12 -- Remediation registry + UI primitives + DB schema additions
 progress:
   total_phases: 8
   completed_phases: 4
-  total_plans: 16
-  completed_plans: 16
-  percent: 64
+  total_plans: 19
+  completed_plans: 17
+  percent: 68
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 4 complete. All 4 plans done. Ready for Phase 5 (Dashboard and Findings UX).
+**Current focus:** Phase 5 in progress. Plan 01 complete (foundation components). Plans 02-03 remaining.
 
 ## Current Position
 
-Phase: 4 of 8 (Tenant Onboarding and Management) — COMPLETE
-Plan: 4 of 4 in current phase — COMPLETE
-Status: 5-step onboarding wizard at /tenants/new with OAuth consent and GDAP paths
-Last activity: 2026-03-12 -- 5-step tenant onboarding wizard
+Phase: 5 of 8 (Dashboard and Findings UX) — IN PROGRESS
+Plan: 1 of 3 in current phase — COMPLETE
+Status: Remediation registry (101 controls) + UI primitives (Drawer, MultiSelect, PowerShellBlock) + DB schema
+Last activity: 2026-03-12 -- Remediation registry + UI primitives + DB schema additions
 
-Progress: [██████░░░░] 64%
+Progress: [██████░░░░] 68%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 17
 - Average duration: 9min
-- Total execution time: 2.47 hours
+- Total execution time: 2.62 hours
 
 **By Phase:**
 
@@ -47,12 +47,14 @@ Progress: [██████░░░░] 64%
 | 02-core-audit-engine | 3 | 33min | 11min |
 | 03-compliance-framework-mapping | 5 | 38min | 8min |
 | 04-tenant-onboarding | 4 | 40min | 10min |
+| 05-dashboard-and-findings-ux | 1/3 | 9min | 9min |
 
 **Recent Trend:**
-- Last 5 plans: 03-05 (15min), 04-01 (5min), 04-02 (10min), 04-03 (10min), 04-04 (15min)
+- Last 5 plans: 04-01 (5min), 04-02 (10min), 04-03 (10min), 04-04 (15min), 05-01 (9min)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 05 P01 | 9min | 2 tasks | 12 files |
 | Phase 04 P04 | 15min | 1 tasks | 10 files |
 | Phase 04 P03 | 10min | 2 tasks | 13 files |
 | Phase 04 P02 | 10min | 2 tasks | 7 files |
@@ -137,6 +139,11 @@ Recent decisions affecting current work:
 - [04-04]: setupWizardState table is source of truth, localStorage is session cache for fast hydration
 - [04-04]: OAuth callback auto-advance via consent=success URL param triggers immediate step 4 provisioning
 - [04-04]: Provisioning auto-advances to step 5 after 1-second delay for visual feedback
+- [05-01]: Remediation registry split into 4 per-framework files mirroring control registry structure
+- [05-01]: PowerShell highlighting uses ordered 4-regex pipeline: comments -> strings -> keywords -> params
+- [05-01]: Drawer uses createPortal(document.body) for z-index isolation from parent containers
+- [05-01]: MultiSelectDropdown uses absolute positioning + click-outside handler (no floating-ui, matching zero-dependency pattern)
+- [05-01]: actionQueueDismissals itemKey format: "critical-{tenantId}" or "status-{tenantId}-{type}"
 
 ### Pending Todos
 
@@ -148,6 +155,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T02:10:00Z
-Stopped at: Completed 04-04-PLAN.md
+Last session: 2026-03-12T15:28:56Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
