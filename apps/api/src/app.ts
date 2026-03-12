@@ -6,11 +6,20 @@ import { requireMfa } from './middleware/mfa.js';
 import { health } from './routes/health.js';
 import { authRoutes } from './routes/auth.js';
 import { tenantsRoutes } from './routes/tenants.js';
+import { oauthCallbackRoutes } from './routes/oauth-callback.js';
+import { wizardStateRoutes } from './routes/wizard-state.js';
 import { auditRoutes } from './routes/audits.js';
 
 /**
  * Create the Hono application instance.
  * Separated from index.ts for testability (tests import createApp, not the server).
+ *
+ * Route registration order:
+ * 1. Error handler, CORS (global)
+ * 2. Health routes (public -- Container Apps probes)
+ * 3. OAuth callback routes (public -- Entra ID redirect, no auth)
+ * 4. Auth middleware chain (JWK + MFA)
+ * 5. Protected routes (auth, tenants, wizard-state, audits)
  */
 export function createApp(): Hono {
   const app = new Hono();
@@ -30,10 +39,17 @@ export function createApp(): Hono {
     }),
   );
 
-  // Health check routes (BEFORE auth middleware -- must be public for Container Apps probes)
+  // ---- Public routes (BEFORE auth middleware) ----
+
+  // Health check routes (Container Apps probes)
   app.route('/api/health', health);
 
-  // Authentication middleware chain for all /api/* routes EXCEPT /api/health
+  // OAuth callback routes (Entra ID redirect -- no auth needed)
+  app.route('/api', oauthCallbackRoutes);
+
+  // ---- Authentication middleware chain ----
+  // Applied to all /api/* routes EXCEPT those registered above
+
   // 1. JWK validation against Entra ID JWKS endpoint
   const tenantId = process.env.AZURE_TENANT_ID ?? '';
   const clientId = process.env.AZURE_CLIENT_ID ?? '';
@@ -44,11 +60,16 @@ export function createApp(): Hono {
   // 2. MFA enforcement (checks amr claim in JWT)
   app.use('/api/*', requireMfa());
 
-  // Protected routes
+  // ---- Protected routes (AFTER auth middleware) ----
+
+  // User profile and role resolution
   app.route('/api/auth', authRoutes);
 
-  // Tenant management routes (stub -- full implementation in Phase 4)
+  // Tenant management CRUD and onboarding endpoints
   app.route('/api/tenants', tenantsRoutes);
+
+  // Wizard state persistence (setupWizardState table)
+  app.route('/api/wizard-state', wizardStateRoutes);
 
   // Audit routes (trigger, list, detail, retry) and SignalR negotiate
   // These routes handle their own /tenants/:tenantId/audits path prefix
