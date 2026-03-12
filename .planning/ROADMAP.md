@@ -103,11 +103,12 @@ Plans:
   2. User can filter findings by severity, framework, workload, and pass/fail status
   3. Each finding displays step-by-step remediation instructions including links to the relevant Microsoft admin portal page and PowerShell commands where applicable
   4. Alert/action queue on the dashboard surfaces drift events and critical findings across all connected tenants
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md — Remediation registry (101 controls), UI primitives (Drawer, MultiSelectDropdown, PowerShellBlock), DB schema additions
+- [ ] 05-02-PLAN.md — Enhanced AuditResults with grouped accordion, FilterBar, FindingDetailDrawer, grouped/flat toggle
+- [ ] 05-03-PLAN.md — Action queue API, ActionQueue frontend component, tenant dashboard integration
 
 ### Phase 6: Scheduling, Reporting and Trending
 **Goal**: Audits run automatically on schedule and users can export reports and track compliance improvement over time
@@ -168,7 +169,7 @@ Note: Phase 3 and Phase 4 both depend on Phase 2 and can execute in parallel. Ph
 | 2. Core Audit Engine | 3/3 | Complete    | 2026-03-11 |
 | 3. Compliance Framework Mapping | 5/5 | Complete    | 2026-03-11 |
 | 4. Tenant Onboarding and Management | 4/4 | Complete    | 2026-03-12 |
-| 5. Dashboard and Findings UX | 0/2 | Not started | - |
+| 5. Dashboard and Findings UX | 0/3 | Not started | - |
 | 6. Scheduling, Reporting and Trending | 0/2 | Not started | - |
 | 7. Remediation Engine | 0/3 | Not started | - |
 | 8. Drift Detection | 0/2 | Not started | - |
