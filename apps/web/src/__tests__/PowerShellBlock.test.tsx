@@ -9,11 +9,10 @@ afterEach(() => {
 
 describe("PowerShellBlock", () => {
   it("renders code in a pre/code block", () => {
-    render(<PowerShellBlock code="Get-MgUser -All" />);
+    const { container } = render(<PowerShellBlock code="Get-MgUser -All" />);
 
-    const pre = screen.getByRole("generic", { hidden: true }).querySelector?.("pre") ??
-      document.querySelector("pre");
-    expect(pre).toBeDefined();
+    const pre = container.querySelector("pre");
+    expect(pre).not.toBeNull();
     expect(pre!.textContent).toContain("Get-MgUser");
   });
 

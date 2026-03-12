@@ -13,6 +13,7 @@
     "@azure/msal-browser": "^3.27.0",
     "@azure/msal-react": "^2.1.0",
     "@microsoft/signalr": "^8.0.0",
+    "@omzig/audit": "workspace:*",
     "@omzig/shared": "workspace:*",
     "clsx": "^2.1.1",
     "exceljs": "^4.4.0",
