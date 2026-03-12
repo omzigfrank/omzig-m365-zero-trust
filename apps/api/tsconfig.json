@@ -11,6 +11,9 @@
     "src/__tests__",
     "src/middleware/tenant.ts",
     "src/services/keyvault.ts",
-    "src/services/tenant-db.ts"
+    "src/services/tenant-db.ts",
+    "src/services/oauth-consent.ts",
+    "src/services/gdap-verification.ts",
+    "src/services/tenant-provisioning.ts"
   ]
 }
