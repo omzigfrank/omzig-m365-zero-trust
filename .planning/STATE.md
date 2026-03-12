@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Remediation registry (101 controls) + UI primitives (Drawer, MultiSelect, PowerShellBlock) + DB schema
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-12T15:28:56Z"
-last_activity: 2026-03-12 -- Remediation registry + UI primitives + DB schema additions
+status: Cross-tenant action queue with severity-sorted items, dismiss persistence, and dashboard panel
+stopped_at: Completed 05-02-PLAN.md (parallel with 05-03)
+last_updated: "2026-03-12T15:47:11.612Z"
+last_activity: 2026-03-12 -- Action queue API + frontend component + dashboard integration
 progress:
   total_phases: 8
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 19
   completed_plans: 19
   percent: 79
