@@ -23,7 +23,13 @@ export type {
 export type {
   TenantRef,
   TenantAccess,
+  TenantStatus,
+  ConnectionMethod,
+  TenantHealth,
+  TenantSummary,
 } from './types/tenant.js';
+
+export { calculateHealth } from './types/tenant.js';
 
 // Constants
 export {

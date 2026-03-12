@@ -42,12 +42,19 @@ export const tenants = mssqlTable('tenants', {
   orgId: varchar('org_id', { length: 36 }).notNull().references(() => organizations.id),
   displayName: nvarchar('display_name', { length: 200 }).notNull(),
   m365TenantId: varchar('m365_tenant_id', { length: 36 }).notNull(),
-  databaseName: varchar('database_name', { length: 128 }).notNull(),
-  tokenSecretName: varchar('token_secret_name', { length: 128 }).notNull(),
+  databaseName: varchar('database_name', { length: 128 }),
+  tokenSecretName: varchar('token_secret_name', { length: 128 }),
   isDeleted: bit('is_deleted').notNull().default(false),
   deletedAt: datetime2('deleted_at'),
   createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
   updatedAt: datetime2('updated_at').notNull().default(sql`GETDATE()`),
+  // Phase 4: Tenant lifecycle columns
+  status: varchar('status', { length: 20 }).notNull().default('pending'),
+  connectionMethod: varchar('connection_method', { length: 10 }),
+  primaryDomain: nvarchar('primary_domain', { length: 255 }),
+  contactEmail: nvarchar('contact_email', { length: 320 }),
+  lastAuditAt: datetime2('last_audit_at'),
+  lastAuditScore: int('last_audit_score'),
 });
 
 export const tenantUserAccess = mssqlTable('tenant_user_access', {
