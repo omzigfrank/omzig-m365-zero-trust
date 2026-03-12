@@ -55,6 +55,8 @@ export const tenants = mssqlTable('tenants', {
   contactEmail: nvarchar('contact_email', { length: 320 }),
   lastAuditAt: datetime2('last_audit_at'),
   lastAuditScore: int('last_audit_score'),
+  // Phase 5: Critical findings cache for action queue
+  criticalFindingsCount: int('critical_findings_count').notNull().default(0),
 });
 
 export const tenantUserAccess = mssqlTable('tenant_user_access', {
@@ -87,4 +89,14 @@ export const setupWizardState = mssqlTable('setup_wizard_state', {
   stepsCompleted: nvarchar('steps_completed', { length: 500 }).notNull().default('[]'),
   isComplete: bit('is_complete').notNull().default(false),
   updatedAt: datetime2('updated_at').notNull().default(sql`GETDATE()`),
+});
+
+// Phase 5: Action queue dismissals (per-user dismiss state for action queue items)
+// itemKey format: "critical-{tenantId}" or "status-{tenantId}-needs_reauth" or "status-{tenantId}-stale_audit"
+export const actionQueueDismissals = mssqlTable('action_queue_dismissals', {
+  id: varchar('id', { length: 36 }).primaryKey().notNull(),
+  orgId: varchar('org_id', { length: 36 }).notNull().references(() => organizations.id),
+  userId: varchar('user_id', { length: 36 }).notNull().references(() => users.id),
+  itemKey: varchar('item_key', { length: 200 }).notNull(),
+  dismissedAt: datetime2('dismissed_at').notNull().default(sql`GETDATE()`),
 });
