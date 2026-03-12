@@ -119,11 +119,11 @@ Plans:
   2. Scheduled scans use stagger logic to avoid Graph API throttling when multiple tenants scan concurrently
   3. User can export a compliance report as PDF and detailed findings as CSV for any completed audit
   4. Dashboard shows historical compliance score trends over time with a chart showing improvement or regression across scan history
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
+- [ ] 06-01-PLAN.md — Scheduler service (DB-driven polling, max-3 concurrent, 5-min stagger), schedule API route, schema migration, Settings tab UI
+- [ ] 06-02-PLAN.md — PDF report generation (executive + full), enhanced CSV export (~20 columns), audit history API, trend chart, History tab overhaul
 
 ### Phase 7: Remediation Engine
 **Goal**: Users can fix compliance failures through the platform -- auto-fix for safe changes, guided wizard for risky ones, with full audit trail and rollback
