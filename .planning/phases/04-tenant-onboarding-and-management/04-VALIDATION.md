@@ -38,14 +38,14 @@ created: 2026-03-11
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 04-01-01 | 01 | 1 | TENANT-01 | unit | `pnpm --filter @omzig/api vitest run src/__tests__/oauth-consent.test.ts -x` | ❌ W0 | ⬜ pending |
-| 04-01-02 | 01 | 1 | TENANT-08 | unit | `pnpm --filter @omzig/api vitest run src/__tests__/tenant-provisioning.test.ts -x` | ❌ W0 | ⬜ pending |
-| 04-02-01 | 02 | 1 | TENANT-02 | unit | `pnpm --filter @omzig/api vitest run src/__tests__/gdap-verification.test.ts -x` | ❌ W0 | ⬜ pending |
-| 04-03-01 | 03 | 2 | TENANT-03, TENANT-07 | unit | `pnpm --filter @omzig/api vitest run src/__tests__/tenant-routes.test.ts -x` | ❌ W0 | ⬜ pending |
-| 04-04-01 | 04 | 3 | TENANT-03 | unit | `pnpm --filter @omzig/web vitest run src/__tests__/TenantDashboard.test.tsx -x` | ❌ W0 | ⬜ pending |
-| 04-04-02 | 04 | 3 | TENANT-04 | unit | `pnpm --filter @omzig/web vitest run src/__tests__/TenantDetail.test.tsx -x` | ❌ W0 | ⬜ pending |
+| 04-01-01 | 01 | 1 | TENANT-01 | unit | `pnpm --filter @omzig/api vitest run src/__tests__/oauth-consent.test.ts -x` | W0 | pending |
+| 04-01-02 | 01 | 1 | TENANT-02, TENANT-08 | unit | `pnpm --filter @omzig/api vitest run src/__tests__/gdap-verification.test.ts src/__tests__/tenant-provisioning.test.ts -x` | W0 | pending |
+| 04-02-01 | 02 | 2 | TENANT-03, TENANT-07 | unit | `pnpm --filter @omzig/api vitest run src/__tests__/tenant-routes.test.ts -x` | W0 | pending |
+| 04-03-01 | 03 | 3 | TENANT-03 | unit | `pnpm --filter @omzig/web vitest run src/__tests__/TenantDashboard.test.tsx -x` | W0 | pending |
+| 04-03-02 | 03 | 3 | TENANT-04 | unit | `pnpm --filter @omzig/web vitest run src/__tests__/TenantDetail.test.tsx -x` | W0 | pending |
+| 04-04-01 | 04 | 3 | TENANT-01, TENANT-02, TENANT-08 | unit | `pnpm --filter @omzig/web vitest run src/__tests__/OnboardingWizard.test.tsx -x` | W0 | pending |
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+*Status: pending / green / red / flaky*
 
 ---
 
@@ -53,10 +53,11 @@ created: 2026-03-11
 
 - [ ] `apps/api/src/__tests__/oauth-consent.test.ts` — stubs for TENANT-01 (consent URL, callback, token exchange)
 - [ ] `apps/api/src/__tests__/gdap-verification.test.ts` — stubs for TENANT-02 (relationship lookup, status check)
-- [ ] `apps/api/src/__tests__/tenant-routes.test.ts` — stubs for TENANT-03, TENANT-07 (CRUD, list with scores, soft delete)
+- [ ] `apps/api/src/__tests__/tenant-routes.test.ts` — stubs for TENANT-03, TENANT-07 (CRUD, list with scores, soft delete, wizard-state CRUD)
 - [ ] `apps/api/src/__tests__/tenant-provisioning.test.ts` — stubs for TENANT-01, TENANT-08 (DB creation, migration, token storage)
 - [ ] `apps/web/src/__tests__/TenantDashboard.test.tsx` — stubs for TENANT-03 (card grid, table toggle, health dots)
 - [ ] `apps/web/src/__tests__/TenantDetail.test.tsx` — stubs for TENANT-04 (tenant context, audit component reuse)
+- [ ] `apps/web/src/__tests__/OnboardingWizard.test.tsx` — stubs for TENANT-01, TENANT-02, TENANT-08 (wizard steps, DB persistence via wizard-state API)
 
 ---
 
