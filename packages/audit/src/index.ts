@@ -48,6 +48,10 @@ export {
   type FrameworkScore,
 } from './pipeline/maturity-calculator.js';
 
+// Remediation registry
+export { getRemediationByControlId } from './remediation/index.js';
+export type { RemediationEntry } from './remediation/types.js';
+
 // Area parsers (for testing and direct use)
 export { parseOrganization } from './collectors/areas/organization.js';
 export { parseConditionalAccess } from './collectors/areas/conditional-access.js';
