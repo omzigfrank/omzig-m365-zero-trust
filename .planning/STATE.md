@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 04-03-PLAN.md
-last_updated: "2026-03-12T02:01:03Z"
-last_activity: 2026-03-12 -- Multi-tenant dashboard and tenant detail page
+stopped_at: Completed 04-04-PLAN.md
+last_updated: "2026-03-12T02:10:00Z"
+last_activity: 2026-03-12 -- 5-step tenant onboarding wizard
 progress:
   total_phases: 8
-  completed_phases: 3
-  total_plans: 16
-  completed_plans: 15
-  percent: 93
+  completed_phases: 4
+  total_plans: 25
+  completed_plans: 16
+  percent: 64
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** MSPs can see exactly where every client tenant falls short of Zero Trust compliance, fix it with confidence, and know immediately when something drifts back.
-**Current focus:** Phase 4 in progress. Plan 3 of 4 complete. Dashboard and detail pages built, onboarding wizard next.
+**Current focus:** Phase 4 complete. All 4 plans done. Ready for Phase 5 (Dashboard and Findings UX).
 
 ## Current Position
 
-Phase: 4 of 8 (Tenant Onboarding and Management) — IN PROGRESS
-Plan: 3 of 4 in current phase — COMPLETE
-Status: Multi-tenant dashboard with card grid/table toggle and tenant detail page wrapping Phase 3 compliance dashboard
-Last activity: 2026-03-12 -- Multi-tenant dashboard and tenant detail page
+Phase: 4 of 8 (Tenant Onboarding and Management) — COMPLETE
+Plan: 4 of 4 in current phase — COMPLETE
+Status: 5-step onboarding wizard at /tenants/new with OAuth consent and GDAP paths
+Last activity: 2026-03-12 -- 5-step tenant onboarding wizard
 
-Progress: [█████████░] 93%
+Progress: [██████░░░░] 64%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
+- Total plans completed: 16
 - Average duration: 9min
-- Total execution time: 2.22 hours
+- Total execution time: 2.47 hours
 
 **By Phase:**
 
@@ -46,13 +46,14 @@ Progress: [█████████░] 93%
 | 01-foundation | 4 | 37min | 9min |
 | 02-core-audit-engine | 3 | 33min | 11min |
 | 03-compliance-framework-mapping | 5 | 38min | 8min |
-| 04-tenant-onboarding | 3 | 25min | 8min |
+| 04-tenant-onboarding | 4 | 40min | 10min |
 
 **Recent Trend:**
-- Last 5 plans: 03-04 (8min), 03-05 (15min), 04-01 (5min), 04-02 (10min), 04-03 (10min)
+- Last 5 plans: 03-05 (15min), 04-01 (5min), 04-02 (10min), 04-03 (10min), 04-04 (15min)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 04 P04 | 15min | 1 tasks | 10 files |
 | Phase 04 P03 | 10min | 2 tasks | 13 files |
 | Phase 04 P02 | 10min | 2 tasks | 7 files |
 | Phase 04 P01 | 5min | 2 tasks | 14 files |
@@ -132,6 +133,10 @@ Recent decisions affecting current work:
 - [04-03]: Tenant detail page reuses Phase 3 components (ScoreOverview, ZtaMaturityRadar, FrameworkBreakdown, AuditResults) via useAudit(tenantId)
 - [04-03]: Tab navigation on detail page is client-side state (no URL routing) for simplicity
 - [04-03]: TenantTable client-side sorting by column header click (no server-side sort for MVP)
+- [04-04]: useRef(state) pattern for stale closure avoidance in async wizard callbacks
+- [04-04]: setupWizardState table is source of truth, localStorage is session cache for fast hydration
+- [04-04]: OAuth callback auto-advance via consent=success URL param triggers immediate step 4 provisioning
+- [04-04]: Provisioning auto-advances to step 5 after 1-second delay for visual feedback
 
 ### Pending Todos
 
@@ -143,6 +148,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T02:01:03Z
-Stopped at: Completed 04-03-PLAN.md
+Last session: 2026-03-12T02:10:00Z
+Stopped at: Completed 04-04-PLAN.md
 Resume file: None
