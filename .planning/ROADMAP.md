@@ -119,11 +119,12 @@ Plans:
   2. Scheduled scans use stagger logic to avoid Graph API throttling when multiple tenants scan concurrently
   3. User can export a compliance report as PDF and detailed findings as CSV for any completed audit
   4. Dashboard shows historical compliance score trends over time with a chart showing improvement or regression across scan history
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [ ] 06-01-PLAN.md — Scheduler service (DB-driven polling, max-3 concurrent, 5-min stagger), schedule API route, schema migration, Settings tab UI
-- [ ] 06-02-PLAN.md — PDF report generation (executive + full), enhanced CSV export (~20 columns), audit history API, trend chart, History tab overhaul
+- [ ] 06-02-PLAN.md — Backend: PDF report generation (executive + full), SVG charts, enhanced CSV export (~20 columns), multi-tenant CSV endpoint, audit history API
+- [ ] 06-03-PLAN.md — Frontend: ExportButtons PDF dropdown, MultiTenantExport component, trend chart, audit history list, History tab overhaul
 
 ### Phase 7: Remediation Engine
 **Goal**: Users can fix compliance failures through the platform -- auto-fix for safe changes, guided wizard for risky ones, with full audit trail and rollback
@@ -170,6 +171,6 @@ Note: Phase 3 and Phase 4 both depend on Phase 2 and can execute in parallel. Ph
 | 3. Compliance Framework Mapping | 5/5 | Complete    | 2026-03-11 |
 | 4. Tenant Onboarding and Management | 4/4 | Complete    | 2026-03-12 |
 | 5. Dashboard and Findings UX | 3/3 | Complete   | 2026-03-12 |
-| 6. Scheduling, Reporting and Trending | 0/2 | Not started | - |
+| 6. Scheduling, Reporting and Trending | 0/3 | Not started | - |
 | 7. Remediation Engine | 0/3 | Not started | - |
 | 8. Drift Detection | 0/2 | Not started | - |
