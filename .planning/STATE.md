@@ -55,6 +55,7 @@ Progress: [████████░░] 79%
 
 *Updated after each plan completion*
 | Phase 05 P03 | 7min | 2 tasks | 12 files |
+| Phase 05 P02 | 7min | 2 tasks | 10 files |
 | Phase 05 P01 | 9min | 2 tasks | 12 files |
 | Phase 04 P04 | 15min | 1 tasks | 10 files |
 | Phase 04 P03 | 10min | 2 tasks | 13 files |
@@ -145,6 +146,12 @@ Recent decisions affecting current work:
 - [05-01]: Drawer uses createPortal(document.body) for z-index isolation from parent containers
 - [05-01]: MultiSelectDropdown uses absolute positioning + click-outside handler (no floating-ui, matching zero-dependency pattern)
 - [05-01]: actionQueueDismissals itemKey format: "critical-{tenantId}" or "status-{tenantId}-{type}"
+- [05-02]: Native details/summary elements for accordion (no JS state, browser handles open/close with built-in ARIA)
+- [05-02]: FilterState as single object with Set-based multi-selects for 4 filter dimensions
+- [05-02]: Drawer closes on any filter change via useEffect watching filters state
+- [05-02]: Category extraction from control IDs: AAD section number, ZTA tenet, 800-53 family, CSF function
+- [05-02]: FrameworkFilter deprecated, replaced by unified FilterBar multi-select
+- [05-02]: @omzig/audit added as @omzig/web dependency for remediation registry import
 - [05-03]: Action items computed in-memory from control plane tenants table (no per-tenant DB queries)
 - [05-03]: Severity sort: critical > high > warning, then createdAt descending
 - [05-03]: Stale audit threshold: 7 days or null lastAuditAt for active tenants
@@ -160,6 +167,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T15:39:00Z
-Stopped at: Completed 05-03-PLAN.md
+Last session: 2026-03-12T15:39:30Z
+Stopped at: Completed 05-02-PLAN.md (parallel with 05-03)
 Resume file: None

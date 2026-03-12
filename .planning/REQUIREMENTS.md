@@ -39,8 +39,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dashboard & Reporting
 
-- [ ] **DASH-01**: Web-based dashboard with interactive drill-down (framework -> category -> finding -> remediation)
-- [ ] **DASH-02**: User can filter findings by severity, framework, workload, and status
+- [x] **DASH-01**: Web-based dashboard with interactive drill-down (framework -> category -> finding -> remediation)
+- [x] **DASH-02**: User can filter findings by severity, framework, workload, and status
 - [ ] **DASH-03**: User can export compliance report as PDF for client-facing documentation
 - [ ] **DASH-04**: User can export detailed findings as CSV for data analysis
 - [x] **DASH-05**: Each finding displays remediation guidance with step-by-step instructions
@@ -167,8 +167,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | TENANT-06 | Phase 6 | Pending |
 | TENANT-07 | Phase 4 | Complete |
 | TENANT-08 | Phase 4 | Complete |
-| DASH-01 | Phase 5 | Pending |
-| DASH-02 | Phase 5 | Pending |
+| DASH-01 | Phase 5 | Complete |
+| DASH-02 | Phase 5 | Complete |
 | DASH-03 | Phase 6 | Pending |
 | DASH-04 | Phase 6 | Pending |
 | DASH-05 | Phase 5 | Complete |
