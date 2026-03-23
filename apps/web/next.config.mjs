@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  output: "export",
   reactStrictMode: true,
+  // Monorepo: transpile workspace packages
+  transpilePackages: ["@omzig/audit", "@omzig/shared"],
 };
 
 export default nextConfig;

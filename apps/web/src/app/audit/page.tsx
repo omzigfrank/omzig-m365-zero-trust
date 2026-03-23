@@ -8,12 +8,12 @@ import { AuditResults } from "@/components/audit/AuditResults";
 import { ExportButtons } from "@/components/audit/ExportButtons";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { useAuth } from "@/hooks/useAuth";
-import { useAudit } from "@/hooks/useAudit";
+import { useClientAudit } from "@/hooks/useClientAudit";
 import { Play, RotateCcw, AlertTriangle } from "lucide-react";
 
 export default function AuditPage() {
   const { getToken } = useAuth();
-  const audit = useAudit();
+  const audit = useClientAudit();
 
   const handleRun = async () => {
     try {
@@ -24,6 +24,9 @@ export default function AuditPage() {
     }
   };
 
+  // Cast result to any for component props — shapes are compatible, just missing DB IDs
+  const result = audit.result as any;
+
   return (
     <AuthGuard>
       <div className="mx-auto max-w-7xl space-y-6">
@@ -33,12 +36,11 @@ export default function AuditPage() {
               Security Audit
             </h1>
             <p className="mt-1 text-sm text-gray-500">
-              Evaluate your Microsoft 365 tenant against all compliance
-              frameworks
+              Evaluate your Microsoft 365 tenant against compliance frameworks
             </p>
           </div>
 
-          {audit.result && <ExportButtons data={audit.result} />}
+          {result && <ExportButtons data={result} />}
         </div>
 
         {/* Run button */}
@@ -72,7 +74,11 @@ export default function AuditPage() {
 
         {/* Progress */}
         {audit.status === "running" && (
-          <ProgressBar message={audit.progress} />
+          <ProgressBar
+            message={audit.progress}
+            completed={audit.completed}
+            total={audit.total}
+          />
         )}
 
         {/* Error */}
@@ -94,23 +100,23 @@ export default function AuditPage() {
           </div>
         )}
 
-        {/* Results -- Score cards always visible, followed by radar, breakdowns, findings */}
-        {audit.result && (
+        {/* Results */}
+        {result && (
           <>
-            <ScoreOverview frameworkScores={audit.result.frameworkScores} />
+            <ScoreOverview frameworkScores={result.frameworkScores} />
 
             <ZtaMaturityRadar
-              current={audit.result.maturitySnapshot}
-              previous={audit.result.previousMaturity}
+              current={result.maturitySnapshot}
+              previous={result.previousMaturity}
             />
 
-            <FrameworkBreakdown findings={audit.result.findings} />
+            <FrameworkBreakdown findings={result.findings} />
 
             <div className="rounded-xl border border-gray-200 bg-white p-6">
               <h2 className="mb-4 text-lg font-semibold text-gray-900">
                 Audit Findings
               </h2>
-              <AuditResults findings={audit.result.findings} />
+              <AuditResults findings={result.findings} />
             </div>
           </>
         )}
@@ -119,13 +125,12 @@ export default function AuditPage() {
         {audit.status === "idle" && (
           <div className="rounded-xl border border-dashed border-gray-300 py-16 text-center">
             <p className="text-gray-500">
-              Click <strong>Run Audit</strong> to evaluate your tenant across
-              all compliance frameworks.
+              Click <strong>Run Audit</strong> to evaluate your tenant across all
+              compliance frameworks.
             </p>
             <p className="mt-2 text-sm text-gray-400">
-              The audit will collect data from Microsoft Graph and evaluate it
-              against CISA SCuBA, NIST 800-207, NIST 800-53, and CSF 2.0
-              controls.
+              The audit runs entirely in your browser — your data never leaves
+              your session.
             </p>
           </div>
         )}

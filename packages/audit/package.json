@@ -4,6 +4,15 @@
   "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./graph-client": "./dist/collectors/graph-client.js",
+    "./fact-collector": "./dist/collectors/fact-collector.js",
+    "./control-registry": "./dist/registry/control-registry.js",
+    "./maturity-calculator": "./dist/pipeline/maturity-calculator.js",
+    "./types": "./dist/types.js",
+    "./remediation": "./dist/remediation/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",

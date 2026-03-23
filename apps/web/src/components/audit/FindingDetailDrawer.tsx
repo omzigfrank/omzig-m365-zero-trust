@@ -5,7 +5,7 @@ import { Drawer } from "@/components/ui/Drawer";
 import { Badge } from "@/components/ui/Badge";
 import { FindingBadges } from "@/components/audit/FindingBadges";
 import { PowerShellBlock } from "@/components/audit/PowerShellBlock";
-import { getRemediationByControlId } from "@omzig/audit";
+import { getRemediationByControlId } from "@omzig/audit/remediation";
 import type { AuditFinding } from "@/lib/types";
 
 interface FindingDetailDrawerProps {

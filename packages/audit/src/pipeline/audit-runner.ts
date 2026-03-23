@@ -33,7 +33,7 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
   const { auditId, tenantId, databaseName, accessToken, userId, signalrPush } = params;
 
   // PITFALL 4: Open our own DB connection — middleware closes its connection after 202 response
-  const db = await getTenantDb(databaseName);
+  const { db, pool } = await getTenantDb(databaseName);
   const emitter = new ProgressEmitter(userId, auditId, tenantId, signalrPush);
   const rateLimiter = new RateLimiter();
   const tokenManager = new TokenManager(accessToken);
@@ -203,6 +203,6 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
     }
   } finally {
     // CLEANUP: always close the DB connection
-    await closeTenantDb(databaseName);
+    await closeTenantDb(pool);
   }
 }
