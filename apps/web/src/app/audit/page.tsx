@@ -361,18 +361,19 @@ function DiagnosticsPanel({
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-xs font-medium uppercase text-gray-500">
-                <th className="pb-2">Data Source</th>
-                <th className="pb-2">Status</th>
-                <th className="pb-2">Detail</th>
+                <th className="pb-2 pr-4">Data Source</th>
+                <th className="pb-2 pr-4">Status</th>
+                <th className="pb-2 pr-4">Detail</th>
+                <th className="pb-2">Controls Affected</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {diagnostics.areas.map((area) => (
                 <tr key={area.area}>
-                  <td className="py-2 font-medium text-gray-700">
+                  <td className="py-2 pr-4 font-medium text-gray-700">
                     {area.label}
                   </td>
-                  <td className="py-2">
+                  <td className="py-2 pr-4">
                     {area.status === "ok" && (
                       <span className="inline-flex items-center gap-1 text-green-700">
                         <CheckCircle2 className="h-3.5 w-3.5" />
@@ -392,7 +393,17 @@ function DiagnosticsPanel({
                       </span>
                     )}
                   </td>
-                  <td className="py-2 text-gray-500">{area.detail}</td>
+                  <td className="py-2 pr-4 text-gray-500">{area.detail}</td>
+                  <td className="py-2">
+                    <span className="text-xs text-gray-500">
+                      {area.controls}
+                    </span>
+                    {area.note && (area.status === "error" || area.status === "empty") && (
+                      <p className="mt-1 text-xs text-blue-700">
+                        {area.note}
+                      </p>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

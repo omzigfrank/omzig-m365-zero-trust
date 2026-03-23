@@ -46,6 +46,10 @@ export interface AreaDiagnostic {
   label: string;
   status: "ok" | "error" | "empty";
   detail: string;
+  /** Which controls depend on this data source */
+  controls: string;
+  /** Clarifying note (e.g. what is NOT affected by an error here) */
+  note?: string;
 }
 
 export interface CollectionDiagnostics {
@@ -113,7 +117,72 @@ const initialState: ClientAuditState = {
 };
 
 /**
- * Inspect all 16 fact areas and build diagnostics.
+ * Metadata for each data source: which controls depend on it and clarifying notes.
+ */
+const AREA_META: Record<
+  string,
+  { controls: string; note?: string }
+> = {
+  organization: {
+    controls: "Tenant identity, domain validation",
+  },
+  conditionalAccess: {
+    controls:
+      "MS.AAD.1.1, 2.x, 3.1, 3.3, 3.6–3.8, ZTA T4.x, T6.x, 800-53 AC/IA, CSF PR.AA",
+    note: "Primary source for MFA enforcement, risk policies, device compliance, and session controls. MFA enforcement is verified here via CA policies — not via the MFA Registration endpoint.",
+  },
+  namedLocations: {
+    controls: "ZTA T2.x (network location awareness)",
+    note: "Empty is normal if no trusted locations are configured.",
+  },
+  mfa: {
+    controls: "MS.AAD.3.2 only (registration rate)",
+    note: "Only affects the registration rate check (% of users who have registered an MFA method). MFA enforcement is evaluated via Conditional Access policies above — not this endpoint. An error here does NOT impact MFA enforcement results.",
+  },
+  authMethods: {
+    controls: "MS.AAD.3.4 (migration), 3.5 (SMS/Voice)",
+    note: "Checks auth method migration status and whether weak methods (SMS, Voice) are disabled.",
+  },
+  authorizationPolicy: {
+    controls: "MS.AAD.8.x (guest access, user consent)",
+  },
+  adminConsentPolicy: {
+    controls: "MS.AAD.5.3 (admin consent workflow)",
+  },
+  passwordPolicy: {
+    controls: "MS.AAD.6.1 (password expiry), 800-53 IA-5",
+  },
+  adminRoles: {
+    controls: "MS.AAD.7.x (privileged roles), ZTA T4.4, 800-53 AC-6",
+    note: "Checks Global Admin count and role assignments.",
+  },
+  roleAssignments: {
+    controls: "MS.AAD.7.3–7.5 (PIM, JIT access), 800-53 AC-2/AC-6",
+    note: "Requires Entra ID P2 licensing for PIM data.",
+  },
+  devices: {
+    controls: "ZTA T1.1–T1.4 (device inventory/compliance), CSF ID.AM",
+  },
+  licenses: {
+    controls: "ZTA T5.x, 800-53 CM-8 (asset inventory)",
+  },
+  securityDefaults: {
+    controls: "MS.AAD.1.1 (security defaults vs. CA policies)",
+  },
+  domains: {
+    controls: "MS.AAD.6.1 (password policy), 800-53 IA-5",
+  },
+  appRegistrations: {
+    controls: "MS.AAD.5.x (app governance), 800-53 CM-7",
+  },
+  sensitivityLabels: {
+    controls: "ZTA T4.5, 800-53 SC-13, CSF PR.DS (data protection)",
+    note: "Requires Microsoft Purview / E5 licensing.",
+  },
+};
+
+/**
+ * Inspect all 16 fact areas and build diagnostics with control mapping.
  */
 function buildDiagnostics(facts: AuditFacts): AreaDiagnostic[] {
   const areas: AreaDiagnostic[] = [];
@@ -124,25 +193,18 @@ function buildDiagnostics(facts: AuditFacts): AreaDiagnostic[] {
     obj: { available: boolean; error?: string },
     countField?: number,
   ) => {
+    const meta = AREA_META[area] ?? { controls: "" };
+    const base = { area, label, controls: meta.controls, note: meta.note };
+
     if (obj.error) {
-      areas.push({ area, label, status: "error", detail: obj.error });
+      areas.push({ ...base, status: "error", detail: obj.error });
     } else if (!obj.available) {
-      areas.push({
-        area,
-        label,
-        status: "empty",
-        detail: "No data returned",
-      });
+      areas.push({ ...base, status: "empty", detail: "No data returned" });
     } else if (countField !== undefined && countField === 0) {
-      areas.push({
-        area,
-        label,
-        status: "ok",
-        detail: "Available (0 items)",
-      });
+      areas.push({ ...base, status: "ok", detail: "Available (0 items)" });
     } else {
       const count = countField !== undefined ? ` (${countField} items)` : "";
-      areas.push({ area, label, status: "ok", detail: `Collected${count}` });
+      areas.push({ ...base, status: "ok", detail: `Collected${count}` });
     }
   };
 
@@ -184,7 +246,12 @@ function buildDiagnostics(facts: AuditFacts): AreaDiagnostic[] {
     facts.roleAssignments,
     facts.roleAssignments.totalAssignments,
   );
-  check("devices", "Managed Devices", facts.devices, facts.devices.totalDevices);
+  check(
+    "devices",
+    "Managed Devices",
+    facts.devices,
+    facts.devices.totalDevices,
+  );
   check("licenses", "Licenses / SKUs", facts.licenses);
   check("securityDefaults", "Security Defaults", facts.securityDefaults);
   check("domains", "Domains", facts.domains, facts.domains.totalDomains);
