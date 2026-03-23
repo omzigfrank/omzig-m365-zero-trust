@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useApi } from "@/hooks/useApi";
 import type { UserProfile, EffectiveRole } from "@omzig/shared";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function LandingPage() {
   const { isAuthenticated, isLoading, login } = useAuth();
@@ -34,11 +35,13 @@ function AuthenticatedLanding() {
   return (
     <div className="flex min-h-screen flex-col bg-surface">
       <header className="flex items-center justify-between border-b border-outline-variant/30 bg-white px-8 py-4">
-        <div className="flex items-center gap-3">
-          <span className="text-lg font-black tracking-widest text-on-surface">
-            OMZIG
-          </span>
-        </div>
+        <Image
+          src="/omzig-logo.svg"
+          alt="Omzig"
+          width={100}
+          height={26}
+          priority
+        />
         <div className="flex items-center gap-4">
           <span className="text-sm text-on-surface-variant">
             {user?.email}
@@ -116,9 +119,14 @@ function UnauthenticatedLanding({ onLogin }: { onLogin: () => void }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#001A33] via-omzig-800 to-[#001A33]">
       <header className="flex items-center justify-between px-8 py-6">
-        <span className="text-xl font-black tracking-widest text-white">
-          OMZIG
-        </span>
+        <Image
+          src="/omzig-logo.svg"
+          alt="Omzig"
+          width={120}
+          height={30}
+          className="brightness-0 invert"
+          priority
+        />
         <button
           onClick={onLogin}
           className="rounded-lg bg-[#00A3A3] px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#008f8f]"

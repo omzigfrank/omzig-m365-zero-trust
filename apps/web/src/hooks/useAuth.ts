@@ -65,6 +65,19 @@ export function useAuth() {
     await instance.logoutRedirect({ postLogoutRedirectUri: "/" });
   }, [instance]);
 
+  /** Force the Microsoft account picker so the user can switch tenants. */
+  const switchTenant = useCallback(async () => {
+    try {
+      await instance.loginRedirect({
+        ...loginRequest,
+        prompt: "select_account",
+      } as RedirectRequest);
+    } catch (err) {
+      console.error("Tenant switch failed:", err);
+      throw err;
+    }
+  }, [instance]);
+
   /**
    * Get a Graph API access token with full audit scopes.
    * Uses incremental consent — if the user hasn't consented to these
@@ -104,8 +117,10 @@ export function useAuth() {
     roles,
     highestRole,
     hasMfa,
+    tenantId: account?.tenantId ?? null,
     login,
     logout,
+    switchTenant,
     getToken,
   };
 }

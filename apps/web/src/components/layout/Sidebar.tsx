@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import Image from "next/image";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: "dashboard" },
@@ -13,7 +14,7 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { user } = useAuth();
+  const { user, switchTenant, tenantId } = useAuth();
 
   const initials = user?.name
     ? user.name
@@ -24,13 +25,47 @@ export function Sidebar() {
         .slice(0, 2)
     : "U";
 
+  // Extract tenant domain from email (e.g., "admin@contoso.com" → "contoso.com")
+  const tenantDomain = user?.email?.split("@")[1] ?? "Unknown tenant";
+
   return (
-    <aside className="flex h-screen w-64 flex-col bg-[#001A33] fixed left-0 top-0 z-40">
-      {/* Wordmark */}
-      <div className="px-6 pt-8 pb-10">
-        <span className="text-xl font-black tracking-widest text-white">
-          OMZIG
-        </span>
+    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col bg-[#001A33]">
+      {/* Logo */}
+      <div className="px-6 pb-6 pt-6">
+        <Image
+          src="/omzig-logo.svg"
+          alt="Omzig"
+          width={120}
+          height={30}
+          className="brightness-0 invert"
+          priority
+        />
+      </div>
+
+      {/* Tenant indicator */}
+      <div className="mx-4 mb-6 rounded-lg bg-white/5 px-3 py-2.5">
+        <div className="flex items-center gap-2">
+          <span className="material-symbols-outlined text-[16px] text-[#00A3A3]">
+            domain
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-semibold text-white">
+              {tenantDomain}
+            </p>
+            <p className="truncate text-[10px] text-slate-500">
+              {tenantId ? `${tenantId.slice(0, 8)}...` : "Tenant"}
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={switchTenant}
+          className="mt-2 flex w-full items-center justify-center gap-1.5 rounded bg-white/10 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#00A3A3] transition hover:bg-white/15"
+        >
+          <span className="material-symbols-outlined text-[14px]">
+            swap_horiz
+          </span>
+          Switch Tenant
+        </button>
       </div>
 
       {/* Navigation */}
@@ -42,7 +77,7 @@ export function Sidebar() {
             return (
               <div
                 key={item.href}
-                className="mx-2 flex items-center gap-3 rounded px-4 py-2.5 text-slate-400 cursor-default"
+                className="mx-2 flex cursor-default items-center gap-3 rounded px-4 py-2.5 text-slate-400"
               >
                 <span className="material-symbols-outlined text-[20px]">
                   {item.icon}
