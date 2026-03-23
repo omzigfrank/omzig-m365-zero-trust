@@ -3,7 +3,7 @@
 import { useMsal, useAccount } from "@azure/msal-react";
 import { InteractionRequiredAuthError, type RedirectRequest } from "@azure/msal-browser";
 import { useCallback, useMemo } from "react";
-import { loginRequest, apiScopes, type OmzigTokenClaims } from "@/lib/msal";
+import { loginRequest, graphScopes, type OmzigTokenClaims } from "@/lib/msal";
 import type { Role } from "@omzig/shared";
 import { ROLE_HIERARCHY, ROLES } from "@omzig/shared";
 
@@ -63,14 +63,14 @@ export function useAuth() {
 
     try {
       const result = await instance.acquireTokenSilent({
-        scopes: apiScopes,
+        scopes: graphScopes,
         account,
       });
       return result.accessToken;
     } catch (err) {
       if (err instanceof InteractionRequiredAuthError) {
         await instance.acquireTokenRedirect({
-          scopes: apiScopes,
+          scopes: graphScopes,
           account,
         });
         // Won't reach here -- page redirects

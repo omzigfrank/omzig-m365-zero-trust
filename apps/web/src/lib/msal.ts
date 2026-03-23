@@ -19,7 +19,8 @@ const msalConfig: Configuration = {
   auth: {
     clientId: process.env.NEXT_PUBLIC_MSAL_CLIENT_ID || "",
     authority: `https://login.microsoftonline.com/${process.env.NEXT_PUBLIC_AZURE_TENANT_ID || "common"}`,
-    redirectUri: process.env.NEXT_PUBLIC_MSAL_REDIRECT_URI || "http://localhost:3000",
+    redirectUri:
+      process.env.NEXT_PUBLIC_MSAL_REDIRECT_URI || "http://localhost:3000",
     postLogoutRedirectUri: "/",
     navigateToLoginRequestUrl: true,
   },
@@ -41,18 +42,32 @@ const msalConfig: Configuration = {
 };
 
 /**
- * Scopes for the backend API. Uses the custom scope exposed by the API app registration.
- * This is distinct from Graph API scopes -- the backend handles Graph calls itself.
+ * Graph API scopes needed for the client-side audit.
+ * The audit collects tenant configuration directly from Graph in the browser.
  */
-export const apiScopes = [
-  `api://${process.env.NEXT_PUBLIC_MSAL_CLIENT_ID}/access_as_user`,
+export const graphScopes = [
+  "User.Read",
+  "Directory.Read.All",
+  "Policy.Read.All",
+  "DeviceManagementManagedDevices.Read.All",
+  "Reports.Read.All",
+  "Domain.Read.All",
+  "Application.Read.All",
+  "RoleManagement.Read.Directory",
+  "InformationProtectionPolicy.Read.All",
 ];
 
 /**
- * Login request uses API scopes so the returned token can call the Hono backend.
+ * Kept for backward compat — aliases graphScopes.
+ * Previously pointed at a custom api:// scope for the Hono backend.
+ */
+export const apiScopes = graphScopes;
+
+/**
+ * Login request uses Graph scopes so the user consents to audit permissions up front.
  */
 export const loginRequest = {
-  scopes: apiScopes,
+  scopes: graphScopes,
 };
 
 export const msalInstance = new PublicClientApplication(msalConfig);

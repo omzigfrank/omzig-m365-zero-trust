@@ -1,4 +1,4 @@
-import { msalInstance, apiScopes } from "./msal";
+import { msalInstance, graphScopes as apiScopes } from "./msal";
 import type { ApiResponse } from "@omzig/shared";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 
