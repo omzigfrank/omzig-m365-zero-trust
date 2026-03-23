@@ -31,19 +31,25 @@ const msalConfig: Configuration = {
   system: {
     loggerOptions: {
       loggerCallback: (level, message) => {
-        if (level === LogLevel.Error) {
-          console.error("[MSAL]", message);
+        if (level <= LogLevel.Warning) {
+          console.warn("[MSAL]", message);
         }
       },
-      logLevel: LogLevel.Error,
+      logLevel: LogLevel.Warning,
       piiLoggingEnabled: false,
     },
   },
 };
 
 /**
- * Graph API scopes needed for the client-side audit.
- * The audit collects tenant configuration directly from Graph in the browser.
+ * Minimal login scopes — just enough to sign in.
+ * Additional Graph scopes are requested incrementally when the audit runs.
+ */
+export const loginScopes = ["User.Read"];
+
+/**
+ * Full Graph API scopes needed for the client-side audit.
+ * Requested via incremental consent when the user clicks "Run Audit".
  */
 export const graphScopes = [
   "User.Read",
@@ -54,20 +60,13 @@ export const graphScopes = [
   "Domain.Read.All",
   "Application.Read.All",
   "RoleManagement.Read.Directory",
-  "InformationProtectionPolicy.Read.All",
 ];
 
 /**
- * Kept for backward compat — aliases graphScopes.
- * Previously pointed at a custom api:// scope for the Hono backend.
- */
-export const apiScopes = graphScopes;
-
-/**
- * Login request uses Graph scopes so the user consents to audit permissions up front.
+ * Login request — minimal scopes for sign-in only.
  */
 export const loginRequest = {
-  scopes: graphScopes,
+  scopes: loginScopes,
 };
 
 export const msalInstance = new PublicClientApplication(msalConfig);

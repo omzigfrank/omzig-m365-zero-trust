@@ -1,9 +1,16 @@
 "use client";
 
 import { useMsal, useAccount } from "@azure/msal-react";
-import { InteractionRequiredAuthError, type RedirectRequest } from "@azure/msal-browser";
+import {
+  InteractionRequiredAuthError,
+  type RedirectRequest,
+} from "@azure/msal-browser";
 import { useCallback, useMemo } from "react";
-import { loginRequest, graphScopes, type OmzigTokenClaims } from "@/lib/msal";
+import {
+  loginRequest,
+  graphScopes,
+  type OmzigTokenClaims,
+} from "@/lib/msal";
 import type { Role } from "@omzig/shared";
 import { ROLE_HIERARCHY, ROLES } from "@omzig/shared";
 
@@ -58,6 +65,11 @@ export function useAuth() {
     await instance.logoutRedirect({ postLogoutRedirectUri: "/" });
   }, [instance]);
 
+  /**
+   * Get a Graph API access token with full audit scopes.
+   * Uses incremental consent — if the user hasn't consented to these
+   * scopes yet, MSAL will redirect to Microsoft for consent.
+   */
   const getToken = useCallback(async (): Promise<string> => {
     if (!account) throw new Error("No account signed in");
 
@@ -69,6 +81,8 @@ export function useAuth() {
       return result.accessToken;
     } catch (err) {
       if (err instanceof InteractionRequiredAuthError) {
+        // Incremental consent: redirect to Microsoft to get approval
+        // for the full set of Graph scopes
         await instance.acquireTokenRedirect({
           scopes: graphScopes,
           account,

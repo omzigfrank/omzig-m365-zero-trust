@@ -1,4 +1,4 @@
-import { msalInstance, graphScopes as apiScopes } from "./msal";
+import { msalInstance, graphScopes } from "./msal";
 import type { ApiResponse } from "@omzig/shared";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 
@@ -17,14 +17,14 @@ async function getAccessToken(): Promise<string> {
 
   try {
     const result = await msalInstance.acquireTokenSilent({
-      scopes: apiScopes,
+      scopes: graphScopes,
       account: accounts[0],
     });
     return result.accessToken;
   } catch (err) {
     if (err instanceof InteractionRequiredAuthError) {
       await msalInstance.acquireTokenRedirect({
-        scopes: apiScopes,
+        scopes: graphScopes,
         account: accounts[0],
       });
       // Won't reach here -- page redirects
@@ -72,7 +72,7 @@ async function apiRequest<T>(
   // Handle 401: redirect to login
   if (response.status === 401) {
     await msalInstance.acquireTokenRedirect({
-      scopes: apiScopes,
+      scopes: graphScopes,
       account: msalInstance.getAllAccounts()[0],
     });
     // Won't reach here -- page redirects
