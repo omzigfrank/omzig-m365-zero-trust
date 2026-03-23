@@ -1,6 +1,5 @@
 "use client";
 
-import { FileText, FileSpreadsheet, FileJson } from "lucide-react";
 import type { AuditRunDetail } from "@/lib/types";
 
 export function ExportButtons({ data }: { data: AuditRunDetail }) {
@@ -41,24 +40,26 @@ export function ExportButtons({ data }: { data: AuditRunDetail }) {
     <div className="flex gap-2">
       <button
         onClick={downloadJson}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+        className="inline-flex items-center gap-1.5 rounded-lg bg-surface-container-high px-3 py-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant transition hover:bg-surface-container-highest"
       >
-        <FileJson className="h-4 w-4" />
+        <span className="material-symbols-outlined text-base">download</span>
         JSON
       </button>
       <button
         onClick={downloadCsv}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+        className="inline-flex items-center gap-1.5 rounded-lg bg-surface-container-high px-3 py-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant transition hover:bg-surface-container-highest"
       >
-        <FileSpreadsheet className="h-4 w-4" />
+        <span className="material-symbols-outlined text-base">table_view</span>
         CSV
       </button>
       <button
         disabled
-        className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-400 opacity-50"
+        className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-lg shadow-primary/20 transition hover:bg-primary/90 disabled:opacity-60"
         title="Coming soon"
       >
-        <FileText className="h-4 w-4" />
+        <span className="material-symbols-outlined text-base">
+          picture_as_pdf
+        </span>
         PDF
       </button>
     </div>

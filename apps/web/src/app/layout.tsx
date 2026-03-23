@@ -20,10 +20,6 @@ export default function RootLayout({
       .then((response) => {
         if (response?.account) {
           msalInstance.setActiveAccount(response.account);
-          console.log(
-            "[MSAL] Login successful:",
-            response.account.username,
-          );
         }
         setReady(true);
       })
@@ -39,11 +35,27 @@ export default function RootLayout({
   if (!ready) {
     return (
       <html lang="en">
-        <body className="bg-gray-50">
+        <head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="anonymous"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+            rel="stylesheet"
+          />
+        </head>
+        <body className="bg-surface">
           <div className="flex h-screen items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
-              <p className="text-sm text-gray-500">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary-container border-t-transparent" />
+              <p className="text-sm text-on-surface-variant">
                 Loading Omzig Security...
               </p>
             </div>
@@ -59,13 +71,27 @@ export default function RootLayout({
         <title>Omzig Security Audit</title>
         <meta
           name="description"
-          content="M365 Zero Trust auditing platform for MSPs"
+          content="CISA SCuBA and NIST Zero Trust security audit for Microsoft 365"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
         />
       </head>
-      <body className="bg-gray-50 text-gray-900 antialiased">
+      <body>
         <MsalProvider instance={msalInstance}>
           {initError && (
-            <div className="border-b border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-700">
+            <div className="border-b border-tertiary/20 bg-error-container px-4 py-3 text-center text-sm text-tertiary">
               Auth error: {initError}
             </div>
           )}

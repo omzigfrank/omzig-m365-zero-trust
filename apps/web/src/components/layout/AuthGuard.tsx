@@ -7,7 +7,6 @@ import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import type { Role, Permission } from "@omzig/shared";
 import { ROLE_HIERARCHY, hasPermission } from "@omzig/shared";
-import { ShieldAlert } from "lucide-react";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -33,8 +32,8 @@ export function AuthGuard({
 
   if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
+      <div className="flex h-screen items-center justify-center bg-surface">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-container border-t-transparent" />
       </div>
     );
   }
@@ -47,9 +46,9 @@ export function AuthGuard({
       return (
         <div className="flex h-screen">
           <Sidebar />
-          <div className="flex flex-1 flex-col overflow-hidden">
+          <div className="ml-64 flex flex-1 flex-col overflow-hidden">
             <Header />
-            <main className="flex flex-1 items-center justify-center p-8">
+            <main className="flex flex-1 items-center justify-center bg-surface p-8">
               <InsufficientPermissions
                 message={`This page requires the ${requiredRole} role or higher.`}
               />
@@ -66,9 +65,9 @@ export function AuthGuard({
       return (
         <div className="flex h-screen">
           <Sidebar />
-          <div className="flex flex-1 flex-col overflow-hidden">
+          <div className="ml-64 flex flex-1 flex-col overflow-hidden">
             <Header />
-            <main className="flex flex-1 items-center justify-center p-8">
+            <main className="flex flex-1 items-center justify-center bg-surface p-8">
               <InsufficientPermissions
                 message={`You do not have the "${requiredPermission}" permission.`}
               />
@@ -82,9 +81,11 @@ export function AuthGuard({
   return (
     <div className="flex h-screen">
       <Sidebar />
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="ml-64 flex flex-1 flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-y-auto p-8">{children}</main>
+        <main className="flex-1 overflow-y-auto bg-surface p-8">
+          {children}
+        </main>
       </div>
     </div>
   );
@@ -93,12 +94,14 @@ export function AuthGuard({
 function InsufficientPermissions({ message }: { message: string }) {
   return (
     <div className="flex max-w-md flex-col items-center text-center">
-      <ShieldAlert className="h-12 w-12 text-amber-500" />
-      <h2 className="mt-4 text-xl font-semibold text-gray-900">
+      <span className="material-symbols-outlined text-[48px] text-amber-500">
+        shield
+      </span>
+      <h2 className="mt-4 text-xl font-semibold text-on-surface">
         Insufficient Permissions
       </h2>
-      <p className="mt-2 text-sm text-gray-600">{message}</p>
-      <p className="mt-1 text-sm text-gray-500">
+      <p className="mt-2 text-sm text-on-surface-variant">{message}</p>
+      <p className="mt-1 text-sm text-on-surface-variant/70">
         Contact your administrator if you believe this is an error.
       </p>
     </div>

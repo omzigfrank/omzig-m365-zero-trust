@@ -2,11 +2,11 @@ import { clsx } from "clsx";
 import type { AuditRating } from "@/lib/types";
 
 const ratingStyles: Record<AuditRating, string> = {
-  pass: "bg-green-100 text-green-800 border-green-200",
-  fail: "bg-red-100 text-red-800 border-red-200",
-  warn: "bg-yellow-100 text-yellow-800 border-yellow-200",
-  blocker: "bg-red-200 text-red-900 border-red-300",
-  na: "bg-gray-100 text-gray-600 border-gray-200",
+  pass: "bg-primary-container text-on-primary-container",
+  fail: "bg-tertiary text-white",
+  warn: "bg-amber-500 text-white",
+  blocker: "bg-error text-on-error",
+  na: "bg-outline-variant text-on-surface-variant",
 };
 
 const ratingLabels: Record<AuditRating, string> = {
@@ -21,8 +21,8 @@ export function Badge({ rating }: { rating: AuditRating }) {
   return (
     <span
       className={clsx(
-        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium",
-        ratingStyles[rating]
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide",
+        ratingStyles[rating],
       )}
     >
       {ratingLabels[rating]}
