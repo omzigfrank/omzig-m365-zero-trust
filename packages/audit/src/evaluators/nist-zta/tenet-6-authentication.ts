@@ -5,45 +5,114 @@
  */
 import type { EvaluatorFn } from '../types.js';
 
-/** T6.1 -- MFA registration coverage */
+/**
+ * T6.1 -- MFA enforcement / registration coverage.
+ *
+ * Primary: checks MFA registration rate from /reports/authenticationMethods.
+ * Fallback: if that endpoint is unavailable, analyses Conditional Access
+ * policies for MFA enforcement (builtInControls includes 'mfa' or
+ * authenticationStrength is set).  This covers the common case where
+ * MFA is enforced via CA policies rather than per-user MFA.
+ */
 export const evaluateZTA_T6_1: EvaluatorFn = (facts) => {
-  if (!facts.mfa.available) {
+  // ── Primary path: MFA registration data available ──────────────────
+  if (facts.mfa.available) {
+    if (facts.mfa.percentage >= 95) {
+      return {
+        rating: 'pass',
+        message: `${facts.mfa.percentage}% users MFA-registered.`,
+        settingName: 'MFA Registration',
+        currentValue: `${facts.mfa.percentage}%`,
+        expectedValue: '>= 95%',
+      };
+    }
+    if (facts.mfa.percentage >= 80) {
+      return {
+        rating: 'warn',
+        message: `${facts.mfa.percentage}% MFA (target 95%).`,
+        action: 'Continue MFA enrollment campaign.',
+        settingName: 'MFA Registration',
+        currentValue: `${facts.mfa.percentage}%`,
+        expectedValue: '>= 95%',
+      };
+    }
     return {
       rating: 'fail',
-      message: 'Could not retrieve MFA data.',
+      message: `${facts.mfa.percentage}% MFA (target 95%).`,
+      action: 'Immediately begin MFA registration campaign.',
       settingName: 'MFA Registration',
-      currentValue: 'Unknown',
-      expectedValue: '>= 95% MFA registration',
-      requiredPermission: 'UserAuthenticationMethod.Read.All',
+      currentValue: `${facts.mfa.percentage}%`,
+      expectedValue: '>= 95%',
     };
   }
 
-  if (facts.mfa.percentage >= 95) {
+  // ── Fallback: analyse Conditional Access policies for MFA enforcement ──
+  if (facts.conditionalAccess.available && facts.conditionalAccess.policies.length > 0) {
+    const mfaPolicies = facts.conditionalAccess.policies.filter((p) => {
+      const controls = p.grantControls?.builtInControls ?? [];
+      const hasAuthStrength = p.grantControls?.authenticationStrength != null;
+      return controls.includes('mfa') || hasAuthStrength;
+    });
+
+    const enabledMfa = mfaPolicies.filter((p) => p.state === 'enabled');
+    const reportOnlyMfa = mfaPolicies.filter((p) => p.state === 'enabledForReportingButNotEnforced');
+
+    // Check if any enabled MFA policy targets All Users + All Cloud Apps
+    const broadEnabled = enabledMfa.filter((p) => {
+      const users = p.conditions?.users?.includeUsers ?? [];
+      return users.includes('All');
+    });
+
+    const totalMfa = enabledMfa.length + reportOnlyMfa.length;
+    const policyNames = mfaPolicies.map((p) => p.displayName).join(', ');
+
+    if (broadEnabled.length > 0) {
+      return {
+        rating: 'pass',
+        message: `MFA enforced via ${enabledMfa.length} enabled CA policy(ies) targeting All Users: ${policyNames}.`,
+        settingName: 'MFA Enforcement (CA Policy)',
+        currentValue: `${enabledMfa.length} enabled, ${reportOnlyMfa.length} report-only`,
+        expectedValue: 'MFA required via CA policy',
+      };
+    }
+    if (enabledMfa.length > 0) {
+      return {
+        rating: 'pass',
+        message: `MFA enforced via ${enabledMfa.length} enabled CA policy(ies): ${policyNames}. Consider expanding to All Users.`,
+        settingName: 'MFA Enforcement (CA Policy)',
+        currentValue: `${enabledMfa.length} enabled, ${reportOnlyMfa.length} report-only`,
+        expectedValue: 'MFA required via CA policy',
+      };
+    }
+    if (reportOnlyMfa.length > 0) {
+      return {
+        rating: 'warn',
+        message: `${reportOnlyMfa.length} MFA CA policy(ies) in report-only mode: ${policyNames}. Enable to enforce.`,
+        action: 'Switch MFA CA policies from report-only to enabled.',
+        settingName: 'MFA Enforcement (CA Policy)',
+        currentValue: `${totalMfa} total (all report-only)`,
+        expectedValue: 'MFA required via enabled CA policy',
+      };
+    }
+
     return {
-      rating: 'pass',
-      message: `${facts.mfa.percentage}% users MFA-registered.`,
-      settingName: 'MFA Registration',
-      currentValue: `${facts.mfa.percentage}%`,
-      expectedValue: '>= 95%',
+      rating: 'fail',
+      message: 'No CA policies require MFA. MFA registration endpoint also unavailable.',
+      action: 'Create a Conditional Access policy requiring MFA for All Users.',
+      settingName: 'MFA Enforcement',
+      currentValue: 'No MFA policies found',
+      expectedValue: 'MFA required via CA policy or registration >= 95%',
     };
   }
-  if (facts.mfa.percentage >= 80) {
-    return {
-      rating: 'warn',
-      message: `${facts.mfa.percentage}% MFA (target 95%).`,
-      action: 'Continue MFA enrollment campaign.',
-      settingName: 'MFA Registration',
-      currentValue: `${facts.mfa.percentage}%`,
-      expectedValue: '>= 95%',
-    };
-  }
+
+  // Neither source available
   return {
-    rating: 'fail',
-    message: `${facts.mfa.percentage}% MFA (target 95%).`,
-    action: 'Immediately begin MFA registration campaign.',
-    settingName: 'MFA Registration',
-    currentValue: `${facts.mfa.percentage}%`,
-    expectedValue: '>= 95%',
+    rating: 'na',
+    message: 'MFA registration endpoint unavailable and no CA policies found. Cannot assess MFA coverage.',
+    settingName: 'MFA Enforcement',
+    currentValue: 'Unknown',
+    expectedValue: 'MFA required via CA policy or registration >= 95%',
+    requiredPermission: 'UserAuthenticationMethod.Read.All',
   };
 };
 

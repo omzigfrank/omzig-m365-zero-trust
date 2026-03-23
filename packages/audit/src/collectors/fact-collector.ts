@@ -26,7 +26,7 @@ import { parseLicenses } from './areas/licenses.js';
 import { parseDomains } from './areas/domains.js';
 import { parsePimRoles } from './areas/pim-roles.js';
 import { parseAppRegistrations } from './areas/app-registrations.js';
-import { parseSensitivityLabels } from './areas/sensitivity-labels.js';
+import { parseSensitivityLabels, cleanSensitivityLabelsError } from './areas/sensitivity-labels.js';
 
 /**
  * Collect all tenant configuration facts from Microsoft Graph API.
@@ -229,10 +229,7 @@ export async function collectFacts(
     facts.sensitivityLabels = {
       available: false,
       totalLabels: 0,
-      error:
-        err instanceof Error
-          ? `Sensitivity labels not available: ${err.message}`
-          : 'Failed to retrieve sensitivity labels.',
+      error: cleanSensitivityLabelsError(err),
     };
   }
 
