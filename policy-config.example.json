@@ -1,0 +1,8 @@
+[
+  { "id": "<your-ca001-policy-id>", "name": "CA001-Block-Legacy-Auth", "safe": true },
+  { "id": "<your-ca002-policy-id>", "name": "CA002-Require-MFA-All-Users", "safe": true },
+  { "id": "<your-ca003-policy-id>", "name": "CA003-Require-MFA-Admins", "safe": true },
+  { "id": "<your-ca004-policy-id>", "name": "CA004-Require-Compliant-Device", "safe": false },
+  { "id": "<your-ca005-policy-id>", "name": "CA005-Block-High-Risk-Users", "safe": true },
+  { "id": "<your-ca006-policy-id>", "name": "CA006-MFA-Risky-SignIn", "safe": true }
+]

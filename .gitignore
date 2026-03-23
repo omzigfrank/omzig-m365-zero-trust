@@ -15,13 +15,18 @@ functions/local.settings.json
 functions/.python_packages/
 functions/bin/
 functions/obj/
+local.settings.json
+bin/
+obj/
 
 # IDE and editor files
 .vs/
 .vscode/
+.idea/
 *.suo
 *.user
 *.swp
+*.swo
 *~
 
 # OS files
@@ -30,6 +35,7 @@ Thumbs.db
 
 # Node
 node_modules/
+package-lock.json
 
 # Next.js build output
 apps/web/.next/
@@ -42,8 +48,13 @@ dist/
 .turbo/
 
 # Environment files
+.env
+.env.*
 .env.local
 .env*.local
 
 # PowerShell module cache
 .modules/
+
+# Policy config (contains tenant-specific GUIDs)
+policy-config.json
