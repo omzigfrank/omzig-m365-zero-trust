@@ -280,8 +280,8 @@ Get-DkimSigningConfig -Identity '$($config.primaryDomain)' | Format-List Selecto
     if ($config.primaryDomain) {
         Write-Host "Generating DMARC recommendation..."
 
-        $dmarcPolicy = if ($config.hipaaEnabled) { "reject" } else { "quarantine" }
-        $adminEmail = $config.adminEmail ?? "dmarc@$($config.primaryDomain)"
+        $dmarcPolicy = $(if ($config.hipaaEnabled) { "reject" } else { "quarantine" })
+        $adminEmail = $(if ($config.adminEmail) { $config.adminEmail } else { "dmarc@$($config.primaryDomain)" })
 
         $results.dmarc = @{
             domain = $config.primaryDomain
@@ -318,7 +318,7 @@ Get-DkimSigningConfig -Identity '$($config.primaryDomain)' | Format-List Selecto
         antiPhishing = @{
             enableMailboxIntelligence = $true
             enableSpoofIntelligence = $true
-            phishThresholdLevel = if ($config.hipaaEnabled) { 3 } else { 2 }
+            phishThresholdLevel = $(if ($config.hipaaEnabled) { 3 } else { 2 })
             note = "Configure via Defender for Office 365 policies"
         }
         safeAttachments = @{

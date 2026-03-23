@@ -9,6 +9,7 @@ param($Request, $TriggerMetadata)
     Configures DLP policies and sensitivity labels
 #>
 
+$ErrorActionPreference = "Stop"
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 
 Write-Host "Deploy-Data started"
@@ -55,7 +56,7 @@ try {
             name = $rule.name
             sensitiveType = $rule.sensitiveType
             action = $rule.action
-            status = "Configured"
+            status = "Planned"
         }
         Write-Host "DLP configured: $($rule.name)"
     }
@@ -84,7 +85,7 @@ try {
             name = $label.name
             priority = $label.priority
             encryption = $label.encryption
-            status = "Configured"
+            status = "Planned"
         }
         Write-Host "Label configured: $($label.name)"
     }
@@ -111,7 +112,7 @@ catch {
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::InternalServerError
-        Body = (@{ status = "Failed"; error = $_.Exception.Message; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
+        Body = (@{ status = "Failed"; error = "Deploy-Data failed. Check function logs for details."; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
         Headers = @{ 'Content-Type' = 'application/json' }
     })
 }

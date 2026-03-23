@@ -65,11 +65,11 @@ try {
 
     if ($subscribedSkus.value) {
         foreach ($sku in $subscribedSkus.value) {
-            $friendlyName = $skuNames[$sku.skuPartNumber] ?? $sku.skuPartNumber
+            $friendlyName = $(if ($skuNames[$sku.skuPartNumber]) { $skuNames[$sku.skuPartNumber] } else { $sku.skuPartNumber })
             $total = $sku.prepaidUnits.enabled
             $consumed = $sku.consumedUnits
             $available = $total - $consumed
-            $utilizationPct = if ($total -gt 0) { [math]::Round(($consumed / $total) * 100, 2) } else { 0 }
+            $utilizationPct = $(if ($total -gt 0) { [math]::Round(($consumed / $total) * 100, 2) } else { 0 })
 
             $result.subscriptions += @{
                 skuId = $sku.skuId
@@ -124,12 +124,12 @@ try {
         totalLicenses = $totalLicenses
         consumedLicenses = $totalConsumed
         availableLicenses = $totalAvailable
-        overallUtilization = if ($totalLicenses -gt 0) {
+        overallUtilization = $(if ($totalLicenses -gt 0) {
             [math]::Round(($totalConsumed / $totalLicenses) * 100, 2)
-        } else { 0 }
-        subscriptionCount = $result.subscriptions.Count
-        underutilizedSkus = ($result.recommendations | Where-Object { $_.type -eq "Underutilized" }).Count
-        atCapacitySkus = ($result.recommendations | Where-Object { $_.type -eq "AtCapacity" }).Count
+        } else { 0 })
+        subscriptionCount = @($result.subscriptions).Count
+        underutilizedSkus = @($result.recommendations | Where-Object { $_.type -eq "Underutilized" }).Count
+        atCapacitySkus = @($result.recommendations | Where-Object { $_.type -eq "AtCapacity" }).Count
     }
 
     # ═══════════════════════════════════════════════════════════════════
@@ -142,7 +142,7 @@ try {
 
     if ($usersWithoutLicenses.value) {
         $result.usersWithoutLicenses = @{
-            count = $usersWithoutLicenses.'@odata.count' ?? $usersWithoutLicenses.value.Count
+            count = $(if ($usersWithoutLicenses.'@odata.count') { $usersWithoutLicenses.'@odata.count' } else { $usersWithoutLicenses.value.Count })
             sample = ($usersWithoutLicenses.value | Select-Object -First 10 | ForEach-Object {
                 @{
                     displayName = $_.displayName
@@ -169,25 +169,25 @@ try {
     if ($result.summary.overallUtilization -lt 80) {
         $optimizationScore -= (80 - $result.summary.overallUtilization)
     }
-    $optimizationScore -= ($result.recommendations | Where-Object { $_.type -eq "Underutilized" }).Count * 5
+    $optimizationScore -= @($result.recommendations | Where-Object { $_.type -eq "Underutilized" }).Count * 5
     $optimizationScore = [math]::Max(0, $optimizationScore)
 
     $result.optimizationScore = @{
         score = $optimizationScore
-        grade = switch ($optimizationScore) {
+        grade = $(switch ($optimizationScore) {
             { $_ -ge 90 } { "A" }
             { $_ -ge 80 } { "B" }
             { $_ -ge 70 } { "C" }
             { $_ -ge 60 } { "D" }
             default { "F" }
-        }
-        recommendation = if ($optimizationScore -ge 90) {
+        })
+        recommendation = $(if ($optimizationScore -ge 90) {
             "License utilization is well optimized"
         } elseif ($optimizationScore -ge 70) {
             "Consider reviewing underutilized licenses"
         } else {
             "Significant license optimization opportunity exists"
-        }
+        })
     }
 
 } catch {
@@ -200,7 +200,7 @@ try {
 $responseBody = $result | ConvertTo-Json -Depth 10
 
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-    StatusCode = if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError }
+    StatusCode = $(if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError })
     Headers = @{ 'Content-Type' = 'application/json' }
     Body = $responseBody
 })

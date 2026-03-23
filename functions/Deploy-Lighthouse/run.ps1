@@ -22,12 +22,12 @@ $body = $Request.Body
 # Extract configuration parameters
 $config = @{
     mspTenantId             = $body.mspTenantId
-    mspOfferName            = $body.mspOfferName ?? 'Omzig Managed Services'
-    mspOfferDescription     = $body.mspOfferDescription ?? 'Zero Trust management and security operations'
+    mspOfferName            = $(if ($body.mspOfferName) { $body.mspOfferName } else { 'Omzig Managed Services' })
+    mspOfferDescription     = $(if ($body.mspOfferDescription) { $body.mspOfferDescription } else { 'Zero Trust management and security operations' })
     helpDeskGroupId         = $body.helpDeskGroupId
     securityTeamGroupId     = $body.securityTeamGroupId
     adminGroupId            = $body.adminGroupId
-    enableJitAccess         = $body.enableJitAccess ?? $false
+    enableJitAccess         = $(if ($null -ne $body.enableJitAccess) { $body.enableJitAccess } else { $false })
     targetSubscriptionId    = $body.targetSubscriptionId
     alertEmail              = $body.alertEmail
 }
@@ -200,7 +200,7 @@ try {
                 emailReceivers = @(
                     @{
                         name = "MSP SOC"
-                        emailAddress = $config.alertEmail ?? "soc@msp.com"
+                        emailAddress = $(if ($config.alertEmail) { $config.alertEmail } else { "soc@msp.com" })
                         useCommonAlertSchema = $true
                     }
                 )
@@ -213,7 +213,7 @@ try {
                 emailReceivers = @(
                     @{
                         name = "MSP Operations"
-                        emailAddress = $config.alertEmail ?? "ops@msp.com"
+                        emailAddress = $(if ($config.alertEmail) { $config.alertEmail } else { "ops@msp.com" })
                         useCommonAlertSchema = $true
                     }
                 )

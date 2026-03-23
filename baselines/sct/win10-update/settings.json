@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "id": "win10-update",
+    "name": "Windows 10 Update Baseline",
+    "os": [
+      "Windows 10"
+    ],
+    "category": "update",
+    "year": 2020
+  },
+  "totalSettings": 0,
+  "policyGroups": [],
+  "ztPillarBreakdown": {},
+  "settings": []
+}

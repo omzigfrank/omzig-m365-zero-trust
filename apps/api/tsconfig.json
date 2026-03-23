@@ -1,0 +1,19 @@
+{
+  "extends": "@omzig/tsconfig/node.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/__tests__",
+    "src/middleware/tenant.ts",
+    "src/services/keyvault.ts",
+    "src/services/tenant-db.ts",
+    "src/services/oauth-consent.ts",
+    "src/services/gdap-verification.ts",
+    "src/services/tenant-provisioning.ts"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "profileId": "sct-win10-1809-user",
+  "displayName": "SCT - Windows 10 v1809 / Server 2019 - MSFT Internet Explorer 11 - User",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Internet Explorer 11 - User. Auto-generated from SCT GPO backup. Contains 3 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Internet Explorer 11 - User",
+  "settingsCount": 3,
+  "settings": [
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Control Panel/FormSuggest Passwords",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Control Panel\\FormSuggest Passwords",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FormSuggest PW Ask",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FormSuggest PW Ask",
+      "value": "no",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FormSuggest Passwords",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FormSuggest Passwords",
+      "value": "no",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    }
+  ]
+}

@@ -1,0 +1,1331 @@
+{
+  "profileId": "sct-win10-20h2-computer",
+  "displayName": "SCT - Windows 10 v20H2 / Server v20H2 - MSFT Internet Explorer 11 - Computer",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Internet Explorer 11 - Computer. Auto-generated from SCT GPO backup. Contains 132 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Internet Explorer 11 - Computer",
+  "settingsCount": 132,
+  "settings": [
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Ext/RunThisTimeEnabled",
+      "displayName": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext\\RunThisTimeEnabled",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Ext/VersionCheckEnabled",
+      "displayName": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext\\VersionCheckEnabled",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Download/RunInvalidSignatures",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Download\\RunInvalidSignatures",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Download/CheckExeSignatures",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Download\\CheckExeSignatures",
+      "value": "yes",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/Isolation64Bit",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\Isolation64Bit",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/DisableEPMCompat",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\DisableEPMCompat",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/Isolation",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\Isolation",
+      "value": "PMEM",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_DISABLE_MK_PROTOCOL/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_DISABLE_MK_PROTOCOL/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_DISABLE_MK_PROTOCOL/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_HANDLING/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_HANDLING/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_HANDLING/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_SNIFFING/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_SNIFFING/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_MIME_SNIFFING/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_ACTIVEXINSTALL/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_ACTIVEXINSTALL/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_ACTIVEXINSTALL/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_FILEDOWNLOAD/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_FILEDOWNLOAD/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_RESTRICT_FILEDOWNLOAD/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_SECURITYBAND/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_SECURITYBAND/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_SECURITYBAND/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_WINDOW_RESTRICTIONS/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_WINDOW_RESTRICTIONS/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_WINDOW_RESTRICTIONS/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_ZONE_ELEVATION/(Reserved)",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION\\(Reserved)",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_ZONE_ELEVATION/explorer.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION\\explorer.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Main/FeatureControl/FEATURE_ZONE_ELEVATION/iexplore.exe",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION\\iexplore.exe",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/PhishingFilter/PreventOverrideAppRepUnknown",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter\\PreventOverrideAppRepUnknown",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/PhishingFilter/PreventOverride",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter\\PreventOverride",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/PhishingFilter/EnabledV9",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter\\EnabledV9",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Restrictions/NoCrashDetection",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Restrictions\\NoCrashDetection",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Security/DisableSecuritySettingsCheck",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Security\\DisableSecuritySettingsCheck",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Security/ActiveX/BlockNonAdminActiveXInstall",
+      "displayName": "Software\\Policies\\Microsoft\\Internet Explorer\\Security\\ActiveX\\BlockNonAdminActiveXInstall",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/AxInstaller/OnlyUseAXISForActiveXInstall",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\AxInstaller\\OnlyUseAXISForActiveXInstall",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Security_zones_map_edit",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Security_zones_map_edit",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Security_options_edit",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Security_options_edit",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Security_HKLM_only",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Security_HKLM_only",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/CertificateRevocation",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\CertificateRevocation",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/PreventIgnoreCertErrors",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\PreventIgnoreCertErrors",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/WarnOnBadCertRecving",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\WarnOnBadCertRecving",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/EnableSSL3Fallback",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\EnableSSL3Fallback",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/SecureProtocols",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\SecureProtocols",
+      "value": 2560,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/0/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\0\\1C00",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/1/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\1\\1C00",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/2/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\2\\1C00",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/3/2301",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\3\\2301",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/4/2301",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4\\2301",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Lockdown_Zones/4/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4\\1C00",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/ZoneMap/UNCAsIntranet",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap\\UNCAsIntranet",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/0/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0\\1C00",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/0/270C",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0\\270C",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/1/270C",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1\\270C",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/1/1201",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1\\1201",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/1/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1\\1C00",
+      "value": 65536,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/2/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2\\1C00",
+      "value": 65536,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/2/270C",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2\\270C",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/2/1201",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2\\1201",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2001",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2001",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2102",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2102",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1802",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1802",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/160A",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\160A",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1201",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1201",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1406",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1406",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1804",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1804",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2200",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2200",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1209",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1209",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1206",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1206",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1809",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1809",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2500",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2500",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2103",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2103",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1606",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1606",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2402",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2402",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2004",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2004",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1C00",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1001",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1001",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1A00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1A00",
+      "value": 65536,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2708",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2708",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1004",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1004",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/120b",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\120b",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1407",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1407",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1409",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1409",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/270C",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\270C",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1607",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1607",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2709",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2709",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2101",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2101",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/2301",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\2301",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/1806",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\1806",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/120c",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\120c",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/3/140C",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3\\140C",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1608",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1608",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1201",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1201",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1001",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1001",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1607",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1607",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/120b",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\120b",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1809",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1809",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1004",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1004",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1606",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1606",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1407",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1407",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/160A",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\160A",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1406",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1406",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2102",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2102",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2004",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2004",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2200",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2200",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2000",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2000",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1402",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1402",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1803",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1803",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2402",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2402",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1400",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1400",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1A00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1A00",
+      "value": 196608,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2001",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2001",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2500",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2500",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1409",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1409",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1C00",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1C00",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1209",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1209",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/270C",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\270C",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1206",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1206",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2708",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2708",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1802",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1802",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2103",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2103",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2709",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2709",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1405",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1405",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2101",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2101",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/2301",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\2301",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1200",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1200",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1804",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1804",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/1806",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\1806",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/120c",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\120c",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/Internet Settings/Zones/4/140C",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4\\140C",
+      "value": 3,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "Application"
+      ],
+      "hipaaControls": []
+    }
+  ]
+}

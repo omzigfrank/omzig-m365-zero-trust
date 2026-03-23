@@ -1,0 +1,41 @@
+{
+  "profileId": "sct-win10-1607-user",
+  "displayName": "SCT - Windows 10 v1607 / Server 2016 - SCM Windows 10 RS1 - User",
+  "description": "Microsoft Security Compliance Toolkit baseline: SCM Windows 10 RS1 - User. Auto-generated from SCT GPO backup. Contains 3 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "SCM Windows 10 RS1 - User",
+  "settingsCount": 3,
+  "settings": [
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/Control Panel/Desktop/ScreenSaveActive",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\Control Panel\\Desktop\\ScreenSaveActive",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/Control Panel/Desktop/ScreenSaverIsSecure",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\Control Panel\\Desktop\\ScreenSaverIsSecure",
+      "value": "1",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/PushNotifications/NoToastApplicationNotificationOnLockScreen",
+      "displayName": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\PushNotifications\\NoToastApplicationNotificationOnLockScreen",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    }
+  ]
+}

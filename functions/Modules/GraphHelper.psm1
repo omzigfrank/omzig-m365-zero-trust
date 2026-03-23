@@ -2,6 +2,7 @@
 # Uses direct REST API calls to avoid slow managed dependency loading
 
 $script:GraphToken = $null
+$script:DelegatedBearerToken = $null
 
 function Connect-GraphWithManagedIdentity {
     <#
@@ -21,7 +22,7 @@ function Connect-GraphWithManagedIdentity {
             throw "Managed identity endpoint not available. Ensure the function app has a managed identity assigned."
         }
 
-        # User-assigned managed identity client ID (set in Function App settings or local.settings.json)
+        # User-assigned managed identity client ID from app settings
         $clientId = $env:AZURE_CLIENT_ID
         if (-not $clientId) {
             throw "AZURE_CLIENT_ID environment variable not set. Configure it in Function App settings."
@@ -33,7 +34,7 @@ function Connect-GraphWithManagedIdentity {
         $response = Invoke-RestMethod -Uri $tokenUri -Headers $headers -Method GET
         $script:GraphToken = $response.access_token
 
-        Write-Host "Connected to Microsoft Graph successfully via managed identity (client_id: $clientId)"
+        Write-Host "Connected to Microsoft Graph successfully via managed identity"
         return $true
     }
     catch {
@@ -57,18 +58,29 @@ function Invoke-GraphRequestWithRetry {
 
         [object]$Body,
 
+        [hashtable]$Headers,
+
         [int]$MaxRetries = 3,
 
         [int]$RetryDelaySeconds = 5
     )
 
-    if (-not $script:GraphToken) {
-        throw "Not connected to Graph. Call Connect-GraphWithManagedIdentity first."
+    # Use delegated token if available (web audit flow), otherwise managed identity token
+    $activeToken = $(if ($script:DelegatedBearerToken) { $script:DelegatedBearerToken } else { $script:GraphToken })
+    if (-not $activeToken) {
+        throw "Not connected to Graph. Call Connect-GraphWithManagedIdentity or set DelegatedBearerToken first."
     }
 
-    $headers = @{
-        "Authorization" = "Bearer $script:GraphToken"
+    $requestHeaders = @{
+        "Authorization" = "Bearer $activeToken"
         "Content-Type"  = "application/json"
+    }
+
+    # Merge caller-supplied headers
+    if ($Headers) {
+        foreach ($key in $Headers.Keys) {
+            $requestHeaders[$key] = $Headers[$key]
+        }
     }
 
     $attempt = 0
@@ -80,7 +92,7 @@ function Invoke-GraphRequestWithRetry {
             $params = @{
                 Method  = $Method
                 Uri     = $Uri
-                Headers = $headers
+                Headers = $requestHeaders
             }
 
             if ($Body) {
@@ -98,8 +110,13 @@ function Invoke-GraphRequestWithRetry {
             }
 
             if ($statusCode -eq 429 -or $statusCode -eq 503) {
-                $delay = $RetryDelaySeconds * $attempt
-                Write-Warning "Request throttled. Waiting $delay seconds before retry $attempt of $MaxRetries"
+                $retryAfter = $null
+                if ($_.Exception.Response -and $_.Exception.Response.Headers) {
+                    $retryAfter = $_.Exception.Response.Headers['Retry-After']
+                }
+                $parsedRetry = 0
+                $delay = $(if ($retryAfter -and [int]::TryParse($retryAfter, [ref]$parsedRetry)) { $parsedRetry } else { $RetryDelaySeconds * $attempt })
+                Write-Warning "Request throttled (HTTP $statusCode). Waiting $delay seconds before retry $attempt of $MaxRetries"
                 Start-Sleep -Seconds $delay
             }
             else {
@@ -184,9 +201,50 @@ function Test-GraphPermissions {
     }
 }
 
+function Format-ODataFilterValue {
+    <#
+    .SYNOPSIS
+        Escapes a string for safe use in OData $filter expressions
+    .DESCRIPTION
+        Prevents OData filter injection by escaping single quotes
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Value
+    )
+    return $Value -replace "'", "''"
+}
+
+function Set-DelegatedBearerToken {
+    <#
+    .SYNOPSIS
+        Sets a delegated Bearer token for Graph API calls (web audit flow)
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Token
+    )
+    $script:DelegatedBearerToken = $Token
+}
+
+function Clear-DelegatedBearerToken {
+    <#
+    .SYNOPSIS
+        Clears the delegated Bearer token after a web audit completes
+    #>
+    [CmdletBinding()]
+    param()
+    $script:DelegatedBearerToken = $null
+}
+
 Export-ModuleMember -Function @(
     'Connect-GraphWithManagedIdentity'
     'Invoke-GraphRequestWithRetry'
     'Write-DeploymentLog'
     'Test-GraphPermissions'
+    'Format-ODataFilterValue'
+    'Set-DelegatedBearerToken'
+    'Clear-DelegatedBearerToken'
 )

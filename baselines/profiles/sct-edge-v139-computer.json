@@ -1,0 +1,211 @@
+{
+  "profileId": "sct-edge-v139-computer",
+  "displayName": "SCT - Microsoft Edge v139 - MSFT Edge Version 139 - Computer",
+  "description": "Microsoft Security Compliance Toolkit baseline: MSFT Edge Version 139 - Computer. Auto-generated from SCT GPO backup. Contains 20 settings.",
+  "platformType": "windows10",
+  "profileType": "settingsCatalog",
+  "gpoSource": "MSFT Edge Version 139 - Computer",
+  "settingsCount": 20,
+  "settings": [
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/SitePerProcess",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\SitePerProcess",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/AuthSchemes",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\AuthSchemes",
+      "value": "ntlm,negotiate",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/NativeMessagingUserLevelHosts",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\NativeMessagingUserLevelHosts",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/SmartScreenEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\SmartScreenEnabled",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/PreventSmartScreenPromptOverride",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\PreventSmartScreenPromptOverride",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/PreventSmartScreenPromptOverrideForFiles",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\PreventSmartScreenPromptOverrideForFiles",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/SSLErrorOverrideAllowed",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\SSLErrorOverrideAllowed",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/SmartScreenPuaEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\SmartScreenPuaEnabled",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/BasicAuthOverHttpEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\BasicAuthOverHttpEnabled",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/InternetExplorerIntegrationReloadInIEModeAllowed",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\InternetExplorerIntegrationReloadInIEModeAllowed",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/SharedArrayBufferUnrestrictedAccessAllowed",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\SharedArrayBufferUnrestrictedAccessAllowed",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/BrowserLegacyExtensionPointsBlockingEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\BrowserLegacyExtensionPointsBlockingEnabled",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/InternetExplorerModeToolbarButtonEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\InternetExplorerModeToolbarButtonEnabled",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/TyposquattingCheckerEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\TyposquattingCheckerEnabled",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/InternetExplorerIntegrationZoneIdentifierMhtFileAllowed",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\InternetExplorerIntegrationZoneIdentifierMhtFileAllowed",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/DynamicCodeSettings",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\DynamicCodeSettings",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/ApplicationBoundEncryptionEnabled",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\ApplicationBoundEncryptionEnabled",
+      "value": 1,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/EnableUnsafeSwiftShader",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\EnableUnsafeSwiftShader",
+      "value": 0,
+      "dataType": "REG_DWORD",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/ExtensionInstallBlocklist/**delvals.",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\ExtensionInstallBlocklist\\**delvals.",
+      "value": " ",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    },
+    {
+      "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Edge/ExtensionInstallBlocklist/1",
+      "displayName": "Software\\Policies\\Microsoft\\Edge\\ExtensionInstallBlocklist\\1",
+      "value": "*",
+      "dataType": "REG_SZ",
+      "nsaPillars": [
+        "General"
+      ],
+      "hipaaControls": []
+    }
+  ]
+}

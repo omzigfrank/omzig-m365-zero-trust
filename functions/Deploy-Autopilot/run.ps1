@@ -266,7 +266,7 @@ try {
                 startupAuthenticationRequired = $true
                 startupAuthenticationBlockWithoutTpmChip = $true
                 startupAuthenticationTpmUsage = "required"
-                startupAuthenticationTpmPinUsage = if ($config.hipaaEnabled) { "required" } else { "allowed" }
+                startupAuthenticationTpmPinUsage = $(if ($config.hipaaEnabled) { "required" } else { "allowed" })
                 startupAuthenticationTpmKeyUsage = "allowed"
                 startupAuthenticationTpmPinAndKeyUsage = "allowed"
                 prebootRecoveryEnableMessageAndUrl = $true
@@ -434,9 +434,9 @@ try {
         }
         results = $results
         summary = @{
-            autopilotProfilesCreated = ($results.autopilotProfiles | Where-Object { $_.status -eq "Created" }).Count
-            autopilotProfilesExisting = ($results.autopilotProfiles | Where-Object { $_.status -eq "AlreadyExists" }).Count
-            deviceCategoriesCreated = ($results.deviceCategories | Where-Object { $_.status -eq "Created" }).Count
+            autopilotProfilesCreated = @($results.autopilotProfiles | Where-Object { $_.status -eq "Created" }).Count
+            autopilotProfilesExisting = @($results.autopilotProfiles | Where-Object { $_.status -eq "AlreadyExists" }).Count
+            deviceCategoriesCreated = @($results.deviceCategories | Where-Object { $_.status -eq "Created" }).Count
             bitLockerConfigured = ($results.bitLockerPolicy.status -in @("Created", "AlreadyExists"))
         }
     }

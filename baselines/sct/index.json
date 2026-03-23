@@ -1,0 +1,325 @@
+{
+  "version": "1.0",
+  "source": "Microsoft Security Compliance Toolkit 1.0",
+  "baselines": [
+    {
+      "id": "win10-1607-ws2016",
+      "name": "Windows 10 v1607 / Server 2016",
+      "os": [
+        "Windows 10 1607",
+        "Windows Server 2016"
+      ],
+      "category": "legacy",
+      "year": 2016,
+      "totalSettings": 0,
+      "policyGroups": [],
+      "ztPillarBreakdown": {},
+      "settingsFile": "win10-1607-ws2016/settings.json"
+    },
+    {
+      "id": "win10-1809-ws2019",
+      "name": "Windows 10 v1809 / Server 2019",
+      "os": [
+        "Windows 10 1809",
+        "Windows Server 2019"
+      ],
+      "category": "supported",
+      "year": 2018,
+      "totalSettings": 409,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows 10 1809 - BitLocker",
+        "MSFT Windows 10 1809 - Computer",
+        "MSFT Windows 10 1809 - User",
+        "MSFT Windows 10 1809 and Server 2019 - Defender Antivirus",
+        "MSFT Windows 10 1809 and Server 2019 Member Server - Credential Guard",
+        "MSFT Windows Server 2019 - Domain Controller",
+        "MSFT Windows Server 2019 - Domain Controller Virtualization Based Security",
+        "MSFT Windows Server 2019 - Member Server"
+      ],
+      "ztPillarBreakdown": {
+        "network": 95,
+        "device": 224,
+        "application": 69,
+        "user": 9,
+        "visibility": 12
+      },
+      "settingsFile": "win10-1809-ws2019/settings.json"
+    },
+    {
+      "id": "win10-20h2-ws20h2",
+      "name": "Windows 10 v20H2 / Server v20H2",
+      "os": [
+        "Windows 10 20H2",
+        "Windows Server 20H2"
+      ],
+      "category": "supported",
+      "year": 2020,
+      "totalSettings": 406,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows 10 20H2 - BitLocker",
+        "MSFT Windows 10 20H2 - Computer",
+        "MSFT Windows 10 20H2 - User",
+        "MSFT Windows 10 20H2 and Server 20H2 - Defender Antivirus",
+        "MSFT Windows 10 20H2 and Server 20H2 Member Server - Credential Guard",
+        "MSFT Windows Server 20H2 - Domain Controller",
+        "MSFT Windows Server 20H2 - Domain Controller Virtualization Based Security",
+        "MSFT Windows Server 20H2 - Member Server"
+      ],
+      "ztPillarBreakdown": {
+        "application": 64,
+        "device": 223,
+        "user": 9,
+        "visibility": 12,
+        "network": 98
+      },
+      "settingsFile": "win10-20h2-ws20h2/settings.json"
+    },
+    {
+      "id": "win10-22h2",
+      "name": "Windows 10 v22H2",
+      "os": [
+        "Windows 10 22H2"
+      ],
+      "category": "current",
+      "year": 2022,
+      "totalSettings": 273,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows 10 22H2 - BitLocker",
+        "MSFT Windows 10 22H2 - Computer",
+        "MSFT Windows 10 22H2 - Credential Guard",
+        "MSFT Windows 10 22H2 - Defender Antivirus",
+        "MSFT Windows 10 22H2 - User"
+      ],
+      "ztPillarBreakdown": {
+        "device": 174,
+        "application": 47,
+        "network": 45,
+        "user": 3,
+        "visibility": 4
+      },
+      "settingsFile": "win10-22h2/settings.json"
+    },
+    {
+      "id": "win11-22h2",
+      "name": "Windows 11 v22H2",
+      "os": [
+        "Windows 11 22H2"
+      ],
+      "category": "current",
+      "year": 2022,
+      "totalSettings": 287,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows 11 22H2 - BitLocker",
+        "MSFT Windows 11 22H2 - Computer",
+        "MSFT Windows 11 22H2 - Credential Guard",
+        "MSFT Windows 11 22H2 - Defender Antivirus",
+        "MSFT Windows 11 22H2 - User"
+      ],
+      "ztPillarBreakdown": {
+        "network": 51,
+        "device": 182,
+        "application": 47,
+        "user": 3,
+        "visibility": 4
+      },
+      "settingsFile": "win11-22h2/settings.json"
+    },
+    {
+      "id": "win11-23h2",
+      "name": "Windows 11 v23H2",
+      "os": [
+        "Windows 11 23H2"
+      ],
+      "category": "current",
+      "year": 2023,
+      "totalSettings": 299,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows 11 23H2 - BitLocker",
+        "MSFT Windows 11 23H2 - Computer",
+        "MSFT Windows 11 23H2 - Credential Guard",
+        "MSFT Windows 11 23H2 - Defender Antivirus",
+        "MSFT Windows 11 23H2 - User"
+      ],
+      "ztPillarBreakdown": {
+        "device": 191,
+        "application": 47,
+        "network": 51,
+        "user": 6,
+        "visibility": 4
+      },
+      "settingsFile": "win11-23h2/settings.json"
+    },
+    {
+      "id": "win11-24h2",
+      "name": "Windows 11 v24H2",
+      "os": [
+        "Windows 11 24H2"
+      ],
+      "category": "current",
+      "year": 2024,
+      "totalSettings": 330,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows 11 24H2 - BitLocker",
+        "MSFT Windows 11 24H2 - Computer",
+        "MSFT Windows 11 24H2 - Credential Guard",
+        "MSFT Windows 11 24H2 - Defender Antivirus",
+        "MSFT Windows 11 24H2 - User"
+      ],
+      "ztPillarBreakdown": {
+        "device": 202,
+        "application": 48,
+        "network": 65,
+        "user": 11,
+        "visibility": 4
+      },
+      "settingsFile": "win11-24h2/settings.json"
+    },
+    {
+      "id": "win11-25h2",
+      "name": "Windows 11 v25H2",
+      "os": [
+        "Windows 11 25H2"
+      ],
+      "category": "latest",
+      "year": 2025,
+      "totalSettings": 330,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows 11 25H2 - BitLocker",
+        "MSFT Windows 11 25H2 - Computer",
+        "MSFT Windows 11 25H2 - Credential Guard",
+        "MSFT Windows 11 25H2 - Defender Antivirus",
+        "MSFT Windows 11 25H2 - User"
+      ],
+      "ztPillarBreakdown": {
+        "network": 65,
+        "device": 200,
+        "application": 49,
+        "user": 11,
+        "visibility": 5
+      },
+      "settingsFile": "win11-25h2/settings.json"
+    },
+    {
+      "id": "ws2022",
+      "name": "Windows Server 2022",
+      "os": [
+        "Windows Server 2022"
+      ],
+      "category": "current",
+      "year": 2021,
+      "totalSettings": 308,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows Server 2022 - Defender Antivirus",
+        "MSFT Windows Server 2022 - Domain Controller",
+        "MSFT Windows Server 2022 - Domain Controller Virtualization Based Security",
+        "MSFT Windows Server 2022 - Member Server",
+        "MSFT Windows Server 2022 - Member Server Credential Guard"
+      ],
+      "ztPillarBreakdown": {
+        "device": 190,
+        "application": 51,
+        "user": 6,
+        "visibility": 8,
+        "network": 53
+      },
+      "settingsFile": "ws2022/settings.json"
+    },
+    {
+      "id": "ws2025",
+      "name": "Windows Server 2025",
+      "os": [
+        "Windows Server 2025"
+      ],
+      "category": "latest",
+      "year": 2025,
+      "totalSettings": 375,
+      "policyGroups": [
+        "MSFT Internet Explorer 11 - Computer",
+        "MSFT Internet Explorer 11 - User",
+        "MSFT Windows Server 2025 v2506 - Defender Antivirus",
+        "MSFT Windows Server 2025 v2506 - Domain Controller",
+        "MSFT Windows Server 2025 v2506 - Domain Controller Virtualization Based Security",
+        "MSFT Windows Server 2025 v2506 - Member Server",
+        "MSFT Windows Server 2025 v2506 - Member Server Credential Guard"
+      ],
+      "ztPillarBreakdown": {
+        "device": 208,
+        "application": 51,
+        "visibility": 10,
+        "user": 16,
+        "network": 90
+      },
+      "settingsFile": "ws2025/settings.json"
+    },
+    {
+      "id": "m365-apps-2512",
+      "name": "Microsoft 365 Apps for Enterprise v2512",
+      "os": [
+        "Microsoft 365 Apps"
+      ],
+      "category": "application",
+      "year": 2026,
+      "totalSettings": 383,
+      "policyGroups": [
+        "MSFT Microsoft 365 Apps v2512 - Computer",
+        "MSFT Microsoft 365 Apps v2512 - DDE Block - User",
+        "MSFT Microsoft 365 Apps v2512 - Legacy File Block - User",
+        "MSFT Microsoft 365 Apps v2512 - Legacy JScript Block - Computer",
+        "MSFT Microsoft 365 Apps v2512 - Require Macro Signing - User",
+        "MSFT Microsoft 365 Apps v2512 - User"
+      ],
+      "ztPillarBreakdown": {
+        "application": 191,
+        "device": 191,
+        "network": 1
+      },
+      "settingsFile": "m365-apps-2512/settings.json"
+    },
+    {
+      "id": "edge-v139",
+      "name": "Microsoft Edge v139",
+      "os": [
+        "Microsoft Edge"
+      ],
+      "category": "application",
+      "year": 2025,
+      "totalSettings": 20,
+      "policyGroups": [
+        "MSFT Edge Version 139 - Computer"
+      ],
+      "ztPillarBreakdown": {
+        "application": 20
+      },
+      "settingsFile": "edge-v139/settings.json"
+    },
+    {
+      "id": "win10-update",
+      "name": "Windows 10 Update Baseline",
+      "os": [
+        "Windows 10"
+      ],
+      "category": "update",
+      "year": 2020,
+      "totalSettings": 0,
+      "policyGroups": [],
+      "ztPillarBreakdown": {},
+      "settingsFile": "win10-update/settings.json"
+    }
+  ]
+}

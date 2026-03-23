@@ -120,11 +120,11 @@ try {
     $result.summary = @{
         totalUsers = $totalUsers
         mfaRegistered = $mfaRegistered
-        mfaRegisteredPercentage = if ($totalUsers -gt 0) { [math]::Round(($mfaRegistered / $totalUsers) * 100, 2) } else { 0 }
+        mfaRegisteredPercentage = $(if ($totalUsers -gt 0) { [math]::Round(($mfaRegistered / $totalUsers) * 100, 2) } else { 0 })
         mfaCapable = $mfaCapable
-        mfaCapablePercentage = if ($totalUsers -gt 0) { [math]::Round(($mfaCapable / $totalUsers) * 100, 2) } else { 0 }
+        mfaCapablePercentage = $(if ($totalUsers -gt 0) { [math]::Round(($mfaCapable / $totalUsers) * 100, 2) } else { 0 })
         passwordlessCapable = $passwordlessCapable
-        passwordlessPercentage = if ($totalUsers -gt 0) { [math]::Round(($passwordlessCapable / $totalUsers) * 100, 2) } else { 0 }
+        passwordlessPercentage = $(if ($totalUsers -gt 0) { [math]::Round(($passwordlessCapable / $totalUsers) * 100, 2) } else { 0 })
         ssprRegistered = $ssprRegistered
         ssprEnabled = $ssprEnabled
         usersWithoutMfa = $totalUsers - $mfaRegistered
@@ -141,9 +141,9 @@ try {
         $result.riskIndicators += @{
             risk = "Users without MFA"
             count = $result.summary.usersWithoutMfa
-            severity = if ($result.summary.mfaRegisteredPercentage -lt 50) { "High" }
+            severity = $(if ($result.summary.mfaRegisteredPercentage -lt 50) { "High" }
                       elseif ($result.summary.mfaRegisteredPercentage -lt 80) { "Medium" }
-                      else { "Low" }
+                      else { "Low" })
             recommendation = "Enable MFA for all users through Conditional Access"
         }
     }
@@ -175,13 +175,13 @@ try {
     $result.complianceStatus = @{
         mfaCompliant = $result.summary.mfaRegisteredPercentage -ge 100
         zeroTrustReady = $result.summary.mfaCapablePercentage -ge 95
-        grade = switch ($result.summary.mfaRegisteredPercentage) {
+        grade = $(switch ($result.summary.mfaRegisteredPercentage) {
             { $_ -ge 100 } { "A" }
             { $_ -ge 90 } { "B" }
             { $_ -ge 75 } { "C" }
             { $_ -ge 50 } { "D" }
             default { "F" }
-        }
+        })
     }
 
 } catch {
@@ -194,7 +194,7 @@ try {
 $responseBody = $result | ConvertTo-Json -Depth 10
 
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-    StatusCode = if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError }
+    StatusCode = $(if ($result.status -eq "success") { [HttpStatusCode]::OK } else { [HttpStatusCode]::InternalServerError })
     Headers = @{ 'Content-Type' = 'application/json' }
     Body = $responseBody
 })

@@ -1,0 +1,3417 @@
+{
+  "metadata": {
+    "id": "win11-24h2",
+    "name": "Windows 11 v24H2",
+    "os": "Windows 11",
+    "version": "24H2",
+    "category": "workstation",
+    "current": false,
+    "supersedes": [],
+    "parsedAt": "2026-02-17T22:31:27.822459Z",
+    "source": "Microsoft Security Compliance Toolkit 1.0 - Windows 11 v24H2"
+  },
+  "gpos": {
+    "computer": {
+      "name": "MSFT Windows 11 24H2 - Computer",
+      "backupId": "dad42da1-8499-42fe-a1cd-9e39196d8b98",
+      "type": "computer",
+      "registrySettings": [
+        {
+          "key": "Software\\Microsoft\\WcmSvc\\wifinetworkmanager\\config",
+          "valueName": "AutoConnectAllowedOEM",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/WcmSvc/wifinetworkmanager/config/AutoConnectAllowedOEM",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI",
+          "valueName": "EnumerateAdministrators",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/CredUI/EnumerateAdministrators",
+          "nsaPillars": [
+            "User"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "valueName": "NoDriveTypeAutoRun",
+          "type": "REG_DWORD",
+          "data": 255,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Explorer/NoDriveTypeAutoRun",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "valueName": "NoWebServices",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Explorer/NoWebServices",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "valueName": "NoAutorun",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/Explorer/NoAutorun",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\LAPS",
+          "valueName": "BackupDirectory",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/LAPS/BackupDirectory",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\LAPS",
+          "valueName": "ADPasswordEncryptionEnabled",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/LAPS/ADPasswordEncryptionEnabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\LAPS",
+          "valueName": "ADBackupDSRMPassword",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/LAPS/ADBackupDSRMPassword",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "MSAOptional",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/MSAOptional",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "DisableAutomaticRestartSignOn",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/DisableAutomaticRestartSignOn",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "LocalAccountTokenFilterPolicy",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/LocalAccountTokenFilterPolicy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "valueName": "EnableMPR",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/EnableMPR",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\CredSSP\\Parameters",
+          "valueName": "AllowEncryptionOracle",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/CredSSP/Parameters/AllowEncryptionOracle",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\KDC\\Parameters",
+          "valueName": "PKINITHashAlgorithmConfigurationEnabled",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/KDC/Parameters/PKINITHashAlgorithmConfigurationEnabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\KDC\\Parameters",
+          "valueName": "PKINITSHA1",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/KDC/Parameters/PKINITSHA1",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\KDC\\Parameters",
+          "valueName": "PKINITSHA256",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/KDC/Parameters/PKINITSHA256",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\KDC\\Parameters",
+          "valueName": "PKINITSHA384",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/KDC/Parameters/PKINITSHA384",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\KDC\\Parameters",
+          "valueName": "PKINITSHA512",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/KDC/Parameters/PKINITSHA512",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
+          "valueName": "PKInitHashAlgorithmConfigurationEnabled",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/Kerberos/Parameters/PKInitHashAlgorithmConfigurationEnabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(d)",
+              "name": "Person or Entity Authentication"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
+          "valueName": "PKInitSHA1",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/Kerberos/Parameters/PKInitSHA1",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(d)",
+              "name": "Person or Entity Authentication"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
+          "valueName": "PKInitSHA256",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/Kerberos/Parameters/PKInitSHA256",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(d)",
+              "name": "Person or Entity Authentication"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
+          "valueName": "PKInitSHA384",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/Kerberos/Parameters/PKInitSHA384",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(d)",
+              "name": "Person or Entity Authentication"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
+          "valueName": "PKInitSHA512",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Windows/CurrentVersion/Policies/System/Kerberos/Parameters/PKInitSHA512",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(d)",
+              "name": "Person or Entity Authentication"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Biometrics\\FacialFeatures",
+          "valueName": "EnhancedAntiSpoofing",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Biometrics/FacialFeatures/EnhancedAntiSpoofing",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Internet Explorer\\Feeds",
+          "valueName": "DisableEnclosureDownload",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Internet Explorer/Feeds/DisableEnclosureDownload",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
+          "valueName": "DCSettingIndex",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/0e796bdb-100d-47d6-a2d5-f7d2daa51f51/DCSettingIndex",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
+          "valueName": "ACSettingIndex",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Power/PowerSettings/0e796bdb-100d-47d6-a2d5-f7d2daa51f51/ACSettingIndex",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\AppPrivacy",
+          "valueName": "LetAppsActivateWithVoiceAboveLock",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/AppPrivacy/LetAppsActivateWithVoiceAboveLock",
+          "nsaPillars": [
+            "Data"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Bowser",
+          "valueName": "EnableMailslots",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Bowser/EnableMailslots",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CloudContent",
+          "valueName": "DisableWindowsConsumerFeatures",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CloudContent/DisableWindowsConsumerFeatures",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CredentialsDelegation",
+          "valueName": "AllowProtectedCreds",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/CredentialsDelegation/AllowProtectedCreds",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(d)",
+              "name": "Person or Entity Authentication"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\EventLog\\Application",
+          "valueName": "MaxSize",
+          "type": "REG_DWORD",
+          "data": 32768,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/EventLog/Application/MaxSize",
+          "nsaPillars": [
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\EventLog\\Security",
+          "valueName": "MaxSize",
+          "type": "REG_DWORD",
+          "data": 196608,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/EventLog/Security/MaxSize",
+          "nsaPillars": [
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\EventLog\\System",
+          "valueName": "MaxSize",
+          "type": "REG_DWORD",
+          "data": 32768,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/EventLog/System/MaxSize",
+          "nsaPillars": [
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "NoAutoplayfornonVolume",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Explorer/NoAutoplayfornonVolume",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Explorer",
+          "valueName": "DisableMotWOnInsecurePathCopy",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Explorer/DisableMotWOnInsecurePathCopy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\GameDVR",
+          "valueName": "AllowGameDVR",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/GameDVR/AllowGameDVR",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Installer",
+          "valueName": "AlwaysInstallElevated",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Installer/AlwaysInstallElevated",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Installer",
+          "valueName": "EnableUserControl",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Installer/EnableUserControl",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Kernel DMA Protection",
+          "valueName": "DeviceEnumerationPolicy",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Kernel DMA Protection/DeviceEnumerationPolicy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanServer",
+          "valueName": "AuditClientDoesNotSupportEncryption",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanServer/AuditClientDoesNotSupportEncryption",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanServer",
+          "valueName": "AuditClientDoesNotSupportSigning",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanServer/AuditClientDoesNotSupportSigning",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanServer",
+          "valueName": "AuditInsecureGuestLogon",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanServer/AuditInsecureGuestLogon",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanServer",
+          "valueName": "EnableAuthRateLimiter",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanServer/EnableAuthRateLimiter",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanServer",
+          "valueName": "MaxSmb2Dialect",
+          "type": "REG_DWORD",
+          "data": 785,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanServer/MaxSmb2Dialect",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanServer",
+          "valueName": "MinSmb2Dialect",
+          "type": "REG_DWORD",
+          "data": 768,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanServer/MinSmb2Dialect",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanServer",
+          "valueName": "InvalidAuthenticationDelayTimeInMs",
+          "type": "REG_DWORD",
+          "data": 2000,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanServer/InvalidAuthenticationDelayTimeInMs",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "AllowInsecureGuestAuth",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/AllowInsecureGuestAuth",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "AuditInsecureGuestLogon",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/AuditInsecureGuestLogon",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "AuditServerDoesNotSupportEncryption",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/AuditServerDoesNotSupportEncryption",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "AuditServerDoesNotSupportSigning",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/AuditServerDoesNotSupportSigning",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "MaxSmb2Dialect",
+          "type": "REG_DWORD",
+          "data": 785,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/MaxSmb2Dialect",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "MinSmb2Dialect",
+          "type": "REG_DWORD",
+          "data": 768,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/MinSmb2Dialect",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+          "valueName": "RequireEncryption",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/LanmanWorkstation/RequireEncryption",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Network Connections",
+          "valueName": "NC_ShowSharedAccessUI",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Network Connections/NC_ShowSharedAccessUI",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\NetworkProvider",
+          "valueName": "EnableMailslots",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/NetworkProvider/EnableMailslots",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
+          "valueName": "\\\\*\\SYSVOL",
+          "type": "REG_SZ",
+          "data": "RequireMutualAuthentication=1,RequireIntegrity=1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/NetworkProvider/HardenedPaths/\\\\*\\SYSVOL",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
+          "valueName": "\\\\*\\NETLOGON",
+          "type": "REG_SZ",
+          "data": "RequireMutualAuthentication=1,RequireIntegrity=1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/NetworkProvider/HardenedPaths/\\\\*\\NETLOGON",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Personalization",
+          "valueName": "NoLockScreenCamera",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Personalization/NoLockScreenCamera",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Personalization",
+          "valueName": "NoLockScreenSlideshow",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Personalization/NoLockScreenSlideshow",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+          "valueName": "EnableScriptBlockLogging",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/PowerShell/ScriptBlockLogging/EnableScriptBlockLogging",
+          "nsaPillars": [
+            "Application",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+          "valueName": "**del.EnableScriptBlockInvocationLogging",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/PowerShell/ScriptBlockLogging/**del.EnableScriptBlockInvocationLogging",
+          "nsaPillars": [
+            "Application",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Sudo",
+          "valueName": "Enabled",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Sudo/Enabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "AllowDomainPINLogon",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/AllowDomainPINLogon",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "EnumerateLocalUsers",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/EnumerateLocalUsers",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "EnableSmartScreen",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/EnableSmartScreen",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "ShellSmartScreenLevel",
+          "type": "REG_SZ",
+          "data": "Block",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/ShellSmartScreenLevel",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "AllowCustomSSPsAPs",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/AllowCustomSSPsAPs",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\System",
+          "valueName": "RunAsPPL",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/System/RunAsPPL",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy",
+          "valueName": "fBlockNonDomain",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WcmSvc/GroupPolicy/fBlockNonDomain",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\Windows Search",
+          "valueName": "AllowIndexingEncryptedStoresOrItems",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/Windows Search/AllowIndexingEncryptedStoresOrItems",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+          "valueName": "AllowDigest",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Client/AllowDigest",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+          "valueName": "AllowUnencryptedTraffic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Client/AllowUnencryptedTraffic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+          "valueName": "AllowBasic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Client/AllowBasic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+          "valueName": "AllowUnencryptedTraffic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Service/AllowUnencryptedTraffic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+          "valueName": "DisableRunAs",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Service/DisableRunAs",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+          "valueName": "AllowBasic",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WinRM/Service/AllowBasic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+          "valueName": "NotifyMalicious",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WTDS/Components/NotifyMalicious",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+          "valueName": "NotifyPasswordReuse",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WTDS/Components/NotifyPasswordReuse",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+          "valueName": "NotifyUnsafeApp",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WTDS/Components/NotifyUnsafeApp",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+          "valueName": "ServiceEnabled",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows/WTDS/Components/ServiceEnabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\DNSClient",
+          "valueName": "EnableMulticast",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/DNSClient/EnableMulticast",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\DNSClient",
+          "valueName": "EnableNetbios",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/DNSClient/EnableNetbios",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers",
+          "valueName": "DisableWebPnPDownload",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/DisableWebPnPDownload",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers",
+          "valueName": "RedirectionGuardPolicy",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/RedirectionGuardPolicy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers",
+          "valueName": "CopyFilesPolicy",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/CopyFilesPolicy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
+          "valueName": "RestrictDriverInstallationToAdministrators",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/PointAndPrint/RestrictDriverInstallationToAdministrators",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+          "valueName": "RpcUseNamedPipeProtocol",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/RPC/RpcUseNamedPipeProtocol",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+          "valueName": "RpcAuthentication",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/RPC/RpcAuthentication",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+          "valueName": "RpcProtocols",
+          "type": "REG_DWORD",
+          "data": 5,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/RPC/RpcProtocols",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+          "valueName": "ForceKerberosForRpc",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/RPC/ForceKerberosForRpc",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+          "valueName": "RpcTcpPort",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Printers/RPC/RpcTcpPort",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Rpc",
+          "valueName": "RestrictRemoteClients",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Rpc/RestrictRemoteClients",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "**del.fUseMailto",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/**del.fUseMailto",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "fAllowToGetHelp",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/fAllowToGetHelp",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "**del.fAllowFullControl",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/**del.fAllowFullControl",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "**del.MaxTicketExpiry",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/**del.MaxTicketExpiry",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "**del.MaxTicketExpiryUnits",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/**del.MaxTicketExpiryUnits",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "MinEncryptionLevel",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/MinEncryptionLevel",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "fPromptForPassword",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/fPromptForPassword",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "fDisableCdm",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/fDisableCdm",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "DisablePasswordSaving",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/DisablePasswordSaving",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+          "valueName": "fEncryptRPCTraffic",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows NT/Terminal Services/fEncryptRPCTraffic",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall",
+          "valueName": "PolicyVersion",
+          "type": "REG_DWORD",
+          "data": 538,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PolicyVersion",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
+          "valueName": "DefaultOutboundAction",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/DefaultOutboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
+          "valueName": "DisableNotifications",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/DisableNotifications",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
+          "valueName": "EnableFirewall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/EnableFirewall",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
+          "valueName": "DefaultInboundAction",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/DefaultInboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging",
+          "valueName": "LogDroppedPackets",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/Logging/LogDroppedPackets",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging",
+          "valueName": "LogFileSize",
+          "type": "REG_DWORD",
+          "data": 16384,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/Logging/LogFileSize",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging",
+          "valueName": "LogSuccessfulConnections",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/DomainProfile/Logging/LogSuccessfulConnections",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
+          "valueName": "EnableFirewall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/EnableFirewall",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
+          "valueName": "DisableNotifications",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/DisableNotifications",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
+          "valueName": "DefaultInboundAction",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/DefaultInboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
+          "valueName": "DefaultOutboundAction",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/DefaultOutboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging",
+          "valueName": "LogSuccessfulConnections",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/Logging/LogSuccessfulConnections",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging",
+          "valueName": "LogDroppedPackets",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/Logging/LogDroppedPackets",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging",
+          "valueName": "LogFileSize",
+          "type": "REG_DWORD",
+          "data": 16384,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PrivateProfile/Logging/LogFileSize",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "DefaultOutboundAction",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/DefaultOutboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "EnableFirewall",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/EnableFirewall",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "DisableNotifications",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/DisableNotifications",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "AllowLocalIPsecPolicyMerge",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/AllowLocalIPsecPolicyMerge",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "AllowLocalPolicyMerge",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/AllowLocalPolicyMerge",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
+          "valueName": "DefaultInboundAction",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/DefaultInboundAction",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging",
+          "valueName": "LogFileSize",
+          "type": "REG_DWORD",
+          "data": 16384,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/Logging/LogFileSize",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging",
+          "valueName": "LogDroppedPackets",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/Logging/LogDroppedPackets",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging",
+          "valueName": "LogSuccessfulConnections",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsFirewall/PublicProfile/Logging/LogSuccessfulConnections",
+          "nsaPillars": [
+            "Network",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\WindowsInkWorkspace",
+          "valueName": "AllowWindowsInkWorkspace",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/WindowsInkWorkspace/AllowWindowsInkWorkspace",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Control\\Lsa",
+          "valueName": "RunAsPPL",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Control/Lsa/RunAsPPL",
+          "nsaPillars": [
+            "User"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(1)",
+              "name": "Access Control"
+            },
+            {
+              "id": "164.312(d)",
+              "name": "Person or Entity Authentication"
+            }
+          ]
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Control\\Print",
+          "valueName": "RpcAuthnLevelPrivacyEnabled",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Control/Print/RpcAuthnLevelPrivacyEnabled",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest",
+          "valueName": "UseLogonCredential",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Control/SecurityProviders/WDigest/UseLogonCredential",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel",
+          "valueName": "DisableExceptionChainValidation",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Control/Session Manager/kernel/DisableExceptionChainValidation",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Policies\\EarlyLaunch",
+          "valueName": "DriverLoadPolicy",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Policies/EarlyLaunch/DriverLoadPolicy",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
+          "valueName": "SMB1",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/LanmanServer/Parameters/SMB1",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(e)(1)",
+              "name": "Transmission Security"
+            }
+          ]
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\MrxSmb10",
+          "valueName": "Start",
+          "type": "REG_DWORD",
+          "data": 4,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/MrxSmb10/Start",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Netbt\\Parameters",
+          "valueName": "NoNameReleaseOnDemand",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Netbt/Parameters/NoNameReleaseOnDemand",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Netbt\\Parameters",
+          "valueName": "NodeType",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Netbt/Parameters/NodeType",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+          "valueName": "EnableICMPRedirect",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Tcpip/Parameters/EnableICMPRedirect",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+          "valueName": "DisableIPSourceRouting",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Tcpip/Parameters/DisableIPSourceRouting",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+          "valueName": "DisableIPSourceRouting",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Services/Tcpip6/Parameters/DisableIPSourceRouting",
+          "nsaPillars": [
+            "Network"
+          ],
+          "hipaaControls": []
+        }
+      ],
+      "securitySettings": {
+        "Unicode": [
+          "Unicode=yes"
+        ],
+        "System Access": [
+          "LSAAnonymousNameLookup = 0"
+        ],
+        "Version": [
+          "signature=\"$CHICAGO$\"",
+          "Revision=1"
+        ],
+        "Privilege Rights": [
+          "SeSecurityPrivilege = *S-1-5-32-544",
+          "SeRestorePrivilege = *S-1-5-32-544",
+          "SeTakeOwnershipPrivilege = *S-1-5-32-544",
+          "SeBackupPrivilege = *S-1-5-32-544",
+          "SeDenyRemoteInteractiveLogonRight = *S-1-5-113",
+          "SeCreatePermanentPrivilege =",
+          "SeManageVolumePrivilege = *S-1-5-32-544",
+          "SeLoadDriverPrivilege = *S-1-5-32-544",
+          "SeLockMemoryPrivilege =",
+          "SeDenyNetworkLogonRight = *S-1-5-113",
+          "SeNetworkLogonRight = *S-1-5-32-544,*S-1-5-32-555",
+          "SeImpersonatePrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+          "SeCreateTokenPrivilege =",
+          "SeCreateGlobalPrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+          "SeSystemEnvironmentPrivilege = *S-1-5-32-544",
+          "SeCreatePagefilePrivilege = *S-1-5-32-544",
+          "SeInteractiveLogonRight = *S-1-5-32-544,*S-1-5-32-545",
+          "SeRemoteShutdownPrivilege = *S-1-5-32-544",
+          "SeDebugPrivilege = *S-1-5-32-544",
+          "SeTrustedCredManAccessPrivilege =",
+          "SeProfileSingleProcessPrivilege = *S-1-5-32-544",
+          "SeTcbPrivilege =",
+          "SeEnableDelegationPrivilege ="
+        ],
+        "Service General Setting": [
+          "\"XboxGipSvc\",4,\"\"",
+          "\"XblAuthManager\",4,\"\"",
+          "\"XblGameSave\",4,\"\"",
+          "\"XboxNetApiSvc\",4,\"\""
+        ],
+        "Registry Values": [
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorEnhancedAdmin=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\TypeOfAdminApprovalMode=4,2",
+          "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption=1,\"1\"",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs=4,900",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword=4,0",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec=4,537395200",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel=4,5",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback=4,0",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec=4,537395200",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin=4,2",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser=4,0",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken=4,1",
+          "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity=4,1",
+          "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM=1,\"O:BAG:BAD:(A;;RC;;;BA)\"",
+          "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\DisablePasswordChange=4,0"
+        ]
+      },
+      "auditPolicies": [
+        {
+          "subcategory": "Audit Credential Validation",
+          "guid": "{0cce923f-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Security Group Management",
+          "guid": "{0cce9237-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit User Account Management",
+          "guid": "{0cce9235-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit PNP Activity",
+          "guid": "{0cce9248-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Process Creation",
+          "guid": "{0cce922b-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Account Lockout",
+          "guid": "{0cce9217-69ae-11d9-bed3-505054503030}",
+          "setting": "Failure",
+          "value": "2"
+        },
+        {
+          "subcategory": "Audit Group Membership",
+          "guid": "{0cce9249-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Logon",
+          "guid": "{0cce9215-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Other Logon/Logoff Events",
+          "guid": "{0cce921c-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Special Logon",
+          "guid": "{0cce921b-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Detailed File Share",
+          "guid": "{0cce9244-69ae-11d9-bed3-505054503030}",
+          "setting": "Failure",
+          "value": "2"
+        },
+        {
+          "subcategory": "Audit File Share",
+          "guid": "{0cce9224-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Other Object Access Events",
+          "guid": "{0cce9227-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Removable Storage",
+          "guid": "{0cce9245-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Audit Policy Change",
+          "guid": "{0cce922f-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Authentication Policy Change",
+          "guid": "{0cce9230-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit MPSSVC Rule-Level Policy Change",
+          "guid": "{0cce9232-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Other Policy Change Events",
+          "guid": "{0cce9234-69ae-11d9-bed3-505054503030}",
+          "setting": "Failure",
+          "value": "2"
+        },
+        {
+          "subcategory": "Audit Sensitive Privilege Use",
+          "guid": "{0cce9228-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Other System Events",
+          "guid": "{0cce9214-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        },
+        {
+          "subcategory": "Audit Security State Change",
+          "guid": "{0cce9210-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit Security System Extension",
+          "guid": "{0cce9211-69ae-11d9-bed3-505054503030}",
+          "setting": "Success",
+          "value": "1"
+        },
+        {
+          "subcategory": "Audit System Integrity",
+          "guid": "{0cce9212-69ae-11d9-bed3-505054503030}",
+          "setting": "Success and Failure",
+          "value": "3"
+        }
+      ]
+    },
+    "user": {
+      "name": "MSFT Windows 11 24H2 - User",
+      "backupId": "c4fce0a9-bc29-4589-a63d-144e8cd991ce",
+      "type": "user",
+      "registrySettings": [
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CloudContent",
+          "valueName": "DisableThirdPartySuggestions",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/CloudContent/DisableThirdPartySuggestions",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+          "valueName": "NoToastApplicationNotificationOnLockScreen",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/Microsoft/Windows/CurrentVersion/PushNotifications/NoToastApplicationNotificationOnLockScreen",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "domainSecurity": {
+      "name": "MSFT Windows 11 24H2 - Domain Security",
+      "backupId": "04602802-38c4-4900-87cd-b126da8875ed",
+      "type": "domainSecurity",
+      "registrySettings": [],
+      "securitySettings": {
+        "Unicode": [
+          "Unicode=yes"
+        ],
+        "System Access": [
+          "MinimumPasswordLength = 14",
+          "PasswordComplexity = 1",
+          "PasswordHistorySize = 24",
+          "LockoutBadCount = 10",
+          "ResetLockoutCount = 10",
+          "LockoutDuration = 10",
+          "AllowAdministratorLockout = 1",
+          "ClearTextPassword = 0"
+        ],
+        "Version": [
+          "signature=\"$CHICAGO$\"",
+          "Revision=1"
+        ],
+        "Registry Values": []
+      },
+      "auditPolicies": []
+    },
+    "credentialGuard": {
+      "name": "MSFT Windows 11 24H2 - Credential Guard",
+      "backupId": "3c4158a9-6823-4577-8aae-197181a6e6ad",
+      "type": "credentialGuard",
+      "registrySettings": [
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "EnableVirtualizationBasedSecurity",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/EnableVirtualizationBasedSecurity",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "RequirePlatformSecurityFeatures",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/RequirePlatformSecurityFeatures",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "HypervisorEnforcedCodeIntegrity",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/HypervisorEnforcedCodeIntegrity",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "HVCIMATRequired",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/HVCIMATRequired",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "LsaCfgFlags",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/LsaCfgFlags",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "MachineIdentityIsolation",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/MachineIdentityIsolation",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "ConfigureSystemGuardLaunch",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/ConfigureSystemGuardLaunch",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+          "valueName": "ConfigureKernelShadowStacksLaunch",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceGuard/ConfigureKernelShadowStacksLaunch",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "defender": {
+      "name": "MSFT Windows 11 24H2 - Defender Antivirus",
+      "backupId": "dd32f334-cb07-4579-96e3-06f27b6b5fab",
+      "type": "defender",
+      "registrySettings": [
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender",
+          "valueName": "PUAProtection",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/PUAProtection",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender",
+          "valueName": "DisableLocalAdminMerge",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/DisableLocalAdminMerge",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender",
+          "valueName": "HideExclusionsFromLocalAdmins",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/HideExclusionsFromLocalAdmins",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender",
+          "valueName": "DisableRoutinelyTakingAction",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/DisableRoutinelyTakingAction",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender",
+          "valueName": "HideExclusionsFromLocalUsers",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/HideExclusionsFromLocalUsers",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Features",
+          "valueName": "PassiveRemediation",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Features/PassiveRemediation",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\MpEngine",
+          "valueName": "MpCloudBlockLevel",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/MpEngine/MpCloudBlockLevel",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\MpEngine",
+          "valueName": "MpBafsExtendedTimeout",
+          "type": "REG_DWORD",
+          "data": 50,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/MpEngine/MpBafsExtendedTimeout",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\NIS",
+          "valueName": "EnableConvertWarnToBlock",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/NIS/EnableConvertWarnToBlock",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "DisableIOAVProtection",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableIOAVProtection",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "DisableRealtimeMonitoring",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableRealtimeMonitoring",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "DisableScriptScanning",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableScriptScanning",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "DisableBehaviorMonitoring",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableBehaviorMonitoring",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "RealtimeScanDirection",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/RealtimeScanDirection",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "DisableOnAccessProtection",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableOnAccessProtection",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "DisableScanOnRealtimeEnable",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/DisableScanOnRealtimeEnable",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
+          "valueName": "OobeEnableRtpAndSigUpdate",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Real-Time Protection/OobeEnableRtpAndSigUpdate",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Reporting",
+          "valueName": "EnableDynamicSignatureDroppedEventReporting",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Reporting/EnableDynamicSignatureDroppedEventReporting",
+          "nsaPillars": [
+            "Device",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(b)",
+              "name": "Audit Controls"
+            },
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Scan",
+          "valueName": "DisableRemovableDriveScanning",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/DisableRemovableDriveScanning",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Scan",
+          "valueName": "DisablePackedExeScanning",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/DisablePackedExeScanning",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Scan",
+          "valueName": "QuickScanIncludeExclusions",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Scan/QuickScanIncludeExclusions",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
+          "valueName": "SpynetReporting",
+          "type": "REG_DWORD",
+          "data": 2,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SpynetReporting",
+          "nsaPillars": [
+            "Device",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
+          "valueName": "DisableBlockAtFirstSeen",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/DisableBlockAtFirstSeen",
+          "nsaPillars": [
+            "Device",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
+          "valueName": "SubmitSamplesConsent",
+          "type": "REG_DWORD",
+          "data": 3,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Spynet/SubmitSamplesConsent",
+          "nsaPillars": [
+            "Device",
+            "Visibility"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR",
+          "valueName": "ExploitGuard_ASR_Rules",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/ExploitGuard_ASR_Rules",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "3b576869-a4ec-4529-8536-b80a7769e899",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/3b576869-a4ec-4529-8536-b80a7769e899",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "d3e037e1-3eb8-44c8-a917-57927947596d",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/d3e037e1-3eb8-44c8-a917-57927947596d",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "26190899-1602-49e8-8b27-eb1d0a1ce869",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/26190899-1602-49e8-8b27-eb1d0a1ce869",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "c1db55ab-c21a-4637-bb3f-a12568109d35",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/c1db55ab-c21a-4637-bb3f-a12568109d35",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "e6db77e5-3df2-4cf1-b95a-636979351e5b",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/e6db77e5-3df2-4cf1-b95a-636979351e5b",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
+          "valueName": "56a863a9-875e-4185-98a7-b882c64b5ce5",
+          "type": "REG_SZ",
+          "data": "1",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/ASR/Rules/56a863a9-875e-4185-98a7-b882c64b5ce5",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        },
+        {
+          "key": "Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection",
+          "valueName": "EnableNetworkProtection",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/Microsoft/Windows Defender/Windows Defender Exploit Guard/Network Protection/EnableNetworkProtection",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(c)(1)",
+              "name": "Integrity"
+            }
+          ]
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "bitlocker": {
+      "name": "MSFT Windows 11 24H2 - BitLocker",
+      "backupId": "9dd51389-33d0-4d19-8274-f9c19c54aacb",
+      "type": "bitlocker",
+      "registrySettings": [
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "UseEnhancedPin",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/UseEnhancedPin",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "RDVDenyCrossOrg",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/RDVDenyCrossOrg",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\FVE",
+          "valueName": "DisableExternalDMAUnderLock",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/FVE/DisableExternalDMAUnderLock",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab",
+          "valueName": "DCSettingIndex",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/DCSettingIndex",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\abfc2519-3608-4c2a-94ea-171b0ed546ab",
+          "valueName": "ACSettingIndex",
+          "type": "REG_DWORD",
+          "data": 0,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Power/PowerSettings/abfc2519-3608-4c2a-94ea-171b0ed546ab/ACSettingIndex",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions",
+          "valueName": "DenyDeviceClasses",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions",
+          "valueName": "DenyDeviceClassesRetroactive",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClassesRetroactive",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClasses",
+          "valueName": "**delvals.",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses/**delvals.",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceInstall\\Restrictions\\DenyDeviceClasses",
+          "valueName": "1",
+          "type": "REG_SZ",
+          "data": "{d48179be-ec20-11d1-b6b8-00c04fa372a7}",
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/SOFTWARE/Policies/Microsoft/Windows/DeviceInstall/Restrictions/DenyDeviceClasses/1",
+          "nsaPillars": [
+            "Device"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "System\\CurrentControlSet\\Policies\\Microsoft\\FVE",
+          "valueName": "RDVDenyWriteAccess",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/CurrentControlSet/Policies/Microsoft/FVE/RDVDenyWriteAccess",
+          "nsaPillars": [
+            "Device",
+            "Data"
+          ],
+          "hipaaControls": [
+            {
+              "id": "164.312(a)(2)(iv)",
+              "name": "Encryption and Decryption"
+            }
+          ]
+        }
+      ],
+      "securitySettings": {
+        "Unicode": [
+          "Unicode=yes"
+        ],
+        "Version": [
+          "signature=\"$CHICAGO$\"",
+          "Revision=1"
+        ]
+      },
+      "auditPolicies": []
+    }
+  },
+  "securitySettings": {
+    "Unicode": [
+      "Unicode=yes",
+      "Unicode=yes",
+      "Unicode=yes",
+      "Unicode=yes"
+    ],
+    "Version": [
+      "signature=\"$CHICAGO$\"",
+      "Revision=1",
+      "signature=\"$CHICAGO$\"",
+      "Revision=1",
+      "signature=\"$CHICAGO$\"",
+      "Revision=1",
+      "signature=\"$CHICAGO$\"",
+      "Revision=1"
+    ],
+    "System Access": [
+      "MinimumPasswordLength = 14",
+      "PasswordComplexity = 1",
+      "PasswordHistorySize = 24",
+      "LockoutBadCount = 10",
+      "ResetLockoutCount = 10",
+      "LockoutDuration = 10",
+      "AllowAdministratorLockout = 1",
+      "ClearTextPassword = 0",
+      "LSAAnonymousNameLookup = 0"
+    ],
+    "Registry Values": [
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorEnhancedAdmin=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\TypeOfAdminApprovalMode=4,2",
+      "MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption=1,\"1\"",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs=4,900",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\NoLMHash=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel=4,5",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback=4,0",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec=4,537395200",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin=4,2",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser=4,0",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken=4,1",
+      "MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity=4,1",
+      "MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM=1,\"O:BAG:BAD:(A;;RC;;;BA)\"",
+      "MACHINE\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\DisablePasswordChange=4,0"
+    ],
+    "Privilege Rights": [
+      "SeSecurityPrivilege = *S-1-5-32-544",
+      "SeRestorePrivilege = *S-1-5-32-544",
+      "SeTakeOwnershipPrivilege = *S-1-5-32-544",
+      "SeBackupPrivilege = *S-1-5-32-544",
+      "SeDenyRemoteInteractiveLogonRight = *S-1-5-113",
+      "SeCreatePermanentPrivilege =",
+      "SeManageVolumePrivilege = *S-1-5-32-544",
+      "SeLoadDriverPrivilege = *S-1-5-32-544",
+      "SeLockMemoryPrivilege =",
+      "SeDenyNetworkLogonRight = *S-1-5-113",
+      "SeNetworkLogonRight = *S-1-5-32-544,*S-1-5-32-555",
+      "SeImpersonatePrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+      "SeCreateTokenPrivilege =",
+      "SeCreateGlobalPrivilege = *S-1-5-32-544,*S-1-5-6,*S-1-5-19,*S-1-5-20",
+      "SeSystemEnvironmentPrivilege = *S-1-5-32-544",
+      "SeCreatePagefilePrivilege = *S-1-5-32-544",
+      "SeInteractiveLogonRight = *S-1-5-32-544,*S-1-5-32-545",
+      "SeRemoteShutdownPrivilege = *S-1-5-32-544",
+      "SeDebugPrivilege = *S-1-5-32-544",
+      "SeTrustedCredManAccessPrivilege =",
+      "SeProfileSingleProcessPrivilege = *S-1-5-32-544",
+      "SeTcbPrivilege =",
+      "SeEnableDelegationPrivilege ="
+    ],
+    "Service General Setting": [
+      "\"XboxGipSvc\",4,\"\"",
+      "\"XblAuthManager\",4,\"\"",
+      "\"XblGameSave\",4,\"\"",
+      "\"XboxNetApiSvc\",4,\"\""
+    ]
+  },
+  "auditPolicies": [
+    {
+      "subcategory": "Audit Credential Validation",
+      "guid": "{0cce923f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security Group Management",
+      "guid": "{0cce9237-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit User Account Management",
+      "guid": "{0cce9235-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit PNP Activity",
+      "guid": "{0cce9248-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Process Creation",
+      "guid": "{0cce922b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Account Lockout",
+      "guid": "{0cce9217-69ae-11d9-bed3-505054503030}",
+      "setting": "Failure",
+      "value": "2"
+    },
+    {
+      "subcategory": "Audit Group Membership",
+      "guid": "{0cce9249-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Logon",
+      "guid": "{0cce9215-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Logon/Logoff Events",
+      "guid": "{0cce921c-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Special Logon",
+      "guid": "{0cce921b-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Detailed File Share",
+      "guid": "{0cce9244-69ae-11d9-bed3-505054503030}",
+      "setting": "Failure",
+      "value": "2"
+    },
+    {
+      "subcategory": "Audit File Share",
+      "guid": "{0cce9224-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Object Access Events",
+      "guid": "{0cce9227-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Removable Storage",
+      "guid": "{0cce9245-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Audit Policy Change",
+      "guid": "{0cce922f-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Authentication Policy Change",
+      "guid": "{0cce9230-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit MPSSVC Rule-Level Policy Change",
+      "guid": "{0cce9232-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Other Policy Change Events",
+      "guid": "{0cce9234-69ae-11d9-bed3-505054503030}",
+      "setting": "Failure",
+      "value": "2"
+    },
+    {
+      "subcategory": "Audit Sensitive Privilege Use",
+      "guid": "{0cce9228-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Other System Events",
+      "guid": "{0cce9214-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    },
+    {
+      "subcategory": "Audit Security State Change",
+      "guid": "{0cce9210-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit Security System Extension",
+      "guid": "{0cce9211-69ae-11d9-bed3-505054503030}",
+      "setting": "Success",
+      "value": "1"
+    },
+    {
+      "subcategory": "Audit System Integrity",
+      "guid": "{0cce9212-69ae-11d9-bed3-505054503030}",
+      "setting": "Success and Failure",
+      "value": "3"
+    }
+  ],
+  "statistics": {
+    "totalRegistrySettings": 335,
+    "totalSecuritySettings": 80,
+    "totalAuditPolicies": 23,
+    "gpoCount": 8
+  }
+}

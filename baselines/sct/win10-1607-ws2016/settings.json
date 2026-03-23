@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "id": "win10-1607-ws2016",
+    "name": "Windows 10 v1607 / Server 2016",
+    "os": [
+      "Windows 10 1607",
+      "Windows Server 2016"
+    ],
+    "category": "legacy",
+    "year": 2016
+  },
+  "totalSettings": 0,
+  "policyGroups": [],
+  "ztPillarBreakdown": {},
+  "settings": []
+}

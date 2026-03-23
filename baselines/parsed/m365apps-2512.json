@@ -1,0 +1,193 @@
+{
+  "metadata": {
+    "id": "m365apps-2512",
+    "name": "Microsoft 365 Apps for Enterprise 2512",
+    "os": "Cross-platform",
+    "version": "2512",
+    "category": "office",
+    "current": true,
+    "supersedes": [],
+    "parsedAt": "2026-02-17T22:31:29.491437Z",
+    "source": "Microsoft Security Compliance Toolkit 1.0 - Microsoft 365 Apps for Enterprise 2512"
+  },
+  "gpos": {
+    "user": {
+      "name": "MSFT Microsoft 365 Apps v2512 - DDE Block - User",
+      "backupId": "7089a688-ae34-4996-afc8-925e31c40299",
+      "type": "user",
+      "registrySettings": [
+        {
+          "key": "software\\policies\\microsoft\\office\\16.0\\excel\\security\\external content",
+          "valueName": "disableddeserverlaunch",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/software/policies/microsoft/office/16.0/excel/security/external content/disableddeserverlaunch",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\office\\16.0\\excel\\security\\external content",
+          "valueName": "disableddeserverlookup",
+          "type": "REG_DWORD",
+          "data": 1,
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/software/policies/microsoft/office/16.0/excel/security/external content/disableddeserverlookup",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\office\\16.0\\word\\security",
+          "valueName": "**del.allowdde",
+          "type": "REG_SZ",
+          "data": " ",
+          "scope": "user",
+          "omaUri": "./User/Vendor/MSFT/Policy/Config/software/policies/microsoft/office/16.0/word/security/**del.allowdde",
+          "nsaPillars": [
+            "General"
+          ],
+          "hipaaControls": []
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    },
+    "computer": {
+      "name": "MSFT Microsoft 365 Apps v2512 - Legacy JScript Block - Computer",
+      "backupId": "23895126-c558-427d-a738-5c9985cc4b5f",
+      "type": "computer",
+      "registrySettings": [
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "excel.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/excel.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "mspub.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/mspub.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "powerpnt.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/powerpnt.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "onenote.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/onenote.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "visio.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/visio.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "winproj.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/winproj.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "winword.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/winword.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "outlook.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/outlook.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        },
+        {
+          "key": "software\\policies\\microsoft\\internet explorer\\main\\featurecontrol\\FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE",
+          "valueName": "msaccess.exe",
+          "type": "REG_DWORD",
+          "data": 69632,
+          "scope": "device",
+          "omaUri": "./Device/Vendor/MSFT/Policy/Config/software/policies/microsoft/internet explorer/main/featurecontrol/FEATURE_RESTRICT_LEGACY_JSCRIPT_PER_SECURITY_ZONE/msaccess.exe",
+          "nsaPillars": [
+            "Application"
+          ],
+          "hipaaControls": []
+        }
+      ],
+      "securitySettings": {},
+      "auditPolicies": []
+    }
+  },
+  "securitySettings": {
+    "Unicode": [
+      "Unicode=yes"
+    ],
+    "Version": [
+      "signature=\"$CHICAGO$\"",
+      "Revision=1"
+    ]
+  },
+  "auditPolicies": [],
+  "statistics": {
+    "totalRegistrySettings": 385,
+    "totalSecuritySettings": 3,
+    "totalAuditPolicies": 0,
+    "gpoCount": 6
+  }
+}

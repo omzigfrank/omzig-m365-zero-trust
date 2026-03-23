@@ -9,6 +9,7 @@ param($Request, $TriggerMetadata)
     Creates Conditional Access policies for M365 Zero Trust
 #>
 
+$ErrorActionPreference = "Stop"
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
 
 Write-Host "Deploy-Identity started"
@@ -16,7 +17,6 @@ Write-Host "Deploy-Identity started"
 try {
     $config = $Request.Body
     if (-not $config) {
-        # Use defaults
         $config = @{
             securityBaseline = "Enhanced"
             hipaaEnabled = $false
@@ -28,23 +28,28 @@ try {
         throw "Failed to connect to Microsoft Graph"
     }
 
+    # Read UI toggles with defaults (respect user choices)
+    $requireMfa = $(if ($null -ne $config.requireMfa) { [bool]$config.requireMfa } else { $true })
+    $blockLegacyAuth = $(if ($null -ne $config.blockLegacyAuth) { [bool]$config.blockLegacyAuth } else { $true })
+    $requireCompliantDevice = $(if ($null -ne $config.requireCompliantDevice) { [bool]$config.requireCompliantDevice } else { $true })
+
     $results = @{
         conditionalAccessPolicies = @()
+        skippedPolicies = @()
         breakGlassGroup = $null
     }
 
     # =========================================================================
     # BREAK-GLASS ADMIN GROUP
-    # Creates a security group to exclude from device compliance policies
-    # This prevents lockout if no devices are enrolled in Intune
     # =========================================================================
     $breakGlassGroupName = "ZeroTrust-BreakGlass-Admins"
+    $safeGroupName = Format-ODataFilterValue -Value $breakGlassGroupName
     $breakGlassGroup = $null
 
     try {
         Write-Host "Checking for break-glass admin group..."
         $existingGroups = Invoke-GraphRequestWithRetry -Method GET `
-            -Uri "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq '$breakGlassGroupName'"
+            -Uri "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq '$safeGroupName'"
 
         if ($existingGroups.value -and $existingGroups.value.Count -gt 0) {
             $breakGlassGroup = $existingGroups.value[0]
@@ -139,7 +144,7 @@ try {
                 users = @{
                     includeUsers = @("All")
                     # Exclude break-glass admin group to prevent lockout
-                    excludeGroups = if ($breakGlassGroup) { @($breakGlassGroup.id) } else { @() }
+                    excludeGroups = $(if ($breakGlassGroup) { @($breakGlassGroup.id) } else { @() })
                 }
                 applications = @{ includeApplications = @("All") }
                 platforms = @{ includePlatforms = @("windows", "macOS", "iOS", "android") }
@@ -177,7 +182,27 @@ try {
         }
     )
 
+    # Build skip list based on UI toggles
+    $skipPolicies = @{}
+    if (-not $blockLegacyAuth) { $skipPolicies["CA001-Block-Legacy-Auth"] = "blockLegacyAuth disabled by user" }
+    if (-not $requireMfa) {
+        $skipPolicies["CA002-Require-MFA-All-Users"] = "requireMfa disabled by user"
+        $skipPolicies["CA003-Require-MFA-Admins"] = "requireMfa disabled by user"
+        $skipPolicies["CA006-MFA-Risky-SignIn"] = "requireMfa disabled by user"
+    }
+    if (-not $requireCompliantDevice) { $skipPolicies["CA004-Require-Compliant-Device"] = "requireCompliantDevice disabled by user" }
+
     foreach ($policy in $caPolicies) {
+        # Skip policies the user explicitly disabled
+        if ($skipPolicies.ContainsKey($policy.displayName)) {
+            $results.skippedPolicies += @{
+                name = $policy.displayName
+                reason = $skipPolicies[$policy.displayName]
+            }
+            Write-Host "Skipped: $($policy.displayName) - $($skipPolicies[$policy.displayName])"
+            continue
+        }
+
         try {
             Write-Host "Creating CA policy: $($policy.displayName)"
 
@@ -194,7 +219,6 @@ try {
         }
         catch {
             $errorMsg = $_.Exception.Message
-            # Check if policy already exists
             if ($errorMsg -match "already exists") {
                 $results.conditionalAccessPolicies += @{
                     name = $policy.displayName
@@ -206,7 +230,6 @@ try {
                 $results.conditionalAccessPolicies += @{
                     name = $policy.displayName
                     status = "Failed"
-                    error = $errorMsg
                 }
                 Write-Host "Failed to create $($policy.displayName): $errorMsg"
             }
@@ -234,7 +257,7 @@ catch {
 
     Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         StatusCode = [HttpStatusCode]::InternalServerError
-        Body = (@{ status = "Failed"; error = $_.Exception.Message; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
+        Body = (@{ status = "Failed"; error = "Deploy-Identity failed. Check function logs for details."; timestamp = (Get-Date).ToUniversalTime().ToString('o') } | ConvertTo-Json)
         Headers = @{ 'Content-Type' = 'application/json' }
     })
 }

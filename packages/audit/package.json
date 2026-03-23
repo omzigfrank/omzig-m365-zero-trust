@@ -1,0 +1,33 @@
+{
+  "name": "@omzig/audit",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./graph-client": "./dist/collectors/graph-client.js",
+    "./fact-collector": "./dist/collectors/fact-collector.js",
+    "./control-registry": "./dist/registry/control-registry.js",
+    "./maturity-calculator": "./dist/pipeline/maturity-calculator.js",
+    "./types": "./dist/types.js",
+    "./remediation": "./dist/remediation/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@microsoft/microsoft-graph-types": "*",
+    "@microsoft/microsoft-graph-types-beta": "*",
+    "@omzig/db": "workspace:*",
+    "drizzle-orm": "beta"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.0",
+    "typescript": "^5.7.0",
+    "@omzig/tsconfig": "workspace:*"
+  }
+}

@@ -85,7 +85,7 @@ Describe "Deploy-Devices Function" {
         It "Should require longer passwords" {
             # Arrange
             $hipaaEnabled = $true
-            $passwordLength = if ($hipaaEnabled) { 14 } else { 8 }
+            $passwordLength = $(if ($hipaaEnabled) { 14 } else { 8 })
 
             # Assert
             $passwordLength | Should Be 14
@@ -94,7 +94,7 @@ Describe "Deploy-Devices Function" {
         It "Should have no compliance grace period" {
             # Arrange
             $hipaaEnabled = $true
-            $gracePeriodDays = if ($hipaaEnabled) { 0 } else { 7 }
+            $gracePeriodDays = $(if ($hipaaEnabled) { 0 } else { 7 })
 
             # Assert
             $gracePeriodDays | Should Be 0
@@ -115,11 +115,11 @@ Describe "Deploy-Devices Function" {
         It "Should set stricter requirements for Maximum baseline" {
             # Arrange
             $baseline = "Maximum"
-            $settings = switch ($baseline) {
+            $settings = $(switch ($baseline) {
                 "Standard" { @{ passwordLength = 8; lockTimeout = 15 } }
                 "Enhanced" { @{ passwordLength = 10; lockTimeout = 10 } }
                 "Maximum"  { @{ passwordLength = 14; lockTimeout = 5 } }
-            }
+            })
 
             # Assert
             $settings.passwordLength | Should Be 14

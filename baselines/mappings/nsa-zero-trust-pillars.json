@@ -1,0 +1,108 @@
+{
+  "User": {
+    "settingCount": 8,
+    "baselines": {
+      "Windows 11 v24H2": 2,
+      "Windows 11 v23H2": 2,
+      "Windows 11 v22H2": 2,
+      "Windows 10 v22H2": 2
+    }
+  },
+  "Device": {
+    "settingCount": 345,
+    "baselines": {
+      "Windows 11 v25H2": 47,
+      "Windows 11 v24H2": 48,
+      "Windows 11 v23H2": 44,
+      "Windows 11 v22H2": 34,
+      "Windows 10 v22H2": 33,
+      "Windows 10 v20H2 / Server v20H2": 31,
+      "Windows 10 v1809 / Server 2019": 34,
+      "Windows 10 v1607 / Server 2016": 23,
+      "Windows Server 2025": 27,
+      "Windows Server 2022": 24
+    }
+  },
+  "Network": {
+    "settingCount": 229,
+    "baselines": {
+      "Windows 11 v24H2": 32,
+      "Windows 11 v23H2": 32,
+      "Windows 11 v22H2": 32,
+      "Windows 10 v22H2": 32,
+      "Windows 10 v20H2 / Server v20H2": 16,
+      "Windows 10 v1809 / Server 2019": 30,
+      "Windows 10 v1607 / Server 2016": 14,
+      "Windows Server 2025": 25,
+      "Windows Server 2022": 16
+    }
+  },
+  "Application": {
+    "settingCount": 615,
+    "baselines": {
+      "Windows 11 v25H2": 94,
+      "Windows 11 v24H2": 4,
+      "Windows 11 v23H2": 4,
+      "Windows 11 v22H2": 4,
+      "Windows 10 v22H2": 4,
+      "Windows 10 v20H2 / Server v20H2": 98,
+      "Windows 10 v1809 / Server 2019": 103,
+      "Windows 10 v1607 / Server 2016": 99,
+      "Windows Server 2025": 98,
+      "Windows Server 2022": 98,
+      "Microsoft 365 Apps for Enterprise 2512": 9
+    }
+  },
+  "Data": {
+    "settingCount": 43,
+    "baselines": {
+      "Windows 11 v25H2": 4,
+      "Windows 11 v24H2": 5,
+      "Windows 11 v23H2": 5,
+      "Windows 11 v22H2": 5,
+      "Windows 10 v22H2": 5,
+      "Windows 10 v20H2 / Server v20H2": 4,
+      "Windows 10 v1809 / Server 2019": 7,
+      "Windows 10 v1607 / Server 2016": 8
+    }
+  },
+  "Visibility": {
+    "settingCount": 125,
+    "baselines": {
+      "Windows 11 v25H2": 4,
+      "Windows 11 v24H2": 18,
+      "Windows 11 v23H2": 17,
+      "Windows 11 v22H2": 17,
+      "Windows 10 v22H2": 17,
+      "Windows 10 v20H2 / Server v20H2": 8,
+      "Windows 10 v1809 / Server 2019": 12,
+      "Windows 10 v1607 / Server 2016": 8,
+      "Windows Server 2025": 16,
+      "Windows Server 2022": 8
+    }
+  },
+  "Automation": {
+    "settingCount": 65,
+    "baselines": {
+      "Windows 10 Update Baseline": 65
+    }
+  },
+  "General": {
+    "settingCount": 974,
+    "baselines": {
+      "Windows 11 v25H2": 52,
+      "Windows 11 v24H2": 110,
+      "Windows 11 v23H2": 84,
+      "Windows 11 v22H2": 81,
+      "Windows 10 v22H2": 69,
+      "Windows 10 v20H2 / Server v20H2": 94,
+      "Windows 10 v1809 / Server 2019": 140,
+      "Windows 10 v1607 / Server 2016": 91,
+      "Windows 10 Update Baseline": 13,
+      "Windows Server 2025": 123,
+      "Windows Server 2022": 94,
+      "Microsoft Edge v139": 20,
+      "Microsoft 365 Apps for Enterprise 2512": 3
+    }
+  }
+}

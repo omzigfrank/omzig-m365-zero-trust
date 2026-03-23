@@ -22,7 +22,7 @@ $trustedLocation = @{
     )
 } | ConvertTo-Json -Depth 5
 
-$trustedLocation | Out-File -FilePath "$env:TEMP\trusted-location.json" -Encoding utf8
+[System.IO.File]::WriteAllText("$env:TEMP\trusted-location.json", $trustedLocation, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "Creating trusted corporate IP location..." -NoNewline
 & $az rest --method POST --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/namedLocations" --body "@$env:TEMP\trusted-location.json" -o none 2>&1 | Out-Null
@@ -36,7 +36,7 @@ $blockedCountries = @{
     includeUnknownCountriesAndRegions = $false
 } | ConvertTo-Json -Depth 5
 
-$blockedCountries | Out-File -FilePath "$env:TEMP\blocked-countries.json" -Encoding utf8
+[System.IO.File]::WriteAllText("$env:TEMP\blocked-countries.json", $blockedCountries, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "Creating blocked countries location..." -NoNewline
 & $az rest --method POST --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/namedLocations" --body "@$env:TEMP\blocked-countries.json" -o none 2>&1 | Out-Null
@@ -91,7 +91,7 @@ $windowsPolicy = @{
     )
 } | ConvertTo-Json -Depth 10
 
-$windowsPolicy | Out-File -FilePath "$env:TEMP\windows-compliance.json" -Encoding utf8
+[System.IO.File]::WriteAllText("$env:TEMP\windows-compliance.json", $windowsPolicy, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "Creating Windows compliance policy..." -NoNewline
 & $az rest --method POST --url "https://graph.microsoft.com/v1.0/deviceManagement/deviceCompliancePolicies" --body "@$env:TEMP\windows-compliance.json" -o none 2>&1 | Out-Null
@@ -126,7 +126,7 @@ $iosPolicy = @{
     )
 } | ConvertTo-Json -Depth 10
 
-$iosPolicy | Out-File -FilePath "$env:TEMP\ios-compliance.json" -Encoding utf8
+[System.IO.File]::WriteAllText("$env:TEMP\ios-compliance.json", $iosPolicy, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "Creating iOS compliance policy..." -NoNewline
 & $az rest --method POST --url "https://graph.microsoft.com/v1.0/deviceManagement/deviceCompliancePolicies" --body "@$env:TEMP\ios-compliance.json" -o none 2>&1 | Out-Null
@@ -163,7 +163,7 @@ $androidPolicy = @{
     )
 } | ConvertTo-Json -Depth 10
 
-$androidPolicy | Out-File -FilePath "$env:TEMP\android-compliance.json" -Encoding utf8
+[System.IO.File]::WriteAllText("$env:TEMP\android-compliance.json", $androidPolicy, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "Creating Android compliance policy..." -NoNewline
 & $az rest --method POST --url "https://graph.microsoft.com/v1.0/deviceManagement/deviceCompliancePolicies" --body "@$env:TEMP\android-compliance.json" -o none 2>&1 | Out-Null
@@ -201,7 +201,7 @@ $macPolicy = @{
     )
 } | ConvertTo-Json -Depth 10
 
-$macPolicy | Out-File -FilePath "$env:TEMP\macos-compliance.json" -Encoding utf8
+[System.IO.File]::WriteAllText("$env:TEMP\macos-compliance.json", $macPolicy, [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "Creating macOS compliance policy..." -NoNewline
 & $az rest --method POST --url "https://graph.microsoft.com/v1.0/deviceManagement/deviceCompliancePolicies" --body "@$env:TEMP\macos-compliance.json" -o none 2>&1 | Out-Null
@@ -290,7 +290,7 @@ foreach ($label in $labels) {
         color = $label.color
     } | ConvertTo-Json -Depth 5
 
-    $labelBody | Out-File -FilePath "$env:TEMP\label-$($label.name).json" -Encoding utf8
+    [System.IO.File]::WriteAllText("$env:TEMP\label-$($label.name).json", $labelBody, [System.Text.UTF8Encoding]::new($false))
 
     Write-Host "Creating label: $($label.name)..." -NoNewline
     & $az rest --method POST --url "https://graph.microsoft.com/beta/security/informationProtection/sensitivityLabels" --body "@$env:TEMP\label-$($label.name).json" -o none 2>&1 | Out-Null
@@ -339,7 +339,7 @@ foreach ($group in $groups) {
         securityEnabled = $true
     } | ConvertTo-Json
 
-    $groupBody | Out-File -FilePath "$env:TEMP\group-$($group.name).json" -Encoding utf8
+    [System.IO.File]::WriteAllText("$env:TEMP\group-$($group.name).json", $groupBody, [System.Text.UTF8Encoding]::new($false))
 
     Write-Host "Creating group: $($group.name)..." -NoNewline
     & $az rest --method POST --url "https://graph.microsoft.com/v1.0/groups" --body "@$env:TEMP\group-$($group.name).json" -o none 2>&1 | Out-Null
@@ -375,7 +375,7 @@ if ($locationId) {
         }
     } | ConvertTo-Json -Depth 10
 
-    $blockCountriesPolicy | Out-File -FilePath "$env:TEMP\ca-block-countries.json" -Encoding utf8
+    [System.IO.File]::WriteAllText("$env:TEMP\ca-block-countries.json", $blockCountriesPolicy, [System.Text.UTF8Encoding]::new($false))
 
     Write-Host "Creating CA007-Block-High-Risk-Countries..." -NoNewline
     & $az rest --method POST --url "https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies" --body "@$env:TEMP\ca-block-countries.json" -o none 2>&1 | Out-Null

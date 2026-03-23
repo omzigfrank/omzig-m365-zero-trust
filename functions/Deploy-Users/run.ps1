@@ -11,6 +11,7 @@ param($Request, $TriggerMetadata)
 #>
 
 Import-Module (Join-Path $PSScriptRoot '..' 'Modules' 'GraphHelper.psm1') -Force
+$ErrorActionPreference = "Stop"
 
 Write-Host "Deploy-Users started"
 
@@ -101,8 +102,9 @@ try {
         foreach ($group in $standardGroups) {
             try {
                 # Check if group already exists
+                $safeGroupName = Format-ODataFilterValue -Value $group.displayName
                 $existingGroup = Invoke-GraphRequestWithRetry -Method GET `
-                    -Uri "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq '$($group.displayName)'"
+                    -Uri "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq '$safeGroupName'"
 
                 if ($existingGroup.value -and $existingGroup.value.Count -gt 0) {
                     Write-Host "Group already exists: $($group.displayName)"
@@ -178,8 +180,9 @@ try {
         foreach ($account in $breakGlassAccounts) {
             try {
                 # Check if account exists
+                $safeUpn = Format-ODataFilterValue -Value $account.userPrincipalName
                 $existingUser = Invoke-GraphRequestWithRetry -Method GET `
-                    -Uri "https://graph.microsoft.com/v1.0/users?`$filter=userPrincipalName eq '$($account.userPrincipalName)'"
+                    -Uri "https://graph.microsoft.com/v1.0/users?`$filter=userPrincipalName eq '$safeUpn'"
 
                 if ($existingUser.value -and $existingUser.value.Count -gt 0) {
                     Write-Host "Break-glass account already exists: $($account.userPrincipalName)"
@@ -212,14 +215,45 @@ try {
 
                     Write-Host "Created break-glass account: $($account.userPrincipalName)"
 
-                    # Note: Password should be stored securely (e.g., Key Vault)
-                    # DO NOT log the actual password
+                    # Store password in Key Vault
+                    $secretStored = $false
+                    $secretName = "breakglass-$($account.mailNickname)-password"
+                    if ($env:KEY_VAULT_NAME) {
+                        try {
+                            $secretBody = @{
+                                value = $password
+                            }
+                            $vaultUri = "https://$($env:KEY_VAULT_NAME).vault.azure.net/secrets/$secretName`?api-version=7.4"
+                            # Use managed identity token for Key Vault
+                            $kvResource = "https://vault.azure.net"
+                            $kvEndpoint = $env:IDENTITY_ENDPOINT
+                            $kvHeader = $env:IDENTITY_HEADER
+                            $kvClientId = $env:AZURE_CLIENT_ID
+                            $kvTokenUri = "$kvEndpoint`?resource=$kvResource&api-version=2019-08-01&client_id=$kvClientId"
+                            $kvToken = (Invoke-RestMethod -Uri $kvTokenUri -Headers @{"X-IDENTITY-HEADER" = $kvHeader} -Method GET).access_token
+                            Invoke-RestMethod -Uri $vaultUri -Method PUT -Headers @{
+                                "Authorization" = "Bearer $kvToken"
+                                "Content-Type" = "application/json"
+                            } -Body ($secretBody | ConvertTo-Json)
+                            $secretStored = $true
+                            Write-Host "Password stored in Key Vault: $($env:KEY_VAULT_NAME)/$secretName"
+                        }
+                        catch {
+                            Write-Warning "Failed to store password in Key Vault: $($_.Exception.Message)"
+                        }
+                    }
+
+                    # Clear password from memory after storage attempt
+                    $password = $null
+
                     $results.users += @{
                         userPrincipalName = $account.userPrincipalName
                         id = $createdUser.id
                         status = "Created"
                         type = "BreakGlass"
-                        note = "Password generated - store securely in Key Vault"
+                        passwordStoredInKeyVault = $secretStored
+                        keyVaultSecretName = $(if ($secretStored) { $secretName } else { $null })
+                        note = $(if ($secretStored) { "Password stored in Key Vault secret '$secretName'" } else { "WARNING: KEY_VAULT_NAME not configured. Password was generated but could not be stored securely. Re-create the account after configuring Key Vault." })
                     }
                 }
             }
@@ -236,8 +270,9 @@ try {
 
         # Add break-glass accounts to the exclusion group
         try {
+            $safeBreakGlassGroupName = Format-ODataFilterValue -Value 'ZeroTrust-BreakGlass-Admins'
             $breakGlassGroup = Invoke-GraphRequestWithRetry -Method GET `
-                -Uri "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq 'ZeroTrust-BreakGlass-Admins'"
+                -Uri "https://graph.microsoft.com/v1.0/groups?`$filter=displayName eq '$safeBreakGlassGroupName'"
 
             if ($breakGlassGroup.value -and $breakGlassGroup.value.Count -gt 0) {
                 $groupId = $breakGlassGroup.value[0].id
@@ -275,8 +310,9 @@ try {
         foreach ($assignment in $config.adminRoleAssignments) {
             try {
                 # Get the role template
+                $safeRoleId = Format-ODataFilterValue -Value $assignment.roleId
                 $roleTemplate = Invoke-GraphRequestWithRetry -Method GET `
-                    -Uri "https://graph.microsoft.com/v1.0/directoryRoleTemplates?`$filter=id eq '$($assignment.roleId)'"
+                    -Uri "https://graph.microsoft.com/v1.0/directoryRoleTemplates?`$filter=id eq '$safeRoleId'"
 
                 if ($roleTemplate.value -and $roleTemplate.value.Count -gt 0) {
                     # Activate the role if not already activated
@@ -294,7 +330,7 @@ try {
 
                     # Get the activated role
                     $activatedRole = Invoke-GraphRequestWithRetry -Method GET `
-                        -Uri "https://graph.microsoft.com/v1.0/directoryRoles?`$filter=roleTemplateId eq '$($assignment.roleId)'"
+                        -Uri "https://graph.microsoft.com/v1.0/directoryRoles?`$filter=roleTemplateId eq '$safeRoleId'"
 
                     if ($activatedRole.value -and $activatedRole.value.Count -gt 0) {
                         $roleId = $activatedRole.value[0].id
@@ -330,10 +366,10 @@ try {
         }
         results = $results
         summary = @{
-            groupsCreated = ($results.groups | Where-Object { $_.status -eq "Created" }).Count
-            groupsExisting = ($results.groups | Where-Object { $_.status -eq "AlreadyExists" }).Count
-            usersCreated = ($results.users | Where-Object { $_.status -eq "Created" }).Count
-            usersExisting = ($results.users | Where-Object { $_.status -eq "AlreadyExists" }).Count
+            groupsCreated = @($results.groups | Where-Object { $_.status -eq "Created" }).Count
+            groupsExisting = @($results.groups | Where-Object { $_.status -eq "AlreadyExists" }).Count
+            usersCreated = @($results.users | Where-Object { $_.status -eq "Created" }).Count
+            usersExisting = @($results.users | Where-Object { $_.status -eq "AlreadyExists" }).Count
         }
     }
 
@@ -350,7 +386,7 @@ catch {
         StatusCode = [HttpStatusCode]::InternalServerError
         Body = (@{
             status = "Failed"
-            error = $_.Exception.Message
+            error = "An internal error occurred during user deployment. Check function logs for details."
             timestamp = (Get-Date).ToUniversalTime().ToString('o')
         } | ConvertTo-Json)
         Headers = @{ 'Content-Type' = 'application/json' }
