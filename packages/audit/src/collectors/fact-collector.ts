@@ -62,7 +62,7 @@ export async function collectFacts(
     { id: 'authorizationPolicy', url: '/policies/authorizationPolicy' },
     { id: 'adminConsentPolicy', url: '/policies/adminConsentRequestPolicy' },
     { id: 'securityDefaults', url: '/policies/identitySecurityDefaultsEnforcementPolicy' },
-    { id: 'directoryRoles', url: '/directoryRoles?$select=id,displayName&$top=100' },
+    { id: 'directoryRoles', url: '/directoryRoles?$select=id,displayName' },
     { id: 'subscribedSkus', url: '/subscribedSkus' },
     {
       id: 'domains',
@@ -222,6 +222,7 @@ export async function collectFacts(
   try {
     const labelsData = await client
       .api('/security/informationProtection/sensitivityLabels?$top=100&$select=id,name')
+      .version('beta')
       .get();
     facts.sensitivityLabels = parseSensitivityLabels(labelsData);
   } catch (err) {

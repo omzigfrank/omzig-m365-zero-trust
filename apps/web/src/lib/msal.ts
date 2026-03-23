@@ -60,6 +60,8 @@ export const graphScopes = [
   "Domain.Read.All",
   "Application.Read.All",
   "RoleManagement.Read.Directory",
+  "UserAuthenticationMethod.Read.All", // MFA registration details
+  "InformationProtectionPolicy.Read",  // Sensitivity labels
 ];
 
 /**
