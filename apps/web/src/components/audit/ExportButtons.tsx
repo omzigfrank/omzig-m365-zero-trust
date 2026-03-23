@@ -40,21 +40,21 @@ export function ExportButtons({ data }: { data: AuditRunDetail }) {
     <div className="flex gap-2">
       <button
         onClick={downloadJson}
-        className="inline-flex items-center gap-1.5 rounded-lg bg-surface-container-high px-3 py-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant transition hover:bg-surface-container-highest"
+        className="inline-flex items-center gap-1.5 rounded border border-gray-200 bg-white px-3 py-2 text-xs font-bold uppercase tracking-widest text-gray-700 transition hover:bg-gray-50"
       >
         <span className="material-symbols-outlined text-base">download</span>
         JSON
       </button>
       <button
         onClick={downloadCsv}
-        className="inline-flex items-center gap-1.5 rounded-lg bg-surface-container-high px-3 py-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant transition hover:bg-surface-container-highest"
+        className="inline-flex items-center gap-1.5 rounded border border-gray-200 bg-white px-3 py-2 text-xs font-bold uppercase tracking-widest text-gray-700 transition hover:bg-gray-50"
       >
         <span className="material-symbols-outlined text-base">table_view</span>
         CSV
       </button>
       <button
         disabled
-        className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-xs font-bold uppercase tracking-widest text-white shadow-lg shadow-primary/20 transition hover:bg-primary/90 disabled:opacity-60"
+        className="inline-flex items-center gap-1.5 rounded bg-omzig-400 px-3 py-2 text-xs font-bold uppercase tracking-widest text-white transition hover:bg-omzig-500 disabled:opacity-60"
         title="Coming soon"
       >
         <span className="material-symbols-outlined text-base">

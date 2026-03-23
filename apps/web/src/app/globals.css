@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 body {
-  @apply bg-surface text-on-surface font-body antialiased;
+  @apply bg-gray-50 text-gray-700 antialiased;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 /* Material Symbols Outlined */

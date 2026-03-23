@@ -29,14 +29,14 @@ export function ScoreCard({
   const icon = FRAMEWORK_ICONS[product] ?? "security";
 
   return (
-    <Card className="group flex flex-col gap-3 transition-transform duration-200 hover:-translate-y-1">
+    <Card className="group flex flex-col gap-3 transition-transform duration-200 hover:-translate-y-1 hover:shadow-lift">
       {/* Top row: icon + score */}
       <div className="flex items-center justify-between">
         <div
-          className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+          className={`flex h-10 w-10 items-center justify-center rounded ${
             isLow
-              ? "bg-tertiary/10 text-tertiary"
-              : "bg-primary/10 text-primary"
+              ? "bg-red-100 text-red-600"
+              : "bg-omzig-400/10 text-omzig-400"
           }`}
         >
           <span className="material-symbols-outlined text-xl">{icon}</span>
@@ -45,9 +45,9 @@ export function ScoreCard({
           className={`text-2xl font-black ${
             total > 0
               ? isLow
-                ? "text-tertiary"
-                : "text-primary"
-              : "text-outline"
+                ? "text-red-600"
+                : "text-omzig-400"
+              : "text-gray-400"
           }`}
         >
           {total > 0 ? `${score}%` : "N/A"}
@@ -55,7 +55,7 @@ export function ScoreCard({
       </div>
 
       {/* Framework label */}
-      <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+      <div className="text-xs font-bold uppercase tracking-widest text-gray-500">
         {label}
       </div>
 
@@ -63,22 +63,22 @@ export function ScoreCard({
       {total > 0 ? (
         <>
           <div className="flex gap-3 text-xs font-medium">
-            <span className="text-primary">{pass} pass</span>
-            <span className="text-tertiary">{fail} fail</span>
+            <span className="text-green-600">{pass} pass</span>
+            <span className="text-red-600">{fail} fail</span>
           </div>
-          <div className="h-1.5 w-full rounded-full bg-surface-container-high">
+          <div className="h-1.5 w-full rounded-full bg-gray-200">
             <div
-              className={`h-1.5 rounded-full bg-gradient-to-r transition-all duration-500 ${
+              className={`h-1.5 rounded-full transition-all duration-500 ${
                 isLow
-                  ? "from-tertiary to-tertiary-container"
-                  : "from-primary to-primary-container"
+                  ? "bg-red-500"
+                  : "bg-omzig-400"
               }`}
               style={{ width: `${barWidth}%` }}
             />
           </div>
         </>
       ) : (
-        <div className="text-xs text-outline">No data</div>
+        <div className="text-xs text-gray-400">No data</div>
       )}
     </Card>
   );

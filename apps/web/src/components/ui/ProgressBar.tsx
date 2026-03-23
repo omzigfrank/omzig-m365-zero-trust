@@ -12,29 +12,29 @@ export function ProgressBar({
   const showBar = total !== undefined && total > 0;
 
   return (
-    <div className="flex flex-col items-center gap-3 rounded-xl bg-surface-container-lowest p-6 shadow-lift">
+    <div className="flex flex-col items-center gap-3 rounded bg-white p-6 shadow-card">
       {showBar ? (
         <>
           <div className="w-full max-w-md">
-            <div className="mb-2 flex items-center justify-between text-xs font-medium text-on-surface-variant">
+            <div className="mb-2 flex items-center justify-between text-xs font-medium text-gray-600">
               <span>
                 {completed ?? 0} / {total} checks
               </span>
               <span>{pct}%</span>
             </div>
-            <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface-container-high">
+            <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-200">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-primary to-primary-container transition-all duration-300"
+                className="h-full rounded-full bg-omzig-400 transition-all duration-300"
                 style={{ width: `${pct}%` }}
               />
             </div>
           </div>
-          <p className="text-sm text-on-surface-variant">{message}</p>
+          <p className="text-sm text-gray-600">{message}</p>
         </>
       ) : (
         <>
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-          <p className="text-sm text-on-surface-variant">{message}</p>
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-omzig-400 border-t-transparent" />
+          <p className="text-sm text-gray-600">{message}</p>
         </>
       )}
     </div>

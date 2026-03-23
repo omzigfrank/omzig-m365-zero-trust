@@ -37,27 +37,14 @@ export default function RootLayout({
       <html lang="en">
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-            rel="stylesheet"
-          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         </head>
-        <body className="bg-surface">
+        <body className="bg-gray-50">
           <div className="flex h-screen items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary-container border-t-transparent" />
-              <p className="text-sm text-on-surface-variant">
-                Loading Omzig Security...
-              </p>
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-omzig-400 border-t-transparent" />
+              <p className="text-sm text-gray-500">Loading...</p>
             </div>
           </div>
         </body>
@@ -69,29 +56,16 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <title>Omzig Security Audit</title>
-        <meta
-          name="description"
-          content="CISA SCuBA and NIST Zero Trust security audit for Microsoft 365"
-        />
+        <meta name="description" content="CISA SCuBA and NIST Zero Trust security audit for Microsoft 365" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body>
         <MsalProvider instance={msalInstance}>
           {initError && (
-            <div className="border-b border-tertiary/20 bg-error-container px-4 py-3 text-center text-sm text-tertiary">
+            <div className="border-b border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-700">
               Auth error: {initError}
             </div>
           )}

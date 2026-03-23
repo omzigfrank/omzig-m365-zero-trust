@@ -2,11 +2,11 @@ import { clsx } from "clsx";
 import type { AuditRating } from "@/lib/types";
 
 const ratingStyles: Record<AuditRating, string> = {
-  pass: "bg-primary-container text-on-primary-container",
-  fail: "bg-tertiary text-white",
-  warn: "bg-amber-500 text-white",
-  blocker: "bg-error text-on-error",
-  na: "bg-outline-variant text-on-surface-variant",
+  pass: "bg-green-100 text-green-700",
+  fail: "bg-red-100 text-red-700",
+  warn: "bg-amber-100 text-amber-700",
+  blocker: "bg-red-200 text-red-800",
+  na: "bg-gray-100 text-gray-600",
 };
 
 const ratingLabels: Record<AuditRating, string> = {

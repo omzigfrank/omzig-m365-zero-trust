@@ -73,18 +73,18 @@ export default function AuditPage() {
             {/* Title row */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h1 className="text-4xl font-black tracking-tight text-on-surface">
+                <h1 className="text-4xl font-black tracking-tight text-gray-800">
                   Security Audit Results
                 </h1>
                 <div className="mt-2 flex items-center gap-3">
-                  <span className="text-sm text-on-surface-variant">
+                  <span className="text-sm text-gray-500">
                     {new Date().toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </span>
-                  <span className="rounded-md bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-primary">
+                  <span className="rounded bg-omzig-400/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-omzig-400">
                     Full Framework Scan
                   </span>
                 </div>
@@ -94,62 +94,62 @@ export default function AuditPage() {
 
             {/* Stat boxes + new audit */}
             <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-6 rounded-xl bg-surface-container-lowest px-6 py-4 shadow-lift">
+              <div className="flex items-center gap-6 rounded bg-white px-6 py-4 shadow-card">
                 {/* Passed */}
                 <div className="text-center">
-                  <div className="text-2xl font-black text-primary">
+                  <div className="text-2xl font-black text-green-600">
                     {result.passedChecks}
                   </div>
-                  <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-500">
                     Passed
                   </div>
                 </div>
 
-                <div className="h-8 w-px bg-outline-variant" />
+                <div className="h-8 w-px bg-gray-200" />
 
                 {/* Failed */}
                 <div className="text-center">
-                  <div className="border-b-2 border-tertiary text-2xl font-black text-tertiary">
+                  <div className="text-2xl font-black text-red-600">
                     {result.failedChecks}
                   </div>
-                  <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-500">
                     Failed
                   </div>
                 </div>
 
-                <div className="h-8 w-px bg-outline-variant" />
+                <div className="h-8 w-px bg-gray-200" />
 
                 {/* N/A */}
                 <div className="text-center">
-                  <div className="text-2xl font-black text-outline">
+                  <div className="text-2xl font-black text-gray-400">
                     {result.errorChecks ?? 0}
                   </div>
-                  <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-500">
                     N/A
                   </div>
                 </div>
 
-                <div className="h-8 w-px bg-outline-variant" />
+                <div className="h-8 w-px bg-gray-200" />
 
                 {/* Total + duration */}
                 <div className="text-center">
-                  <div className="text-2xl font-black text-on-surface">
+                  <div className="text-2xl font-black text-gray-800">
                     {result.totalChecks}
                   </div>
-                  <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <div className="text-xs font-bold uppercase tracking-widest text-gray-500">
                     Total
                   </div>
                 </div>
               </div>
 
-              <div className="text-xs text-outline">
+              <div className="text-xs text-gray-400">
                 Completed in {(result.durationMs / 1000).toFixed(1)}s
               </div>
 
               <div className="ml-auto">
                 <button
                   onClick={() => audit.reset()}
-                  className="inline-flex items-center gap-2 rounded-lg bg-surface-container-high px-4 py-2 text-sm font-semibold text-on-surface-variant transition hover:bg-surface-container-highest"
+                  className="inline-flex items-center gap-2 rounded border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
                 >
                   <span className="material-symbols-outlined text-lg">
                     refresh
@@ -175,8 +175,8 @@ export default function AuditPage() {
 
             <FrameworkBreakdown findings={result.findings} />
 
-            <div className="rounded-xl bg-surface-container-lowest p-6 shadow-lift">
-              <h2 className="mb-4 text-lg font-bold text-on-surface">
+            <div className="rounded bg-white p-6 shadow-card">
+              <h2 className="mb-4 text-lg font-bold text-gray-800">
                 Audit Findings
               </h2>
               <AuditResults findings={result.findings} />
@@ -188,18 +188,18 @@ export default function AuditPage() {
         {!result && (
           <>
             <div>
-              <h1 className="text-4xl font-black tracking-tight text-on-surface">
+              <h1 className="text-4xl font-black tracking-tight text-gray-800">
                 Security Audit
               </h1>
-              <p className="mt-1 text-sm text-on-surface-variant">
+              <p className="mt-1 text-sm text-gray-500">
                 Evaluate your Microsoft 365 tenant against compliance frameworks
               </p>
             </div>
 
             {/* Framework selector + Run button */}
             {audit.status !== "complete" && (
-              <div className="rounded-xl bg-surface-container-lowest p-6 shadow-lift">
-                <div className="mb-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+              <div className="rounded bg-white p-6 shadow-card">
+                <div className="mb-4 text-xs font-bold uppercase tracking-widest text-gray-500">
                   Select Framework
                 </div>
 
@@ -211,10 +211,10 @@ export default function AuditPage() {
                         key={fw.id}
                         onClick={() => setSelectedFramework(fw.id)}
                         disabled={audit.status === "running"}
-                        className={`flex min-w-[150px] flex-col items-start rounded-lg border-2 px-4 py-3 text-left transition ${
+                        className={`flex min-w-[150px] flex-col items-start rounded border px-4 py-3 text-left transition ${
                           selectedFramework === fw.id
-                            ? "border-primary bg-primary/5 text-primary"
-                            : "border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-outline"
+                            ? "border-omzig-400 bg-omzig-400/5 text-omzig-400"
+                            : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                         } disabled:cursor-not-allowed disabled:opacity-50`}
                       >
                         <div className="flex items-center gap-2">
@@ -237,7 +237,7 @@ export default function AuditPage() {
                   <button
                     onClick={handleRun}
                     disabled={audit.status === "running"}
-                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white shadow-lg shadow-primary/20 transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded bg-omzig-400 px-6 py-3 text-sm font-bold text-white transition hover:bg-omzig-500 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <span className="material-symbols-outlined text-lg">
                       play_arrow
@@ -254,7 +254,7 @@ export default function AuditPage() {
         {audit.status === "running" && (
           <div className="space-y-3">
             {/* Phase indicator */}
-            <div className="flex items-center gap-6 rounded-xl bg-surface-container-lowest px-6 py-4 shadow-lift">
+            <div className="flex items-center gap-6 rounded bg-white px-6 py-4 shadow-card">
               {["Collecting", "Evaluating", "Scoring"].map((phase, i) => {
                 const isActive = audit.phase === phase;
                 const isDone =
@@ -266,10 +266,10 @@ export default function AuditPage() {
                     <div
                       className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
                         isActive
-                          ? "animate-pulse bg-primary text-white"
+                          ? "animate-pulse bg-omzig-400 text-white"
                           : isDone
                             ? "bg-green-500 text-white"
-                            : "bg-surface-container-high text-outline"
+                            : "bg-gray-200 text-gray-400"
                       }`}
                     >
                       {isDone ? (
@@ -283,10 +283,10 @@ export default function AuditPage() {
                     <span
                       className={`text-sm font-medium ${
                         isActive
-                          ? "text-primary"
+                          ? "text-omzig-400"
                           : isDone
                             ? "text-green-600"
-                            : "text-outline"
+                            : "text-gray-400"
                       }`}
                     >
                       {phase}
@@ -296,7 +296,7 @@ export default function AuditPage() {
                         className={`mx-2 h-px w-8 ${
                           isDone
                             ? "bg-green-300"
-                            : "bg-surface-container-high"
+                            : "bg-gray-200"
                         }`}
                       />
                     )}
@@ -315,18 +315,18 @@ export default function AuditPage() {
 
         {/* ── Error ───────────────────────────────────────────────── */}
         {audit.status === "error" && (
-          <div className="flex items-start gap-3 rounded-xl border border-error/30 bg-error-container p-4">
-            <span className="material-symbols-outlined mt-0.5 text-xl text-error">
+          <div className="flex items-start gap-3 rounded border border-red-200 bg-red-50 p-4">
+            <span className="material-symbols-outlined mt-0.5 text-xl text-red-500">
               warning
             </span>
             <div>
-              <div className="text-sm font-bold text-error">Audit Failed</div>
-              <div className="mt-1 text-sm text-on-surface-variant">
+              <div className="text-sm font-bold text-red-600">Audit Failed</div>
+              <div className="mt-1 text-sm text-gray-600">
                 {audit.error}
               </div>
               <button
                 onClick={handleRun}
-                className="mt-3 text-sm font-bold text-error underline hover:no-underline"
+                className="mt-3 text-sm font-bold text-red-600 underline hover:no-underline"
               >
                 Try again
               </button>
@@ -336,16 +336,16 @@ export default function AuditPage() {
 
         {/* ── Empty / idle state ──────────────────────────────────── */}
         {audit.status === "idle" && (
-          <div className="rounded-xl border border-dashed border-outline-variant py-16 text-center">
-            <span className="material-symbols-outlined mb-3 text-4xl text-outline">
+          <div className="rounded border border-dashed border-gray-300 py-16 text-center">
+            <span className="material-symbols-outlined mb-3 text-4xl text-gray-400">
               security
             </span>
-            <p className="text-on-surface-variant">
+            <p className="text-gray-600">
               Select a framework above and click{" "}
-              <strong className="text-primary">Run Audit</strong> to evaluate
+              <strong className="text-omzig-400">Run Audit</strong> to evaluate
               your tenant.
             </p>
-            <p className="mt-2 text-sm text-outline">
+            <p className="mt-2 text-sm text-gray-400">
               The audit runs entirely in your browser -- your data never leaves
               your session.
             </p>
@@ -372,10 +372,10 @@ function DiagnosticsPanel({
 
   return (
     <div
-      className={`rounded-xl shadow-lift ${
+      className={`rounded shadow-card ${
         hasProblems
           ? "bg-amber-50"
-          : "bg-surface-container-lowest"
+          : "bg-white"
       }`}
     >
       <button
@@ -392,13 +392,13 @@ function DiagnosticsPanel({
               check_circle
             </span>
           )}
-          <span className="text-sm font-bold text-on-surface">
+          <span className="text-sm font-bold text-gray-800">
             Collection Diagnostics
           </span>
-          <span className="text-xs text-on-surface-variant">
+          <span className="text-xs text-gray-500">
             {diagnostics.okCount} OK
             {diagnostics.errorCount > 0 && (
-              <span className="ml-1 text-error">
+              <span className="ml-1 text-red-600">
                 &middot; {diagnostics.errorCount} errors
               </span>
             )}
@@ -411,32 +411,32 @@ function DiagnosticsPanel({
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1 text-xs text-outline">
+          <div className="flex items-center gap-1 text-xs text-gray-400">
             <span className="material-symbols-outlined text-xs">schedule</span>
             Collect: {diagnostics.collectionMs}ms &middot; Eval:{" "}
             {diagnostics.evaluationMs}ms
           </div>
-          <span className="material-symbols-outlined text-lg text-outline">
+          <span className="material-symbols-outlined text-lg text-gray-400">
             {open ? "expand_less" : "expand_more"}
           </span>
         </div>
       </button>
 
       {open && (
-        <div className="border-t border-outline-variant px-6 py-4">
+        <div className="border-t border-gray-200 px-6 py-4">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+              <tr className="text-left text-xs font-bold uppercase tracking-widest text-gray-500">
                 <th className="pb-2 pr-4">Data Source</th>
                 <th className="pb-2 pr-4">Status</th>
                 <th className="pb-2 pr-4">Detail</th>
                 <th className="pb-2">Controls Affected</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-surface-container-high">
+            <tbody className="divide-y divide-gray-100">
               {diagnostics.areas.map((area) => (
                 <tr key={area.area}>
-                  <td className="py-2 pr-4 font-medium text-on-surface">
+                  <td className="py-2 pr-4 font-medium text-gray-800">
                     {area.label}
                   </td>
                   <td className="py-2 pr-4">
@@ -449,7 +449,7 @@ function DiagnosticsPanel({
                       </span>
                     )}
                     {area.status === "error" && (
-                      <span className="inline-flex items-center gap-1 text-error">
+                      <span className="inline-flex items-center gap-1 text-red-600">
                         <span className="material-symbols-outlined text-sm">
                           cancel
                         </span>
@@ -465,17 +465,17 @@ function DiagnosticsPanel({
                       </span>
                     )}
                   </td>
-                  <td className="py-2 pr-4 text-on-surface-variant">
+                  <td className="py-2 pr-4 text-gray-500">
                     {area.detail}
                   </td>
                   <td className="py-2">
-                    <span className="text-xs text-on-surface-variant">
+                    <span className="text-xs text-gray-500">
                       {area.controls}
                     </span>
                     {area.note &&
                       (area.status === "error" ||
                         area.status === "empty") && (
-                        <p className="mt-1 text-xs text-primary">
+                        <p className="mt-1 text-xs text-omzig-400">
                           {area.note}
                         </p>
                       )}
@@ -486,7 +486,7 @@ function DiagnosticsPanel({
           </table>
 
           {hasProblems && (
-            <div className="mt-4 rounded-lg bg-amber-100 px-4 py-3 text-xs text-amber-800">
+            <div className="mt-4 rounded bg-amber-100 px-4 py-3 text-xs text-amber-800">
               <strong>Note:</strong> Error or empty data sources mean those
               Graph API endpoints returned 403 (missing permissions) or empty
               data. Controls that depend on missing data evaluate as{" "}

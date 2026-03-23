@@ -10,7 +10,7 @@ export function Card({
   return (
     <div
       className={clsx(
-        "rounded-xl bg-surface-container-lowest p-6 shadow-lift",
+        "rounded bg-white p-6 shadow-card",
         className,
       )}
     >

@@ -32,8 +32,8 @@ export function AuthGuard({
 
   if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex h-screen items-center justify-center bg-surface">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-container border-t-transparent" />
+      <div className="flex h-screen items-center justify-center bg-gray-50">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-omzig-400 border-t-transparent" />
       </div>
     );
   }
@@ -48,7 +48,7 @@ export function AuthGuard({
           <Sidebar />
           <div className="ml-64 flex flex-1 flex-col overflow-hidden">
             <Header />
-            <main className="flex flex-1 items-center justify-center bg-surface p-8">
+            <main className="flex flex-1 items-center justify-center bg-gray-50 p-8">
               <InsufficientPermissions
                 message={`This page requires the ${requiredRole} role or higher.`}
               />
@@ -67,7 +67,7 @@ export function AuthGuard({
           <Sidebar />
           <div className="ml-64 flex flex-1 flex-col overflow-hidden">
             <Header />
-            <main className="flex flex-1 items-center justify-center bg-surface p-8">
+            <main className="flex flex-1 items-center justify-center bg-gray-50 p-8">
               <InsufficientPermissions
                 message={`You do not have the "${requiredPermission}" permission.`}
               />
@@ -83,7 +83,7 @@ export function AuthGuard({
       <Sidebar />
       <div className="ml-64 flex flex-1 flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-surface p-8">
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-8">
           {children}
         </main>
       </div>
@@ -97,11 +97,11 @@ function InsufficientPermissions({ message }: { message: string }) {
       <span className="material-symbols-outlined text-[48px] text-amber-500">
         shield
       </span>
-      <h2 className="mt-4 text-xl font-semibold text-on-surface">
+      <h2 className="mt-4 text-xl font-semibold text-gray-800">
         Insufficient Permissions
       </h2>
-      <p className="mt-2 text-sm text-on-surface-variant">{message}</p>
-      <p className="mt-1 text-sm text-on-surface-variant/70">
+      <p className="mt-2 text-sm text-gray-600">{message}</p>
+      <p className="mt-1 text-sm text-gray-500">
         Contact your administrator if you believe this is an error.
       </p>
     </div>

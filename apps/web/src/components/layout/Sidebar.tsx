@@ -25,11 +25,11 @@ export function Sidebar() {
         .slice(0, 2)
     : "U";
 
-  // Extract tenant domain from email (e.g., "admin@contoso.com" → "contoso.com")
+  // Extract tenant domain from email (e.g., "admin@contoso.com" -> "contoso.com")
   const tenantDomain = user?.email?.split("@")[1] ?? "Unknown tenant";
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col bg-[#001A33]">
+    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-gray-200 bg-white">
       {/* Logo */}
       <div className="px-6 pb-6 pt-6">
         <Image
@@ -37,29 +37,28 @@ export function Sidebar() {
           alt="Omzig"
           width={120}
           height={30}
-          className="brightness-0 invert"
           priority
         />
       </div>
 
       {/* Tenant indicator */}
-      <div className="mx-4 mb-6 rounded-lg bg-white/5 px-3 py-2.5">
+      <div className="mx-4 mb-6 rounded bg-gray-50 px-3 py-2.5">
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-[16px] text-[#00A3A3]">
+          <span className="material-symbols-outlined text-[16px] text-omzig-400">
             domain
           </span>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-semibold text-white">
+            <p className="truncate text-xs font-semibold text-gray-800">
               {tenantDomain}
             </p>
-            <p className="truncate text-[10px] text-slate-500">
+            <p className="truncate text-[10px] text-gray-500">
               {tenantId ? `${tenantId.slice(0, 8)}...` : "Tenant"}
             </p>
           </div>
         </div>
         <button
           onClick={switchTenant}
-          className="mt-2 flex w-full items-center justify-center gap-1.5 rounded bg-white/10 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#00A3A3] transition hover:bg-white/15"
+          className="mt-2 flex w-full items-center justify-center gap-1.5 rounded bg-omzig-400/10 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-omzig-400 transition hover:bg-omzig-400/15"
         >
           <span className="material-symbols-outlined text-[14px]">
             swap_horiz
@@ -77,7 +76,7 @@ export function Sidebar() {
             return (
               <div
                 key={item.href}
-                className="mx-2 flex cursor-default items-center gap-3 rounded px-4 py-2.5 text-slate-400"
+                className="mx-2 flex cursor-default items-center gap-3 rounded px-4 py-2.5 text-gray-400"
               >
                 <span className="material-symbols-outlined text-[20px]">
                   {item.icon}
@@ -95,12 +94,12 @@ export function Sidebar() {
               href={item.href}
               className={
                 isActive
-                  ? "mx-2 flex items-center gap-3 rounded border-l-4 border-[#00A3A3] bg-white/5 px-4 py-2.5 text-white transition"
-                  : "mx-2 flex items-center gap-3 rounded border-l-4 border-transparent px-4 py-2.5 text-slate-400 transition hover:bg-white/10 hover:text-white"
+                  ? "mx-2 flex items-center gap-3 rounded border-l-2 border-omzig-400 bg-omzig-400/5 px-4 py-2.5 text-omzig-400 transition"
+                  : "mx-2 flex items-center gap-3 rounded border-l-2 border-transparent px-4 py-2.5 text-gray-600 transition hover:bg-gray-50 hover:text-gray-800"
               }
             >
               <span
-                className={`material-symbols-outlined text-[20px] ${isActive ? "text-[#00A3A3]" : ""}`}
+                className={`material-symbols-outlined text-[20px] ${isActive ? "text-omzig-400" : ""}`}
               >
                 {item.icon}
               </span>
@@ -113,17 +112,17 @@ export function Sidebar() {
       </nav>
 
       {/* Bottom section */}
-      <div className="mt-auto border-t border-white/10 px-4 py-5">
+      <div className="mt-auto border-t border-gray-200 px-4 py-5">
         {/* User profile */}
         <div className="mb-5 flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-container/20 text-xs font-semibold text-[#00A3A3]">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-omzig-400/10 text-xs font-semibold text-omzig-400">
             {initials}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-white">
+            <p className="truncate text-sm font-medium text-gray-800">
               {user?.name || "User"}
             </p>
-            <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">
+            <p className="text-[10px] font-medium uppercase tracking-wide text-gray-500">
               Security Analyst
             </p>
           </div>
@@ -131,7 +130,7 @@ export function Sidebar() {
 
         {/* Utility links */}
         <div className="space-y-1">
-          <button className="flex w-full items-center gap-3 rounded px-2 py-2 text-slate-400 transition hover:bg-white/10 hover:text-white">
+          <button className="flex w-full items-center gap-3 rounded px-2 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-gray-800">
             <span className="material-symbols-outlined text-[20px]">
               settings
             </span>
@@ -139,7 +138,7 @@ export function Sidebar() {
               Settings
             </span>
           </button>
-          <button className="flex w-full items-center gap-3 rounded px-2 py-2 text-slate-400 transition hover:bg-white/10 hover:text-white">
+          <button className="flex w-full items-center gap-3 rounded px-2 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-gray-800">
             <span className="material-symbols-outlined text-[20px]">
               help
             </span>
