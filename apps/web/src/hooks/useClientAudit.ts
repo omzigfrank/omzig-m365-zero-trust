@@ -4,7 +4,7 @@
  * Client-side audit hook -- runs the full audit pipeline in the browser.
  *
  * Supports framework selection: CISA SCuBA, NIST ZTA, or both (all 4 frameworks).
- * Shows phase-by-phase progress (Collecting → Evaluating → Scoring).
+ * Shows phase-by-phase progress and collection diagnostics.
  */
 
 import { useState, useCallback } from "react";
@@ -12,17 +12,11 @@ import { createGraphClient } from "@omzig/audit/graph-client";
 import { collectFacts } from "@omzig/audit/fact-collector";
 import { getAllControls } from "@omzig/audit/control-registry";
 import { calculateMaturitySnapshot } from "@omzig/audit/maturity-calculator";
-import type { EvaluatorResult } from "@omzig/audit/types";
+import type { AuditFacts, EvaluatorResult } from "@omzig/audit/types";
 
 export type AuditStatus = "idle" | "running" | "complete" | "error";
 export type FrameworkSelection = "scuba" | "nist" | "both";
 
-/**
- * Maps user-facing framework choice → control product codes.
- * - scuba: CISA SCuBA (Entra ID baselines)
- * - nist: NIST ZTA + NIST 800-53 + NIST CSF
- * - both: all frameworks
- */
 const FRAMEWORK_PRODUCTS: Record<FrameworkSelection, string[]> = {
   scuba: ["AAD"],
   nist: ["ZTA", "80053", "CSF"],
@@ -44,6 +38,23 @@ export interface AuditFinding {
   nist80053: string;
   nistCsf?: string | null;
   nist800207Tenet?: string | null;
+}
+
+/** Diagnostic entry for one data area */
+export interface AreaDiagnostic {
+  area: string;
+  label: string;
+  status: "ok" | "error" | "empty";
+  detail: string;
+}
+
+export interface CollectionDiagnostics {
+  areas: AreaDiagnostic[];
+  okCount: number;
+  errorCount: number;
+  emptyCount: number;
+  collectionMs: number;
+  evaluationMs: number;
 }
 
 export interface ClientAuditResult {
@@ -78,6 +89,7 @@ export interface ClientAuditResult {
   previousMaturity: null;
   framework: FrameworkSelection;
   durationMs: number;
+  diagnostics: CollectionDiagnostics;
 }
 
 export interface ClientAuditState {
@@ -99,6 +111,98 @@ const initialState: ClientAuditState = {
   result: null,
   error: null,
 };
+
+/**
+ * Inspect all 16 fact areas and build diagnostics.
+ */
+function buildDiagnostics(facts: AuditFacts): AreaDiagnostic[] {
+  const areas: AreaDiagnostic[] = [];
+
+  const check = (
+    area: string,
+    label: string,
+    obj: { available: boolean; error?: string },
+    countField?: number,
+  ) => {
+    if (obj.error) {
+      areas.push({ area, label, status: "error", detail: obj.error });
+    } else if (!obj.available) {
+      areas.push({
+        area,
+        label,
+        status: "empty",
+        detail: "No data returned",
+      });
+    } else if (countField !== undefined && countField === 0) {
+      areas.push({
+        area,
+        label,
+        status: "ok",
+        detail: "Available (0 items)",
+      });
+    } else {
+      const count = countField !== undefined ? ` (${countField} items)` : "";
+      areas.push({ area, label, status: "ok", detail: `Collected${count}` });
+    }
+  };
+
+  check("organization", "Organization", facts.organization);
+  check(
+    "conditionalAccess",
+    "Conditional Access Policies",
+    facts.conditionalAccess,
+    facts.conditionalAccess.totalPolicies,
+  );
+  check(
+    "namedLocations",
+    "Named Locations",
+    facts.namedLocations,
+    facts.namedLocations.totalLocations,
+  );
+  check("mfa", "MFA Registration", facts.mfa, facts.mfa.totalUsers);
+  check("authMethods", "Auth Methods Policy", facts.authMethods);
+  check(
+    "authorizationPolicy",
+    "Authorization Policy",
+    facts.authorizationPolicy,
+  );
+  check(
+    "adminConsentPolicy",
+    "Admin Consent Policy",
+    facts.adminConsentPolicy,
+  );
+  check("passwordPolicy", "Password Policy", facts.passwordPolicy);
+  check(
+    "adminRoles",
+    "Admin Roles / Global Admins",
+    facts.adminRoles,
+    facts.adminRoles.globalAdminCount,
+  );
+  check(
+    "roleAssignments",
+    "PIM Role Assignments",
+    facts.roleAssignments,
+    facts.roleAssignments.totalAssignments,
+  );
+  check("devices", "Managed Devices", facts.devices, facts.devices.totalDevices);
+  check("licenses", "Licenses / SKUs", facts.licenses);
+  check("securityDefaults", "Security Defaults", facts.securityDefaults);
+  check("domains", "Domains", facts.domains, facts.domains.totalDomains);
+  check(
+    "appRegistrations",
+    "App Registrations",
+    facts.appRegistrations,
+    facts.appRegistrations.totalApps,
+  );
+  check(
+    "sensitivityLabels",
+    "Sensitivity Labels",
+    facts.sensitivityLabels,
+    facts.sensitivityLabels.totalLabels,
+  );
+
+  return areas;
+}
 
 export function useClientAudit() {
   const [state, setState] = useState<ClientAuditState>(initialState);
@@ -122,7 +226,6 @@ export function useClientAudit() {
       });
 
       try {
-        // Create Graph client with the user's delegated token
         const client = createGraphClient(accessToken);
 
         // ── PHASE 1: COLLECT ──────────────────────────────────────
@@ -133,17 +236,30 @@ export function useClientAudit() {
             "Fetching tenant configuration from Microsoft Graph API...",
         }));
 
+        const collectStart = Date.now();
         const facts = await collectFacts(client, (msg) => {
           setState((s) => ({ ...s, progress: msg }));
         });
+        const collectEnd = Date.now();
+
+        // Build collection diagnostics
+        const areaResults = buildDiagnostics(facts);
+        const okCount = areaResults.filter((a) => a.status === "ok").length;
+        const errorCount = areaResults.filter(
+          (a) => a.status === "error",
+        ).length;
+        const emptyCount = areaResults.filter(
+          (a) => a.status === "empty",
+        ).length;
 
         // ── PHASE 2: EVALUATE ─────────────────────────────────────
         setState((s) => ({
           ...s,
           phase: "Evaluating",
-          progress: `Evaluating ${allControls.length} controls...`,
+          progress: `Evaluating ${allControls.length} controls (${okCount} data sources OK, ${errorCount} errors)...`,
         }));
 
+        const evalStart = Date.now();
         const findings: AuditFinding[] = [];
         let passedChecks = 0;
         let failedChecks = 0;
@@ -192,17 +308,16 @@ export function useClientAudit() {
             });
           }
 
-          // Update progress every 3 controls
           if (i % 3 === 0 || i === allControls.length - 1) {
             setState((s) => ({
               ...s,
               completed: i + 1,
               progress: `${i + 1}/${allControls.length} — ${control.id}: ${control.description.slice(0, 60)}...`,
             }));
-            // Yield to the event loop so the UI can re-render
             await new Promise((r) => setTimeout(r, 0));
           }
         }
+        const evalEnd = Date.now();
 
         // ── PHASE 3: SCORING ──────────────────────────────────────
         setState((s) => ({
@@ -211,7 +326,6 @@ export function useClientAudit() {
           progress: "Computing framework scores and maturity levels...",
         }));
 
-        // Compute per-framework scores
         const frameworkScores: ClientAuditResult["frameworkScores"] = {};
         for (const finding of findings) {
           const product = finding.product;
@@ -238,7 +352,6 @@ export function useClientAudit() {
             applicable > 0 ? Math.round((fs.pass / applicable) * 100) : 0;
         }
 
-        // Compute maturity snapshot (only meaningful if ZTA controls included)
         const ztaFindings = findings
           .filter((f) => f.nist800207Tenet)
           .map((f) => ({
@@ -251,6 +364,15 @@ export function useClientAudit() {
 
         const durationMs = Date.now() - startTime;
         const summary = `${passedChecks} passed, ${failedChecks} failed, ${errorChecks} warnings/na`;
+
+        const diagnostics: CollectionDiagnostics = {
+          areas: areaResults,
+          okCount,
+          errorCount,
+          emptyCount,
+          collectionMs: collectEnd - collectStart,
+          evaluationMs: evalEnd - evalStart,
+        };
 
         const result: ClientAuditResult = {
           status: "completed",
@@ -278,6 +400,7 @@ export function useClientAudit() {
           previousMaturity: null,
           framework,
           durationMs,
+          diagnostics,
         };
 
         setState({

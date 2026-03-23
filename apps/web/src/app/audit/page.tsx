@@ -12,6 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 import {
   useClientAudit,
   type FrameworkSelection,
+  type CollectionDiagnostics,
 } from "@/hooks/useClientAudit";
 import {
   Play,
@@ -20,6 +21,12 @@ import {
   Shield,
   Target,
   Layers,
+  ChevronDown,
+  ChevronRight,
+  CheckCircle2,
+  XCircle,
+  MinusCircle,
+  Clock,
 } from "lucide-react";
 
 const FRAMEWORKS: {
@@ -247,6 +254,11 @@ export default function AuditPage() {
               </div>
             </div>
 
+            {/* Diagnostics panel */}
+            {result.diagnostics && (
+              <DiagnosticsPanel diagnostics={result.diagnostics} />
+            )}
+
             <ScoreOverview frameworkScores={result.frameworkScores} />
 
             {hasNist && result.maturitySnapshot?.length > 0 && (
@@ -282,5 +294,121 @@ export default function AuditPage() {
         )}
       </div>
     </AuthGuard>
+  );
+}
+
+/* ─── Diagnostics panel (collapsible) ───────────────────────────────── */
+
+function DiagnosticsPanel({
+  diagnostics,
+}: {
+  diagnostics: CollectionDiagnostics;
+}) {
+  const [open, setOpen] = useState(
+    diagnostics.errorCount > 0 || diagnostics.emptyCount > 0,
+  );
+
+  const hasProblems = diagnostics.errorCount > 0 || diagnostics.emptyCount > 0;
+  const borderColor = hasProblems ? "border-amber-200" : "border-gray-200";
+  const bgColor = hasProblems ? "bg-amber-50" : "bg-white";
+
+  return (
+    <div className={`rounded-xl border ${borderColor} ${bgColor}`}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between px-6 py-4"
+      >
+        <div className="flex items-center gap-3">
+          {hasProblems ? (
+            <AlertTriangle className="h-5 w-5 text-amber-500" />
+          ) : (
+            <CheckCircle2 className="h-5 w-5 text-green-500" />
+          )}
+          <span className="text-sm font-semibold text-gray-900">
+            Collection Diagnostics
+          </span>
+          <span className="text-xs text-gray-500">
+            {diagnostics.okCount} OK
+            {diagnostics.errorCount > 0 && (
+              <span className="ml-1 text-red-600">
+                · {diagnostics.errorCount} errors
+              </span>
+            )}
+            {diagnostics.emptyCount > 0 && (
+              <span className="ml-1 text-amber-600">
+                · {diagnostics.emptyCount} empty
+              </span>
+            )}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 text-xs text-gray-400">
+            <Clock className="h-3 w-3" />
+            Collect: {diagnostics.collectionMs}ms · Eval:{" "}
+            {diagnostics.evaluationMs}ms
+          </div>
+          {open ? (
+            <ChevronDown className="h-4 w-4 text-gray-400" />
+          ) : (
+            <ChevronRight className="h-4 w-4 text-gray-400" />
+          )}
+        </div>
+      </button>
+
+      {open && (
+        <div className="border-t border-gray-200 px-6 py-4">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-xs font-medium uppercase text-gray-500">
+                <th className="pb-2">Data Source</th>
+                <th className="pb-2">Status</th>
+                <th className="pb-2">Detail</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {diagnostics.areas.map((area) => (
+                <tr key={area.area}>
+                  <td className="py-2 font-medium text-gray-700">
+                    {area.label}
+                  </td>
+                  <td className="py-2">
+                    {area.status === "ok" && (
+                      <span className="inline-flex items-center gap-1 text-green-700">
+                        <CheckCircle2 className="h-3.5 w-3.5" />
+                        OK
+                      </span>
+                    )}
+                    {area.status === "error" && (
+                      <span className="inline-flex items-center gap-1 text-red-700">
+                        <XCircle className="h-3.5 w-3.5" />
+                        Error
+                      </span>
+                    )}
+                    {area.status === "empty" && (
+                      <span className="inline-flex items-center gap-1 text-amber-600">
+                        <MinusCircle className="h-3.5 w-3.5" />
+                        Empty
+                      </span>
+                    )}
+                  </td>
+                  <td className="py-2 text-gray-500">{area.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {hasProblems && (
+            <div className="mt-4 rounded-lg bg-amber-100 px-4 py-3 text-xs text-amber-800">
+              <strong>Note:</strong> Error or empty data sources mean those
+              Graph API endpoints returned 403 (missing permissions) or empty
+              data. Controls that depend on missing data evaluate as{" "}
+              <strong>N/A</strong> instead of Pass/Fail. Grant the app
+              additional Graph API permissions for a complete assessment.
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
