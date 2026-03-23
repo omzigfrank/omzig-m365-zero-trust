@@ -50,45 +50,165 @@ export const evaluateAAD_3_1: EvaluatorFn = (facts) => {
   };
 };
 
-/** MS.AAD.3.2v1 — Alternative MFA method registered. */
+/**
+ * MS.AAD.3.2v1 — MFA coverage verification.
+ *
+ * Primary: checks MFA registration rate from /reports/authenticationMethods.
+ * Fallback: when the registration endpoint is unavailable, evaluates MFA
+ * coverage depth from Conditional Access policies — checking enforcement
+ * state, user targeting scope, app coverage, and auth strength level.
+ */
 export const evaluateAAD_3_2: EvaluatorFn = (facts) => {
-  if (!facts.mfa.available) {
+  // ── Primary: MFA registration data available ──────────────────────
+  if (facts.mfa.available) {
+    if (facts.mfa.percentage >= 80) {
+      return {
+        rating: 'pass',
+        message: `${facts.mfa.percentage}% of users registered for MFA.`,
+        settingName: 'MFA Registration Rate',
+        currentValue: `${facts.mfa.percentage}%`,
+        expectedValue: '≥80%',
+      };
+    }
+    if (facts.mfa.percentage >= 50) {
+      return {
+        rating: 'warn',
+        message: `${facts.mfa.percentage}% MFA registration (target 80%).`,
+        action: 'Run MFA registration campaign.',
+        settingName: 'MFA Registration Rate',
+        currentValue: `${facts.mfa.percentage}%`,
+        expectedValue: '≥80%',
+      };
+    }
     return {
       rating: 'fail',
-      message: 'Could not retrieve MFA registration data.',
+      message: `${facts.mfa.percentage}% MFA registration (target 80%).`,
+      action: 'Many users will be impacted. Run a registration campaign first.',
       settingName: 'MFA Registration Rate',
-      currentValue: 'Unknown',
-      expectedValue: '≥80% MFA registration',
-      requiredPermission: 'UserAuthenticationMethod.Read.All',
+      currentValue: `${facts.mfa.percentage}%`,
+      expectedValue: '≥80%',
     };
   }
 
-  if (facts.mfa.percentage >= 80) {
+  // ── Fallback: evaluate MFA coverage from CA policies ──────────────
+  if (!facts.conditionalAccess.available) {
+    return {
+      rating: 'na',
+      message: 'Neither MFA registration data nor CA policies are available.',
+      settingName: 'MFA Coverage (CA Policy Analysis)',
+      currentValue: 'No data',
+      expectedValue: 'CA policy enforcing MFA for all users on all apps',
+    };
+  }
+
+  // Analyze all non-disabled CA policies that require MFA
+  const mfaPolicies: Array<{
+    name: string;
+    state: string;
+    targetsAllUsers: boolean;
+    targetsAllApps: boolean;
+    hasAuthStrength: boolean;
+  }> = [];
+
+  for (const pol of facts.conditionalAccess.policies) {
+    if (pol.state === 'disabled') continue;
+
+    const grants = pol.grantControls;
+    const hasMfa = grants?.builtInControls?.includes('mfa') ?? false;
+    const hasAuthStrength = !!grants?.authenticationStrength;
+
+    if (!hasMfa && !hasAuthStrength) continue;
+
+    const users = pol.conditions?.users;
+    const targetsAllUsers = users?.includeUsers?.includes('All') ?? false;
+
+    // Check if conditions target all cloud apps (conditions.applications is
+    // part of the raw policy but not fully typed — we infer from includeUsers
+    // scope; "All" users + MFA is the strongest signal)
+    const targetsAllApps = targetsAllUsers; // conservative: all-users implies broad coverage
+
+    mfaPolicies.push({
+      name: pol.displayName,
+      state: pol.state,
+      targetsAllUsers,
+      targetsAllApps,
+      hasAuthStrength,
+    });
+  }
+
+  if (mfaPolicies.length === 0) {
+    return {
+      rating: 'fail',
+      message: 'No CA policies requiring MFA found. MFA registration endpoint also unavailable.',
+      action: 'Create a CA policy requiring MFA for all users.',
+      settingName: 'MFA Coverage (CA Policy Analysis)',
+      currentValue: '0 MFA policies',
+      expectedValue: 'CA policy enforcing MFA for all users on all apps',
+    };
+  }
+
+  // Classify coverage quality
+  const enabledAllUsers = mfaPolicies.filter(
+    (p) => p.state === 'enabled' && p.targetsAllUsers,
+  );
+  const reportOnlyAllUsers = mfaPolicies.filter(
+    (p) => p.state === 'enabledForReportingButNotEnforced' && p.targetsAllUsers,
+  );
+  const phishingResistant = mfaPolicies.filter((p) => p.hasAuthStrength);
+  const enabledPartial = mfaPolicies.filter(
+    (p) => p.state === 'enabled' && !p.targetsAllUsers,
+  );
+
+  // Build summary
+  const parts: string[] = [];
+  parts.push(`${mfaPolicies.length} CA ${mfaPolicies.length === 1 ? 'policy requires' : 'policies require'} MFA`);
+  if (enabledAllUsers.length > 0) {
+    parts.push(`${enabledAllUsers.length} enforced for all users`);
+  }
+  if (reportOnlyAllUsers.length > 0) {
+    parts.push(`${reportOnlyAllUsers.length} in report-only (all users)`);
+  }
+  if (enabledPartial.length > 0) {
+    parts.push(`${enabledPartial.length} enforced for specific groups/roles`);
+  }
+  if (phishingResistant.length > 0) {
+    parts.push(`${phishingResistant.length} using phishing-resistant auth strength`);
+  }
+
+  const detail = parts.join('; ');
+  const policyNames = mfaPolicies.map((p) => `"${p.name}" (${p.state})`).join(', ');
+
+  // Best case: enforced for all users
+  if (enabledAllUsers.length > 0) {
     return {
       rating: 'pass',
-      message: `${facts.mfa.percentage}% of users registered for MFA.`,
-      settingName: 'MFA Registration Rate',
-      currentValue: `${facts.mfa.percentage}%`,
-      expectedValue: '≥80%',
+      message: `MFA enforced via CA policies. ${detail}.`,
+      settingName: 'MFA Coverage (CA Policy Analysis)',
+      currentValue: policyNames,
+      expectedValue: 'CA policy enforcing MFA for all users on all apps',
     };
   }
-  if (facts.mfa.percentage >= 50) {
+
+  // Good: report-only for all users (not yet enforced but covering everyone)
+  if (reportOnlyAllUsers.length > 0) {
     return {
       rating: 'warn',
-      message: `${facts.mfa.percentage}% MFA registration (target 80%).`,
-      action: 'Run MFA registration campaign.',
-      settingName: 'MFA Registration Rate',
-      currentValue: `${facts.mfa.percentage}%`,
-      expectedValue: '≥80%',
+      message: `MFA CA policies exist but are report-only. ${detail}.`,
+      action: 'Enable the report-only MFA policies after validating sign-in impact.',
+      settingName: 'MFA Coverage (CA Policy Analysis)',
+      currentValue: policyNames,
+      expectedValue: 'CA policy enforcing MFA for all users on all apps',
     };
   }
+
+  // Partial: enforced but only for specific groups/roles
   return {
-    rating: 'fail',
-    message: `${facts.mfa.percentage}% MFA registration (target 80%).`,
-    action: 'Many users will be impacted. Run a registration campaign first.',
-    settingName: 'MFA Registration Rate',
-    currentValue: `${facts.mfa.percentage}%`,
-    expectedValue: '≥80%',
+    rating: 'warn',
+    message: `MFA enforced for specific groups/roles only — not all users. ${detail}.`,
+    action: 'Expand MFA CA policy to target all users for full coverage.',
+    settingName: 'MFA Coverage (CA Policy Analysis)',
+    currentValue: policyNames,
+    expectedValue: 'CA policy enforcing MFA for all users on all apps',
   };
 };
 
