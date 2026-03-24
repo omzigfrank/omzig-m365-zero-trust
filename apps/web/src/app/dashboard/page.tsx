@@ -45,23 +45,28 @@ export default function DashboardPage() {
             </Card>
           </Link>
 
-          <Card className="opacity-60">
-            <div className="flex items-start justify-between">
-              <span className="material-symbols-outlined text-[32px] text-gray-400">
-                analytics
-              </span>
-              <span className="rounded bg-gray-100 px-2 py-0.5 text-[10px] font-medium uppercase text-gray-500">
-                Coming Soon
-              </span>
-            </div>
-            <h3 className="mt-4 text-lg font-semibold text-gray-800">
-              Reports
-            </h3>
-            <p className="mt-2 text-sm text-gray-500">
-              View Secure Score trends, MFA registration status, license
-              utilization, and compliance dashboards.
-            </p>
-          </Card>
+          <Link href="/reports">
+            <Card className="group cursor-pointer transition hover:-translate-y-1 hover:shadow-lift">
+              <div className="flex items-start justify-between">
+                <span className="material-symbols-outlined text-[32px] text-omzig-400">
+                  analytics
+                </span>
+                <span className="material-symbols-outlined text-[20px] text-gray-300 transition group-hover:text-omzig-400">
+                  arrow_forward
+                </span>
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-gray-800">
+                View Reports
+              </h3>
+              <p className="mt-2 text-sm text-gray-500">
+                Secure Score, MFA registration status, license utilization,
+                device compliance, and inactive user detection.
+              </p>
+              <div className="mt-4 text-sm font-medium text-omzig-400">
+                View reports
+              </div>
+            </Card>
+          </Link>
 
           <Card className="opacity-60">
             <div className="flex items-start justify-between">

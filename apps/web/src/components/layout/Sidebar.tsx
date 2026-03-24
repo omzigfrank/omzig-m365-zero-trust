@@ -8,7 +8,7 @@ import Image from "next/image";
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: "dashboard" },
   { href: "/audit", label: "Audit", icon: "security" },
-  { href: "/reports", label: "Reports", icon: "analytics", disabled: true },
+  { href: "/reports", label: "Reports", icon: "analytics" },
   { href: "/deploy", label: "Deploy", icon: "rocket_launch", disabled: true },
 ];
 
