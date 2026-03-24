@@ -1,20 +1,12 @@
+import { eq, and } from 'drizzle-orm';
+import { getControlPlaneDb, users, organizations, tenantUserAccess } from '@omzig/db';
 import type { UserProfile, TenantRoleOverride, EffectiveRole, Role } from '@omzig/shared';
-
-/**
- * In-memory tenant role override store.
- * Used for testing and initial development.
- * Will be wired to the control plane database in Plan 03.
- *
- * Key format: `${entraObjectId}:${tenantId}`
- */
-const tenantOverrides = new Map<string, TenantRoleOverride>();
 
 /**
  * Get a user profile by Entra Object ID.
  *
- * For now, returns null (placeholder). The function signature and
- * return type are the contract. Will be wired to the control plane
- * database (users table) in Plan 03.
+ * Queries the control plane database, joining users with organizations
+ * to populate the orgName field.
  *
  * @param entraObjectId - The user's Entra ID object identifier
  * @returns UserProfile or null if not found
@@ -22,9 +14,43 @@ const tenantOverrides = new Map<string, TenantRoleOverride>();
 export async function getUserProfile(
   entraObjectId: string,
 ): Promise<UserProfile | null> {
-  // TODO: Wire to control plane DB in Plan 03
-  // SELECT * FROM users WHERE entra_object_id = @entraObjectId
-  return null;
+  let db;
+  try {
+    db = await getControlPlaneDb();
+  } catch {
+    // DB not configured (e.g. missing env vars) — fall back to null
+    // so callers use the JWT-based fallback profile
+    return null;
+  }
+
+  const rows = await db
+    .select({
+      id: users.id,
+      email: users.email,
+      displayName: users.displayName,
+      baseRole: users.baseRole,
+      orgId: users.orgId,
+      orgName: organizations.name,
+      isActive: users.isActive,
+      lastActiveAt: users.lastActiveAt,
+    })
+    .from(users)
+    .innerJoin(organizations, eq(users.orgId, organizations.id))
+    .where(eq(users.entraObjectId, entraObjectId));
+
+  if (rows.length === 0) return null;
+
+  const row = rows[0]!;
+  return {
+    id: row.id,
+    email: row.email,
+    displayName: row.displayName,
+    baseRole: row.baseRole as Role,
+    orgId: row.orgId,
+    orgName: row.orgName,
+    isActive: Boolean(row.isActive),
+    lastActiveAt: row.lastActiveAt ? new Date(row.lastActiveAt).toISOString() : null,
+  };
 }
 
 /**
@@ -70,10 +96,17 @@ export async function resolveEffectiveRole(
 }
 
 /**
+ * In-memory tenant role override store for testing.
+ * In production, overrides come from the tenantUserAccess table.
+ * Key format: `${entraObjectId}:${tenantId}`
+ */
+const testOverrides = new Map<string, TenantRoleOverride>();
+
+/**
  * Get a per-tenant role override for a user.
  *
- * Uses in-memory store for now. Will be wired to the tenantUserAccess
- * table in Plan 03.
+ * Checks the in-memory test store first, then queries the tenantUserAccess
+ * table in the control plane database.
  *
  * @param entraObjectId - The user's Entra ID object identifier
  * @param tenantId - The tenant to check for overrides
@@ -83,34 +116,69 @@ export async function getTenantRoleOverride(
   entraObjectId: string,
   tenantId: string,
 ): Promise<TenantRoleOverride | null> {
-  const key = `${entraObjectId}:${tenantId}`;
-  return tenantOverrides.get(key) ?? null;
+  // Check in-memory test overrides first
+  const testOverride = testOverrides.get(`${entraObjectId}:${tenantId}`);
+  if (testOverride) return testOverride;
+
+  let db;
+  try {
+    db = await getControlPlaneDb();
+  } catch {
+    return null;
+  }
+
+  // Look up the user's platform ID first
+  const userRows = await db
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.entraObjectId, entraObjectId));
+
+  if (userRows.length === 0) return null;
+
+  const userId = userRows[0]!.id;
+
+  const accessRows = await db
+    .select({
+      roleOverride: tenantUserAccess.roleOverride,
+      grantedBy: tenantUserAccess.grantedBy,
+    })
+    .from(tenantUserAccess)
+    .where(
+      and(
+        eq(tenantUserAccess.userId, userId),
+        eq(tenantUserAccess.tenantId, tenantId),
+      ),
+    );
+
+  if (accessRows.length === 0 || !accessRows[0]!.roleOverride) return null;
+
+  return {
+    tenantId,
+    role: accessRows[0]!.roleOverride as Role,
+    grantedBy: accessRows[0]!.grantedBy,
+  };
 }
 
 /**
- * Set a per-tenant role override (for testing/development).
- * In production, this would be managed via the admin API.
- *
- * @param entraObjectId - The user's Entra ID object identifier
- * @param tenantId - The tenant to set the override for
- * @param role - The override role
+ * Set a per-tenant role override in the in-memory test store.
+ * For test use only — production overrides are managed via the admin API
+ * and stored in the tenantUserAccess table.
  */
 export function setTenantRoleOverride(
   entraObjectId: string,
   tenantId: string,
   role: Role,
 ): void {
-  const key = `${entraObjectId}:${tenantId}`;
-  tenantOverrides.set(key, {
+  testOverrides.set(`${entraObjectId}:${tenantId}`, {
     tenantId,
     role,
-    grantedBy: 'system', // Test/dev default
+    grantedBy: 'system',
   });
 }
 
 /**
- * Clear all tenant role overrides (for test cleanup).
+ * Clear all in-memory tenant role overrides (for test cleanup).
  */
 export function clearTenantRoleOverrides(): void {
-  tenantOverrides.clear();
+  testOverrides.clear();
 }

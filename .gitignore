@@ -43,6 +43,7 @@ apps/web/out/
 
 # TypeScript build output
 dist/
+*.tsbuildinfo
 
 # Turborepo
 .turbo/
