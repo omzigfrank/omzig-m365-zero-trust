@@ -182,6 +182,13 @@ async function fetchMfaStatus(client: GraphClient): Promise<MfaStatusData> {
   return { totalUsers, mfaRegistered, mfaNotRegistered, registrationRate, methods };
 }
 
+/**
+ * SKUs with prepaidUnits >= this threshold are treated as "free/unlimited"
+ * (e.g., Teams Exploratory = 1,000,000, Power Automate Free = 10,000).
+ * They're still shown in the table but excluded from the summary totals.
+ */
+const FREE_SKU_THRESHOLD = 10_000;
+
 async function fetchLicenses(client: GraphClient): Promise<LicenseData> {
   const response = await client.api("/subscribedSkus").get();
   const skuList = response.value ?? [];
@@ -199,8 +206,12 @@ async function fetchLicenses(client: GraphClient): Promise<LicenseData> {
       const utilizationPercent =
         total > 0 ? Math.round((consumed / total) * 100) : 0;
 
-      totalLicenses += total;
-      totalConsumed += consumed;
+      // Only count paid/real SKUs in the summary totals
+      const isFreeOrUnlimited = total >= FREE_SKU_THRESHOLD;
+      if (!isFreeOrUnlimited) {
+        totalLicenses += total;
+        totalConsumed += consumed;
+      }
 
       return {
         skuPartNumber,
@@ -211,7 +222,13 @@ async function fetchLicenses(client: GraphClient): Promise<LicenseData> {
         utilizationPercent,
       };
     })
-    .sort((a: any, b: any) => b.total - a.total);
+    // Sort: paid SKUs first (by total desc), then free/unlimited at bottom
+    .sort((a: any, b: any) => {
+      const aFree = a.total >= FREE_SKU_THRESHOLD ? 1 : 0;
+      const bFree = b.total >= FREE_SKU_THRESHOLD ? 1 : 0;
+      if (aFree !== bFree) return aFree - bFree;
+      return b.consumed - a.consumed;
+    });
 
   return { skus, totalLicenses, totalConsumed };
 }

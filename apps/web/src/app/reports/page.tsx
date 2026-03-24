@@ -400,16 +400,23 @@ function LicenseUsageCard({ data }: { data: LicenseData | null }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {data.skus.map((sku) => (
-                  <tr key={sku.skuPartNumber}>
+                {data.skus.map((sku) => {
+                  const isFree = sku.total >= 10_000;
+                  return (
+                  <tr key={sku.skuPartNumber} className={isFree ? "opacity-50" : ""}>
                     <td className="py-2 pr-3 text-gray-700" title={sku.skuPartNumber}>
                       {sku.displayName}
+                      {isFree && (
+                        <span className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 text-[9px] font-bold uppercase text-gray-400">
+                          Free
+                        </span>
+                      )}
                     </td>
                     <td className="py-2 pr-3 text-right font-medium text-gray-800">
                       {sku.consumed}
                     </td>
                     <td className="py-2 pr-3 text-right text-gray-500">
-                      {sku.total}
+                      {isFree ? "Unlimited" : sku.total.toLocaleString()}
                     </td>
                     <td className="py-2">
                       <div className="flex items-center gap-2">
@@ -441,7 +448,8 @@ function LicenseUsageCard({ data }: { data: LicenseData | null }) {
                       </div>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
