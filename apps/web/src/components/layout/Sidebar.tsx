@@ -141,22 +141,30 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
 
         {/* Utility links */}
         <div className="space-y-1">
-          <button className="flex w-full items-center gap-3 rounded px-2 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-gray-800">
+          <a
+            href="https://omzig.it"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center gap-3 rounded px-2 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-gray-800"
+          >
             <span className="material-symbols-outlined text-[20px]">
-              settings
+              language
             </span>
             <span className="text-xs font-medium uppercase tracking-wide">
-              Settings
+              omzig.it
             </span>
-          </button>
-          <button className="flex w-full items-center gap-3 rounded px-2 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-gray-800">
+          </a>
+          <a
+            href="mailto:support@omzig.it"
+            className="flex w-full items-center gap-3 rounded px-2 py-2 text-gray-500 transition hover:bg-gray-50 hover:text-gray-800"
+          >
             <span className="material-symbols-outlined text-[20px]">
               help
             </span>
             <span className="text-xs font-medium uppercase tracking-wide">
               Support
             </span>
-          </button>
+          </a>
         </div>
       </div>
     </aside>
