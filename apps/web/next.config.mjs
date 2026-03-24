@@ -2,6 +2,7 @@
 const nextConfig = {
   output: "export",
   reactStrictMode: true,
+  images: { unoptimized: true },
   // Monorepo: transpile workspace packages
   transpilePackages: ["@omzig/audit", "@omzig/shared"],
 };

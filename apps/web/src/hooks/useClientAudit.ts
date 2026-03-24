@@ -38,6 +38,7 @@ export interface AuditFinding {
   nist80053: string;
   nistCsf?: string | null;
   nist800207Tenet?: string | null;
+  referenceUrl?: string | null;
 }
 
 /** Diagnostic entry for one data area */
@@ -376,6 +377,7 @@ export function useClientAudit() {
               nist80053: control.nist80053,
               nistCsf: control.nistCsf ?? null,
               nist800207Tenet: control.nist800207Tenet ?? null,
+              referenceUrl: control.referenceUrl ?? null,
             });
           } catch (err) {
             errorChecks++;
@@ -391,6 +393,7 @@ export function useClientAudit() {
               nist80053: control.nist80053,
               nistCsf: control.nistCsf ?? null,
               nist800207Tenet: control.nist800207Tenet ?? null,
+              referenceUrl: control.referenceUrl ?? null,
             });
           }
 

@@ -223,6 +223,8 @@ export interface ControlDefinition {
   nist80053: string;
   nistCsf?: string;
   nist800207Tenet?: string;
+  /** URL to the official government documentation for this control */
+  referenceUrl?: string;
   evaluator: EvaluatorFn;
   requiredPermissions: string[];
 }

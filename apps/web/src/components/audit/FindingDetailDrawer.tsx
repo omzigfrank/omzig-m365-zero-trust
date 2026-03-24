@@ -1,6 +1,5 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
 import { Drawer } from "@/components/ui/Drawer";
 import { Badge } from "@/components/ui/Badge";
 import { FindingBadges } from "@/components/audit/FindingBadges";
@@ -101,6 +100,26 @@ export function FindingDetailDrawer({
           </div>
         )}
 
+        {/* Official Reference */}
+        {finding.referenceUrl && (
+          <div>
+            <h4 className="text-sm font-semibold text-gray-800">
+              Official Reference
+            </h4>
+            <a
+              href={finding.referenceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-omzig-400 hover:text-omzig-500"
+            >
+              <span className="material-symbols-outlined text-[16px]">
+                open_in_new
+              </span>
+              View on government site
+            </a>
+          </div>
+        )}
+
         {/* Cross-Framework Mappings */}
         <div>
           <h4 className="text-sm font-semibold text-gray-800">
@@ -146,10 +165,10 @@ export function FindingDetailDrawer({
                   href={remediation.adminPortalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-800"
+                  className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-omzig-400 hover:text-omzig-500"
                 >
                   Open in Admin Portal
-                  <ExternalLink className="h-3.5 w-3.5" />
+                  <span className="material-symbols-outlined text-[14px]">open_in_new</span>
                 </a>
               </div>
             )}

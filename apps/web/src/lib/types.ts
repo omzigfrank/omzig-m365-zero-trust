@@ -103,6 +103,7 @@ export interface AuditFinding {
   nist80053?: string;
   nistCsf?: string;
   nist800207Tenet?: string;
+  referenceUrl?: string;
 }
 
 /** Backend-aligned audit run detail with findings */
