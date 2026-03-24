@@ -12,7 +12,12 @@ const navItems = [
   { href: "/deploy", label: "Deploy", icon: "rocket_launch", disabled: true },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  open?: boolean;
+  onClose?: () => void;
+}
+
+export function Sidebar({ open = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { user, switchTenant, tenantId } = useAuth();
 
@@ -29,16 +34,22 @@ export function Sidebar() {
   const tenantDomain = user?.email?.split("@")[1] ?? "Unknown tenant";
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-gray-200 bg-white">
+    <aside
+      className={`fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-gray-200 bg-white transition-transform duration-200 md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}
+    >
+      {/* Close button (mobile only) */}
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 md:hidden"
+        >
+          <span className="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      )}
+
       {/* Logo */}
       <div className="px-6 pb-6 pt-6">
-        <Image
-          src="/omzig-logo.svg"
-          alt="Omzig"
-          width={120}
-          height={30}
-          priority
-        />
+        <Image src="/omzig-logo.png" alt="Omzig" width={130} height={40} priority />
       </div>
 
       {/* Tenant indicator */}

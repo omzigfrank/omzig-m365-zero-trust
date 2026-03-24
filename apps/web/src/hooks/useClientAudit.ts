@@ -50,6 +50,8 @@ export interface AreaDiagnostic {
   controls: string;
   /** Clarifying note (e.g. what is NOT affected by an error here) */
   note?: string;
+  /** Graph API endpoint used to collect this data */
+  endpoint?: string;
 }
 
 export interface CollectionDiagnostics {
@@ -94,6 +96,7 @@ export interface ClientAuditResult {
   framework: FrameworkSelection;
   durationMs: number;
   diagnostics: CollectionDiagnostics;
+  rawFacts?: unknown;
 }
 
 export interface ClientAuditState {
@@ -121,63 +124,79 @@ const initialState: ClientAuditState = {
  */
 const AREA_META: Record<
   string,
-  { controls: string; note?: string }
+  { controls: string; note?: string; endpoint?: string }
 > = {
   organization: {
     controls: "Tenant identity, domain validation",
+    endpoint: "/organization?$select=id,displayName,verifiedDomains",
   },
   conditionalAccess: {
     controls:
       "MS.AAD.1.1, 2.x, 3.1, 3.3, 3.6–3.8, ZTA T4.x, T6.x, 800-53 AC/IA, CSF PR.AA",
     note: "Primary source for MFA enforcement, risk policies, device compliance, and session controls. MFA enforcement is verified here via CA policies — not via the MFA Registration endpoint.",
+    endpoint: "/identity/conditionalAccess/policies?$top=100",
   },
   namedLocations: {
     controls: "ZTA T2.x (network location awareness)",
     note: "Empty is normal if no trusted locations are configured.",
+    endpoint: "/identity/conditionalAccess/namedLocations?$top=100",
   },
   mfa: {
     controls: "MS.AAD.3.2 only (registration rate)",
     note: "Only affects the registration rate check (% of users who have registered an MFA method). MFA enforcement is evaluated via Conditional Access policies above — not this endpoint. An error here does NOT impact MFA enforcement results.",
+    endpoint: "/reports/authenticationMethods/userRegistrationDetails",
   },
   authMethods: {
     controls: "MS.AAD.3.4 (migration), 3.5 (SMS/Voice)",
     note: "Checks auth method migration status and whether weak methods (SMS, Voice) are disabled.",
+    endpoint: "/policies/authenticationMethodsPolicy",
   },
   authorizationPolicy: {
     controls: "MS.AAD.8.x (guest access, user consent)",
+    endpoint: "/policies/authorizationPolicy",
   },
   adminConsentPolicy: {
     controls: "MS.AAD.5.3 (admin consent workflow)",
+    endpoint: "/policies/adminConsentRequestPolicy",
   },
   passwordPolicy: {
     controls: "MS.AAD.6.1 (password expiry), 800-53 IA-5",
+    endpoint: "/domains (password policy from domain settings)",
   },
   adminRoles: {
     controls: "MS.AAD.7.x (privileged roles), ZTA T4.4, 800-53 AC-6",
     note: "Checks Global Admin count and role assignments.",
+    endpoint: "/directoryRoles?$select=id,displayName + /directoryRoles/{id}/members",
   },
   roleAssignments: {
     controls: "MS.AAD.7.3–7.5 (PIM, JIT access), 800-53 AC-2/AC-6",
     note: "Requires Entra ID P2 licensing for PIM data.",
+    endpoint: "/roleManagement/directory/roleAssignments?$top=100",
   },
   devices: {
     controls: "ZTA T1.1–T1.4 (device inventory/compliance), CSF ID.AM",
+    endpoint: "/deviceManagement/managedDevices?$top=100&$select=id,deviceName,complianceState",
   },
   licenses: {
     controls: "ZTA T5.x, 800-53 CM-8 (asset inventory)",
+    endpoint: "/subscribedSkus?$select=skuPartNumber,prepaidUnits,consumedUnits",
   },
   securityDefaults: {
     controls: "MS.AAD.1.1 (security defaults vs. CA policies)",
+    endpoint: "/policies/identitySecurityDefaultsEnforcementPolicy",
   },
   domains: {
     controls: "MS.AAD.6.1 (password policy), 800-53 IA-5",
+    endpoint: "/domains?$select=id,isDefault,isVerified,passwordValidityPeriodInDays",
   },
   appRegistrations: {
     controls: "MS.AAD.5.x (app governance), 800-53 CM-7",
+    endpoint: "/applications?$top=100&$select=id,displayName,signInAudience",
   },
   sensitivityLabels: {
     controls: "ZTA T4.5, 800-53 SC-13, CSF PR.DS (data protection)",
     note: "Requires Microsoft Purview / E5 licensing.",
+    endpoint: "(beta) /security/informationProtection/sensitivityLabels?$top=100",
   },
 };
 
@@ -194,7 +213,7 @@ function buildDiagnostics(facts: AuditFacts): AreaDiagnostic[] {
     countField?: number,
   ) => {
     const meta = AREA_META[area] ?? { controls: "" };
-    const base = { area, label, controls: meta.controls, note: meta.note };
+    const base = { area, label, controls: meta.controls, note: meta.note, endpoint: meta.endpoint };
 
     if (obj.error) {
       areas.push({ ...base, status: "error", detail: obj.error });
@@ -468,6 +487,7 @@ export function useClientAudit() {
           framework,
           durationMs,
           diagnostics,
+          rawFacts: facts,
         };
 
         setState({

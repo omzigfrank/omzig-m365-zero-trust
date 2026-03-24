@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import type { Role, Permission } from "@omzig/shared";
@@ -23,6 +23,7 @@ export function AuthGuard({
 }: AuthGuardProps) {
   const { isAuthenticated, isLoading, highestRole } = useAuth();
   const router = useRouter();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -45,10 +46,13 @@ export function AuthGuard({
     if (userLevel < requiredLevel) {
       return (
         <div className="flex h-screen">
-          <Sidebar />
-          <div className="ml-64 flex flex-1 flex-col overflow-hidden">
-            <Header />
-            <main className="flex flex-1 items-center justify-center bg-gray-50 p-8">
+          {sidebarOpen && (
+            <div className="fixed inset-0 z-30 bg-black/50 md:hidden" onClick={() => setSidebarOpen(false)} />
+          )}
+          <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+          <div className="flex flex-1 flex-col overflow-hidden md:ml-64">
+            <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
+            <main className="flex flex-1 items-center justify-center bg-gray-50 p-4 md:p-8">
               <InsufficientPermissions
                 message={`This page requires the ${requiredRole} role or higher.`}
               />
@@ -64,10 +68,13 @@ export function AuthGuard({
     if (!hasPermission(highestRole, requiredPermission)) {
       return (
         <div className="flex h-screen">
-          <Sidebar />
-          <div className="ml-64 flex flex-1 flex-col overflow-hidden">
-            <Header />
-            <main className="flex flex-1 items-center justify-center bg-gray-50 p-8">
+          {sidebarOpen && (
+            <div className="fixed inset-0 z-30 bg-black/50 md:hidden" onClick={() => setSidebarOpen(false)} />
+          )}
+          <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+          <div className="flex flex-1 flex-col overflow-hidden md:ml-64">
+            <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
+            <main className="flex flex-1 items-center justify-center bg-gray-50 p-4 md:p-8">
               <InsufficientPermissions
                 message={`You do not have the "${requiredPermission}" permission.`}
               />
@@ -80,10 +87,14 @@ export function AuthGuard({
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
-      <div className="ml-64 flex flex-1 flex-col overflow-hidden">
-        <Header />
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-8">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-30 bg-black/50 md:hidden" onClick={() => setSidebarOpen(false)} />
+      )}
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <div className="flex flex-1 flex-col md:ml-64">
+        <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-8">
           {children}
         </main>
       </div>

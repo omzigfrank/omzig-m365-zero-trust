@@ -35,13 +35,7 @@ function AuthenticatedLanding() {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <header className="flex items-center justify-between border-b border-gray-200 bg-white px-8 py-4">
-        <Image
-          src="/omzig-logo.svg"
-          alt="Omzig"
-          width={100}
-          height={26}
-          priority
-        />
+        <Image src="/omzig-logo.png" alt="Omzig" width={100} height={30} priority />
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-500">
             {user?.email}
@@ -118,14 +112,8 @@ function RoleBadge({ role }: { role: string }) {
 function UnauthenticatedLanding({ onLogin }: { onLogin: () => void }) {
   return (
     <div className="min-h-screen bg-white">
-      <header className="flex items-center justify-between px-8 py-6">
-        <Image
-          src="/omzig-logo.svg"
-          alt="Omzig"
-          width={120}
-          height={30}
-          priority
-        />
+      <header className="flex items-center justify-between px-4 py-6 sm:px-8">
+        <Image src="/omzig-logo.png" alt="Omzig" width={130} height={40} priority />
         <button
           onClick={onLogin}
           className="rounded bg-omzig-400 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-omzig-500"
@@ -134,8 +122,8 @@ function UnauthenticatedLanding({ onLogin }: { onLogin: () => void }) {
         </button>
       </header>
 
-      <main className="mx-auto max-w-5xl px-8 py-20 text-center">
-        <h1 className="text-5xl font-bold leading-tight text-gray-800">
+      <main className="mx-auto max-w-5xl px-4 py-12 text-center sm:px-8 sm:py-20">
+        <h1 className="text-3xl font-bold leading-tight text-gray-800 sm:text-5xl">
           Microsoft 365 Security Audit
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-500">
@@ -153,7 +141,7 @@ function UnauthenticatedLanding({ onLogin }: { onLogin: () => void }) {
           Start Free Audit
         </button>
 
-        <div className="mt-20 grid gap-8 md:grid-cols-3">
+        <div className="mt-20 grid grid-cols-1 gap-8 md:grid-cols-3">
           <FeatureCard
             icon="verified_user"
             title="128 CISA Controls"

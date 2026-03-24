@@ -50,6 +50,7 @@ export default function AuditPage() {
   const audit = useClientAudit();
   const [selectedFramework, setSelectedFramework] =
     useState<FrameworkSelection>("both");
+  const [showRawData, setShowRawData] = useState(false);
 
   const handleRun = async () => {
     try {
@@ -164,6 +165,24 @@ export default function AuditPage() {
               <DiagnosticsPanel diagnostics={result.diagnostics} />
             )}
 
+            {/* Raw Data Viewer */}
+            <div>
+              <button
+                onClick={() => setShowRawData(!showRawData)}
+                className="inline-flex items-center gap-1.5 rounded border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-600 transition hover:bg-gray-50"
+              >
+                <span className="material-symbols-outlined text-[16px]">
+                  data_object
+                </span>
+                {showRawData ? "Hide Raw Data" : "View Raw Data"}
+              </button>
+              {showRawData && (
+                <pre className="mt-3 max-h-96 overflow-auto rounded bg-gray-800 p-4 text-xs text-green-400">
+                  {JSON.stringify(result.rawFacts, null, 2)}
+                </pre>
+              )}
+            </div>
+
             <ScoreOverview frameworkScores={result.frameworkScores} />
 
             {hasNist && result.maturitySnapshot?.length > 0 && (
@@ -205,7 +224,7 @@ export default function AuditPage() {
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                   {/* Framework cards */}
-                  <div className="flex gap-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     {FRAMEWORKS.map((fw) => (
                       <button
                         key={fw.id}
@@ -254,7 +273,7 @@ export default function AuditPage() {
         {audit.status === "running" && (
           <div className="space-y-3">
             {/* Phase indicator */}
-            <div className="flex items-center gap-6 rounded bg-white px-6 py-4 shadow-card">
+            <div className="flex flex-wrap items-center gap-4 rounded bg-white px-4 py-4 shadow-card sm:gap-6 sm:px-6">
               {["Collecting", "Evaluating", "Scoring"].map((phase, i) => {
                 const isActive = audit.phase === phase;
                 const isDone =
@@ -424,66 +443,72 @@ function DiagnosticsPanel({
 
       {open && (
         <div className="border-t border-gray-200 px-6 py-4">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-xs font-bold uppercase tracking-widest text-gray-500">
-                <th className="pb-2 pr-4">Data Source</th>
-                <th className="pb-2 pr-4">Status</th>
-                <th className="pb-2 pr-4">Detail</th>
-                <th className="pb-2">Controls Affected</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {diagnostics.areas.map((area) => (
-                <tr key={area.area}>
-                  <td className="py-2 pr-4 font-medium text-gray-800">
-                    {area.label}
-                  </td>
-                  <td className="py-2 pr-4">
-                    {area.status === "ok" && (
-                      <span className="inline-flex items-center gap-1 text-green-600">
-                        <span className="material-symbols-outlined text-sm">
-                          check_circle
-                        </span>
-                        OK
-                      </span>
-                    )}
-                    {area.status === "error" && (
-                      <span className="inline-flex items-center gap-1 text-red-600">
-                        <span className="material-symbols-outlined text-sm">
-                          cancel
-                        </span>
-                        Error
-                      </span>
-                    )}
-                    {area.status === "empty" && (
-                      <span className="inline-flex items-center gap-1 text-amber-600">
-                        <span className="material-symbols-outlined text-sm">
-                          do_not_disturb_on
-                        </span>
-                        Empty
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-2 pr-4 text-gray-500">
-                    {area.detail}
-                  </td>
-                  <td className="py-2">
-                    <span className="text-xs text-gray-500">
-                      {area.controls}
-                    </span>
-                    {area.note &&
-                      (area.status === "error" ||
-                        area.status === "empty") && (
-                        <p className="mt-1 text-xs text-omzig-400">
-                          {area.note}
-                        </p>
-                      )}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-xs font-bold uppercase tracking-widest text-gray-500">
+                  <th className="pb-2 pr-4">Data Source</th>
+                  <th className="pb-2 pr-4">Status</th>
+                  <th className="pb-2 pr-4">Detail</th>
+                  <th className="pb-2 pr-4">Controls Affected</th>
+                  <th className="pb-2">API Endpoint</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {diagnostics.areas.map((area) => (
+                  <tr key={area.area}>
+                    <td className="py-2 pr-4 font-medium text-gray-800">
+                      {area.label}
+                    </td>
+                    <td className="py-2 pr-4">
+                      {area.status === "ok" && (
+                        <span className="inline-flex items-center gap-1 text-green-600">
+                          <span className="material-symbols-outlined text-sm">
+                            check_circle
+                          </span>
+                          OK
+                        </span>
+                      )}
+                      {area.status === "error" && (
+                        <span className="inline-flex items-center gap-1 text-red-600">
+                          <span className="material-symbols-outlined text-sm">
+                            cancel
+                          </span>
+                          Error
+                        </span>
+                      )}
+                      {area.status === "empty" && (
+                        <span className="inline-flex items-center gap-1 text-amber-600">
+                          <span className="material-symbols-outlined text-sm">
+                            do_not_disturb_on
+                          </span>
+                          Empty
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-2 pr-4 text-gray-500">
+                      {area.detail}
+                    </td>
+                    <td className="py-2 pr-4">
+                      <span className="text-xs text-gray-500">
+                        {area.controls}
+                      </span>
+                      {area.note &&
+                        (area.status === "error" ||
+                          area.status === "empty") && (
+                          <p className="mt-1 text-xs text-omzig-400">
+                            {area.note}
+                          </p>
+                        )}
+                    </td>
+                    <td className="py-2 font-mono text-[10px] text-gray-400">
+                      {area.endpoint || "-"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {hasProblems && (
             <div className="mt-4 rounded bg-amber-100 px-4 py-3 text-xs text-amber-800">

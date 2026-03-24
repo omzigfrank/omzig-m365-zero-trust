@@ -21,7 +21,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick actions */}
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <Link href="/audit">
             <Card className="group cursor-pointer transition hover:-translate-y-1 hover:shadow-lift">
               <div className="flex items-start justify-between">
