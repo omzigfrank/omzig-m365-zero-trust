@@ -1,0 +1,423 @@
+<mxfile host="app.diagrams.net" modified="2026-03-24" agent="Claude" version="24.0">
+  <diagram id="arch-overview" name="Architecture Overview">
+    <mxGraphModel dx="2200" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- TITLE -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="title" value="&lt;b&gt;OMZIG M365 Zero Trust Audit Platform&lt;/b&gt;&lt;br&gt;Architecture Diagram" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=20;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="800" y="20" width="600" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- USER / BROWSER LAYER -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="user-group" value="USER" style="swimlane;startSize=25;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;horizontal=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="300" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="browser" value="&lt;b&gt;Web Browser&lt;/b&gt;&lt;br&gt;(Chrome / Edge / Safari)" style="shape=mxgraph.cisco.computers_and_peripherals.web_browser;sketch=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="user-group">
+          <mxGeometry x="30" y="50" width="80" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="mobile" value="&lt;b&gt;Mobile&lt;/b&gt;&lt;br&gt;Responsive PWA" style="shape=mxgraph.android.phone2;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="user-group">
+          <mxGeometry x="180" y="50" width="50" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- FRONTEND (AZURE STATIC WEB APPS) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="frontend-group" value="FRONTEND — Azure Static Web Apps" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;horizontal=1;collapsible=0;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="320" width="700" height="500" as="geometry"/>
+        </mxCell>
+
+        <!-- Next.js App -->
+        <mxCell id="nextjs" value="&lt;b&gt;Next.js 14 (Static Export)&lt;/b&gt;&lt;br&gt;TypeScript + Tailwind CSS&lt;br&gt;Open Sans / Material Symbols" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="45" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- MSAL Auth -->
+        <mxCell id="msal" value="&lt;b&gt;MSAL.js&lt;/b&gt;&lt;br&gt;@azure/msal-browser&lt;br&gt;@azure/msal-react&lt;br&gt;&lt;i&gt;Redirect flow, multi-tenant&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="frontend-group">
+          <mxGeometry x="300" y="45" width="180" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Pages -->
+        <mxCell id="pages-label" value="&lt;b&gt;PAGES&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="115" width="80" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="page-landing" value="/ Landing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999;fontSize=10;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="140" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-dashboard" value="/dashboard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999;fontSize=10;" vertex="1" parent="frontend-group">
+          <mxGeometry x="130" y="140" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-audit" value="&lt;b&gt;/audit&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="frontend-group">
+          <mxGeometry x="240" y="140" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-reports" value="/reports" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="frontend-group">
+          <mxGeometry x="350" y="140" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-deploy" value="/deploy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#ccc;fontSize=10;fontColor=#999;" vertex="1" parent="frontend-group">
+          <mxGeometry x="460" y="140" width="100" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Hooks -->
+        <mxCell id="hooks-label" value="&lt;b&gt;HOOKS&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="180" width="80" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="hook-auth" value="useAuth()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="205" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="hook-audit" value="useClientAudit()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;fontStyle=1;" vertex="1" parent="frontend-group">
+          <mxGeometry x="120" y="205" width="110" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="hook-reports" value="useReports()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="240" y="205" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="hook-api" value="useApi()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="340" y="205" width="80" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Layout Components -->
+        <mxCell id="layout-label" value="&lt;b&gt;LAYOUT&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="240" width="80" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-sidebar" value="Sidebar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#999;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="265" width="70" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-header" value="Header" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#999;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="100" y="265" width="70" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-authguard" value="AuthGuard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="180" y="265" width="80" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Audit Components -->
+        <mxCell id="audit-comps-label" value="&lt;b&gt;AUDIT COMPONENTS&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="300" width="150" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-scoreoverview" value="ScoreOverview" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="325" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-radar" value="ZtaMaturityRadar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="130" y="325" width="110" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-results" value="AuditResults" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="250" y="325" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-export" value="ExportButtons" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="350" y="325" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-diag" value="DiagnosticsPanel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="450" y="325" width="110" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Report Components -->
+        <mxCell id="report-comps-label" value="&lt;b&gt;REPORT COMPONENTS&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="360" width="150" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-securescore" value="SecureScore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="385" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-mfa" value="MFA Status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="110" y="385" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-license" value="Licenses" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="200" y="385" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-devices" value="Devices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="290" y="385" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-inactive" value="Inactive Users" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="frontend-group">
+          <mxGeometry x="380" y="385" width="90" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- UI Kit -->
+        <mxCell id="ui-label" value="&lt;b&gt;UI KIT&lt;/b&gt;  Card · Badge · ProgressBar · Drawer · MultiSelect · OmzigLogo" style="text;html=1;fontSize=9;fontColor=#999;" vertex="1" parent="frontend-group">
+          <mxGeometry x="20" y="425" width="500" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Config -->
+        <mxCell id="config-box" value="&lt;b&gt;Config&lt;/b&gt;&lt;br&gt;staticwebapp.config.json&lt;br&gt;tailwind.config.ts (omzig tokens)&lt;br&gt;next.config.mjs (static export)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#ccc;fontSize=9;align=left;" vertex="1" parent="frontend-group">
+          <mxGeometry x="500" y="45" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- AUDIT ENGINE (packages/audit) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="audit-group" value="AUDIT ENGINE — @omzig/audit (TypeScript Package)" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;horizontal=1;collapsible=0;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="320" width="680" height="280" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="graph-client" value="&lt;b&gt;graph-client.ts&lt;/b&gt;&lt;br&gt;Creates @microsoft/&lt;br&gt;microsoft-graph-client&lt;br&gt;from delegated token" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="audit-group">
+          <mxGeometry x="20" y="45" width="150" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fact-collector" value="&lt;b&gt;fact-collector.ts&lt;/b&gt;&lt;br&gt;16 area parsers&lt;br&gt;$batch helper (20 req/batch)&lt;br&gt;→ AuditFacts object" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="audit-group">
+          <mxGeometry x="190" y="45" width="160" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="control-registry" value="&lt;b&gt;control-registry.ts&lt;/b&gt;&lt;br&gt;101 control definitions&lt;br&gt;4 frameworks: AAD, ZTA,&lt;br&gt;800-53, CSF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=0;" vertex="1" parent="audit-group">
+          <mxGeometry x="370" y="45" width="150" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="maturity-calc" value="&lt;b&gt;maturity-calculator.ts&lt;/b&gt;&lt;br&gt;7-tenet ZTA maturity&lt;br&gt;Traditional → Optimal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="audit-group">
+          <mxGeometry x="540" y="45" width="130" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Evaluators -->
+        <mxCell id="eval-label" value="&lt;b&gt;EVALUATORS&lt;/b&gt; (pure functions: AuditFacts → EvaluatorResult)" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="audit-group">
+          <mxGeometry x="20" y="120" width="400" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eval-cisa" value="&lt;b&gt;CISA SCuBA&lt;/b&gt;&lt;br&gt;29 controls&lt;br&gt;MS.AAD.1-8.x" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="audit-group">
+          <mxGeometry x="20" y="150" width="130" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="eval-zta" value="&lt;b&gt;NIST 800-207&lt;/b&gt;&lt;br&gt;31 controls&lt;br&gt;Tenets T1–T7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="audit-group">
+          <mxGeometry x="170" y="150" width="130" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="eval-80053" value="&lt;b&gt;NIST 800-53&lt;/b&gt;&lt;br&gt;22 controls&lt;br&gt;AC, IA, AU, CM, SC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="audit-group">
+          <mxGeometry x="320" y="150" width="130" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="eval-csf" value="&lt;b&gt;NIST CSF 2.0&lt;/b&gt;&lt;br&gt;19 controls&lt;br&gt;ID, PR, DE, RS, RC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="audit-group">
+          <mxGeometry x="470" y="150" width="130" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Area parsers -->
+        <mxCell id="parsers" value="&lt;b&gt;16 Area Parsers:&lt;/b&gt; organization · conditionalAccess · namedLocations · mfa · authMethods · authorizationPolicy · adminConsentPolicy · passwordPolicy · adminRoles · roleAssignments · devices · licenses · securityDefaults · domains · appRegistrations · sensitivityLabels" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#ccc;fontSize=9;align=left;" vertex="1" parent="audit-group">
+          <mxGeometry x="20" y="220" width="640" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SHARED PACKAGES -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="shared-group" value="SHARED PACKAGES" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#ccc;fontStyle=1;fontSize=12;horizontal=1;collapsible=0;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="640" width="680" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-shared" value="&lt;b&gt;@omzig/shared&lt;/b&gt;&lt;br&gt;Roles, Permissions&lt;br&gt;ROLE_HIERARCHY" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#999;fontSize=10;" vertex="1" parent="shared-group">
+          <mxGeometry x="20" y="35" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-db" value="&lt;b&gt;@omzig/db&lt;/b&gt;&lt;br&gt;Drizzle ORM schema&lt;br&gt;(not used client-side)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#ccc;fontSize=10;fontColor=#999;" vertex="1" parent="shared-group">
+          <mxGeometry x="180" y="35" width="150" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- MICROSOFT GRAPH API -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="graph-group" value="MICROSOFT GRAPH API (External)" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=13;horizontal=1;collapsible=0;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="90" width="400" height="440" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="graph-batch" value="&lt;b&gt;$batch endpoint&lt;/b&gt;&lt;br&gt;POST /$batch&lt;br&gt;(max 20 requests/batch)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="45" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="graph-endpoints-label" value="&lt;b&gt;16 DATA ENDPOINTS&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="105" width="200" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ep-org" value="/organization" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="130" width="170" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-ca" value="/identity/conditionalAccess/policies" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="155" width="220" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-named" value="/identity/conditionalAccess/namedLocations" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="180" width="250" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-mfa" value="/reports/authenticationMethods/*" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="205" width="220" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-auth" value="/policies/authenticationMethodsPolicy" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="230" width="230" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-roles" value="/directoryRoles + /roleManagement/*" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="255" width="220" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-devices" value="/deviceManagement/managedDevices" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="280" width="220" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-skus" value="/subscribedSkus" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="305" width="170" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ep-domains" value="/domains · /applications · /security/*" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="330" width="230" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="graph-scopes" value="&lt;b&gt;DELEGATED SCOPES&lt;/b&gt;&lt;br&gt;User.Read · Directory.Read.All&lt;br&gt;Policy.Read.All · Reports.Read.All&lt;br&gt;SecurityEvents.Read.All&lt;br&gt;DeviceManagement*.Read.All&lt;br&gt;Domain.Read.All · Application.Read.All" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#d6b656;fontSize=9;align=left;" vertex="1" parent="graph-group">
+          <mxGeometry x="20" y="365" width="250" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- AZURE ENTRA ID (AUTH) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="entra" value="&lt;b&gt;Microsoft Entra ID&lt;/b&gt;&lt;br&gt;OAuth 2.0 / OIDC&lt;br&gt;Multi-tenant (common)&lt;br&gt;App ID: d298a66a-..." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="580" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- AZURE FUNCTIONS (DEPLOYMENT) -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="functions-group" value="AZURE FUNCTIONS — Policy Deployment (PowerShell 7.4)" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;horizontal=1;collapsible=0;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="880" width="700" height="220" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fn-orchestrator" value="&lt;b&gt;Orchestrator&lt;/b&gt;&lt;br&gt;Entry point" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#b85450;fontSize=10;" vertex="1" parent="functions-group">
+          <mxGeometry x="20" y="45" width="100" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="fn-identity" value="&lt;b&gt;Deploy-Identity&lt;/b&gt;&lt;br&gt;CA policies, MFA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#b85450;fontSize=10;" vertex="1" parent="functions-group">
+          <mxGeometry x="140" y="45" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="fn-devices" value="&lt;b&gt;Deploy-Devices&lt;/b&gt;&lt;br&gt;Intune compliance" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#b85450;fontSize=10;" vertex="1" parent="functions-group">
+          <mxGeometry x="280" y="45" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="fn-security" value="&lt;b&gt;Deploy-Security&lt;/b&gt;&lt;br&gt;Defender config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#b85450;fontSize=10;" vertex="1" parent="functions-group">
+          <mxGeometry x="420" y="45" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="fn-data" value="&lt;b&gt;Deploy-Data&lt;/b&gt;&lt;br&gt;DLP, labels" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#b85450;fontSize=10;" vertex="1" parent="functions-group">
+          <mxGeometry x="560" y="45" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fn-graphhelper" value="&lt;b&gt;GraphHelper.psm1&lt;/b&gt;&lt;br&gt;Shared module: retry logic, throttling,&lt;br&gt;managed identity auth" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="functions-group">
+          <mxGeometry x="20" y="105" width="250" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fn-planned" value="&lt;b&gt;PLANNED:&lt;/b&gt; Deploy-Users · Deploy-Exchange · Deploy-Autopilot · Deploy-Collaboration · Deploy-Lighthouse · Reports/* · Generate-Documentation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#ccc;fontSize=9;fontColor=#999;align=left;" vertex="1" parent="functions-group">
+          <mxGeometry x="290" y="105" width="390" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fn-auth" value="&lt;b&gt;Auth:&lt;/b&gt; Managed Identity (id-omzig-test-graph)" style="text;html=1;fontSize=9;fontColor=#b85450;" vertex="1" parent="functions-group">
+          <mxGeometry x="20" y="170" width="350" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- BICEP / INFRASTRUCTURE -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="bicep-group" value="INFRASTRUCTURE — Azure Bicep IaC" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;horizontal=1;collapsible=0;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="880" width="680" height="220" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="bicep-main" value="&lt;b&gt;main.bicep&lt;/b&gt;&lt;br&gt;Composes all modules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="bicep-group">
+          <mxGeometry x="20" y="45" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="bicep-identity" value="identity.bicep&lt;br&gt;6 CA policies, MFA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="170" y="45" width="110" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="bicep-security" value="security.bicep&lt;br&gt;Defender, Sentinel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="300" y="45" width="110" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="bicep-devices" value="devices.bicep&lt;br&gt;Intune compliance" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="430" y="45" width="110" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="bicep-data" value="data.bicep&lt;br&gt;DLP, labels" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="560" y="45" width="100" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="azure-resources-label" value="&lt;b&gt;DEPLOYED AZURE RESOURCES&lt;/b&gt;" style="text;html=1;fontSize=10;fontColor=#666;fontStyle=1;" vertex="1" parent="bicep-group">
+          <mxGeometry x="20" y="100" width="250" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="res-identity" value="Managed Identity&lt;br&gt;id-omzig-test-graph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="20" y="125" width="120" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="res-logs" value="Log Analytics&lt;br&gt;log-omzig-test-security" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="155" y="125" width="130" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="res-storage" value="Storage&lt;br&gt;stomzigzerotrust" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="300" y="125" width="100" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="res-func" value="Function App&lt;br&gt;func-omzig-zerotrust" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="415" y="125" width="120" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="res-swa" value="Static Web App&lt;br&gt;purple-hill-06046680f" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="bicep-group">
+          <mxGeometry x="550" y="125" width="120" height="35" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cicd" value="&lt;b&gt;CI/CD:&lt;/b&gt; azure-pipelines.yml → Validate → Build → Deploy Dev → Deploy Prod" style="text;html=1;fontSize=9;fontColor=#6c8ebf;" vertex="1" parent="bicep-group">
+          <mxGeometry x="20" y="175" width="500" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- CONNECTORS / ARROWS -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+
+        <!-- Browser → Frontend -->
+        <mxCell id="arrow-browser-fe" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jetSize=auto;strokeColor=#6c8ebf;strokeWidth=2;fontColor=#666;" edge="1" parent="1" source="browser" target="nextjs">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow-browser-fe-label" value="HTTPS" style="edgeLabel;html=1;fontSize=9;fontColor=#666;" vertex="1" connectable="0" parent="arrow-browser-fe">
+          <mxGeometry x="-0.1" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- MSAL → Entra ID -->
+        <mxCell id="arrow-msal-entra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jetSize=auto;strokeColor=#9673a6;strokeWidth=2;dashed=1;" edge="1" parent="1" source="msal" target="entra">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="395"/>
+              <mxPoint x="1430" y="620"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-msal-entra-label" value="OAuth 2.0&lt;br&gt;Redirect Flow" style="edgeLabel;html=1;fontSize=9;fontColor=#9673a6;" vertex="1" connectable="0" parent="arrow-msal-entra">
+          <mxGeometry x="-0.3" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- useClientAudit → graph-client -->
+        <mxCell id="arrow-hook-gc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jetSize=auto;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="hook-audit" target="graph-client">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow-hook-gc-label" value="imports" style="edgeLabel;html=1;fontSize=9;fontColor=#82b366;" vertex="1" connectable="0" parent="arrow-hook-gc">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- fact-collector → Graph API -->
+        <mxCell id="arrow-fc-graph" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jetSize=auto;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="fact-collector" target="graph-batch">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow-fc-graph-label" value="Bearer token&lt;br&gt;(delegated)" style="edgeLabel;html=1;fontSize=9;fontColor=#d6b656;" vertex="1" connectable="0" parent="arrow-fc-graph">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- Functions → Graph API -->
+        <mxCell id="arrow-fn-graph" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jetSize=auto;strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="fn-graphhelper" target="graph-batch">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="1150"/>
+              <mxPoint x="1530" y="1150"/>
+              <mxPoint x="1530" y="160"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-fn-graph-label" value="Managed Identity&lt;br&gt;(Write operations)" style="edgeLabel;html=1;fontSize=9;fontColor=#b85450;" vertex="1" connectable="0" parent="arrow-fn-graph">
+          <mxGeometry x="0.3" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend" value="&lt;b&gt;LEGEND&lt;/b&gt;" style="swimlane;startSize=20;fillColor=#fff;strokeColor=#999;fontSize=10;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="710" width="400" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-green" value="Active / Implemented" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="legend">
+          <mxGeometry x="10" y="30" width="120" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-yellow" value="Config / Data Flow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="legend">
+          <mxGeometry x="140" y="30" width="120" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-purple" value="Authentication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="legend">
+          <mxGeometry x="270" y="30" width="120" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-red" value="Deployment (Write)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="legend">
+          <mxGeometry x="10" y="65" width="120" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-blue" value="Infrastructure" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="legend">
+          <mxGeometry x="140" y="65" width="120" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-gray" value="Planned / Stub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#ccc;fontSize=9;fontColor=#999;" vertex="1" parent="legend">
+          <mxGeometry x="270" y="65" width="120" height="25" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
