@@ -5,12 +5,22 @@ import { Badge } from "@/components/ui/Badge";
 import { FindingBadges } from "@/components/audit/FindingBadges";
 import { PowerShellBlock } from "@/components/audit/PowerShellBlock";
 import { getRemediationByControlId } from "@omzig/audit/remediation";
+import { ClassificationBadge } from "@/components/remediation/ClassificationBadge";
+import { RemediateButton } from "@/components/remediation/RemediateButton";
+import type { ScopeBundleName } from "@/services/remediation-consent";
 import type { AuditFinding } from "@/lib/types";
 
 interface FindingDetailDrawerProps {
   finding: AuditFinding | null;
   isOpen: boolean;
   onClose: () => void;
+  /**
+   * Optional tenant id. Required for the RemediateButton to render.
+   * When omitted (e.g., from the ad-hoc /audit test page) the drawer
+   * shows the classification badge but hides the remediate button and
+   * renders a short note explaining why.
+   */
+  tenantId?: string;
 }
 
 const SEVERITY_PILL: Record<string, string> = {
@@ -24,10 +34,13 @@ export function FindingDetailDrawer({
   finding,
   isOpen,
   onClose,
+  tenantId,
 }: FindingDetailDrawerProps) {
   if (!finding) return null;
 
   const remediation = getRemediationByControlId(finding.controlId);
+  const classification = remediation?.classification;
+  const scopeBundle = remediation?.scopeBundle as ScopeBundleName | undefined;
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} title={finding.controlId}>
@@ -45,6 +58,9 @@ export function FindingDetailDrawer({
           <span className="text-xs text-gray-500">
             {finding.requirementLevel}
           </span>
+          {classification && (
+            <ClassificationBadge classification={classification} size="sm" />
+          )}
         </div>
 
         {/* Description */}
@@ -182,6 +198,30 @@ export function FindingDetailDrawer({
                 <div className="mt-2">
                   <PowerShellBlock code={remediation.powershell} />
                 </div>
+              </div>
+            )}
+
+            {/* Remediate action (SAFE one-click / RISKY disabled) */}
+            {classification && (
+              <div className="mt-4 border-t border-gray-100 pt-4">
+                <h4 className="text-sm font-semibold text-gray-800">
+                  Automated Remediation
+                </h4>
+                {tenantId && scopeBundle ? (
+                  <div className="mt-2">
+                    <RemediateButton
+                      finding={finding}
+                      tenantId={tenantId}
+                      classification={classification}
+                      bundle={scopeBundle}
+                      impactSummary={remediation.estimatedImpact}
+                    />
+                  </div>
+                ) : (
+                  <p className="mt-2 text-xs text-gray-500 italic">
+                    Remediation is only available from the tenant detail page.
+                  </p>
+                )}
               </div>
             )}
           </div>

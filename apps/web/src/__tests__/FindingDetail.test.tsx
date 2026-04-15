@@ -3,7 +3,8 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import type { AuditFinding } from "@/lib/types";
 
-// Mock the remediation registry
+// Mock the remediation registry. The drawer imports from `@omzig/audit/remediation`
+// so the mock path must match.
 const mockRemediation = {
   controlId: "MS.AAD.1.1v1",
   steps: [
@@ -15,13 +16,22 @@ const mockRemediation = {
   powershell: 'Connect-MgGraph -Scopes "Policy.ReadWrite.ConditionalAccess"',
   estimatedImpact: "High - blocks legacy clients",
   notes: "Test in report-only first",
+  classification: "SAFE" as const,
+  scopeBundle: "conditionalAccess" as const,
 };
 
-vi.mock("@omzig/audit", () => ({
+vi.mock("@omzig/audit/remediation", () => ({
   getRemediationByControlId: vi.fn((id: string) => {
     if (id === "MS.AAD.1.1v1") return mockRemediation;
     return undefined;
   }),
+}));
+
+// Mock the RemediateButton since it needs MSAL, useRemediation, etc.
+vi.mock("@/components/remediation/RemediateButton", () => ({
+  RemediateButton: ({ tenantId }: { tenantId: string }) => (
+    <button data-testid="mock-remediate-button">Remediate {tenantId}</button>
+  ),
 }));
 
 // Lazy import after mock
@@ -56,7 +66,12 @@ describe("FindingDetailDrawer", () => {
   it("renders finding status badge, severity, control ID, description, message", () => {
     const finding = makeFinding();
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     expect(screen.getByText("Fail")).toBeDefined();
@@ -69,7 +84,12 @@ describe("FindingDetailDrawer", () => {
   it("renders setting name, current value, expected value when present", () => {
     const finding = makeFinding();
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     expect(screen.getByText("Legacy Auth Blocking")).toBeDefined();
@@ -80,7 +100,12 @@ describe("FindingDetailDrawer", () => {
   it("renders remediation steps from registry as numbered list", () => {
     const finding = makeFinding();
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     expect(screen.getByText("Navigate to Conditional Access")).toBeDefined();
@@ -91,7 +116,12 @@ describe("FindingDetailDrawer", () => {
   it("renders admin portal link as external link when present", () => {
     const finding = makeFinding();
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     const link = screen.getByRole("link", { name: /open in admin portal/i });
@@ -106,7 +136,12 @@ describe("FindingDetailDrawer", () => {
   it("renders PowerShellBlock when powershell is present in remediation entry", () => {
     const finding = makeFinding();
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     // PowerShellBlock renders in a pre > code
@@ -116,7 +151,12 @@ describe("FindingDetailDrawer", () => {
   it("renders cross-framework badges (FindingBadges) in drawer", () => {
     const finding = makeFinding();
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     expect(screen.getByText(/800-53: AC-7/)).toBeDefined();
@@ -130,7 +170,12 @@ describe("FindingDetailDrawer", () => {
       action: "Manual review required",
     });
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     expect(screen.getByText("Manual review required")).toBeDefined();
@@ -142,9 +187,62 @@ describe("FindingDetailDrawer", () => {
       action: undefined,
     });
     render(
-      <FindingDetailDrawer finding={finding} isOpen={true} onClose={vi.fn()} />
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
     );
 
     expect(screen.getByText("No remediation guidance available")).toBeDefined();
+  });
+
+  it("renders classification badge when remediation entry exists", () => {
+    const finding = makeFinding();
+    render(
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
+    );
+
+    expect(screen.getByTestId("classification-badge-safe")).toBeDefined();
+  });
+
+  it("renders RemediateButton when tenantId is provided and remediation exists", () => {
+    const finding = makeFinding();
+    render(
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+        tenantId="test-tenant-id"
+      />
+    );
+
+    expect(screen.getByTestId("mock-remediate-button")).toBeDefined();
+  });
+
+  it("hides RemediateButton when tenantId is omitted and shows fallback copy", () => {
+    const finding = makeFinding();
+    render(
+      <FindingDetailDrawer
+        finding={finding}
+        isOpen={true}
+        onClose={vi.fn()}
+      />
+    );
+
+    // Classification badge still renders
+    expect(screen.getByTestId("classification-badge-safe")).toBeDefined();
+    // But the remediate button is not rendered
+    expect(screen.queryByTestId("mock-remediate-button")).toBeNull();
+    // Fallback note is rendered
+    expect(
+      screen.getByText(/only available from the tenant detail page/i),
+    ).toBeDefined();
   });
 });

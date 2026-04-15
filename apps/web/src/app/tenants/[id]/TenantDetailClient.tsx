@@ -262,7 +262,10 @@ export default function TenantDetailClient() {
                 <h2 className="mb-4 text-lg font-semibold text-gray-900">
                   Audit Findings
                 </h2>
-                <AuditResults findings={audit.result.findings} />
+                <AuditResults
+                  findings={audit.result.findings}
+                  tenantId={tenantId}
+                />
               </div>
             ) : (
               <div className="rounded-xl border border-dashed border-gray-300 py-16 text-center">

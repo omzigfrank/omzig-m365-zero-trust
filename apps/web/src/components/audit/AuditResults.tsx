@@ -19,7 +19,13 @@ const DEFAULT_FILTER_STATE: FilterState = {
   search: "",
 };
 
-export function AuditResults({ findings }: { findings: AuditFinding[] }) {
+export function AuditResults({
+  findings,
+  tenantId,
+}: {
+  findings: AuditFinding[];
+  tenantId?: string;
+}) {
   const [viewMode, setViewMode] = useState<ViewMode>("grouped");
   const [selectedFinding, setSelectedFinding] = useState<AuditFinding | null>(
     null
@@ -172,6 +178,7 @@ export function AuditResults({ findings }: { findings: AuditFinding[] }) {
         finding={selectedFinding}
         isOpen={selectedFinding !== null}
         onClose={() => setSelectedFinding(null)}
+        tenantId={tenantId}
       />
     </div>
   );
