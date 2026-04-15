@@ -16,6 +16,7 @@ import type { ApiResponse } from '@omzig/shared';
 const TENANT_REMEDIATION_CONSENTS = Symbol('tenant_remediation_consents');
 const REMEDIATION_JOBS = Symbol('remediation_jobs');
 const AUDIT_FINDINGS = Symbol('audit_findings');
+const AUDIT_RUNS = Symbol('audit_runs');
 
 let findingsRows: any[] = [];
 let consentRows: any[] = [];
@@ -23,6 +24,7 @@ let jobRows: any[] = [];
 let insertedJobs: any[] = [];
 let jobUpdates: any[] = [];
 let consentByAll: any[] = [];
+let auditRunsRows: any[] = [];
 
 function resetState() {
   findingsRows = [];
@@ -31,6 +33,7 @@ function resetState() {
   insertedJobs = [];
   jobUpdates = [];
   consentByAll = [];
+  auditRunsRows = [];
 }
 
 function createMockTenantDb() {
@@ -41,10 +44,17 @@ function createMockTenantDb() {
           where: vi.fn().mockImplementation(() => {
             if (table === AUDIT_FINDINGS) return Promise.resolve(findingsRows);
             if (table === REMEDIATION_JOBS) return Promise.resolve(jobRows);
+            if (table === AUDIT_RUNS) {
+              // Return a chainable result that supports .orderBy(...)
+              const result: any = Promise.resolve(auditRunsRows);
+              result.orderBy = vi.fn(() => Promise.resolve(auditRunsRows));
+              return result;
+            }
             return Promise.resolve([]);
           }),
           orderBy: vi.fn().mockImplementation(() => {
             if (table === REMEDIATION_JOBS) return Promise.resolve(jobRows);
+            if (table === AUDIT_RUNS) return Promise.resolve(auditRunsRows);
             return Promise.resolve([]);
           }),
         };
@@ -97,6 +107,7 @@ let mockControlDb: ReturnType<typeof createMockControlDb>;
 vi.mock('@omzig/db', () => ({
   getControlPlaneDb: vi.fn().mockImplementation(async () => mockControlDb),
   auditFindings: AUDIT_FINDINGS,
+  auditRuns: AUDIT_RUNS,
   remediationJobs: REMEDIATION_JOBS,
   tenantRemediationConsents: TENANT_REMEDIATION_CONSENTS,
 }));
@@ -147,6 +158,43 @@ vi.mock('@omzig/audit', () => ({
     }
   },
   createGraphClient: vi.fn(() => ({ api: () => ({}) })),
+  createEmptyFacts: vi.fn(() => ({
+    mfa: { available: false, totalUsers: 0, registeredUsers: 0, percentage: 0 },
+    devices: {
+      available: false,
+      totalDevices: 0,
+      compliantDevices: 0,
+      nonCompliantDevices: 0,
+    },
+    conditionalAccess: {
+      available: false,
+      totalPolicies: 0,
+      enabledCount: 0,
+      reportOnlyCount: 0,
+      disabledCount: 0,
+      policies: [],
+    },
+    appRegistrations: { available: false, totalApps: 0 },
+    breakGlass: {
+      available: false,
+      groupName: null,
+      groupId: null,
+      memberCount: 0,
+      excludedFromCaPolicies: false,
+    },
+  })),
+}));
+
+// Mock the impact-preview service to avoid pulling real graph-client types.
+vi.mock('../services/impact-preview.js', () => ({
+  computeImpactPreview: vi.fn(async () => ({
+    affectedUserCount: 5,
+    totalUserCount: 100,
+    conflictingPolicies: [],
+    warnings: ['5 users affected'],
+    confidence: 'high',
+    summary: 'Mock preview',
+  })),
 }));
 
 // Remediation-token-broker mock.
@@ -618,5 +666,159 @@ describe('GET /api/remediations/scopes', () => {
     expect(body.data.consents.conditionalAccess.active).toBe(true);
     expect(body.data.consents.authMethods.active).toBe(false);
     expect(body.data.consents.roles.active).toBe(false);
+  });
+});
+
+// ================================================================
+// POST /api/tenants/:tenantId/remediations/:findingId/preview
+// ================================================================
+
+describe('POST /api/tenants/:tenantId/remediations/:findingId/preview', () => {
+  it('returns 200 and impact preview JSON for a valid RISKY finding', async () => {
+    findingsRows = [{ id: 'f1', controlId: 'MS.AAD.3.7v1' }];
+    auditRunsRows = [{ id: 'run-1', completedAt: new Date() }];
+
+    const app = await createTestApp();
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/f1/preview',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{}',
+      },
+    );
+
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as ApiResponse<{
+      affectedUserCount: number;
+      totalUserCount: number;
+      confidence: string;
+      warnings: string[];
+      summary: string;
+    }>;
+    expect(body.data.affectedUserCount).toBe(5);
+    expect(body.data.totalUserCount).toBe(100);
+    expect(body.data.confidence).toBe('high');
+  });
+
+  it('returns 404 when the finding does not exist', async () => {
+    findingsRows = [];
+    const app = await createTestApp();
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/missing/preview',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{}',
+      },
+    );
+    expect(res.status).toBe(404);
+  });
+
+  it('returns 403 for Read-only users', async () => {
+    findingsRows = [{ id: 'f1', controlId: 'MS.AAD.3.7v1' }];
+    const app = await createTestApp(READONLY_JWT);
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/f1/preview',
+      { method: 'POST', body: '{}' },
+    );
+    expect(res.status).toBe(403);
+  });
+
+  it('returns 422 when validatePrerequisites returns ok=false', async () => {
+    findingsRows = [{ id: 'f1', controlId: 'WITH.PREREQ' }];
+    validatePrereqReturn = {
+      ok: false,
+      failureReason: 'No break-glass group',
+    };
+    const app = await createTestApp();
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/f1/preview',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{}',
+      },
+    );
+    expect(res.status).toBe(422);
+    const body = (await res.json()) as any;
+    expect(body.error.code).toBe('PREREQUISITE_FAILED');
+  });
+});
+
+// ================================================================
+// POST /api/tenants/:tenantId/remediations/:jobId/enforce
+// ================================================================
+
+describe('POST /api/tenants/:tenantId/remediations/:jobId/enforce', () => {
+  it('returns 202 and transitions awaiting_enforce → pending', async () => {
+    jobRows = [
+      {
+        id: 'job-1',
+        tenantId: 'tenant-1',
+        controlId: 'MS.AAD.3.7v1',
+        classification: 'RISKY',
+        scopeBundle: 'conditionalAccess',
+        status: 'awaiting_enforce',
+        targetResourceId: 'policy-abc',
+      },
+    ];
+
+    const app = await createTestApp();
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/job-1/enforce',
+      { method: 'POST' },
+    );
+
+    expect(res.status).toBe(202);
+    const update = jobUpdates.find((u) => u.vals.status === 'pending');
+    expect(update).toBeDefined();
+    expect(update.vals.attemptCount).toBe(0);
+  });
+
+  it('returns 404 when the job does not exist', async () => {
+    jobRows = [];
+    const app = await createTestApp();
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/missing/enforce',
+      { method: 'POST' },
+    );
+    expect(res.status).toBe(404);
+  });
+
+  it('returns 409 when the job is not in awaiting_enforce state', async () => {
+    jobRows = [
+      {
+        id: 'job-2',
+        controlId: 'MS.AAD.3.7v1',
+        status: 'pending',
+        scopeBundle: 'conditionalAccess',
+      },
+    ];
+    const app = await createTestApp();
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/job-2/enforce',
+      { method: 'POST' },
+    );
+    expect(res.status).toBe(409);
+    const body = (await res.json()) as any;
+    expect(body.error.code).toBe('INVALID_STATE');
+  });
+
+  it('returns 403 for Read-only users', async () => {
+    jobRows = [
+      {
+        id: 'job-3',
+        controlId: 'MS.AAD.3.7v1',
+        status: 'awaiting_enforce',
+        targetResourceId: 'x',
+      },
+    ];
+    const app = await createTestApp(READONLY_JWT);
+    const res = await app.request(
+      '/api/tenants/tenant-1/remediations/job-3/enforce',
+      { method: 'POST' },
+    );
+    expect(res.status).toBe(403);
   });
 });

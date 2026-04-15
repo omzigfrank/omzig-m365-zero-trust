@@ -18,6 +18,7 @@ import { and, desc, eq, isNull } from 'drizzle-orm';
 import type { ApiResponse } from '@omzig/shared';
 import {
   auditFindings,
+  auditRuns,
   remediationJobs,
   tenantRemediationConsents,
   getControlPlaneDb,
@@ -27,7 +28,9 @@ import {
   validatePrerequisitesOnly,
   computeDrift,
   DriftDetectedError,
+  createEmptyFacts,
   type ExecutionContext,
+  type AuditFacts,
 } from '@omzig/audit';
 import { requireRole } from '../middleware/rbac.js';
 import {
@@ -38,6 +41,7 @@ import {
   getRemediationAccessToken,
 } from '../services/remediation-token-broker.js';
 import { pushRemediationProgress } from '../services/signalr.js';
+import { computeImpactPreview } from '../services/impact-preview.js';
 
 type RemediationEnv = {
   Variables: {
@@ -514,6 +518,190 @@ remediationsRoutes.get('/remediations/scopes', async (c) => {
 
   return c.json(envelope({ bundles: SCOPE_BUNDLES, consents }), 200);
 });
+
+// ---- POST /tenants/:tenantId/remediations/:findingId/preview ----
+
+remediationsRoutes.post(
+  '/tenants/:tenantId/remediations/:findingId/preview',
+  requireRole('Owner', 'Admin', 'Analyst'),
+  async (c) => {
+    const tenantId = c.req.param('tenantId');
+    const findingId = c.req.param('findingId');
+    const tenantDb = c.get('tenantDb');
+
+    // Look up finding.
+    const findingRows = await tenantDb
+      .select()
+      .from(auditFindings)
+      .where(eq(auditFindings.id, findingId));
+    if (findingRows.length === 0) {
+      return c.json(
+        errorEnvelope('FINDING_NOT_FOUND', `Finding "${findingId}" not found`),
+        404,
+      );
+    }
+    const finding = findingRows[0];
+
+    // Resolve remediation entry.
+    const entry = getRemediationByControlId(finding.controlId);
+    if (!entry || !entry.executor) {
+      return c.json(
+        errorEnvelope(
+          'NOT_REMEDIABLE',
+          `Control ${finding.controlId} is not auto-remediable.`,
+        ),
+        400,
+      );
+    }
+
+    // Resolve write access token via OBO broker.
+    const accessToken = await getRemediationAccessToken(
+      tenantId,
+      entry.scopeBundle as ScopeBundleName,
+    );
+    if (!accessToken) {
+      return c.json(
+        errorEnvelope(
+          'CONSENT_REQUIRED',
+          `No active consent for scope bundle "${entry.scopeBundle}"`,
+          {
+            bundle: entry.scopeBundle,
+            scopes: SCOPE_BUNDLES[entry.scopeBundle as ScopeBundleName],
+          },
+        ),
+        400,
+      );
+    }
+
+    // Load the most recent completed audit run for factsAge computation.
+    // We do not currently persist the facts snapshot — use empty facts and
+    // derive factsAgeMs from the run's completedAt. The impact preview's
+    // targeted Graph reads compensate for the missing facts.
+    let factsAgeMs = Number.MAX_SAFE_INTEGER;
+    try {
+      const runs = await tenantDb
+        .select()
+        .from(auditRuns)
+        .where(eq(auditRuns.status, 'complete'))
+        .orderBy(desc(auditRuns.completedAt));
+      const latest = (runs as any[])[0];
+      if (latest?.completedAt) {
+        factsAgeMs = Date.now() - new Date(latest.completedAt).getTime();
+      }
+    } catch {
+      // Keep factsAgeMs at MAX_SAFE_INTEGER → confidence='estimated'
+    }
+
+    // Build graph client (lazy import to match rollback pattern).
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const audit = require('@omzig/audit') as typeof import('@omzig/audit');
+    const graphClient = audit.createGraphClient(accessToken);
+
+    // Run prereq preview against empty facts (best-effort).
+    if (entry.validatePrerequisites) {
+      try {
+        const previewCtx = {
+          tenantId,
+          graphClient,
+          facts: createEmptyFacts(),
+          rateLimiter: {
+            beforeWrite: async () => {},
+            handle429: async () => {},
+          } as unknown as ExecutionContext['rateLimiter'],
+        } as ExecutionContext;
+        const result = await validatePrerequisitesOnly(entry, previewCtx);
+        if (!result.ok) {
+          return c.json(
+            errorEnvelope(
+              'PREREQUISITE_FAILED',
+              result.failureReason ?? 'Prerequisite check failed',
+              { reason: result.failureReason },
+            ),
+            422,
+          );
+        }
+      } catch {
+        // Permissive — defer to worker.
+      }
+    }
+
+    try {
+      const preview = await computeImpactPreview({
+        findingId,
+        controlId: finding.controlId,
+        graphClient,
+        facts: createEmptyFacts() as AuditFacts,
+        factsAgeMs,
+      });
+      return c.json(envelope(preview), 200);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      return c.json(errorEnvelope('PREVIEW_FAILED', msg), 500);
+    }
+  },
+);
+
+// ---- POST /tenants/:tenantId/remediations/:jobId/enforce ----
+
+remediationsRoutes.post(
+  '/tenants/:tenantId/remediations/:jobId/enforce',
+  requireRole('Owner', 'Admin', 'Analyst'),
+  async (c) => {
+    const tenantId = c.req.param('tenantId');
+    const jobId = c.req.param('jobId');
+    const tenantDb = c.get('tenantDb');
+
+    const rows = await tenantDb
+      .select()
+      .from(remediationJobs)
+      .where(eq(remediationJobs.id, jobId));
+    if (rows.length === 0) {
+      return c.json(
+        errorEnvelope('JOB_NOT_FOUND', `Remediation job "${jobId}" not found`),
+        404,
+      );
+    }
+    const job = rows[0];
+    if (job.status !== 'awaiting_enforce') {
+      return c.json(
+        errorEnvelope(
+          'INVALID_STATE',
+          `Cannot enforce a job in status "${job.status}"; only awaiting_enforce jobs can be enforced`,
+        ),
+        409,
+      );
+    }
+
+    // Flip to pending and reset attempt count so the worker re-picks it and
+    // calls entry.enforcePhaseExecutor (which it detects via targetResourceId
+    // being non-null).
+    await tenantDb
+      .update(remediationJobs)
+      .set({ status: 'pending', attemptCount: 0 })
+      .where(eq(remediationJobs.id, jobId));
+
+    // Best-effort SignalR progress push so the wizard sees "enforcing".
+    pushRemediationProgress(
+      (c.get('jwtPayload').oid as string) ?? 'unknown',
+      {
+        type: 'remediation_progress',
+        remediationJobId: jobId,
+        tenantId,
+        controlId: job.controlId,
+        classification: (job.classification === 'RISKY' ? 'RISKY' : 'SAFE') as
+          | 'SAFE'
+          | 'RISKY',
+        status: 'enforcing',
+        message: 'Enforcement queued',
+      },
+    ).catch(() => {});
+
+    return c.json(
+      envelope({ status: 'pending', message: 'Enforcement queued' }),
+      202,
+    );
+  },
+);
 
 // ---- POST /tenants/:tenantId/remediations/consent ----
 

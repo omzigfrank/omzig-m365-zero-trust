@@ -76,6 +76,9 @@ type JobRow = {
   status: string;
   attemptCount: number;
   approvedByUserId: string;
+  // Plan 07-03: carries the Report-Only policy ID from the first phase
+  // so the worker knows to call enforcePhaseExecutor on re-pickup.
+  targetResourceId?: string | null;
 };
 
 type QueueEntry = {
@@ -209,8 +212,63 @@ async function executeRemediationJob(
       message: `Executing ${entry.controlId}`,
     });
 
-    const result = await executeRemediation(entry, ctx);
+    // Plan 07-03: two-phase executor support.
+    // If the job already has a targetResourceId AND the entry has an
+    // enforcePhaseExecutor, this is a re-pickup after the user clicked
+    // Enforce — skip the prereq gate (already run first time) and call
+    // the enforce phase directly. Otherwise run the normal first-phase
+    // executor flow (via executeRemediation which enforces prereqs +
+    // rate limiting).
+    let result;
+    const isEnforcePhase =
+      !!job.targetResourceId &&
+      !!(entry as { enforcePhaseExecutor?: unknown }).enforcePhaseExecutor;
 
+    if (isEnforcePhase) {
+      await ctx.rateLimiter.beforeWrite();
+      const enforceFn = (
+        entry as unknown as {
+          enforcePhaseExecutor: (
+            c: typeof ctx,
+            state: { targetResourceId: string },
+          ) => Promise<typeof result>;
+        }
+      ).enforcePhaseExecutor;
+      result = await enforceFn(ctx, {
+        targetResourceId: job.targetResourceId as string,
+      });
+    } else {
+      result = await executeRemediation(entry, ctx);
+    }
+
+    // Branch on phase. Two-phase executors return phase='report_only_deployed'
+    // after the first phase; worker pauses the job at awaiting_enforce and
+    // waits for the /enforce signal.
+    if (result.phase === 'report_only_deployed') {
+      await tenantDb
+        .update(remediationJobs)
+        .set({
+          status: 'awaiting_enforce',
+          beforeSnapshot: JSON.stringify(result.beforeSnapshot),
+          afterSnapshot: JSON.stringify(result.afterSnapshot),
+          targetResourceId: result.targetResourceId,
+        })
+        .where(eq(remediationJobs.id, job.id));
+
+      safePushRemediation(job.approvedByUserId, {
+        type: 'remediation_progress',
+        remediationJobId: job.id,
+        tenantId: tenant.id,
+        controlId: job.controlId,
+        classification,
+        status: 'awaiting_enforce',
+        message:
+          'Report-Only policy deployed. Review sign-in logs then click Enforce in the wizard.',
+      });
+      return; // Worker pauses here; re-pick happens after /enforce flips status back to pending.
+    }
+
+    // phase is 'completed' or undefined — standard success path.
     await tenantDb
       .update(remediationJobs)
       .set({
