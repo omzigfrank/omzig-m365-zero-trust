@@ -111,6 +111,8 @@ function createMockClient(
       top: vi.fn().mockReturnThis(),
       header: vi.fn().mockReturnThis(),
       count: vi.fn().mockReturnThis(),
+      // For version('beta') calls on beta endpoints (e.g., sensitivityLabels)
+      version: vi.fn().mockReturnThis(),
       select: vi.fn().mockReturnThis(),
       filter: vi.fn().mockReturnThis(),
     };

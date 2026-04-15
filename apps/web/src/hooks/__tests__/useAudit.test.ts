@@ -23,6 +23,12 @@ vi.mock("@/lib/msal", () => ({
     acquireTokenRedirect: vi.fn(),
   },
   apiScopes: ["api://test/.default"],
+  graphScopes: [
+    "User.Read",
+    "Directory.Read.All",
+    "Policy.Read.All",
+  ],
+  loginRequest: { scopes: ["User.Read"] },
 }));
 
 // ---- Mock @omzig/shared ----

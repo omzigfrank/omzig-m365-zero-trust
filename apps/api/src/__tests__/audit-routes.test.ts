@@ -7,6 +7,7 @@ vi.mock('drizzle-orm', () => ({
   eq: vi.fn((_col: unknown, _val: unknown) => ({ type: 'eq', col: _col, val: _val })),
   and: vi.fn((...args: unknown[]) => ({ type: 'and', conditions: args })),
   desc: vi.fn((_col: unknown) => ({ type: 'desc', col: _col })),
+  lt: vi.fn((_col: unknown, _val: unknown) => ({ type: 'lt', col: _col, val: _val })),
 }));
 
 // Mock crypto.randomUUID for predictable IDs
@@ -66,6 +67,15 @@ vi.mock('@omzig/db', () => ({
     nist80053: 'nist_800_53',
     createdAt: 'created_at',
   },
+  maturityScores: {
+    id: 'id',
+    auditRunId: 'audit_run_id',
+    tenetId: 'tenet_id',
+    tenetName: 'tenet_name',
+    score: 'score',
+    maturityLevel: 'maturity_level',
+    createdAt: 'created_at',
+  },
   getTenantDb: vi.fn(),
   closeTenantDb: vi.fn(),
 }));
@@ -73,6 +83,17 @@ vi.mock('@omzig/db', () => ({
 // Mock @omzig/audit module (audit-runner pipeline)
 vi.mock('@omzig/audit', () => ({
   runAuditPipeline: vi.fn().mockResolvedValue(undefined),
+  getAllControls: vi.fn().mockReturnValue(
+    // Return 29 mock controls so totalChecks reads correctly
+    Array.from({ length: 29 }, (_, i) => ({
+      id: `MS.AAD.${i}.1v1`,
+      product: 'AAD',
+      description: `Mock control ${i}`,
+      requirementLevel: 'SHALL',
+      severity: 'High',
+      nist80053: 'AC-3',
+    })),
+  ),
 }));
 
 // Mock SignalR service
@@ -312,12 +333,21 @@ describe('Audit API routes', () => {
         },
       ];
 
-      // First select: audit run (where returns array)
-      mockWhere.mockResolvedValueOnce([mockRun]);
-      // Second select: findings
-      mockFrom.mockReturnValueOnce({ where: mockWhere, orderBy: mockOrderBy });
-      mockSelect.mockReturnValueOnce({ from: mockFrom });
-      mockWhere.mockResolvedValueOnce(mockFindings);
+      // The audit detail route performs 4 queries in sequence:
+      //   1. select().from(auditRuns).where()         → [mockRun]
+      //   2. select().from(auditFindings).where()     → mockFindings
+      //   3. select().from(maturityScores).where()    → [] (no current maturity)
+      //   4. select().from(auditRuns).where().orderBy().limit() → [] (no previous run)
+      //
+      // mockWhere queue: [mockRun], mockFindings, [], then fall-through chain
+      mockWhere
+        .mockResolvedValueOnce([mockRun])
+        .mockResolvedValueOnce(mockFindings)
+        .mockResolvedValueOnce([])
+        .mockReturnValueOnce({ orderBy: mockOrderBy });
+      // Previous-run query ends with .orderBy().limit() — both must chain
+      const mockLimit = vi.fn().mockResolvedValueOnce([]);
+      mockOrderBy.mockReturnValueOnce({ limit: mockLimit });
 
       const app = await createAuditTestApp(ANALYST_JWT);
 
