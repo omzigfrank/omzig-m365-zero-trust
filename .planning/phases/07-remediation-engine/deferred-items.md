@@ -28,3 +28,35 @@ plan, test plan, and regression surface.
   clears the interval, awaits in-flight audit-run promises with a 30-second
   cap, then resolves. Update `apps/api/src/index.ts` SIGTERM handler to
   `await stopScheduler()` if it currently calls it synchronously.
+
+## Audit-runs zombie sweeper
+
+**Origin:** Noted while implementing the remediation_jobs zombie sweeper in
+Plan 07-01 Task 3.
+
+Audit runs can get stuck in `status='running'` if the scheduler process
+crashes mid-scan. A future plan could add a zombie sweeper to `scheduler.ts`
+using the same heartbeat + cutoff pattern the remediation worker uses for
+`remediation_jobs`. Requires adding a `heartbeat_at` column to the
+`audit_runs` table via a new tenant migration.
+
+## Gitignore for TypeScript incremental build artifacts
+
+**Origin:** Plan 07-01 execution surfaced untracked `*.tsbuildinfo` files
+at the package roots (`apps/api`, `apps/web`, `packages/*`).
+
+`.gitignore` does not currently exclude `*.tsbuildinfo`. These are
+TypeScript incremental build outputs and should never be committed. Add
+`*.tsbuildinfo` as a root-level pattern in `.gitignore` in a dedicated
+cleanup commit.
+
+## MSAL Node refresh token cache extraction
+
+**Origin:** Plan 07-01 Task 3, `remediation-token-broker.ts`.
+
+`exchangeForRemediationRefreshToken` extracts the refresh token from
+`cca.getTokenCache().serialize()` because MSAL Node's
+`acquireTokenOnBehalfOf` does not surface refresh tokens on the
+`AuthenticationResult` object. This is a known MSAL Node quirk. If a
+future MSAL Node release exposes `refreshToken` directly, the broker
+should switch to the direct accessor and drop the serialize/parse dance.

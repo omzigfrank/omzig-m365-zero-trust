@@ -60,6 +60,30 @@ export type {
 } from './remediation/types.js';
 export { WriteRateLimiter } from './remediation/write-rate-limiter.js';
 
+// Executor framework (Phase 7 Plan 01 Task 2)
+export {
+  executeRemediation,
+  validatePrerequisitesOnly,
+  ExecutorMissingError,
+  PrerequisiteFailedError,
+  ExecutorError,
+} from './remediation/remediation-executor.js';
+
+// Rollback service (Phase 7 Plan 01 Task 2)
+export {
+  computeDrift,
+  rollbackRemediation,
+  DriftDetectedError,
+  type DriftReport,
+  type RollbackJob,
+  type RollbackStatus,
+  type RollbackResult,
+  type RollbackOptions,
+} from './remediation/rollback-service.js';
+
+// Executor registry (Phase 7 Plan 01 Task 2)
+export { EXECUTOR_REGISTRY } from './remediation/executors/index.js';
+
 // Break-glass collector (Phase 7 Plan 01)
 export {
   collectBreakGlass,
