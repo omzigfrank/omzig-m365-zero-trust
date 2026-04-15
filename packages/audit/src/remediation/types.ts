@@ -48,6 +48,13 @@ export interface ExecutionContext {
 
 /**
  * Result of executing a remediation. Snapshots are JSON blobs; see research §7.
+ *
+ * Plan 07-03 addition: `phase` is optional and only used by two-phase RISKY
+ * executors. A return value of `phase: 'report_only_deployed'` signals that
+ * the executor has deployed the change in Report-Only mode and the worker
+ * should pause the job at status=awaiting_enforce until the user clicks the
+ * Enforce button in the RISKY wizard. `phase: 'completed'` (or undefined)
+ * means the job is done and should transition straight to status=completed.
  */
 export interface ExecutionResult {
   /** State BEFORE the write. null for CREATE-type remediations. */
@@ -57,6 +64,11 @@ export interface ExecutionResult {
   /** Graph resource ID for subsequent rollback lookups. */
   targetResourceId: string | null;
   notes?: string;
+  /**
+   * Optional phase marker for two-phase RISKY executors. Single-phase SAFE
+   * executors leave this undefined (treated as 'completed').
+   */
+  phase?: 'completed' | 'report_only_deployed';
 }
 
 /**
@@ -97,4 +109,20 @@ export interface RemediationEntry {
   executor?: (ctx: ExecutionContext) => Promise<ExecutionResult>;
   rollbackExecutor?: (ctx: ExecutionContext, beforeSnapshot: unknown) => Promise<void>;
   validatePrerequisites?: (ctx: ExecutionContext) => Promise<PrerequisiteCheckResult>;
+  /**
+   * Plan 07-03: Optional second-phase executor for two-phase RISKY remediations.
+   *
+   * For CA-policy RISKY executors that deploy in Report-Only first then advance
+   * to Enabled on user request, this function is called by the worker after the
+   * /enforce endpoint signals that the user has reviewed sign-in logs and wants
+   * to turn the policy on. The worker passes the targetResourceId that was
+   * captured during the first-phase executor run.
+   *
+   * Single-phase RISKY executors (e.g., authorizationPolicy PATCHes that have
+   * no Report-Only equivalent per research §1.3) do NOT set this field.
+   */
+  enforcePhaseExecutor?: (
+    ctx: ExecutionContext,
+    jobState: { targetResourceId: string },
+  ) => Promise<ExecutionResult>;
 }

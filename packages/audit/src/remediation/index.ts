@@ -66,6 +66,8 @@ for (const [controlId, bundle] of Object.entries(EXECUTOR_REGISTRY)) {
   entry.executor = bundle.executor;
   if (bundle.rollbackExecutor) entry.rollbackExecutor = bundle.rollbackExecutor;
   if (bundle.validatePrerequisites) entry.validatePrerequisites = bundle.validatePrerequisites;
+  // Plan 07-03: attach two-phase enforce executor if present.
+  if (bundle.enforcePhaseExecutor) entry.enforcePhaseExecutor = bundle.enforcePhaseExecutor;
 }
 
 /**

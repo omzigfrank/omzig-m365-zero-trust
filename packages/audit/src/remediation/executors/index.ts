@@ -93,10 +93,45 @@ import {
   requirePimActivationMfaValidatePrerequisites,
 } from './require-pim-activation-mfa.js';
 
+// Plan 07-03 RISKY executor additions:
+import {
+  requireCompliantDeviceExecutor,
+  requireCompliantDeviceEnforcePhase,
+  requireCompliantDeviceRollback,
+  requireCompliantDeviceValidatePrerequisites,
+} from './require-compliant-device.js';
+import {
+  requirePhishingResistantMfaExecutor,
+  requirePhishingResistantMfaEnforcePhase,
+  requirePhishingResistantMfaRollback,
+  requirePhishingResistantMfaValidatePrerequisites,
+} from './require-phishing-resistant-mfa.js';
+import {
+  signInRiskPolicyExecutor,
+  signInRiskPolicyEnforcePhase,
+  signInRiskPolicyRollback,
+  signInRiskPolicyValidatePrerequisites,
+} from './sign-in-risk-policy.js';
+import {
+  blockGuestAccessExecutor,
+  blockGuestAccessRollback,
+  blockGuestAccessValidatePrerequisites,
+} from './block-guest-access.js';
+import {
+  disableUserConsentAllExecutor,
+  disableUserConsentAllRollback,
+  disableUserConsentAllValidatePrerequisites,
+} from './disable-user-consent-all.js';
+
 export interface ExecutorBundle {
   executor: (ctx: ExecutionContext) => Promise<ExecutionResult>;
   rollbackExecutor?: (ctx: ExecutionContext, beforeSnapshot: unknown) => Promise<void>;
   validatePrerequisites?: (ctx: ExecutionContext) => Promise<PrerequisiteCheckResult>;
+  /** Plan 07-03: two-phase RISKY executors supply the second-phase function. */
+  enforcePhaseExecutor?: (
+    ctx: ExecutionContext,
+    jobState: { targetResourceId: string },
+  ) => Promise<ExecutionResult>;
 }
 
 // Bundles defined once so NIST aliases can share the same instance.
@@ -172,6 +207,46 @@ const requirePimActivationMfaBundle: ExecutorBundle = {
   validatePrerequisites: requirePimActivationMfaValidatePrerequisites,
 };
 
+// --- Plan 07-03 RISKY bundles ---
+
+// Two-phase: require compliant device (MS.AAD.3.7v1, NIST.ZTA.T4.2v1)
+const requireCompliantDeviceBundle: ExecutorBundle = {
+  executor: requireCompliantDeviceExecutor,
+  enforcePhaseExecutor: requireCompliantDeviceEnforcePhase,
+  rollbackExecutor: requireCompliantDeviceRollback,
+  validatePrerequisites: requireCompliantDeviceValidatePrerequisites,
+};
+
+// Two-phase: require phishing-resistant MFA (MS.AAD.3.1v1)
+const requirePhishingResistantMfaBundle: ExecutorBundle = {
+  executor: requirePhishingResistantMfaExecutor,
+  enforcePhaseExecutor: requirePhishingResistantMfaEnforcePhase,
+  rollbackExecutor: requirePhishingResistantMfaRollback,
+  validatePrerequisites: requirePhishingResistantMfaValidatePrerequisites,
+};
+
+// Two-phase: sign-in risk CA policy (NIST.ZTA.T4.1v1)
+const signInRiskPolicyBundle: ExecutorBundle = {
+  executor: signInRiskPolicyExecutor,
+  enforcePhaseExecutor: signInRiskPolicyEnforcePhase,
+  rollbackExecutor: signInRiskPolicyRollback,
+  validatePrerequisites: signInRiskPolicyValidatePrerequisites,
+};
+
+// Single-phase: block guest invites (MS.AAD.8.2v1)
+const blockGuestAccessBundle: ExecutorBundle = {
+  executor: blockGuestAccessExecutor,
+  rollbackExecutor: blockGuestAccessRollback,
+  validatePrerequisites: blockGuestAccessValidatePrerequisites,
+};
+
+// Single-phase: disable user consent to all apps (MS.AAD.5.2v1)
+const disableUserConsentAllBundle: ExecutorBundle = {
+  executor: disableUserConsentAllExecutor,
+  rollbackExecutor: disableUserConsentAllRollback,
+  validatePrerequisites: disableUserConsentAllValidatePrerequisites,
+};
+
 /**
  * Map from controlId to the bundle of executor functions for that control.
  */
@@ -219,6 +294,20 @@ export const EXECUTOR_REGISTRY: Record<string, ExecutorBundle> = {
   'NIST.CSF.PR.DS-2v1': blockLegacyAuthBundle,
   // RS.MA-1 admin consent workflow (same as MS.AAD.5.3v1)
   'NIST.CSF.RS.MA-1v1': enableAdminConsentWorkflowBundle,
+
+  // --- Plan 07-03 RISKY executors ---
+  // Require phishing-resistant MFA (MS.AAD.3.1v1 — two-phase)
+  'MS.AAD.3.1v1': requirePhishingResistantMfaBundle,
+  // Require compliant device (MS.AAD.3.7v1 — two-phase)
+  'MS.AAD.3.7v1': requireCompliantDeviceBundle,
+  // Disable user consent to all apps (MS.AAD.5.2v1 — single-phase authPolicy)
+  'MS.AAD.5.2v1': disableUserConsentAllBundle,
+  // Restrict guest invites to admins (MS.AAD.8.2v1 — single-phase authPolicy)
+  'MS.AAD.8.2v1': blockGuestAccessBundle,
+  // Sign-in risk CA policy (NIST.ZTA.T4.1v1 — two-phase)
+  'NIST.ZTA.T4.1v1': signInRiskPolicyBundle,
+  // NIST.ZTA.T4.2v1 alias for compliant-device CA policy
+  'NIST.ZTA.T4.2v1': requireCompliantDeviceBundle,
 };
 
 // Exports for direct unit testing. Security Defaults has no CISA SCuBA
@@ -264,4 +353,23 @@ export {
   requirePimActivationMfaExecutor,
   requirePimActivationMfaRollback,
   requirePimActivationMfaValidatePrerequisites,
+  // Plan 07-03 RISKY executors
+  requireCompliantDeviceExecutor,
+  requireCompliantDeviceEnforcePhase,
+  requireCompliantDeviceRollback,
+  requireCompliantDeviceValidatePrerequisites,
+  requirePhishingResistantMfaExecutor,
+  requirePhishingResistantMfaEnforcePhase,
+  requirePhishingResistantMfaRollback,
+  requirePhishingResistantMfaValidatePrerequisites,
+  signInRiskPolicyExecutor,
+  signInRiskPolicyEnforcePhase,
+  signInRiskPolicyRollback,
+  signInRiskPolicyValidatePrerequisites,
+  blockGuestAccessExecutor,
+  blockGuestAccessRollback,
+  blockGuestAccessValidatePrerequisites,
+  disableUserConsentAllExecutor,
+  disableUserConsentAllRollback,
+  disableUserConsentAllValidatePrerequisites,
 };
