@@ -122,7 +122,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Scheduler service (DB-driven polling, max-3 concurrent, 5-min stagger), schedule API route, schema migration, Settings tab UI
+- [x] 06-01-PLAN.md — Scheduler service (DB-driven polling, max-3 concurrent, 5-min stagger), schedule API route, schema migration, Settings tab UI
 - [ ] 06-02-PLAN.md — Backend: PDF report generation (executive + full), SVG charts, enhanced CSV export (~20 columns), multi-tenant CSV endpoint, audit history API
 - [ ] 06-03-PLAN.md — Frontend: ExportButtons PDF dropdown, MultiTenantExport component, trend chart, audit history list, History tab overhaul
 
