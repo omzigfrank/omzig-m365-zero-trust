@@ -31,6 +31,10 @@ export const NIST_80053_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: ROLES_PORTAL,
     estimatedImpact: 'Medium - Role reassignment planning required',
+    classification: 'RISKY',
+    classificationRationale: 'Account management including Global Admin reduction requires manual planning to avoid lockout.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'NIST.80053.AC-3v1',
@@ -43,6 +47,10 @@ export const NIST_80053_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Strengthens access enforcement across the tenant',
+    classification: 'SAFE',
+    classificationRationale: 'CA policy effectiveness review is read-only verification.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.AC-6v1',
@@ -55,6 +63,10 @@ export const NIST_80053_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Admins must activate roles via PIM for privileged operations',
+    classification: 'RISKY',
+    classificationRationale: 'PIM migration for least privilege requires org-level change management.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'NIST.80053.AC-7v1',
@@ -81,6 +93,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
   }
 }`,
     estimatedImpact: 'Medium - Blocks sign-ins flagged as high risk',
+    classification: 'RISKY',
+    classificationRationale: 'Risk-based CA policies produce false positives; require P2 licensing.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.AC-11v1',
@@ -93,6 +109,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Users re-authenticate at configured intervals',
+    classification: 'RISKY',
+    classificationRationale: 'Session lock enforcement changes re-authentication frequency for all users.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.AC-17v1',
@@ -118,6 +138,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
   }
 }`,
     estimatedImpact: 'Medium - All users must complete MFA for remote access',
+    classification: 'RISKY',
+    classificationRationale: 'Enforcing MFA for all remote access can lock out users without registered MFA methods.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== IA - Identification and Authentication =====
@@ -132,6 +156,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'Medium - Unregistered users must enroll MFA methods',
+    classification: 'SAFE',
+    classificationRationale: 'MFA registration coverage is read-only verification; enrollment is a user action.',
+    writeScopes: [],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'NIST.80053.IA-5v1',
@@ -143,6 +171,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: PASSWORD_PORTAL,
     estimatedImpact: 'Low - Removes forced password rotation',
+    classification: 'SAFE',
+    classificationRationale: 'Password expiration aligned with NIST 800-63B is reversible via PATCH.',
+    writeScopes: ['Domain.ReadWrite.All'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'NIST.80053.IA-8v1',
@@ -154,6 +186,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: EXTERNAL_ID_PORTAL,
     estimatedImpact: 'Medium - Regular users can no longer invite guest users',
+    classification: 'RISKY',
+    classificationRationale: 'Restricting guest access can disrupt existing external collaboration.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
 
   // ===== SC - System and Communications Protection =====
@@ -167,6 +203,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'High - Blocks legacy authentication protocols at the boundary',
+    classification: 'SAFE',
+    classificationRationale: 'Blocking legacy auth via Report-Only CA policy is the canonical SAFE executor.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.SC-8v1',
@@ -178,6 +218,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Ensures all authentication uses encrypted channels',
+    classification: 'SAFE',
+    classificationRationale: 'Verifying legacy auth is blocked is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.SC-13v1',
@@ -189,6 +233,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'High - Requires phishing-resistant MFA methods (FIDO2, Windows Hello)',
+    classification: 'RISKY',
+    classificationRationale: 'Phishing-resistant MFA for all users requires FIDO2/Windows Hello enrollment.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== AU - Audit and Accountability =====
@@ -202,6 +250,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - License verification',
+    classification: 'SAFE',
+    classificationRationale: 'Unified audit log license verification is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.AU-6v1',
@@ -214,6 +266,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - License and configuration verification',
+    classification: 'SAFE',
+    classificationRationale: 'Advanced audit diagnostic export is a SIEM configuration decision.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.AU-12v1',
@@ -226,6 +282,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Low - Permission and access verification',
+    classification: 'SAFE',
+    classificationRationale: 'Telemetry coverage verification is read-only permission audit.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== CM - Configuration Management =====
@@ -240,6 +300,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Migration from security defaults requires policy creation',
+    classification: 'SAFE',
+    classificationRationale: 'Migration from Security Defaults to CA policies is a planning exercise; no single Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.CM-7v1',
@@ -251,6 +315,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: USER_SETTINGS_PORTAL,
     estimatedImpact: 'Low - Restricts app registration to administrators',
+    classification: 'SAFE',
+    classificationRationale: 'Restricting user app registration is additive for admins.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'NIST.80053.CM-8v1',
@@ -262,6 +330,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: INTUNE_PORTAL,
     estimatedImpact: 'Low - Inventory verification; no direct user impact',
+    classification: 'SAFE',
+    classificationRationale: 'Inventory verification is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== SI - System and Information Integrity =====
@@ -275,6 +347,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: DEFENDER_PORTAL,
     estimatedImpact: 'Medium - Requires endpoint agent deployment',
+    classification: 'SAFE',
+    classificationRationale: 'Defender for Endpoint onboarding is manual; no Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.SI-3v1',
@@ -286,6 +362,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: DEFENDER_PORTAL,
     estimatedImpact: 'Low - Email security; transparent to users',
+    classification: 'SAFE',
+    classificationRationale: 'Defender for O365 config is in the Defender portal; sidecar deferred.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.80053.SI-4v1',
@@ -298,6 +378,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: IDENTITY_PROTECTION_PORTAL,
     estimatedImpact: 'Low - Monitoring configuration; no direct user impact',
+    classification: 'SAFE',
+    classificationRationale: 'Identity Protection monitoring config is read-only review.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== RA - Risk Assessment =====
@@ -312,5 +396,9 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: IDENTITY_PROTECTION_PORTAL,
     estimatedImpact: 'Low - Risk assessment configuration',
+    classification: 'SAFE',
+    classificationRationale: 'Identity Protection risk review is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 ];

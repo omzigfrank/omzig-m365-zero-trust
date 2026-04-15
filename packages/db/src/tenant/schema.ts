@@ -51,6 +51,44 @@ export const auditFindings = mssqlTable('audit_findings', {
 });
 
 /**
+ * Remediation jobs table -- Phase 7 Plan 01.
+ *
+ * One row per remediation attempt. Created when a user approves a remediation
+ * in the UI (Plan 07-02/07-03). Picked up by the in-process remediation worker,
+ * which resolves a write token via the OBO token broker, runs the executor,
+ * captures before/after Graph snapshots, and transitions the row through:
+ *   pending -> running -> completed | failed
+ *                       -> report_only_deployed -> awaiting_enforce -> completed   (RISKY two-phase)
+ *                       -> rolled_back | rollback_failed | rollback_partial         (rollback path)
+ *
+ * heartbeat_at + worker_id support the zombie sweeper: rows with
+ * status=running and heartbeat older than 5 minutes are re-queued.
+ *
+ * FK to audit_findings so every remediation links to the finding it fixes.
+ */
+export const remediationJobs = mssqlTable('remediation_jobs', {
+  id: varchar('id', { length: 36 }).primaryKey().notNull(),
+  tenantId: varchar('tenant_id', { length: 36 }).notNull(),
+  findingId: varchar('finding_id', { length: 36 }).notNull(),
+  controlId: varchar('control_id', { length: 30 }).notNull(),
+  classification: varchar('classification', { length: 10 }).notNull(),
+  scopeBundle: varchar('scope_bundle', { length: 30 }).notNull(),
+  status: varchar('status', { length: 30 }).notNull().default('pending'),
+  beforeSnapshot: nvarchar('before_snapshot', { length: 4000 }),
+  afterSnapshot: nvarchar('after_snapshot', { length: 4000 }),
+  targetResourceId: varchar('target_resource_id', { length: 256 }),
+  approvedByUserId: varchar('approved_by_user_id', { length: 36 }).notNull(),
+  approvedAt: datetime2('approved_at').notNull(),
+  startedAt: datetime2('started_at'),
+  completedAt: datetime2('completed_at'),
+  heartbeatAt: datetime2('heartbeat_at'),
+  workerId: varchar('worker_id', { length: 64 }),
+  attemptCount: int('attempt_count').notNull().default(0),
+  lastAttemptError: nvarchar('last_attempt_error', { length: 4000 }),
+  createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
+});
+
+/**
  * Maturity scores table -- one row per tenet per audit run.
  * Persists severity-weighted maturity snapshots for historical trending.
  */

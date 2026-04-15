@@ -167,6 +167,36 @@ export interface SensitivityLabelsFacts {
 }
 
 /**
+ * Phase 7 addition: Break-glass emergency access group facts.
+ *
+ * Surfaces whether a conventionally-named break-glass group exists in the
+ * tenant and whether it is excluded from enabled Conditional Access policies.
+ * Used by CA-policy-creating executors (block legacy auth, require admin MFA)
+ * as a prerequisite check -- REMED-07 prevents lockouts by refusing to
+ * deploy a CA policy in a tenant with no break-glass escape hatch.
+ *
+ * Conventional display names searched (prefix match):
+ *   - "Break-Glass"
+ *   - "BreakGlass"
+ *   - "Emergency-Access"
+ */
+export interface BreakGlassFacts {
+  available: boolean;
+  /** Conventional displayName discovered, if any. */
+  groupName: string | null;
+  /** Graph group object ID, null if no matching group was found. */
+  groupId: string | null;
+  /** Number of members in the break-glass group. 0 if not found. */
+  memberCount: number;
+  /**
+   * True iff the break-glass group ID appears in
+   * conditions.users.excludeGroups of at least one ENABLED CA policy.
+   */
+  excludedFromCaPolicies: boolean;
+  error?: string;
+}
+
+/**
  * Complete tenant configuration snapshot from Microsoft Graph API.
  * 15 data areas covering all Entra ID evaluation needs.
  */
@@ -187,6 +217,8 @@ export interface AuditFacts {
   domains: DomainsFacts;
   appRegistrations: AppRegistrationsFacts;
   sensitivityLabels: SensitivityLabelsFacts;
+  // --- Phase 7 Plan 01 addition ---
+  breakGlass: BreakGlassFacts;
 }
 
 // ========================================================================
@@ -300,5 +332,12 @@ export function createEmptyFacts(): AuditFacts {
     domains: { available: false, totalDomains: 0, customDomainCount: 0, hasOnlyOnmicrosoft: true },
     appRegistrations: { available: false, totalApps: 0 },
     sensitivityLabels: { available: false, totalLabels: 0 },
+    breakGlass: {
+      available: false,
+      groupName: null,
+      groupId: null,
+      memberCount: 0,
+      excludedFromCaPolicies: false,
+    },
   };
 }

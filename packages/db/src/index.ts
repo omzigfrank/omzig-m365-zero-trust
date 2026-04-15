@@ -7,6 +7,7 @@ export {
   auditLog,
   setupWizardState,
   actionQueueDismissals,
+  tenantRemediationConsents,
 } from './control-plane/schema.js';
 
 // Tenant schema (per-tenant isolated database)
@@ -14,6 +15,7 @@ export {
   auditRuns,
   auditFindings,
   maturityScores,
+  remediationJobs,
 } from './tenant/schema.js';
 
 // Connection factory

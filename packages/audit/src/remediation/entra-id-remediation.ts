@@ -50,6 +50,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
   }
 }`,
     estimatedImpact: 'High - May block users on older email clients (Outlook 2010 and earlier)',
+    classification: 'SAFE',
+    classificationRationale: 'Report-Only CA policy deployment is non-blocking; rollback = DELETE the policy by its ID; blast radius bounded to tenant config.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== MS.AAD.2.x - Risk-Based Policies =====
@@ -80,6 +84,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
   }
 }`,
     estimatedImpact: 'Medium - Only affects users flagged as high risk by Identity Protection',
+    classification: 'RISKY',
+    classificationRationale: 'Identity Protection risk scores can produce false positives; blocking high-risk users can lock out legitimate users on travel or new devices.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'MS.AAD.2.3v1',
@@ -108,6 +116,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
   }
 }`,
     estimatedImpact: 'Medium - Only affects sign-ins flagged as high risk',
+    classification: 'RISKY',
+    classificationRationale: 'Sign-in risk blocking can produce false positives during legitimate travel/new-location sign-ins; requires phased rollout with Report-Only monitoring.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== MS.AAD.3.x - Multi-Factor Authentication =====
@@ -141,6 +153,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
   }
 }`,
     estimatedImpact: 'High - Requires all users to have phishing-resistant MFA methods enrolled',
+    classification: 'RISKY',
+    classificationRationale: 'Enforcing phishing-resistant MFA for ALL users can lock out users without FIDO2 or Windows Hello enrolled; requires guided rollout per research §5.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'MS.AAD.3.2v1',
@@ -152,6 +168,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'Low - Enables approved authentication methods for registration',
+    classification: 'SAFE',
+    classificationRationale: 'Enabling an approved MFA method (Authenticator/FIDO2) in the Authentication Methods policy is additive and non-disruptive to existing users.',
+    writeScopes: ['Policy.ReadWrite.AuthenticationMethod'],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'MS.AAD.3.3v1',
@@ -164,6 +184,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Enforces MFA for all sign-ins',
+    classification: 'RISKY',
+    classificationRationale: 'Enforcing MFA for all users can lock out users without any registered MFA method; requires pre-check of MFA registration coverage.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'MS.AAD.3.4v1',
@@ -175,6 +199,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'Low - Administrative change that consolidates MFA policy management',
+    classification: 'SAFE',
+    classificationRationale: 'Marking auth methods migration as Migration Complete is an administrative consolidation with no user-facing effect.',
+    writeScopes: ['Policy.ReadWrite.AuthenticationMethod'],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'MS.AAD.3.5v1',
@@ -195,6 +223,10 @@ Update-MgPolicyAuthenticationMethodPolicyAuthenticationMethodConfiguration \
   -AuthenticationMethodConfigurationId "Voice" \
   -State "disabled"`,
     estimatedImpact: 'High - Users relying on SMS/Voice MFA must switch to another method first',
+    classification: 'SAFE',
+    classificationRationale: 'Disabling SMS/Voice is reversible via PATCH and prerequisite check ensures at least one strong method (Authenticator or FIDO2) is enabled before disabling.',
+    writeScopes: ['Policy.ReadWrite.AuthenticationMethod'],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'MS.AAD.3.6v1',
@@ -206,6 +238,10 @@ Update-MgPolicyAuthenticationMethodPolicyAuthenticationMethodConfiguration \
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Only affects highly privileged role holders',
+    classification: 'SAFE',
+    classificationRationale: 'Admin-targeted MFA CA policy deployed in Report-Only mode; scope is limited to a handful of privileged users; rollback = DELETE policy; break-glass group excluded.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'MS.AAD.3.7v1',
@@ -218,6 +254,10 @@ Update-MgPolicyAuthenticationMethodPolicyAuthenticationMethodConfiguration \
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'High - Can lock out users whose devices are not enrolled or compliant in Intune',
+    classification: 'RISKY',
+    classificationRationale: 'Requiring compliant devices can lock out ALL users whose devices are not enrolled in Intune; this is the highest-blast-radius CA policy per CLAUDE.md warning.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'MS.AAD.3.8v1',
@@ -230,6 +270,10 @@ Update-MgPolicyAuthenticationMethodPolicyAuthenticationMethodConfiguration \
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Prevents MFA registration from unmanaged devices',
+    classification: 'RISKY',
+    classificationRationale: 'Requiring compliant devices for MFA registration creates a chicken-and-egg problem for users on unmanaged devices; requires guided rollout.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== MS.AAD.4.x - Logging =====
@@ -245,6 +289,10 @@ Update-MgPolicyAuthenticationMethodPolicyAuthenticationMethodConfiguration \
     adminPortalUrl: 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/DiagnosticSettingsMenuBlade',
     estimatedImpact: 'Low - Logging configuration only; no user-facing impact',
     notes: 'Advisory control - SIEM integration is an organizational decision. Ensure log export is configured.',
+    classification: 'SAFE',
+    classificationRationale: 'Advisory control -- SIEM diagnostic export is an organizational decision; no Graph executor in this plan.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== MS.AAD.5.x - Application Consent & Registration =====
@@ -261,6 +309,10 @@ Update-MgPolicyAuthorizationPolicy -DefaultUserRolePermissions @{
   allowedToCreateApps = $false
 }`,
     estimatedImpact: 'Low - Only affects users who were creating app registrations; admins can still register apps',
+    classification: 'SAFE',
+    classificationRationale: 'Restricting user app registration is additive for admins and reversible via PATCH; users lose a rarely-used privilege but gain no lockout risk.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'MS.AAD.5.2v1',
@@ -275,6 +327,10 @@ Update-MgPolicyAuthorizationPolicy -DefaultUserRolePermissions @{
   permissionGrantPoliciesAssigned = @()
 }`,
     estimatedImpact: 'Medium - Users will need to request admin approval for any new app permissions',
+    classification: 'RISKY',
+    classificationRationale: 'Setting permissionGrantPoliciesAssigned to empty blocks ALL user consent and breaks existing third-party integrations (research §1.3 PITFALL a).',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'MS.AAD.5.3v1',
@@ -286,6 +342,10 @@ Update-MgPolicyAuthorizationPolicy -DefaultUserRolePermissions @{
     ],
     adminPortalUrl: CONSENT_PORTAL,
     estimatedImpact: 'Low - Enables structured request workflow; no disruption to existing access',
+    classification: 'SAFE',
+    classificationRationale: 'Enabling the admin consent request workflow is purely additive -- it creates a structured path for users to request approval, does not remove any existing access.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'MS.AAD.5.4v1',
@@ -296,6 +356,10 @@ Update-MgPolicyAuthorizationPolicy -DefaultUserRolePermissions @{
     ],
     adminPortalUrl: CONSENT_PORTAL,
     estimatedImpact: 'Low - Restricts a rarely used consent path',
+    classification: 'SAFE',
+    classificationRationale: 'Disabling group owner consent restricts a rarely-used consent path; impact is bounded and reversible via PATCH.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
 
   // ===== MS.AAD.6.x - Passwords =====
@@ -315,6 +379,10 @@ foreach ($domain in $domains) {
   Update-MgDomain -DomainId $domain.Id -PasswordValidityPeriodInDays 2147483647
 }`,
     estimatedImpact: 'Low - Removes forced password rotation; improves user experience per NIST guidance',
+    classification: 'SAFE',
+    classificationRationale: 'Setting password validity to never-expire (2147483647 days) follows NIST 800-63B guidance; reversible via PATCH and has no lockout risk.',
+    writeScopes: ['Domain.ReadWrite.All'],
+    scopeBundle: 'authPolicy',
   },
 
   // ===== MS.AAD.7.x - Privileged Roles & PIM =====
@@ -329,6 +397,10 @@ foreach ($domain in $domains) {
     ],
     adminPortalUrl: ROLES_PORTAL,
     estimatedImpact: 'Medium - Reducing Global Admin count may require role reassignment planning',
+    classification: 'RISKY',
+    classificationRationale: 'Removing Global Administrators risks losing the last admin if miscounted; PIM migration requires manual planning per research §6.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.2v1',
@@ -340,6 +412,10 @@ foreach ($domain in $domains) {
     ],
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Admins must activate roles via PIM before performing privileged actions',
+    classification: 'RISKY',
+    classificationRationale: 'Converting permanent Global Admin assignments to eligible can lock out admins who do not understand PIM activation; requires org-level change management.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.3v1',
@@ -353,6 +429,10 @@ foreach ($domain in $domains) {
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Adds approval gate before Global Admin activation',
     notes: 'Advisory control - requires organizational policy decision on approval workflow.',
+    classification: 'RISKY',
+    classificationRationale: 'Adding approval gates to Global Admin activation can block emergency response if approvers are unavailable; requires org-level policy decision.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.4v1',
@@ -366,6 +446,10 @@ foreach ($domain in $domains) {
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Low - Process change for role governance',
     notes: 'Advisory control - monthly audit cadence is an organizational requirement.',
+    classification: 'SAFE',
+    classificationRationale: 'Advisory control -- monthly access review cadence is an organizational process, not a Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.5v1',
@@ -378,6 +462,10 @@ foreach ($domain in $domains) {
     ],
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Permanent admins must switch to time-limited activations',
+    classification: 'RISKY',
+    classificationRationale: 'Setting max activation duration and removing permanent assignments can disrupt admins mid-workflow; requires PIM training and rollout plan.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.6v1',
@@ -391,6 +479,10 @@ foreach ($domain in $domains) {
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Low - Adds MFA step to role activation; minimal friction for admins',
     notes: 'Advisory control - PIM activation MFA configuration.',
+    classification: 'SAFE',
+    classificationRationale: 'Requiring Azure MFA on PIM activation is additive -- admins already have MFA and this adds a single prompt at activation time.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.7v1',
@@ -402,6 +494,10 @@ foreach ($domain in $domains) {
     ],
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Requires migrating existing direct role assignments to PIM',
+    classification: 'RISKY',
+    classificationRationale: 'Migrating existing direct role assignments to PIM eligible requires manual mapping and can leave gaps; not automatable in one call.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.8v1',
@@ -415,6 +511,10 @@ foreach ($domain in $domains) {
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Low - Notification configuration only; no user-facing impact',
     notes: 'Advisory control - notification configuration is an organizational decision.',
+    classification: 'SAFE',
+    classificationRationale: 'Advisory control -- notification routing is an organizational decision; configuration is additive and reversible.',
+    writeScopes: [],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'MS.AAD.7.9v1',
@@ -428,6 +528,10 @@ foreach ($domain in $domains) {
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Adds approval gate; may slow emergency response if approvers are unavailable',
     notes: 'Advisory control - approval workflow for Global Admin activation.',
+    classification: 'RISKY',
+    classificationRationale: 'Requiring approval for Global Admin activation is a governance change that can block emergency response; requires org-level planning.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
 
   // ===== MS.AAD.8.x - Guest Access =====
@@ -440,6 +544,10 @@ foreach ($domain in $domains) {
     ],
     adminPortalUrl: EXTERNAL_ID_PORTAL,
     estimatedImpact: 'Low - Restricts guest visibility into directory objects; guests retain access to resources shared with them',
+    classification: 'SAFE',
+    classificationRationale: 'Restricting guest directory visibility is additive for the tenant and does not remove access to resources already shared with guests.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'MS.AAD.8.2v1',
@@ -452,6 +560,10 @@ foreach ($domain in $domains) {
     powershell: `Connect-MgGraph -Scopes "Policy.ReadWrite.Authorization"
 Update-MgPolicyAuthorizationPolicy -AllowInvitesFrom "adminsAndGuestInviters"`,
     estimatedImpact: 'Medium - Regular users can no longer send guest invitations; must request through an admin',
+    classification: 'RISKY',
+    classificationRationale: 'Restricting guest invitations to admins can break existing collaboration workflows where PMs/leads invite external partners.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'MS.AAD.8.3v1',
@@ -463,5 +575,9 @@ Update-MgPolicyAuthorizationPolicy -AllowInvitesFrom "adminsAndGuestInviters"`,
     ],
     adminPortalUrl: EXTERNAL_ID_PORTAL,
     estimatedImpact: 'Low - Further restricts guest directory visibility',
+    classification: 'SAFE',
+    classificationRationale: 'Further restricting guest directory visibility is additive and reversible; guests retain access to shared resources.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
 ];

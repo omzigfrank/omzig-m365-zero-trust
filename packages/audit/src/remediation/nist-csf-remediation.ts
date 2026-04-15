@@ -28,6 +28,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Strengthens access enforcement',
+    classification: 'SAFE',
+    classificationRationale: 'CA policy grant controls verification is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.PR.AA-3v1',
@@ -39,6 +43,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - All users must complete MFA',
+    classification: 'RISKY',
+    classificationRationale: 'Enforcing MFA for all remote access can lock out users without registered MFA.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.PR.AA-5v1',
@@ -50,6 +58,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Admins must activate roles just-in-time',
+    classification: 'RISKY',
+    classificationRationale: 'PIM migration for least privilege requires org-level change management.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'NIST.CSF.PR.DS-1v1',
@@ -62,6 +74,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: LABELS_PORTAL,
     estimatedImpact: 'Medium - Requires data classification policy definition',
+    classification: 'SAFE',
+    classificationRationale: 'Sensitivity label creation is a Purview exercise; no Graph executor in this plan.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.PR.DS-2v1',
@@ -73,6 +89,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'High - Blocks legacy authentication; ensures encrypted transit',
+    classification: 'SAFE',
+    classificationRationale: 'Blocking legacy auth via Report-Only CA is the canonical SAFE executor.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.PR.PS-1v1',
@@ -84,6 +104,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Migration from security defaults to CA policies',
+    classification: 'SAFE',
+    classificationRationale: 'Migration from Security Defaults to CA is a planning exercise.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.PR.IR-1v1',
@@ -95,6 +119,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - Verification of telemetry access',
+    classification: 'SAFE',
+    classificationRationale: 'Telemetry coverage verification is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Detect (DE) =====
@@ -108,6 +136,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - License verification',
+    classification: 'SAFE',
+    classificationRationale: 'Unified audit log license verification is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.DE.CM-3v1',
@@ -119,6 +151,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'Medium - Requires user MFA registration',
+    classification: 'SAFE',
+    classificationRationale: 'MFA registration coverage is read-only.',
+    writeScopes: [],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'NIST.CSF.DE.CM-6v1',
@@ -130,6 +166,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Low - Monitoring configuration',
+    classification: 'SAFE',
+    classificationRationale: 'Risk-based CA policy review is read-only verification.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.DE.AE-2v1',
@@ -142,6 +182,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: IDENTITY_PROTECTION_PORTAL,
     estimatedImpact: 'Low - Analysis and configuration',
+    classification: 'SAFE',
+    classificationRationale: 'Identity Protection adverse event review is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.DE.AE-3v1',
@@ -153,6 +197,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - Telemetry access verification',
+    classification: 'SAFE',
+    classificationRationale: 'Telemetry correlation is a SIEM configuration activity.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Identify (ID) =====
@@ -166,6 +214,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: INTUNE_PORTAL,
     estimatedImpact: 'Medium - Device enrollment required',
+    classification: 'SAFE',
+    classificationRationale: 'Device hardware inventory is read-only verification.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.ID.AM-2v1',
@@ -177,6 +229,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: APPS_PORTAL,
     estimatedImpact: 'Low - Inventory maintenance',
+    classification: 'SAFE',
+    classificationRationale: 'Application inventory review is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.CSF.ID.RA-1v1',
@@ -188,6 +244,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: IDENTITY_PROTECTION_PORTAL,
     estimatedImpact: 'Low - Risk detection configuration',
+    classification: 'SAFE',
+    classificationRationale: 'Identity Protection vulnerability detection is read-only review.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Respond (RS) =====
@@ -201,6 +261,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: CONSENT_PORTAL,
     estimatedImpact: 'Low - Enables structured consent workflow',
+    classification: 'SAFE',
+    classificationRationale: 'Admin consent workflow is additive and reversible.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'NIST.CSF.RS.AN-1v1',
@@ -212,6 +276,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: IDENTITY_PROTECTION_PORTAL,
     estimatedImpact: 'Low - Notification configuration',
+    classification: 'SAFE',
+    classificationRationale: 'Identity Protection notification configuration is additive.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Govern (GV) =====
@@ -227,6 +295,10 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - Governance documentation',
     notes: 'Advisory control - organizational governance documentation is not auditable via Graph API.',
+    classification: 'SAFE',
+    classificationRationale: 'Advisory control -- organizational governance documentation is not a Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Recover (RC) =====
@@ -243,5 +315,9 @@ export const NIST_CSF_REMEDIATION: RemediationEntry[] = [
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - Recovery planning documentation',
     notes: 'Advisory control - recovery planning documentation is not auditable via Graph API.',
+    classification: 'SAFE',
+    classificationRationale: 'Advisory control -- recovery planning documentation is not a Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 ];

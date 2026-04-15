@@ -94,6 +94,32 @@ export const setupWizardState = mssqlTable('setup_wizard_state', {
   updatedAt: datetime2('updated_at').notNull().default(sql`GETDATE()`),
 });
 
+/**
+ * Tenant remediation consents -- Phase 7 Plan 01.
+ *
+ * Tracks incremental consent grants for write scopes, keyed by
+ * (tenant_id, scope_bundle). Populated by the OBO token broker when a user
+ * first clicks "Remediate" on a control whose scope bundle has not yet been
+ * consented in that tenant.
+ *
+ * refreshTokenSecretName points at the envelope-encrypted refresh token in
+ * Key Vault. revokedAt = NULL means the grant is active; at most one active
+ * row per (tenant_id, scope_bundle) is enforced via a filtered unique index
+ * in the migration. When a grant is re-authorised (e.g., scopes expanded),
+ * the prior row is marked revoked and a new row is inserted.
+ */
+export const tenantRemediationConsents = mssqlTable('tenant_remediation_consents', {
+  id: varchar('id', { length: 36 }).primaryKey().notNull(),
+  tenantId: varchar('tenant_id', { length: 36 }).notNull().references(() => tenants.id),
+  scopeBundle: varchar('scope_bundle', { length: 30 }).notNull(),
+  consentedAt: datetime2('consented_at').notNull().default(sql`GETDATE()`),
+  consentedByUserId: varchar('consented_by_user_id', { length: 36 }).notNull().references(() => users.id),
+  refreshTokenSecretName: varchar('refresh_token_secret_name', { length: 128 }).notNull(),
+  revokedAt: datetime2('revoked_at'),
+  lastUsedAt: datetime2('last_used_at'),
+  createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
+});
+
 // Phase 5: Action queue dismissals (per-user dismiss state for action queue items)
 // itemKey format: "critical-{tenantId}" or "status-{tenantId}-needs_reauth" or "status-{tenantId}-stale_audit"
 export const actionQueueDismissals = mssqlTable('action_queue_dismissals', {

@@ -50,7 +50,22 @@ export {
 
 // Remediation registry
 export { getRemediationByControlId } from './remediation/index.js';
-export type { RemediationEntry } from './remediation/types.js';
+export type {
+  RemediationEntry,
+  RemediationClassification,
+  ScopeBundle,
+  ExecutionContext,
+  ExecutionResult,
+  PrerequisiteCheckResult,
+} from './remediation/types.js';
+export { WriteRateLimiter } from './remediation/write-rate-limiter.js';
+
+// Break-glass collector (Phase 7 Plan 01)
+export {
+  collectBreakGlass,
+  parseBreakGlass,
+  type RawBreakGlassResponse,
+} from './collectors/areas/break-glass.js';
 
 // Area parsers (for testing and direct use)
 export { parseOrganization } from './collectors/areas/organization.js';

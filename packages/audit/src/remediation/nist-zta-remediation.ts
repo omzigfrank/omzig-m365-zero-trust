@@ -34,6 +34,10 @@ export const NIST_ZTA_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: INTUNE_PORTAL,
     estimatedImpact: 'Medium - Device enrollment requires endpoint agent deployment',
+    classification: 'SAFE',
+    classificationRationale: 'Device inventory and Intune enrollment tracking is read-only visibility; no Graph write executor in this plan.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T1.2v1',
@@ -46,6 +50,10 @@ export const NIST_ZTA_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: APPS_PORTAL,
     estimatedImpact: 'Low - Application inventory review; no direct user impact',
+    classification: 'SAFE',
+    classificationRationale: 'Application inventory review is a manual process; no Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T1.3v1',
@@ -58,6 +66,10 @@ export const NIST_ZTA_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: LABELS_PORTAL,
     estimatedImpact: 'Medium - Requires data classification policy definition',
+    classification: 'SAFE',
+    classificationRationale: 'Purview sensitivity label creation is an organizational classification exercise; no Graph executor in this plan.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T1.4v1',
@@ -70,6 +82,10 @@ export const NIST_ZTA_REMEDIATION: RemediationEntry[] = [
     ],
     adminPortalUrl: DOMAINS_PORTAL,
     estimatedImpact: 'Low - Domain management; no direct user impact',
+    classification: 'SAFE',
+    classificationRationale: 'Domain inventory review is manual verification; no Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Tenet 2: Secure Communication =====
@@ -98,6 +114,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
   }
 }`,
     estimatedImpact: 'High - Blocks legacy authentication protocols',
+    classification: 'SAFE',
+    classificationRationale: 'Blocking legacy auth via Report-Only CA policy is the canonical SAFE executor; rollback = DELETE.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T2.2v1',
@@ -110,6 +130,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Policy enforcement; critical for baseline security',
+    classification: 'SAFE',
+    classificationRationale: 'Verifying CA policies are active (vs Security Defaults) is a read-only check; no write executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T2.3v1',
@@ -122,6 +146,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: NAMED_LOCATIONS_PORTAL,
     estimatedImpact: 'Medium - May require additional MFA prompts for previously trusted locations',
+    classification: 'SAFE',
+    classificationRationale: 'Named location review is manual and read-only; no Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T2.4v1',
@@ -133,6 +161,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Application modernization may be required',
+    classification: 'SAFE',
+    classificationRationale: 'Modern auth verification is read-only; no Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Tenet 3: Per-Session Access =====
@@ -147,6 +179,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Ensures per-session evaluation of access conditions',
+    classification: 'SAFE',
+    classificationRationale: 'Reviewing CA policies for per-session evaluation is read-only verification.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T3.2v1',
@@ -159,6 +195,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Users may need to re-authenticate more frequently',
+    classification: 'RISKY',
+    classificationRationale: 'Enforcing sign-in frequency can disrupt existing user sessions; should be deployed in Report-Only first.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Tenet 4: Dynamic Policy =====
@@ -173,6 +213,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Risk-based policies may block legitimate sessions flagged as risky',
+    classification: 'RISKY',
+    classificationRationale: 'Risk-based CA policies produce false positives and can lock out legitimate users; require Entra P2 licensing.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T4.2v1',
@@ -185,6 +229,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'High - Can lock out users on non-compliant devices; deploy carefully',
+    classification: 'RISKY',
+    classificationRationale: 'Device compliance CA policies can lock out users on non-compliant devices (CLAUDE.md critical warning).',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T4.3v1',
@@ -197,6 +245,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Location-based restrictions may affect traveling users',
+    classification: 'RISKY',
+    classificationRationale: 'Location-based CA policies can block travelling users; requires careful rollout.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T4.4v1',
@@ -209,6 +261,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Low - Adds granularity to existing policies',
+    classification: 'SAFE',
+    classificationRationale: 'App-specific CA policy review is read-only verification; no Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T4.5v1',
@@ -221,6 +277,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'Medium - Requires user action to register MFA methods',
+    classification: 'SAFE',
+    classificationRationale: 'MFA registration coverage review is read-only verification.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T4.6v1',
@@ -233,6 +293,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Medium - Admins face additional authentication requirements',
+    classification: 'SAFE',
+    classificationRationale: 'Admin-scoped CA policy in Report-Only (targeting <10 users) is bounded and reversible via DELETE.',
+    writeScopes: ['Policy.ReadWrite.ConditionalAccess', 'Policy.Read.All'],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Tenet 5: Integrity Monitoring =====
@@ -246,6 +310,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: LICENSES_PORTAL,
     estimatedImpact: 'Low - License verification; no operational change',
+    classification: 'SAFE',
+    classificationRationale: 'License verification is read-only; no Graph executor.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T5.2v1',
@@ -257,6 +325,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: 'https://security.microsoft.com/preferences/onboarding',
     estimatedImpact: 'Medium - Requires endpoint agent deployment',
+    classification: 'SAFE',
+    classificationRationale: 'Defender for Endpoint onboarding is manual deployment; no Graph executor in this plan.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T5.3v1',
@@ -269,6 +341,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: 'https://security.microsoft.com/threatpolicy',
     estimatedImpact: 'Low - Email scanning; transparent to users',
+    classification: 'SAFE',
+    classificationRationale: 'Defender for O365 configuration is in the Defender portal; Exchange sidecar deferred to EXTREMED-01.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T5.4v1',
@@ -280,6 +356,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Low - Permission and configuration verification',
+    classification: 'SAFE',
+    classificationRationale: 'Telemetry coverage verification is read-only permission audit.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
 
   // ===== Tenet 6: Dynamic Authentication =====
@@ -294,6 +374,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'Medium - Requires user action to register MFA',
+    classification: 'SAFE',
+    classificationRationale: 'MFA registration coverage is a read-only report; enrollment campaign is a user-action process.',
+    writeScopes: [],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'NIST.ZTA.T6.2v1',
@@ -306,6 +390,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: 'https://entra.microsoft.com/#view/Microsoft_AAD_IAM/RolesManagementMenuBlade/~/AllRoles',
     estimatedImpact: 'Medium - Role reassignment required for excess Global Admins',
+    classification: 'RISKY',
+    classificationRationale: 'Removing Global Admins without PIM migration planning risks losing the last admin.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'NIST.ZTA.T6.3v1',
@@ -320,6 +408,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     adminPortalUrl: CA_PORTAL,
     estimatedImpact: 'Low - Emergency account configuration',
     notes: 'Advisory control - break-glass account management is an organizational procedure.',
+    classification: 'SAFE',
+    classificationRationale: 'Advisory control -- break-glass account provisioning is an organizational setup procedure.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T6.4v1',
@@ -331,6 +423,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'Low - Administrative change; consolidates policy management',
+    classification: 'SAFE',
+    classificationRationale: 'Completing auth methods migration is an administrative consolidation with no user-facing change.',
+    writeScopes: ['Policy.ReadWrite.AuthenticationMethod'],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'NIST.ZTA.T6.5v1',
@@ -342,6 +438,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: AUTH_METHODS_PORTAL,
     estimatedImpact: 'High - Users relying on SMS/Voice must switch to stronger methods',
+    classification: 'SAFE',
+    classificationRationale: 'Disabling SMS/Voice is reversible and gated by prerequisite check requiring a strong method enabled.',
+    writeScopes: ['Policy.ReadWrite.AuthenticationMethod'],
+    scopeBundle: 'authMethods',
   },
   {
     controlId: 'NIST.ZTA.T6.6v1',
@@ -353,6 +453,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: PIM_PORTAL,
     estimatedImpact: 'Medium - Admins must activate roles before performing privileged actions',
+    classification: 'RISKY',
+    classificationRationale: 'PIM just-in-time migration requires manual planning and admin training.',
+    writeScopes: ['RoleManagement.ReadWrite.Directory'],
+    scopeBundle: 'roles',
   },
   {
     controlId: 'NIST.ZTA.T6.7v1',
@@ -364,6 +468,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: CONSENT_PORTAL,
     estimatedImpact: 'Low - Enables structured consent workflow',
+    classification: 'SAFE',
+    classificationRationale: 'Enabling admin consent workflow is additive and reversible; does not remove existing access.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
 
   // ===== Tenet 7: Continuous Improvement =====
@@ -378,6 +486,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: IDENTITY_PROTECTION_PORTAL,
     estimatedImpact: 'Low - License verification and configuration',
+    classification: 'SAFE',
+    classificationRationale: 'Identity Protection license verification and risk report review is read-only.',
+    writeScopes: [],
+    scopeBundle: 'conditionalAccess',
   },
   {
     controlId: 'NIST.ZTA.T7.2v1',
@@ -388,6 +500,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: EXTERNAL_ID_PORTAL,
     estimatedImpact: 'Medium - Regular users can no longer invite guests directly',
+    classification: 'RISKY',
+    classificationRationale: 'Restricting guest invitations to admins can disrupt existing collaboration workflows.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'NIST.ZTA.T7.3v1',
@@ -398,6 +514,10 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: USER_SETTINGS_PORTAL,
     estimatedImpact: 'Low - Only affects users who were creating app registrations',
+    classification: 'SAFE',
+    classificationRationale: 'Restricting user app registration is additive for admins; users lose a rarely-used privilege.',
+    writeScopes: ['Policy.ReadWrite.Authorization'],
+    scopeBundle: 'authPolicy',
   },
   {
     controlId: 'NIST.ZTA.T7.4v1',
@@ -409,5 +529,9 @@ New-MgIdentityConditionalAccessPolicy -BodyParameter @{
     ],
     adminPortalUrl: PASSWORD_PORTAL,
     estimatedImpact: 'Low - Removes forced password rotation',
+    classification: 'SAFE',
+    classificationRationale: 'Password expiration alignment with NIST 800-63B is reversible via PATCH.',
+    writeScopes: ['Domain.ReadWrite.All'],
+    scopeBundle: 'authPolicy',
   },
 ];

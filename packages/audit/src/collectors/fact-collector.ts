@@ -27,6 +27,7 @@ import { parseDomains } from './areas/domains.js';
 import { parsePimRoles } from './areas/pim-roles.js';
 import { parseAppRegistrations } from './areas/app-registrations.js';
 import { parseSensitivityLabels, cleanSensitivityLabelsError } from './areas/sensitivity-labels.js';
+import { collectBreakGlass, parseBreakGlass } from './areas/break-glass.js';
 
 /**
  * Collect all tenant configuration facts from Microsoft Graph API.
@@ -230,6 +231,24 @@ export async function collectFacts(
       available: false,
       totalLabels: 0,
       error: cleanSensitivityLabelsError(err),
+    };
+  }
+
+  // Break-glass group discovery (Phase 7 Plan 01).
+  // Must run AFTER conditionalAccess is populated so parseBreakGlass can
+  // compute excludedFromCaPolicies against the real CA policy set.
+  progress('Collecting break-glass group state...');
+  try {
+    const raw = await collectBreakGlass(client);
+    facts.breakGlass = parseBreakGlass(raw, facts.conditionalAccess);
+  } catch (err) {
+    facts.breakGlass = {
+      available: false,
+      groupName: null,
+      groupId: null,
+      memberCount: 0,
+      excludedFromCaPolicies: false,
+      error: err instanceof Error ? err.message : 'Break-glass collection failed',
     };
   }
 
