@@ -122,6 +122,57 @@ describe('SignalR service', () => {
     });
   });
 
+  describe('pushRemediationProgress', () => {
+    it('posts to /users/:id with target=remediationProgress', async () => {
+      const { pushRemediationProgress } = await import('../services/signalr.js');
+
+      await pushRemediationProgress('user-xyz', {
+        type: 'remediation_started',
+        remediationJobId: 'job-1',
+        tenantId: 'tenant-1',
+        controlId: 'MS.AAD.1.1v1',
+        classification: 'SAFE',
+        status: 'running',
+      });
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        expect.stringContaining('/api/v1/hubs/audit/users/user-xyz'),
+        expect.objectContaining({
+          method: 'POST',
+          body: expect.stringContaining('"target":"remediationProgress"'),
+        }),
+      );
+
+      const callArgs = mockFetch.mock.calls[0];
+      const body = JSON.parse(callArgs[1].body);
+      expect(body.target).toBe('remediationProgress');
+      expect(body.arguments).toHaveLength(1);
+      expect(body.arguments[0].remediationJobId).toBe('job-1');
+      expect(body.arguments[0].type).toBe('remediation_started');
+    });
+
+    it('throws when SignalR response is not ok', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        text: () => Promise.resolve('boom'),
+      });
+
+      const { pushRemediationProgress } = await import('../services/signalr.js');
+
+      await expect(
+        pushRemediationProgress('user-xyz', {
+          type: 'remediation_failed',
+          remediationJobId: 'job-2',
+          tenantId: 'tenant-1',
+          controlId: 'MS.AAD.1.1v1',
+          classification: 'SAFE',
+          status: 'failed',
+        }),
+      ).rejects.toThrow(/SignalR remediation push failed/);
+    });
+  });
+
   describe('negotiateSignalR', () => {
     it('returns { url, accessToken } with correct hub URL and user-scoped JWT', async () => {
       const { negotiateSignalR } = await import('../services/signalr.js');

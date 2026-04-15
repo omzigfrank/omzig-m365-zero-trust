@@ -275,6 +275,30 @@ export interface AuditProgressMessage {
 }
 
 // ========================================================================
+// Remediation progress message (Phase 7 Plan 02 SignalR push)
+// ========================================================================
+
+export type RemediationProgressMessageType =
+  | 'remediation_started'
+  | 'remediation_progress'
+  | 'remediation_completed'
+  | 'remediation_failed'
+  | 'remediation_rolled_back';
+
+export interface RemediationProgressMessage {
+  type: RemediationProgressMessageType;
+  remediationJobId: string;
+  tenantId: string;
+  controlId: string;
+  classification: 'SAFE' | 'RISKY';
+  status: string;
+  message?: string;
+  error?: string;
+  beforeSnapshot?: unknown;
+  afterSnapshot?: unknown;
+}
+
+// ========================================================================
 // Helper: create empty facts
 // ========================================================================
 

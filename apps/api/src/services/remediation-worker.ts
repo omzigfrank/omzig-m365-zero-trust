@@ -37,6 +37,7 @@ import {
   getRemediationAccessToken,
   type ScopeBundleName,
 } from './remediation-token-broker.js';
+import { pushRemediationProgress } from './signalr.js';
 
 // ---- Constants ----
 
@@ -74,6 +75,7 @@ type JobRow = {
   scopeBundle: string;
   status: string;
   attemptCount: number;
+  approvedByUserId: string;
 };
 
 type QueueEntry = {
@@ -102,11 +104,33 @@ function launchRemediation(tenant: TenantRow, job: JobRow): Promise<void> {
   return p;
 }
 
+function safePushRemediation(
+  userId: string,
+  message: Parameters<typeof pushRemediationProgress>[1],
+): void {
+  // Fire-and-forget; SignalR not configured in tests and we never want to
+  // bubble progress errors into the worker control flow.
+  pushRemediationProgress(userId, message).catch(() => {});
+}
+
 async function executeRemediationJob(
   tenant: TenantRow,
   job: JobRow,
 ): Promise<void> {
   let heartbeatHandle: ReturnType<typeof setInterval> | null = null;
+  const classification = (job.classification === 'RISKY' ? 'RISKY' : 'SAFE') as
+    | 'SAFE'
+    | 'RISKY';
+
+  // Lifecycle push: started
+  safePushRemediation(job.approvedByUserId, {
+    type: 'remediation_started',
+    remediationJobId: job.id,
+    tenantId: tenant.id,
+    controlId: job.controlId,
+    classification,
+    status: 'running',
+  });
 
   try {
     if (!tenant.databaseName) {
@@ -174,6 +198,17 @@ async function executeRemediationJob(
       rateLimiter: sharedRateLimiter,
     };
 
+    // Lifecycle push: progress (executing)
+    safePushRemediation(job.approvedByUserId, {
+      type: 'remediation_progress',
+      remediationJobId: job.id,
+      tenantId: tenant.id,
+      controlId: job.controlId,
+      classification,
+      status: 'executing',
+      message: `Executing ${entry.controlId}`,
+    });
+
     const result = await executeRemediation(entry, ctx);
 
     await tenantDb
@@ -186,12 +221,35 @@ async function executeRemediationJob(
         completedAt: new Date(),
       })
       .where(eq(remediationJobs.id, job.id));
+
+    // Lifecycle push: completed
+    safePushRemediation(job.approvedByUserId, {
+      type: 'remediation_completed',
+      remediationJobId: job.id,
+      tenantId: tenant.id,
+      controlId: job.controlId,
+      classification,
+      status: 'completed',
+      beforeSnapshot: result.beforeSnapshot,
+      afterSnapshot: result.afterSnapshot,
+    });
   } catch (err) {
     const errMsg = err instanceof Error ? err.message : String(err);
     console.error(
       `[remediation-worker] job ${job.id} (${job.controlId}) failed:`,
       errMsg,
     );
+
+    // Lifecycle push: failed
+    safePushRemediation(job.approvedByUserId, {
+      type: 'remediation_failed',
+      remediationJobId: job.id,
+      tenantId: tenant.id,
+      controlId: job.controlId,
+      classification,
+      status: 'failed',
+      error: errMsg,
+    });
 
     // Decide retry vs fail.
     try {

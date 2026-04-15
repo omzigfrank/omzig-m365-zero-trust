@@ -1,5 +1,8 @@
 import jwt from 'jsonwebtoken';
-import type { AuditProgressMessage } from '@omzig/audit';
+import type {
+  AuditProgressMessage,
+  RemediationProgressMessage,
+} from '@omzig/audit';
 
 const HUB_NAME = 'audit';
 
@@ -67,6 +70,49 @@ export async function pushAuditProgress(
     const body = await response.text();
     throw new Error(
       `SignalR push failed (${response.status}): ${body}`,
+    );
+  }
+}
+
+/**
+ * Push a remediation progress message to a specific user via Azure SignalR REST API.
+ *
+ * Mirrors pushAuditProgress but emits on the 'remediationProgress' hub method
+ * so the frontend can subscribe to remediation lifecycle events separately
+ * from audit pipeline progress. Five message types:
+ *   remediation_started | remediation_progress | remediation_completed |
+ *   remediation_failed | remediation_rolled_back
+ */
+export async function pushRemediationProgress(
+  userId: string,
+  message: RemediationProgressMessage,
+): Promise<void> {
+  const { endpoint, accessKey } = getSignalRConfig();
+
+  const url = `${endpoint}/api/v1/hubs/${HUB_NAME}/users/${userId}`;
+
+  const token = jwt.sign(
+    { aud: url },
+    accessKey,
+    { algorithm: 'HS256', expiresIn: '5m' },
+  );
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      target: 'remediationProgress',
+      arguments: [message],
+    }),
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(
+      `SignalR remediation push failed (${response.status}): ${body}`,
     );
   }
 }
