@@ -54,8 +54,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **REMED-01**: Each remediable finding is classified as SAFE or RISKY based on blast radius
 - [ ] **REMED-02**: User can auto-remediate SAFE findings with one-click approval (e.g., enable DKIM, block legacy auth, enable mailbox auditing)
-- [ ] **REMED-03**: RISKY findings present a guided wizard showing impact preview before changes (e.g., "47 users on non-compliant devices will be blocked")
-- [ ] **REMED-04**: RISKY CA policy remediations deploy in Report-Only mode first, with a separate step to enforce
+- [x] **REMED-03**: RISKY findings present a guided wizard showing impact preview before changes (e.g., "47 users on non-compliant devices will be blocked")
+- [x] **REMED-04**: RISKY CA policy remediations deploy in Report-Only mode first, with a separate step to enforce
 - [ ] **REMED-05**: All remediations are logged with before/after values, timestamp, and user who approved
 - [ ] **REMED-06**: User can rollback any remediation to restore previous configuration state
 - [x] **REMED-07**: Remediation engine validates prerequisites before applying changes (e.g., break-glass accounts exist, compliant devices enrolled)
@@ -179,8 +179,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | DASH-10 | Phase 5 | Complete |
 | REMED-01 | Phase 7 | Complete |
 | REMED-02 | Phase 7 | Pending |
-| REMED-03 | Phase 7 | Pending |
-| REMED-04 | Phase 7 | Pending |
+| REMED-03 | Phase 7 | Complete |
+| REMED-04 | Phase 7 | Complete |
 | REMED-05 | Phase 7 | Pending |
 | REMED-06 | Phase 7 | Pending |
 | REMED-07 | Phase 7 | Complete |
