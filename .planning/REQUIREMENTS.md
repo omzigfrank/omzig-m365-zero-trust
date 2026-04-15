@@ -41,12 +41,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **DASH-01**: Web-based dashboard with interactive drill-down (framework -> category -> finding -> remediation)
 - [x] **DASH-02**: User can filter findings by severity, framework, workload, and status
-- [ ] **DASH-03**: User can export compliance report as PDF for client-facing documentation
-- [ ] **DASH-04**: User can export detailed findings as CSV for data analysis
+- [x] **DASH-03**: User can export compliance report as PDF for client-facing documentation
+- [x] **DASH-04**: User can export detailed findings as CSV for data analysis
 - [x] **DASH-05**: Each finding displays remediation guidance with step-by-step instructions
 - [x] **DASH-06**: Remediation guidance includes links to relevant Microsoft admin portal pages
 - [x] **DASH-07**: Remediation guidance includes PowerShell commands where applicable
-- [ ] **DASH-08**: Dashboard shows historical compliance score trends over time per tenant
+- [x] **DASH-08**: Dashboard shows historical compliance score trends over time per tenant
 - [ ] **DASH-09**: Score trending chart shows compliance improvement/regression across scan history
 - [x] **DASH-10**: Alert/action queue shows drift events and critical findings across all tenants
 
@@ -169,12 +169,12 @@ Deferred to future release. Tracked but not in current roadmap.
 | TENANT-08 | Phase 4 | Complete |
 | DASH-01 | Phase 5 | Complete |
 | DASH-02 | Phase 5 | Complete |
-| DASH-03 | Phase 6 | Pending |
-| DASH-04 | Phase 6 | Pending |
+| DASH-03 | Phase 6 | Complete |
+| DASH-04 | Phase 6 | Complete |
 | DASH-05 | Phase 5 | Complete |
 | DASH-06 | Phase 5 | Complete |
 | DASH-07 | Phase 5 | Complete |
-| DASH-08 | Phase 6 | Pending |
+| DASH-08 | Phase 6 | Complete |
 | DASH-09 | Phase 6 | Pending |
 | DASH-10 | Phase 5 | Complete |
 | REMED-01 | Phase 7 | Pending |
