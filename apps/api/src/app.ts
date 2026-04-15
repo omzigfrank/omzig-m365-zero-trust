@@ -10,6 +10,7 @@ import { oauthCallbackRoutes } from './routes/oauth-callback.js';
 import { wizardStateRoutes } from './routes/wizard-state.js';
 import { auditRoutes } from './routes/audits.js';
 import { actionQueueRoutes } from './routes/action-queue.js';
+import { scheduleRoutes } from './routes/schedule.js';
 
 /**
  * Create the Hono application instance.
@@ -68,6 +69,10 @@ export function createApp(): Hono {
 
   // Tenant management CRUD and onboarding endpoints
   app.route('/api/tenants', tenantsRoutes);
+
+  // Tenant scan-schedule endpoints (Phase 6 Plan 01)
+  // Routes are namespaced under /tenants/:tenantId/schedule
+  app.route('/api', scheduleRoutes);
 
   // Wizard state persistence (setupWizardState table)
   app.route('/api/wizard-state', wizardStateRoutes);
