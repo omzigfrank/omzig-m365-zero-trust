@@ -11,6 +11,7 @@ import { wizardStateRoutes } from './routes/wizard-state.js';
 import { auditRoutes } from './routes/audits.js';
 import { actionQueueRoutes } from './routes/action-queue.js';
 import { scheduleRoutes } from './routes/schedule.js';
+import { remediationsRoutes } from './routes/remediations.js';
 
 /**
  * Create the Hono application instance.
@@ -84,6 +85,12 @@ export function createApp(): Hono {
   // These routes handle their own /tenants/:tenantId/audits path prefix
   // and the /signalr/negotiate endpoint
   app.route('/api', auditRoutes);
+
+  // Remediation routes (Phase 7 Plan 02): approve, rollback, get, history,
+  // scopes, consent. These routes handle their own path prefixes:
+  //   /tenants/:tenantId/remediations/*  (tenant-scoped)
+  //   /remediations/scopes               (top-level)
+  app.route('/api', remediationsRoutes);
 
   return app;
 }
