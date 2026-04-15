@@ -7,10 +7,18 @@ import { ScoreOverview } from "@/components/audit/ScoreOverview";
 import { ZtaMaturityRadar } from "@/components/audit/ZtaMaturityRadar";
 import { FrameworkBreakdown } from "@/components/audit/FrameworkBreakdown";
 import { AuditResults } from "@/components/audit/AuditResults";
+import { TrendChart } from "@/components/audit/TrendChart";
+import { AuditHistoryList } from "@/components/audit/AuditHistoryList";
+import {
+  TimeRangeSelector,
+  timeRangeCutoff,
+  type TimeRange,
+} from "@/components/audit/TimeRangeSelector";
 import { HealthDot } from "@/components/tenants/HealthDot";
 import { ScheduleSettings } from "@/components/tenants/ScheduleSettings";
 import { useAuth } from "@/hooks/useAuth";
 import { useAudit } from "@/hooks/useAudit";
+import { useAuditHistory } from "@/hooks/useAuditHistory";
 import { fetchTenantDetail } from "@/lib/tenant-api";
 import type { TenantSummary } from "@omzig/shared";
 import {
@@ -40,8 +48,20 @@ export default function TenantDetailClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabId>("overview");
+  const [timeRange, setTimeRange] = useState<TimeRange>("90d");
 
   const audit = useAudit(tenantId);
+  const auditHistory = useAuditHistory(tenantId);
+
+  // Filter history by selected time range
+  const filteredHistory = (() => {
+    const cutoff = timeRangeCutoff(timeRange);
+    if (!cutoff) return auditHistory.data;
+    return auditHistory.data.filter((p) => {
+      if (!p.completedAt) return false;
+      return new Date(p.completedAt).getTime() >= cutoff.getTime();
+    });
+  })();
 
   // Fetch tenant detail on mount
   useEffect(() => {
@@ -255,55 +275,49 @@ export default function TenantDetailClient() {
         )}
 
         {activeTab === "history" && (
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <h2 className="mb-4 text-lg font-semibold text-gray-900">
-              Audit History
-            </h2>
-            <p className="text-sm text-gray-500">
-              Audit history will show past audit runs with status and results.
-            </p>
-            {audit.result && (
-              <div className="mt-4 overflow-hidden rounded-lg border border-gray-200">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-                        Audit ID
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-                        Status
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-                        Started
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-                        Checks
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 bg-white">
-                    <tr>
-                      <td className="px-4 py-3 text-sm font-mono text-gray-600">
-                        {audit.result.id}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="inline-flex rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 capitalize">
-                          {audit.result.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-600">
-                        {audit.result.startedAt
-                          ? new Date(audit.result.startedAt).toLocaleString()
-                          : "--"}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-600">
-                        {audit.result.passedChecks}/{audit.result.totalChecks}{" "}
-                        passed
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4">
+              <h2 className="text-lg font-semibold text-gray-900">
+                Audit History
+              </h2>
+              <TimeRangeSelector value={timeRange} onChange={setTimeRange} />
+            </div>
+
+            {auditHistory.loading && (
+              <div className="space-y-4">
+                <div className="h-64 animate-pulse rounded-xl bg-gray-100" />
+                <div className="h-48 animate-pulse rounded-xl bg-gray-100" />
               </div>
+            )}
+
+            {!auditHistory.loading && auditHistory.error && (
+              <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4">
+                <AlertTriangle className="mt-0.5 h-5 w-5 text-red-600" />
+                <div>
+                  <div className="text-sm font-medium text-red-800">
+                    Failed to load audit history
+                  </div>
+                  <div className="mt-1 text-sm text-red-700">
+                    {auditHistory.error}
+                  </div>
+                  <button
+                    onClick={() => auditHistory.refetch()}
+                    className="mt-3 text-sm font-medium text-red-800 underline hover:no-underline"
+                  >
+                    Retry
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!auditHistory.loading && !auditHistory.error && (
+              <>
+                <TrendChart data={filteredHistory} />
+                <AuditHistoryList
+                  data={filteredHistory}
+                  tenantId={tenantId}
+                />
+              </>
             )}
           </div>
         )}
