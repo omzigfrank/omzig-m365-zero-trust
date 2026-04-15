@@ -47,7 +47,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DASH-06**: Remediation guidance includes links to relevant Microsoft admin portal pages
 - [x] **DASH-07**: Remediation guidance includes PowerShell commands where applicable
 - [x] **DASH-08**: Dashboard shows historical compliance score trends over time per tenant
-- [ ] **DASH-09**: Score trending chart shows compliance improvement/regression across scan history
+- [x] **DASH-09**: Score trending chart shows compliance improvement/regression across scan history
 - [x] **DASH-10**: Alert/action queue shows drift events and critical findings across all tenants
 
 ### Remediation
@@ -175,7 +175,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | DASH-06 | Phase 5 | Complete |
 | DASH-07 | Phase 5 | Complete |
 | DASH-08 | Phase 6 | Complete |
-| DASH-09 | Phase 6 | Pending |
+| DASH-09 | Phase 6 | Complete |
 | DASH-10 | Phase 5 | Complete |
 | REMED-01 | Phase 7 | Pending |
 | REMED-02 | Phase 7 | Pending |
