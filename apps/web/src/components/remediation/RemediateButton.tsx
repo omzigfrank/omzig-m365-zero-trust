@@ -27,6 +27,7 @@ import {
 } from '@/hooks/useRemediation';
 import type { ScopeBundleName } from '@/services/remediation-consent';
 import { ConsentPrompt } from './ConsentPrompt';
+import { RiskyRemediationWizard } from './RiskyRemediationWizard';
 
 interface RemediateButtonProps {
   finding: AuditFinding;
@@ -48,25 +49,30 @@ export function RemediateButton({
   const remediation = useRemediation(tenantId);
   const [showConfirm, setShowConfirm] = useState(false);
   const [showConsent, setShowConsent] = useState(false);
+  const [showWizard, setShowWizard] = useState(false);
   const [pendingBundle, setPendingBundle] =
     useState<ScopeBundleName | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
 
   if (classification === 'RISKY') {
     return (
-      <div
-        className="inline-block"
-        title="Guided wizard coming in the next plan"
-        data-testid="remediate-button-risky-disabled"
-      >
+      <div className="inline-block" data-testid="remediate-button-risky">
         <button
           type="button"
-          disabled
-          className="inline-flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-1.5 text-sm font-medium text-amber-700 opacity-70 cursor-not-allowed"
+          onClick={() => setShowWizard(true)}
+          className="inline-flex items-center gap-2 rounded-md border border-amber-300 bg-amber-50 px-3 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100"
+          data-testid="remediate-button-risky-trigger"
         >
           <Wand2 className="h-4 w-4" />
-          Remediate (Coming soon)
+          Remediate (Guided)
         </button>
+        <RiskyRemediationWizard
+          finding={finding}
+          tenantId={tenantId}
+          bundle={bundle}
+          isOpen={showWizard}
+          onClose={() => setShowWizard(false)}
+        />
       </div>
     );
   }

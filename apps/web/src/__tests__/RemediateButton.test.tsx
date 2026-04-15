@@ -50,6 +50,12 @@ vi.mock("@/components/remediation/ConsentPrompt", () => ({
     ) : null,
 }));
 
+// Mock the RISKY wizard so tests don't pull in useImpactPreview etc.
+vi.mock("@/components/remediation/RiskyRemediationWizard", () => ({
+  RiskyRemediationWizard: ({ isOpen }: { isOpen: boolean }) =>
+    isOpen ? <div data-testid="mock-risky-wizard" /> : null,
+}));
+
 import { RemediateButton } from "@/components/remediation/RemediateButton";
 
 function makeFinding(overrides: Partial<AuditFinding> = {}): AuditFinding {
@@ -83,7 +89,7 @@ beforeEach(() => {
 afterEach(() => cleanup());
 
 describe("RemediateButton", () => {
-  it("renders disabled state with 'Coming soon' for RISKY classification", () => {
+  it("renders guided-wizard trigger for RISKY classification (Plan 07-03)", () => {
     render(
       <RemediateButton
         finding={makeFinding()}
@@ -93,8 +99,10 @@ describe("RemediateButton", () => {
       />,
     );
 
-    const container = screen.getByTestId("remediate-button-risky-disabled");
-    expect(container.getAttribute("title")).toMatch(/coming in the next plan/i);
+    const container = screen.getByTestId("remediate-button-risky");
+    expect(container).toBeTruthy();
+    const trigger = screen.getByTestId("remediate-button-risky-trigger");
+    expect(trigger.textContent).toMatch(/Remediate \(Guided\)/);
   });
 
   it("renders SAFE button and opens confirm dialog on click", () => {
