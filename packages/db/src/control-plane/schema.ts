@@ -57,6 +57,9 @@ export const tenants = mssqlTable('tenants', {
   lastAuditScore: int('last_audit_score'),
   // Phase 5: Critical findings cache for action queue
   criticalFindingsCount: int('critical_findings_count').notNull().default(0),
+  // Phase 6: Scan scheduling
+  scheduleFrequency: varchar('schedule_frequency', { length: 10 }),
+  scheduleNextRunAt: datetime2('schedule_next_run_at'),
 });
 
 export const tenantUserAccess = mssqlTable('tenant_user_access', {
