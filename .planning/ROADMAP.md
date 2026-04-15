@@ -139,7 +139,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 07-01: TBD
+- [x] 07-01: TBD
 - [ ] 07-02: TBD
 - [ ] 07-03: TBD
 

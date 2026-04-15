@@ -52,14 +52,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Remediation
 
-- [ ] **REMED-01**: Each remediable finding is classified as SAFE or RISKY based on blast radius
+- [x] **REMED-01**: Each remediable finding is classified as SAFE or RISKY based on blast radius
 - [ ] **REMED-02**: User can auto-remediate SAFE findings with one-click approval (e.g., enable DKIM, block legacy auth, enable mailbox auditing)
 - [ ] **REMED-03**: RISKY findings present a guided wizard showing impact preview before changes (e.g., "47 users on non-compliant devices will be blocked")
 - [ ] **REMED-04**: RISKY CA policy remediations deploy in Report-Only mode first, with a separate step to enforce
 - [ ] **REMED-05**: All remediations are logged with before/after values, timestamp, and user who approved
 - [ ] **REMED-06**: User can rollback any remediation to restore previous configuration state
-- [ ] **REMED-07**: Remediation engine validates prerequisites before applying changes (e.g., break-glass accounts exist, compliant devices enrolled)
-- [ ] **REMED-08**: Auto-remediation uses minimum-privilege Graph API permissions, requested only when remediation is activated (separate from read-only audit permissions)
+- [x] **REMED-07**: Remediation engine validates prerequisites before applying changes (e.g., break-glass accounts exist, compliant devices enrolled)
+- [x] **REMED-08**: Auto-remediation uses minimum-privilege Graph API permissions, requested only when remediation is activated (separate from read-only audit permissions)
 
 ### Drift Detection
 
@@ -177,14 +177,14 @@ Deferred to future release. Tracked but not in current roadmap.
 | DASH-08 | Phase 6 | Complete |
 | DASH-09 | Phase 6 | Complete |
 | DASH-10 | Phase 5 | Complete |
-| REMED-01 | Phase 7 | Pending |
+| REMED-01 | Phase 7 | Complete |
 | REMED-02 | Phase 7 | Pending |
 | REMED-03 | Phase 7 | Pending |
 | REMED-04 | Phase 7 | Pending |
 | REMED-05 | Phase 7 | Pending |
 | REMED-06 | Phase 7 | Pending |
-| REMED-07 | Phase 7 | Pending |
-| REMED-08 | Phase 7 | Pending |
+| REMED-07 | Phase 7 | Complete |
+| REMED-08 | Phase 7 | Complete |
 | DRIFT-01 | Phase 8 | Pending |
 | DRIFT-02 | Phase 8 | Pending |
 | DRIFT-03 | Phase 8 | Pending |
