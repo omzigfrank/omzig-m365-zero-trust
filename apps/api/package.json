@@ -20,12 +20,15 @@
     "drizzle-orm": "beta",
     "hono": "^4.0.0",
     "jsonwebtoken": "^9.0.3",
+    "pdfkit": "^0.18.0",
+    "svg-to-pdfkit": "^0.1.8",
     "zod": "^3.23.0"
   },
   "devDependencies": {
     "@omzig/tsconfig": "workspace:*",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.10.0",
+    "@types/pdfkit": "^0.17.5",
     "tsx": "^4.0.0",
     "typescript": "^5.7.0",
     "vitest": "^2.0.0"
