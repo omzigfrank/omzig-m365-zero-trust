@@ -152,11 +152,11 @@ Plans:
   2. System stores baseline configuration snapshots after each successful audit and compares against them for drift
   3. When drift is detected, an alert appears in the cross-tenant action queue showing what changed, when, and by whom with before/after comparison
   4. Drift alerts push to the dashboard in near-real-time via Azure SignalR so the MSP sees changes without refreshing
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md — Backend drift detection engine: DB schemas, audit-log-parser, area-recollector, diff-engine, severity-classifier, drift-poller service, drift API routes, SignalR push, factsSnapshot wiring
+- [ ] 08-02-PLAN.md — Frontend drift UI: DriftAlertList, DriftAlertDetail with before/after diff, DriftConfigPanel, sidebar nav, action queue integration, SignalR real-time subscription
 
 ## Progress
 
