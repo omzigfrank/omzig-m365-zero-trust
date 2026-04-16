@@ -21,6 +21,9 @@ export const auditRuns = mssqlTable('audit_runs', {
   failedChecks: int('failed_checks').notNull().default(0),
   errorChecks: int('error_checks').notNull().default(0),
   summary: nvarchar('summary', { length: 4000 }),
+  // Phase 8: Serialized AuditFacts JSON for drift detection baseline.
+  // Migration SQL creates column as NVARCHAR(MAX); Drizzle length:4000 is the proxy pattern.
+  factsSnapshot: nvarchar('facts_snapshot', { length: 4000 }),
   createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
 });
 
@@ -85,6 +88,32 @@ export const remediationJobs = mssqlTable('remediation_jobs', {
   workerId: varchar('worker_id', { length: 64 }),
   attemptCount: int('attempt_count').notNull().default(0),
   lastAttemptError: nvarchar('last_attempt_error', { length: 4000 }),
+  createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
+});
+
+/**
+ * Drift alerts table -- Phase 8 Plan 01.
+ *
+ * Tenant-scoped table storing detected configuration drift events.
+ * Each row captures the area that changed, severity classification,
+ * before/after snapshots, actor UPN, and human-readable diff summary.
+ * Undismissed alerts surface in the cross-tenant action queue.
+ */
+export const driftAlerts = mssqlTable('drift_alerts', {
+  id: varchar('id', { length: 36 }).primaryKey().notNull(),
+  tenantId: varchar('tenant_id', { length: 36 }).notNull(),
+  area: varchar('area', { length: 50 }).notNull(),
+  severity: varchar('severity', { length: 20 }).notNull(),
+  activityType: nvarchar('activity_type', { length: 200 }),
+  actorUpn: nvarchar('actor_upn', { length: 200 }),
+  beforeSnapshot: nvarchar('before_snapshot', { length: 4000 }),
+  afterSnapshot: nvarchar('after_snapshot', { length: 4000 }),
+  diffSummary: nvarchar('diff_summary', { length: 4000 }),
+  auditEventId: varchar('audit_event_id', { length: 100 }),
+  detectedAt: datetime2('detected_at').notNull().default(sql`GETDATE()`),
+  dismissedAt: datetime2('dismissed_at'),
+  dismissedBy: nvarchar('dismissed_by', { length: 200 }),
+  remediationJobId: varchar('remediation_job_id', { length: 36 }),
   createdAt: datetime2('created_at').notNull().default(sql`GETDATE()`),
 });
 

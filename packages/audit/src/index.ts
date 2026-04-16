@@ -91,6 +91,24 @@ export {
   type RawBreakGlassResponse,
 } from './collectors/areas/break-glass.js';
 
+// Drift detection (Phase 8 Plan 01)
+export { ACTIVITY_TO_AREA, parseAuditLogEvents } from './drift/audit-log-parser.js';
+export { collectSingleArea } from './drift/area-recollector.js';
+export { diffFactArea } from './drift/diff-engine.js';
+export { classifySeverity } from './drift/severity-classifier.js';
+export type {
+  DirectoryAuditEvent,
+  DriftEvent,
+  AreaDiffResult,
+  DriftSeverity,
+  DriftAlertMessage,
+  DriftConfig,
+} from './drift/types.js';
+export {
+  GraphThrottledError,
+  AreaRecollectionNotSupported,
+} from './drift/types.js';
+
 // Area parsers (for testing and direct use)
 export { parseOrganization } from './collectors/areas/organization.js';
 export { parseConditionalAccess } from './collectors/areas/conditional-access.js';

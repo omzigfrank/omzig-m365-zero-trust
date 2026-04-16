@@ -14,7 +14,7 @@ export interface ActionQueueItem {
   /** Computed ID: "critical-{tenantId}" or "status-{tenantId}-{type}" */
   id: string;
   /** Category of the action queue item */
-  type: 'critical_findings' | 'needs_reauth' | 'stale_audit';
+  type: 'critical_findings' | 'needs_reauth' | 'stale_audit' | 'drift_detected';
   /** Tenant this item relates to */
   tenantId: string;
   /** Display name of the tenant */

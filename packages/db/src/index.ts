@@ -16,6 +16,7 @@ export {
   auditFindings,
   maturityScores,
   remediationJobs,
+  driftAlerts,
 } from './tenant/schema.js';
 
 // Connection factory

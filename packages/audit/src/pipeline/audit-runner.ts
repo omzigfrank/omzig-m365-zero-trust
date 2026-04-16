@@ -186,6 +186,8 @@ export async function runAuditPipeline(params: AuditPipelineParams): Promise<voi
       failedChecks,
       errorChecks,
       summary,
+      // Phase 8: Persist full AuditFacts JSON as drift detection baseline.
+      factsSnapshot: JSON.stringify(facts),
     }).where(eq(auditRuns.id, auditId));
 
     await emitter.emit(allControls.length, allControls.length, 'Audit complete', 'complete');

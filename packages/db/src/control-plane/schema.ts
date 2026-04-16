@@ -60,6 +60,9 @@ export const tenants = mssqlTable('tenants', {
   // Phase 6: Scan scheduling
   scheduleFrequency: varchar('schedule_frequency', { length: 10 }),
   scheduleNextRunAt: datetime2('schedule_next_run_at'),
+  // Phase 8: Drift detection polling
+  lastDriftPollAt: datetime2('last_drift_poll_at'),
+  driftCheckIntervalMinutes: int('drift_check_interval_minutes').default(15),
 });
 
 export const tenantUserAccess = mssqlTable('tenant_user_access', {
