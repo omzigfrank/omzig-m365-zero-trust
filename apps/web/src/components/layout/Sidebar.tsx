@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -9,6 +10,7 @@ const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: "dashboard" },
   { href: "/audit", label: "Audit", icon: "security" },
   { href: "/reports", label: "Reports", icon: "analytics" },
+  { href: "/drift", label: "Drift", icon: "sync_problem" },
   { href: "/deploy", label: "Deploy", icon: "rocket_launch", disabled: true },
 ];
 
@@ -20,6 +22,29 @@ interface SidebarProps {
 export function Sidebar({ open = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { user, switchTenant, tenantId } = useAuth();
+  const [driftCount, setDriftCount] = useState(0);
+
+  // Lazy fetch drift alert count from action queue
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchDriftCount() {
+      try {
+        const res = await fetch("/api/action-queue");
+        if (!res.ok || cancelled) return;
+        const body = await res.json();
+        const items = body.data ?? [];
+        const count = items.filter(
+          (i: { type: string; dismissed: boolean }) =>
+            i.type === "drift_detected" && !i.dismissed,
+        ).length;
+        if (!cancelled) setDriftCount(count);
+      } catch {
+        // Ignore -- badge is decorative
+      }
+    }
+    fetchDriftCount();
+    return () => { cancelled = true; };
+  }, []);
 
   const initials = user?.name
     ? user.name
@@ -103,11 +128,11 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={
+              className={`relative ${
                 isActive
                   ? "mx-2 flex items-center gap-3 rounded border-l-2 border-omzig-400 bg-omzig-400/5 px-4 py-2.5 text-omzig-400 transition"
                   : "mx-2 flex items-center gap-3 rounded border-l-2 border-transparent px-4 py-2.5 text-gray-600 transition hover:bg-gray-50 hover:text-gray-800"
-              }
+              }`}
             >
               <span
                 className={`material-symbols-outlined text-[20px] ${isActive ? "text-omzig-400" : ""}`}
@@ -117,6 +142,11 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
               <span className="text-xs font-medium uppercase tracking-wide">
                 {item.label}
               </span>
+              {item.href === "/drift" && driftCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                  {driftCount > 9 ? "9+" : driftCount}
+                </span>
+              )}
             </Link>
           );
         })}
