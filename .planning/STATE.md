@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 08-01-PLAN.md (drift detection backend engine)
-last_updated: "2026-04-16T03:16:00.000Z"
+status: verifying
+stopped_at: Completed 08-02-PLAN.md (frontend drift UI + real-time push) -- MILESTONE v1.0 COMPLETE
+last_updated: "2026-04-16T03:29:59.197Z"
 last_activity: 2026-04-16
 progress:
   total_phases: 8
-  completed_phases: 7
+  completed_phases: 8
   total_plans: 27
-  completed_plans: 26
-  percent: 96
+  completed_plans: 27
+  percent: 100
 ---
 
 # Project State
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-10)
 Phase: 5 of 8 (Dashboard and Findings UX) — COMPLETE
 Plan: 3 of 3 in current phase — COMPLETE
 Status: Phase complete — ready for verification
-Last activity: 2026-04-15
+Last activity: 2026-04-16
 
 Progress: [████████░░] 79%
 
@@ -72,6 +72,7 @@ Progress: [████████░░] 79%
 | Phase 07 P01 | 1h15m | 3 tasks | 37 files |
 | Phase 07 P03 | 1h 40m | 3 tasks | 27 files |
 | Phase 08 P01 | 17min | 2 tasks | 24 files |
+| Phase 08 P02 | ~9min | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -169,6 +170,9 @@ Recent decisions affecting current work:
 - [08-01]: collectSingleArea uses direct GET calls (not batch-of-1) per research recommendation
 - [08-01]: diffFactArea array-level matching covers conditionalAccess.policies and namedLocations.locations; other areas use scalar computeDrift
 - [08-01]: Drift poller fires checkTenantDrift as fire-and-forget (mirrors scheduler pattern); _drainInFlightForTests added for test determinism
+- [Phase 08]: DriftAlertDetail renders as drawer via createPortal (not separate route), matching Phase 5 pattern
+- [Phase 08]: Remediation link uses simpler 'Go to tenant audit' approach instead of client-side evaluator import (avoids bundle bloat)
+- [Phase 08]: Sidebar drift badge fetches from /api/action-queue and filters drift_detected items client-side
 
 ### Pending Todos
 
@@ -180,6 +184,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-16T03:16:00.000Z
-Stopped at: Completed 08-01-PLAN.md (drift detection backend engine)
+Last session: 2026-04-16T03:29:59.190Z
+Stopped at: Completed 08-02-PLAN.md (frontend drift UI + real-time push) -- MILESTONE v1.0 COMPLETE
 Resume file: None

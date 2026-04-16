@@ -155,8 +155,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Backend drift detection engine: DB schemas, audit-log-parser, area-recollector, diff-engine, severity-classifier, drift-poller service, drift API routes, SignalR push, factsSnapshot wiring
-- [ ] 08-02-PLAN.md — Frontend drift UI: DriftAlertList, DriftAlertDetail with before/after diff, DriftConfigPanel, sidebar nav, action queue integration, SignalR real-time subscription
+- [x] 08-01-PLAN.md — Backend drift detection engine: DB schemas, audit-log-parser, area-recollector, diff-engine, severity-classifier, drift-poller service, drift API routes, SignalR push, factsSnapshot wiring
+- [x] 08-02-PLAN.md — Frontend drift UI: DriftAlertList, DriftAlertDetail with before/after diff, DriftConfigPanel, sidebar nav, action queue integration, SignalR real-time subscription
 
 ## Progress
 

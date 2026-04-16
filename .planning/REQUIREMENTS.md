@@ -65,10 +65,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **DRIFT-01**: System polls directoryAudits API at configurable intervals (15min to 1hr) to detect security configuration changes
 - [ ] **DRIFT-02**: System stores baseline snapshots of tenant configuration state after each successful audit
-- [ ] **DRIFT-03**: When drift is detected, system creates an alert with before/after comparison of changed settings
-- [ ] **DRIFT-04**: Drift alerts appear in the cross-tenant alert queue on the dashboard
-- [ ] **DRIFT-05**: User can view drift event details showing what changed, when, and by whom
-- [ ] **DRIFT-06**: Drift alerts push to dashboard in near-real-time via Azure SignalR
+- [x] **DRIFT-03**: When drift is detected, system creates an alert with before/after comparison of changed settings
+- [x] **DRIFT-04**: Drift alerts appear in the cross-tenant alert queue on the dashboard
+- [x] **DRIFT-05**: User can view drift event details showing what changed, when, and by whom
+- [x] **DRIFT-06**: Drift alerts push to dashboard in near-real-time via Azure SignalR
 
 ### Authentication & Security
 
@@ -187,10 +187,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | REMED-08 | Phase 7 | Complete |
 | DRIFT-01 | Phase 8 | Pending |
 | DRIFT-02 | Phase 8 | Pending |
-| DRIFT-03 | Phase 8 | Pending |
-| DRIFT-04 | Phase 8 | Pending |
-| DRIFT-05 | Phase 8 | Pending |
-| DRIFT-06 | Phase 8 | Pending |
+| DRIFT-03 | Phase 8 | Complete |
+| DRIFT-04 | Phase 8 | Complete |
+| DRIFT-05 | Phase 8 | Complete |
+| DRIFT-06 | Phase 8 | Complete |
 | AUTH-01 | Phase 1 | Complete |
 | AUTH-02 | Phase 1 | Complete |
 | AUTH-03 | Phase 1 | Complete |
