@@ -8,6 +8,7 @@ import {
   ShieldAlert,
   KeyRound,
   Clock,
+  Activity,
   X,
   ChevronDown,
   ChevronUp,
@@ -133,6 +134,7 @@ const SEVERITY_BORDER: Record<string, string> = {
   critical_findings: "border-l-red-500",
   needs_reauth: "border-l-orange-500",
   stale_audit: "border-l-yellow-500",
+  drift_detected: "border-l-purple-500",
 };
 
 function TypeIcon({ type }: { type: ActionQueueItem["type"] }) {
@@ -143,6 +145,8 @@ function TypeIcon({ type }: { type: ActionQueueItem["type"] }) {
       return <KeyRound className="h-4 w-4 text-orange-500" />;
     case "stale_audit":
       return <Clock className="h-4 w-4 text-yellow-600" />;
+    case "drift_detected":
+      return <Activity className="h-4 w-4 text-purple-500" />;
   }
 }
 
