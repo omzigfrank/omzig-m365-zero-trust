@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 07-03-PLAN.md (Phase 7 ready for verification)
-last_updated: "2026-04-15T21:19:16.616Z"
-last_activity: 2026-04-15
+status: executing
+stopped_at: Completed 08-01-PLAN.md (drift detection backend engine)
+last_updated: "2026-04-16T03:16:00.000Z"
+last_activity: 2026-04-16
 progress:
   total_phases: 8
   completed_phases: 7
-  total_plans: 25
-  completed_plans: 25
-  percent: 100
+  total_plans: 27
+  completed_plans: 26
+  percent: 96
 ---
 
 # Project State
@@ -71,6 +71,7 @@ Progress: [████████░░] 79%
 | Phase 06 P03 | ~35 minutes | 2 tasks | 11 files |
 | Phase 07 P01 | 1h15m | 3 tasks | 37 files |
 | Phase 07 P03 | 1h 40m | 3 tasks | 27 files |
+| Phase 08 P01 | 17min | 2 tasks | 24 files |
 
 ## Accumulated Context
 
@@ -164,6 +165,10 @@ Recent decisions affecting current work:
 - [05-03]: Dismiss is idempotent (200 on re-dismiss, no duplicate row)
 - [Phase 06]: Restored apps/web/src/app/tenants/page.tsx (deleted in SWA cleanup 9113c59) to re-enable multi-tenant dashboard + MultiTenantExport integration
 - [Phase 06]: Intercept global Blob constructor in CSV tests because jsdom Blob has no .text() method
+- [08-01]: ACTIVITY_TO_AREA has 19 entries (not 18) -- includes both "Update device" and "Device no longer compliant"
+- [08-01]: collectSingleArea uses direct GET calls (not batch-of-1) per research recommendation
+- [08-01]: diffFactArea array-level matching covers conditionalAccess.policies and namedLocations.locations; other areas use scalar computeDrift
+- [08-01]: Drift poller fires checkTenantDrift as fire-and-forget (mirrors scheduler pattern); _drainInFlightForTests added for test determinism
 
 ### Pending Todos
 
@@ -175,6 +180,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T21:19:16.610Z
-Stopped at: Completed 07-03-PLAN.md (Phase 7 ready for verification)
+Last session: 2026-04-16T03:16:00.000Z
+Stopped at: Completed 08-01-PLAN.md (drift detection backend engine)
 Resume file: None
