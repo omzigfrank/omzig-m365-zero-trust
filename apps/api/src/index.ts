@@ -5,6 +5,10 @@ import {
   startRemediationWorker,
   stopRemediationWorker,
 } from './services/remediation-worker.js';
+import {
+  startDriftPoller,
+  stopDriftPoller,
+} from './services/drift-poller.js';
 
 const app = createApp();
 const port = parseInt(process.env.PORT ?? '8080', 10);
@@ -17,6 +21,8 @@ serve(
     startScheduler();
     // Phase 7 Plan 01: Start the in-process remediation worker.
     startRemediationWorker();
+    // Phase 8 Plan 01: Start the in-process drift poller.
+    startDriftPoller();
   },
 );
 
@@ -26,6 +32,12 @@ serve(
 // in deferred-items.md as a follow-up and is out of scope here.
 async function handleShutdown(signal: string): Promise<void> {
   console.log(`[omzig-api] Received ${signal}, shutting down...`);
+  try {
+    // Phase 8: Drift poller is less critical, drain first.
+    await stopDriftPoller();
+  } catch (err) {
+    console.error('[omzig-api] stopDriftPoller failed:', err);
+  }
   try {
     await stopRemediationWorker();
   } catch (err) {

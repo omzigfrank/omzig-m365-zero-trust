@@ -12,6 +12,7 @@ import { auditRoutes } from './routes/audits.js';
 import { actionQueueRoutes } from './routes/action-queue.js';
 import { scheduleRoutes } from './routes/schedule.js';
 import { remediationsRoutes } from './routes/remediations.js';
+import { driftRoutes } from './routes/drift.js';
 
 /**
  * Create the Hono application instance.
@@ -91,6 +92,12 @@ export function createApp(): Hono {
   //   /tenants/:tenantId/remediations/*  (tenant-scoped)
   //   /remediations/scopes               (top-level)
   app.route('/api', remediationsRoutes);
+
+  // Drift detection routes (Phase 8 Plan 01): list, detail, dismiss,
+  // config get/patch. These routes handle their own path prefixes:
+  //   /tenants/:tenantId/drift-alerts/*  (tenant-scoped)
+  //   /tenants/:tenantId/drift-config    (tenant-scoped)
+  app.route('/api', driftRoutes);
 
   return app;
 }

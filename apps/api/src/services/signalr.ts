@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import type {
   AuditProgressMessage,
   RemediationProgressMessage,
+  DriftAlertMessage,
 } from '@omzig/audit';
 
 const HUB_NAME = 'audit';
@@ -113,6 +114,47 @@ export async function pushRemediationProgress(
     const body = await response.text();
     throw new Error(
       `SignalR remediation push failed (${response.status}): ${body}`,
+    );
+  }
+}
+
+/**
+ * Push a drift alert message to a specific user via Azure SignalR REST API.
+ *
+ * Phase 8 Plan 01: Mirrors pushAuditProgress/pushRemediationProgress but
+ * emits on the 'driftAlert' hub method so the frontend can subscribe to
+ * drift detection events separately.
+ */
+export async function pushDriftAlert(
+  userId: string,
+  message: DriftAlertMessage,
+): Promise<void> {
+  const { endpoint, accessKey } = getSignalRConfig();
+
+  const url = `${endpoint}/api/v1/hubs/${HUB_NAME}/users/${userId}`;
+
+  const token = jwt.sign(
+    { aud: url },
+    accessKey,
+    { algorithm: 'HS256', expiresIn: '5m' },
+  );
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      target: 'driftAlert',
+      arguments: [message],
+    }),
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(
+      `SignalR drift push failed (${response.status}): ${body}`,
     );
   }
 }
